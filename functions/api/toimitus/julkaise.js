@@ -1,5 +1,5 @@
 // Save an article (new or existing), optionally with a new main image, as one commit.
-import site from "../../../src/_data/site.json" with { type: "json" };
+import site from "../../../src/_data/site.js";
 import { ARTICLE_DIR, UPLOAD_DIR, commit, slugify, toMarkdown, validFile } from "../../../lib/articles.js";
 
 const MAX_IMAGE_BASE64 = 8 * 1024 * 1024;

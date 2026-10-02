@@ -1,5 +1,5 @@
-import { readFileSync } from "node:fs";
 import { renderOgImages } from "./lib/og-image.js";
+import site from "./src/_data/site.js";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -58,7 +58,6 @@ export default function (eleventyConfig) {
     return items;
   });
   eleventyConfig.on("eleventy.after", async ({ dir }) => {
-    const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
     await renderOgImages({ outDir: `${dir.output}/og`, srcDir: dir.input, site, articles: ogArticles });
   });
   eleventyConfig.addPreprocessor("drafts", "md", (data) => {

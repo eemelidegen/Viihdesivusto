@@ -44,14 +44,14 @@ draft: true               # valinnainen: ei julkaista
 Jutun teksti tähän.
 ```
 
-Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.json`, värit `src/assets/css/style.css`:n alussa.
+Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.js`, värit `src/assets/css/style.css`:n alussa.
 
 ## Julkaiseminen verkkoon
 
 1. Vie koodi GitHubiin.
 2. Liitä repo ilmaiseen hostingiin: **Netlify** tai **Cloudflare Pages** (build-komento `npm run build`, julkaisukansio `_site`). Jokainen muutos julkaistaan automaattisesti.
 3. Osta oma verkkotunnus (esim. `.fi` n. 10–20 €/v) ja liitä se hostingiin.
-4. Päivitä `url` tiedostoon `src/_data/site.json`.
+4. Päivitä `url` tiedostoon `src/_data/site.js`.
 5. Ota `/admin/`-kirjautuminen käyttöön (alla).
 
 ## Jakokuvat
@@ -100,7 +100,7 @@ Ennen kuin avain on asetettu, lomake kertoo, ettei tilaus ole vielä käytössä
 
 ## Ennen julkaisua – tarkistuslista
 
-- [ ] Lisää toimituksen sähköposti `site.json`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
+- [ ] Lisää toimituksen sähköposti `site.js`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
 - [ ] Lisää sähköposti, jotta tietosuojaselosteessa on yhteystieto. Päivitä seloste (`src/tietosuoja.md`), jos otat käyttöön analytiikan, mainokset tai upotukset.
 - [ ] Ota uutiskirje käyttöön (alla)
 - [ ] Lisää analytiikka (esim. Plausible) ja tarvittaessa evästeilmoitus
