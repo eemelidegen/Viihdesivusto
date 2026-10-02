@@ -1,15 +1,16 @@
 # Decap CMS: kirjoita ja julkaise juttuja selaimessa osoitteessa /admin/
-# Vaihda "repo" omaan GitHub-repoosi. Kirjautuminen: katso README.md.
+# Kirjautuminen GitHub-tunnuksilla hoidetaan kansiossa functions/api/ (katso README.md).
 backend:
   name: github
-  repo: eemelidegen/viihdesivusto
+  repo: eemelidegen/Viihdesivusto
   branch: main
+  base_url: https://valokeila.pages.dev
+  auth_endpoint: api/auth
 
 # Paikallinen testaus: aja `npx decap-server` ja avaa http://localhost:8080/admin/
 local_backend: true
 
 locale: fi
-publish_mode: editorial_workflow   # luonnos → tarkastettavana → valmis
 media_folder: src/assets/img/uploads
 public_folder: /assets/img/uploads
 

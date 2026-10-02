@@ -50,7 +50,24 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 2. Liitä repo ilmaiseen hostingiin: **Netlify** tai **Cloudflare Pages** (build-komento `npm run build`, julkaisukansio `_site`). Jokainen muutos julkaistaan automaattisesti.
 3. Osta oma verkkotunnus (esim. `.fi` n. 10–20 €/v) ja liitä se hostingiin.
 4. Päivitä `url` tiedostoon `src/_data/site.json`.
-5. `/admin/`-kirjautuminen GitHub-tunnuksilla vaatii OAuth-sovelluksen (Netlifyssä valmiina, Cloudflaressa erillinen pieni OAuth-välityspalvelu).
+5. Ota `/admin/`-kirjautuminen käyttöön (alla).
+
+## Kirjautuminen julkaisutyökaluun (/admin/)
+
+Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` ja toimii Cloudflare Pagesissa. Kertaluontoiset asetukset:
+
+1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
+   - Application name: `Valokeila CMS`
+   - Homepage URL: `https://valokeila.pages.dev`
+   - Authorization callback URL: `https://valokeila.pages.dev/api/callback`
+   - Paina *Register application*, kopioi **Client ID**, paina *Generate a new client secret* ja kopioi **Client secret**.
+2. **Cloudflare → Workers & Pages → valokeila → Settings → Variables and Secrets** (Production):
+   - `GITHUB_CLIENT_ID` = Client ID
+   - `GITHUB_CLIENT_SECRET` = Client secret (tyypiksi *Secret*)
+3. Tee uusi julkaisu (Deployments → Retry deployment), jotta asetukset tulevat voimaan.
+4. Avaa `https://valokeila.pages.dev/admin/` ja kirjaudu GitHubilla.
+
+Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Jos vaihdat verkkotunnusta, päivitä osoite sekä OAuth-sovellukseen että `src/admin/config.yml`:n kohtaan `base_url`.
 
 ## Ennen julkaisua – tarkistuslista
 
