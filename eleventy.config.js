@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { renderOgImages } from "./lib/og-image.js";
+
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
@@ -28,9 +31,17 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("ohita", (arr, n) => arr.slice(n));
 
   // Newest first; drafts (draft: true) are excluded from listings and the build.
-  eleventyConfig.addCollection("artikkelit", (api) =>
-    api.getFilteredByGlob("src/artikkelit/*.md").filter((a) => !a.data.draft).sort((a, b) => b.date - a.date)
-  );
+  // Articles seen in this build; their share images are drawn after the build.
+  let ogArticles = [];
+  eleventyConfig.addCollection("artikkelit", (api) => {
+    const items = api.getFilteredByGlob("src/artikkelit/*.md").filter((a) => !a.data.draft).sort((a, b) => b.date - a.date);
+    ogArticles = items.map((a) => ({ slug: a.page.fileSlug, title: a.data.title, category: a.data.category, image: a.data.image }));
+    return items;
+  });
+  eleventyConfig.on("eleventy.after", async ({ dir }) => {
+    const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
+    await renderOgImages({ outDir: `${dir.output}/og`, srcDir: dir.input, site, articles: ogArticles });
+  });
   eleventyConfig.addPreprocessor("drafts", "md", (data) => {
     if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") return false;
   });

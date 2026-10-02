@@ -52,6 +52,10 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 4. Päivitä `url` tiedostoon `src/_data/site.json`.
 5. Ota `/admin/`-kirjautuminen käyttöön (alla).
 
+## Jakokuvat
+
+Jokaiselle jutulle luodaan julkaisun yhteydessä automaattisesti 1200×630-jakokuva (`/og/<jutun-osoite>.png`): jutun kuva, kategoria ja otsikko Valokeilan tyylillä. Ilman kuvaa käytetään tummaa taustaa, ja muilla sivuilla on yleinen kuva (`/og/default.png`). Koodi: `lib/og-image.js`. Jutun kuvan pitää olla JPG tai PNG, jotta se näkyy jakokuvassa.
+
 ## Somekuvat (/admin/somekuva/)
 
 Työkalu tekee juttujen mainoskuvat someen: valitse kuva, kirjoita otsikko (korosta sanoja tähdillä, `*näin*`), valitse koko ja lataa. Toimii myös puhelimella, jossa kuvan voi tallentaa suoraan kuviin.

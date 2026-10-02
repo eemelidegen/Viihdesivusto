@@ -13,8 +13,13 @@
   <meta property="og:description" content="{{ pageDesc }}">
   <meta property="og:type" content="{{ 'article' if category else 'website' }}">
   <meta property="og:url" content="{{ page.url | absUrl(site.url) }}">
-  {% if image %}<meta property="og:image" content="{{ image | absUrl(site.url) }}">{% endif %}
+  {% set ogImage = ("/og/" + page.fileSlug + ".png") if category else "/og/default.png" %}
+  <meta property="og:image" content="{{ ogImage | absUrl(site.url) }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ title or site.name }}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ ogImage | absUrl(site.url) }}">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>

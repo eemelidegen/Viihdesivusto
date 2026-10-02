@@ -51,7 +51,7 @@ layout: layouts/base.njk
   "description": {{ excerpt | dump | safe }},
   "datePublished": "{{ page.date | iso }}",
   "author": { "@type": "Person", "name": {{ (author or "Toimitus") | dump | safe }} },
-  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }} }{% if image %},
-  "image": ["{{ image | absUrl(site.url) }}"]{% endif %}
+  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }} },
+  "image": [{% if image %}"{{ image | absUrl(site.url) }}", {% endif %}"{{ ('/og/' + page.fileSlug + '.png') | absUrl(site.url) }}"]
 }
 </script>

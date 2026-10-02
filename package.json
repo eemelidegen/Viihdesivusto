@@ -9,6 +9,10 @@
     "build": "eleventy"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.6"
+    "@11ty/eleventy": "^3.1.6",
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.35.0"
   }
 }
