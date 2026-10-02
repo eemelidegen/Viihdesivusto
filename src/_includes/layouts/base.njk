@@ -27,7 +27,7 @@
   <a class="skip" href="#main">Siirry sisältöön</a>
   <header class="masthead">
     <div class="wrap masthead__bar">
-      <a class="logo" href="/"><span class="logo__dot"></span>{{ site.name }}</a>
+      {% set logoClass = "" %}{% include "partials/logo.njk" %}
       <nav class="nav" aria-label="Päävalikko">
         <ul class="nav__list">
           <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Etusivu</a></li>
@@ -48,7 +48,7 @@
   <footer class="footer">
     <div class="wrap footer__grid">
       <div>
-        <a class="logo logo--small" href="/"><span class="logo__dot"></span>{{ site.name }}</a>
+        {% set logoClass = "logo--small" %}{% include "partials/logo.njk" %}
         <p>{{ site.description }}</p>
       </div>
       <div>
