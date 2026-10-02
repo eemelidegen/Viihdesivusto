@@ -5,7 +5,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 ## Mitä sivustolla on
 
 - Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suositut jutut" ja "Tuoreimmat jutut", uutiskirje ja mainospaikka
-- Kategoriasivut: Elokuvat, TV & sarjat, Musiikki, Julkkikset, Pelit
+- Kategoriasivut: Julkkikset ja Kohut
 - Artikkelisivu: lukuaika, jakonapit, aiheeseen liittyvät jutut, Googlen NewsArticle-merkintä
 - RSS-syöte (`/feed.xml`), sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
 - Tietoa meistä / julkaisutiedot ja tietosuojaselosteen pohja
@@ -31,7 +31,7 @@ npm run build    # valmis sivusto kansioon _site/
 title: Otsikko
 excerpt: Ingressi, 1–2 lausetta.
 date: 2026-10-05T09:00:00+03:00
-category: julkkikset      # elokuvat | sarjat | musiikki | julkkikset | pelit | kohut
+category: julkkikset      # julkkikset | kohut
 author: Nimi
 image: /assets/img/uploads/kuva.jpg   # valinnainen
 imageAlt: Kuvan kuvaus

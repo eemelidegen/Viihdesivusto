@@ -30,11 +30,7 @@ collections:
         name: category
         widget: select
         options:
-          - { label: Leffat, value: elokuvat }
-          - { label: Sarjat, value: sarjat }
-          - { label: Musiikki, value: musiikki }
           - { label: Julkkikset, value: julkkikset }
-          - { label: Pelit, value: pelit }
           - { label: Kohut, value: kohut }
       - { label: Toimittaja, name: author, widget: string, default: Toimitus }
       - { label: Pääkuva, name: image, widget: image, required: false }

@@ -6,7 +6,7 @@ title: Tietoa meistä
 
 # Tietoa meistä
 
-{{ site.name }} on suomenkielinen viihdeuutismedia, joka seuraa elokuvia, sarjoja, musiikkia, pelejä ja julkkisten maailmaa.
+{{ site.name }} on suomenkielinen viihdeuutismedia, joka seuraa julkkisten elämää ja viihdemaailman kohuja.
 
 ## Julkaisutiedot
 

@@ -1,36 +1,16 @@
 {
   "name": "Valokeila",
   "tagline": "Viihteen tärkeimmät uutiset – nopeasti ja reilusti",
-  "description": "Valokeila kertoo elokuvien, sarjojen, musiikin, pelien ja julkkisten uutiset suomeksi.",
+  "description": "Valokeila kertoo julkkisten elämän ja viihdemaailman kohut suomeksi – nopeasti ja reilusti.",
   "url": "https://valokeila.pages.dev",
   "lang": "fi",
   "email": "",
   "publisher": "Valokeila",
   "categories": [
     {
-      "slug": "elokuvat",
-      "name": "Leffat",
-      "color": "#e4572e"
-    },
-    {
-      "slug": "sarjat",
-      "name": "Sarjat",
-      "color": "#6c4ed9"
-    },
-    {
-      "slug": "musiikki",
-      "name": "Musiikki",
-      "color": "#1b998b"
-    },
-    {
       "slug": "julkkikset",
       "name": "Julkkikset",
       "color": "#d81e5b"
-    },
-    {
-      "slug": "pelit",
-      "name": "Pelit",
-      "color": "#2d7dd2"
     },
     {
       "slug": "kohut",
