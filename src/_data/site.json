@@ -4,14 +4,33 @@
   "description": "Valokeila kertoo elokuvien, sarjojen, musiikin, pelien ja julkkisten uutiset suomeksi.",
   "url": "https://valokeila.pages.dev",
   "lang": "fi",
-  "email": "toimitus@valokeila.example.fi",
-  "editorInChief": "Päätoimittajan nimi",
-  "publisher": "Julkaisijan nimi / yritys",
+  "email": "",
+  "publisher": "Valokeila",
   "categories": [
-    { "slug": "elokuvat", "name": "Elokuvat", "color": "#e4572e" },
-    { "slug": "sarjat", "name": "TV & sarjat", "color": "#6c4ed9" },
-    { "slug": "musiikki", "name": "Musiikki", "color": "#1b998b" },
-    { "slug": "julkkikset", "name": "Julkkikset", "color": "#d81e5b" },
-    { "slug": "pelit", "name": "Pelit", "color": "#2d7dd2" }
+    {
+      "slug": "elokuvat",
+      "name": "Elokuvat",
+      "color": "#e4572e"
+    },
+    {
+      "slug": "sarjat",
+      "name": "TV & sarjat",
+      "color": "#6c4ed9"
+    },
+    {
+      "slug": "musiikki",
+      "name": "Musiikki",
+      "color": "#1b998b"
+    },
+    {
+      "slug": "julkkikset",
+      "name": "Julkkikset",
+      "color": "#d81e5b"
+    },
+    {
+      "slug": "pelit",
+      "name": "Pelit",
+      "color": "#2d7dd2"
+    }
   ]
 }

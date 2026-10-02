@@ -55,7 +55,7 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 ## Ennen julkaisua – tarkistuslista
 
 - [ ] Poista esimerkkiartikkelit (`src/artikkelit/2026-*.md`)
-- [ ] Täytä julkaisija, päätoimittaja ja sähköposti `site.json`:iin
+- [ ] Lisää toimituksen sähköposti `site.json`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
 - [ ] Täydennä tietosuojaseloste
 - [ ] Kytke uutiskirjelomake palveluun (esim. MailerLite, Brevo) – nyt lomake ei lähetä mitään
 - [ ] Lisää analytiikka (esim. Plausible) ja tarvittaessa evästeilmoitus

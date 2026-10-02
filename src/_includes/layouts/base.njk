@@ -57,12 +57,12 @@
         <ul>
           <li><a href="/tietoa/">Tietoa meistä &amp; julkaisutiedot</a></li>
           <li><a href="/tietosuoja/">Tietosuojaseloste</a></li>
-          <li><a href="mailto:{{ site.email }}">Vinkki toimitukselle</a></li>
+          {% if site.email %}<li><a href="mailto:{{ site.email }}">Vinkki toimitukselle</a></li>{% endif %}
           <li><a href="/feed.xml">RSS-syöte</a></li>
         </ul>
       </div>
     </div>
-    <p class="wrap footer__legal">© {{ build.year }} {{ site.name }}. Vastaava päätoimittaja: {{ site.editorInChief }}. Noudatamme Journalistin ohjeita.</p>
+    <p class="wrap footer__legal">© {{ build.year }} {{ site.name }}. Noudatamme Journalistin ohjeita.</p>
   </footer>
   <script src="/assets/js/main.js" defer></script>
 </body>

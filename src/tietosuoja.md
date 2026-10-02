@@ -10,7 +10,7 @@ title: Tietosuojaseloste
 
 ## Rekisterinpitäjä
 
-{{ site.publisher }}, {{ site.email }}
+{{ site.publisher }}{% if site.email %}, {{ site.email }}{% endif %}
 
 ## Mitä tietoja käsittelemme
 
@@ -20,6 +20,6 @@ title: Tietosuojaseloste
 
 ## Oikeutesi
 
-Sinulla on oikeus tarkastaa, korjata ja poistaa tietosi sekä peruuttaa suostumuksesi. Ota yhteyttä: {{ site.email }}.
+Sinulla on oikeus tarkastaa, korjata ja poistaa tietosi sekä peruuttaa suostumuksesi. {% if site.email %}Ota yhteyttä: {{ site.email }}.{% endif %}
 
 </div>
