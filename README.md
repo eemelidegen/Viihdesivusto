@@ -69,11 +69,25 @@ Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` j
 
 Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Jos vaihdat verkkotunnusta, päivitä osoite sekä OAuth-sovellukseen että `src/admin/config.yml`:n kohtaan `base_url`.
 
+## Uutiskirje (MailerLite)
+
+Tilauslomake (sivupalkki ja `/uutiskirje/`) lähettää osoitteen funktiolle `functions/api/uutiskirje.js`, joka lisää sen MailerLiteen.
+
+1. Luo tili osoitteessa mailerlite.com.
+2. **Subscribers → Groups → Create group**, esim. `Valokeila-uutiskirje`. Avaa ryhmä ja kopioi sen ID osoiteriviltä (numero).
+3. **Integrations → API → Generate new token**, kopioi avain.
+4. **Account settings → Subscribe settings:** ota käyttöön *Double opt-in for API and integrations* (tilaaja vahvistaa osoitteensa sähköpostista).
+5. Cloudflare → valokeila → Settings → Variables and Secrets:
+   - `MAILERLITE_API_KEY` = API-avain (tyypiksi *Secret*)
+   - `MAILERLITE_GROUP_ID` = ryhmän ID
+6. Julkaise uudelleen (Deployments → ⋯ → Retry deployment).
+
+Ennen kuin avain on asetettu, lomake kertoo, ettei tilaus ole vielä käytössä.
+
 ## Ennen julkaisua – tarkistuslista
 
-- [ ] Poista esimerkkiartikkelit (`src/artikkelit/2026-*.md`)
 - [ ] Lisää toimituksen sähköposti `site.json`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
 - [ ] Täydennä tietosuojaseloste
-- [ ] Kytke uutiskirjelomake palveluun (esim. MailerLite, Brevo) – nyt lomake ei lähetä mitään
+- [ ] Ota uutiskirje käyttöön (alla)
 - [ ] Lisää analytiikka (esim. Plausible) ja tarvittaessa evästeilmoitus
 - [ ] Rekisteröi sivusto Google Search Consoleen ja lähetä sivukartta

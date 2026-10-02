@@ -31,3 +31,27 @@ if (toTop) {
   update();
   toTop.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
 }
+
+// Newsletter forms: submit in place, fall back to a normal POST without JavaScript.
+document.querySelectorAll("[data-newsletter]").forEach((form) => {
+  const status = form.querySelector(".newsletter__status");
+  const button = form.querySelector("button");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    button.disabled = true;
+    status.textContent = "Tilataan…";
+    try {
+      const res = await fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
+      const data = await res.json();
+      if (data.ok) {
+        form.reset();
+        status.textContent = "Kiitos! Vahvista tilaus sähköpostiisi tulleesta linkistä.";
+      } else {
+        status.textContent = data.message || "Tilaus ei onnistunut. Yritä uudelleen.";
+      }
+    } catch {
+      status.textContent = "Tilaus ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.";
+    }
+    button.disabled = false;
+  });
+});

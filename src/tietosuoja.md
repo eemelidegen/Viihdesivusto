@@ -14,7 +14,7 @@ title: Tietosuojaseloste
 
 ## Mitä tietoja käsittelemme
 
-- **Uutiskirjeen tilaajat:** sähköpostiosoite, jota käytetään vain uutiskirjeen lähettämiseen.
+- **Uutiskirjeen tilaajat:** sähköpostiosoite, jota käytetään vain uutiskirjeen lähettämiseen. Käsittelyn peruste on suostumuksesi, jonka voit perua milloin tahansa uutiskirjeen lopussa olevasta linkistä. Osoitteet säilytetään uutiskirjepalvelu MailerLitessa (UAB MailerLite, Liettua, EU).
 - **Kävijätilastot:** anonymisoitu tieto sivujen käytöstä (esim. Plausible tai Google Analytics).
 - **Evästeet:** mainonnan ja analytiikan evästeet asetetaan vain suostumuksellasi.
 

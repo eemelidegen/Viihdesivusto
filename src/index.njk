@@ -7,6 +7,11 @@ layout: layouts/base.njk
     {% if all.length %}
       {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = false %}
       {% include "partials/card.njk" %}
+    {% else %}
+      <div class="empty">
+        <h1>Ensimmäiset jutut tulossa pian</h1>
+        <p>{{ site.name }} kertoo pian elokuvien, sarjojen, musiikin, pelien ja tähtien tuoreimmat kuulumiset. Tilaa uutiskirje, niin kuulet ensimmäisten joukossa.</p>
+      </div>
     {% endif %}
     {# Feed repeats: two stories side by side, then one full-width story. #}
     <div class="feed">
@@ -16,6 +21,7 @@ layout: layouts/base.njk
   </div>
 
   <aside class="sidebar">
+    {% if all.length %}
     <div class="tabs" role="tablist">
       <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Suositut jutut <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
       <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat jutut <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
@@ -26,15 +32,12 @@ layout: layouts/base.njk
     <ol class="side-list" role="tabpanel" id="tab-tuoreimmat" aria-labelledby="t-tuoreimmat" hidden>
       {% for item in all | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
+    {% endif %}
 
     <section class="box box--accent">
       <h2 class="box__title">Tilaa uutiskirje</h2>
       <p>Viikon kuumimmat viihdeuutiset suoraan sähköpostiisi.</p>
-      <form class="newsletter" action="#" method="post">
-        <label class="sr-only" for="nl-email">Sähköposti</label>
-        <input id="nl-email" type="email" name="email" placeholder="sinä@esimerkki.fi" required>
-        <button type="submit">Tilaa</button>
-      </form>
+      {% set formId = "sivupalkki" %}{% include "partials/newsletter-form.njk" %}
     </section>
     <section class="box ad-slot" aria-label="Mainos">Mainospaikka 300×250</section>
   </aside>

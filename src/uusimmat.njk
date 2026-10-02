@@ -5,7 +5,11 @@ title: Uusimmat
 <header class="page-head">
   <h1>Uusimmat</h1>
 </header>
+{% if collections.artikkelit.length %}
 <div class="grid grid--3">
   {% set cardClass = "" %}{% set showExcerpt = false %}
   {% for item in collections.artikkelit %}{% include "partials/card.njk" %}{% endfor %}
 </div>
+{% else %}
+<p>Ensimmäiset jutut ovat tulossa pian.</p>
+{% endif %}
