@@ -1,15 +1,30 @@
-// GitHub OAuth for Decap CMS, step 2: swap the code for a token and hand it
-// back to the /admin/ window that opened this popup.
+// GitHub OAuth callback, shared by two flows:
+// - Decap CMS (/admin/): hand the token back to the window that opened this popup.
+// - Editor pages (/api/kirjaudu): check repo write access and issue a session cookie.
+import { SESSION_COOKIE, SESSION_DAYS, createSession, getCookie, repoName, safeNext } from "../../lib/session.js";
+
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
-  const cookieState = (request.headers.get("Cookie") || "").match(/(?:^|;\s*)decap_oauth_state=([^;]+)/)?.[1];
 
+  const login = getCookie(request, "vk_login");
+  if (login && state && login.split(".")[0] === state) {
+    return editorLogin(url, env, code, decodeURIComponent(login.slice(state.length + 1)));
+  }
+
+  const cookieState = getCookie(request, "decap_oauth_state");
   if (!code || !state || state !== cookieState) {
     return reply(url.origin, "error", { message: "Kirjautuminen epäonnistui (virheellinen tila). Yritä uudelleen." });
   }
+  const data = await exchangeCode(url, env, code);
+  if (!data.access_token) {
+    return reply(url.origin, "error", { message: data.error_description || "GitHub ei palauttanut tunnusta." });
+  }
+  return reply(url.origin, "success", { token: data.access_token, provider: "github" });
+}
 
+async function exchangeCode(url, env, code) {
   const res = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/json", "User-Agent": "valokeila-cms" },
@@ -20,12 +35,37 @@ export async function onRequestGet({ request, env }) {
       redirect_uri: `${url.origin}/api/callback`,
     }),
   });
-  const data = await res.json().catch(() => ({}));
+  return res.json().catch(() => ({}));
+}
 
-  if (!data.access_token) {
-    return reply(url.origin, "error", { message: data.error_description || "GitHub ei palauttanut tunnusta." });
+// Only people who can push to the site's repository get a session. The GitHub
+// token is used for this check and then discarded.
+async function editorLogin(url, env, code, next) {
+  const clearLogin = "vk_login=; Path=/api; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
+  if (!code) return page("Kirjautuminen peruttiin.", 400, clearLogin);
+  const data = await exchangeCode(url, env, code);
+  if (!data.access_token) return page("GitHub ei palauttanut tunnusta. Yritä uudelleen.", 400, clearLogin);
+
+  const gh = (path) => fetch(`https://api.github.com${path}`, {
+    headers: { Authorization: `Bearer ${data.access_token}`, Accept: "application/vnd.github+json", "User-Agent": "valokeila-cms" },
+  }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  const [user, repo] = await Promise.all([gh("/user"), gh(`/repos/${repoName(env)}`)]);
+
+  if (!user?.login || !repo?.permissions?.push) {
+    return page("Sinulla ei ole oikeutta tähän työkaluun. Kirjaudu GitHub-tunnuksella, jolla on kirjoitusoikeus Valokeilan repoon.", 403, clearLogin);
   }
-  return reply(url.origin, "success", { token: data.access_token, provider: "github" });
+  const session = await createSession(env, user.login);
+  const headers = new Headers({ Location: `${url.origin}${safeNext(next)}` });
+  headers.append("Set-Cookie", clearLogin);
+  headers.append("Set-Cookie", `${SESSION_COOKIE}=${session}; Path=/admin; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_DAYS * 86400}`);
+  return new Response(null, { status: 302, headers });
+}
+
+function page(message, status, cookie) {
+  const html = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Valokeila</title>
+<body style="font:18px/1.5 system-ui,sans-serif;max-width:560px;margin:15vh auto;padding:0 16px">
+<h1 style="font-size:28px">Kirjautuminen</h1><p>${message}</p><p><a href="/api/kirjaudu">Yritä uudelleen</a> · <a href="/">Etusivulle</a></p></body>`;
+  return new Response(html, { status, headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": cookie } });
 }
 
 // Decap's popup handshake: announce "authorizing", then answer the opener with

@@ -56,6 +56,8 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 
 Työkalu tekee juttujen mainoskuvat someen: valitse kuva, kirjoita otsikko (korosta sanoja tähdillä, `*näin*`), valitse koko ja lataa. Toimii myös puhelimella, jossa kuvan voi tallentaa suoraan kuviin.
 
+Työkalu vaatii kirjautumisen GitHub-tunnuksella, jolla on kirjoitusoikeus tähän repoon (tarkistus `functions/admin/somekuva/_middleware.js`, istunto 30 päivää, uloskirjautuminen `/api/ulos`). Asetuksia ei tarvita: se käyttää samaa OAuth-sovellusta ja `GITHUB_CLIENT_SECRET`-arvoa kuin julkaisutyökalu.
+
 Ominaisuudet: yksi tai kaksi kuvaa (rinnakkain/päällekkäin), kuvan siirto vetämällä ja zoomaus nipistämällä tai hiiren rullalla, kirkkaus/kontrasti/mustavalko, peilaus, yläotsikkotarra, kolme fonttia, isot kirjaimet, tekstin koko, sijainti ja tasaus, korostus värinä/laatikkona/alleviivauksena, oma väri, kehys, tummennuksen tyyli, logo kolmeen paikkaan, kuvaajan merkintä, JPG/PNG sekä viisi kokoa. Asetukset muistetaan selaimessa.
 
 ## Kirjautuminen julkaisutyökaluun (/admin/)
