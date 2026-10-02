@@ -13,7 +13,7 @@ title: Tietoa meistä
 - **Julkaisija:** {{ site.publisher }}
 {% if site.email %}- **Yhteystiedot:** [{{ site.email }}](mailto:{{ site.email }})
 {% endif %}
-Noudatamme [Journalistin ohjeita](https://jsn.fi/journalistin-ohjeet/). Jos huomaat jutussa virheen, kerro siitä meille – korjaamme virheet nopeasti ja kerromme korjauksesta jutun lopussa.
+Jos huomaat jutussa virheen, kerro siitä meille – korjaamme virheet nopeasti ja kerromme korjauksesta jutun lopussa.
 
 ## Mainonta ja kaupallinen yhteistyö
 

@@ -99,7 +99,7 @@ Jos katsot, että tietojesi käsittely rikkoo tietosuojasääntelyä, voit tehd�
 
 {{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan tietosuoja-asetuksen säännöksiä ei sovelleta kaikilta osin henkilötietojen käsittelyyn journalistisia tarkoituksia varten. Siksi esimerkiksi oikeus tietojen poistamiseen tai tarkastamiseen ei välttämättä koske toimitusaineistoa tai julkaistuja juttuja.
 
-Noudatamme Journalistin ohjeita. Korjaamme virheet viipymättä, ja vaikka juttua ei poisteta, voit aina pyytää korjausta tai vastinetta.
+Korjaamme virheet viipymättä, ja vaikka juttua ei poisteta, voit aina pyytää korjausta tai vastinetta.
 
 Suojaamme lähteitämme. Emme paljasta vinkkaajan henkilöllisyyttä ilman lupaa.
 
