@@ -2,7 +2,7 @@
 # Vaihda "repo" omaan GitHub-repoosi. Kirjautuminen: katso README.md.
 backend:
   name: github
-  repo: OMA-KAYTTAJA/OMA-REPO
+  repo: eemelidegen/viihdesivusto
   branch: main
 
 # Paikallinen testaus: aja `npx decap-server` ja avaa http://localhost:8080/admin/

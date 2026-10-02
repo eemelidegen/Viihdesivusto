@@ -49,7 +49,7 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 1. Vie koodi GitHubiin.
 2. Liitä repo ilmaiseen hostingiin: **Netlify** tai **Cloudflare Pages** (build-komento `npm run build`, julkaisukansio `_site`). Jokainen muutos julkaistaan automaattisesti.
 3. Osta oma verkkotunnus (esim. `.fi` n. 10–20 €/v) ja liitä se hostingiin.
-4. Päivitä `url` tiedostoon `src/_data/site.json` ja `repo` tiedostoon `src/admin/config.yml`.
+4. Päivitä `url` tiedostoon `src/_data/site.json`.
 5. `/admin/`-kirjautuminen GitHub-tunnuksilla vaatii OAuth-sovelluksen (Netlifyssä valmiina, Cloudflaressa erillinen pieni OAuth-välityspalvelu).
 
 ## Ennen julkaisua – tarkistuslista
