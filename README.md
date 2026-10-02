@@ -4,7 +4,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 
 ## Mitä sivustolla on
 
-- Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suosittua" ja "Tuoreimmat", uutiskirje ja mainospaikka
+- Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suositut jutut" ja "Tuoreimmat jutut", uutiskirje ja mainospaikka
 - Kategoriasivut: Elokuvat, TV & sarjat, Musiikki, Julkkikset, Pelit
 - Artikkelisivu: lukuaika, jakonapit, aiheeseen liittyvät jutut, Googlen NewsArticle-merkintä
 - RSS-syöte (`/feed.xml`), sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
@@ -36,7 +36,7 @@ author: Nimi
 image: /assets/img/uploads/kuva.jpg   # valinnainen
 imageAlt: Kuvan kuvaus
 imageCredit: Kuvaaja / lähde
-nosto: true               # valinnainen: näkyy sivupalkin "Suosittua"-listassa
+nosto: true               # valinnainen: näkyy sivupalkin "Suositut jutut" -listassa
 draft: true               # valinnainen: ei julkaista
 ---
 Jutun teksti tähän.

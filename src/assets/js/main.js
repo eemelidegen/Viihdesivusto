@@ -9,7 +9,7 @@ document.querySelectorAll(".copy-link").forEach((btn) => {
   });
 });
 
-// Sidebar tabs (Suosittua / Tuoreimmat)
+// Sidebar tabs (Suositut jutut / Tuoreimmat jutut)
 document.querySelectorAll(".tabs").forEach((tabs) => {
   const buttons = tabs.querySelectorAll("[role=tab]");
   buttons.forEach((btn) => {

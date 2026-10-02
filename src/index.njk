@@ -17,8 +17,8 @@ layout: layouts/base.njk
 
   <aside class="sidebar">
     <div class="tabs" role="tablist">
-      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Suosittua <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
-      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Suositut jutut <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
+      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat jutut <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
     </div>
     <ol class="side-list" role="tabpanel" id="tab-suosittua" aria-labelledby="t-suosittua">
       {% for item in all | nostot | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
