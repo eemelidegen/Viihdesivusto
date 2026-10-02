@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Somekuva – Valokeila</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <style>
+    @font-face { font-family: "Anton"; font-weight: 400; font-display: block; src: url("/assets/fonts/anton-400.woff2") format("woff2"); }
+    @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
+    :root { --accent: #ff3d57; --line: #e4e1da; --muted: #6b6873; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f0f0f0; color: #16151a; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    header { background: #000; color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 16px; }
+    header b { font: 400 28px/1 Anton, Impact, sans-serif; letter-spacing: .02em; }
+    header span { font: 700 18px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; color: #b5b2bb; }
+    header a { margin-left: auto; color: #fff; font-size: 14px; }
+    main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: start; }
+    .preview { position: sticky; top: 16px; display: grid; place-items: center; }
+    canvas { width: 100%; max-width: 560px; height: auto; display: block; box-shadow: 0 10px 40px rgba(0,0,0,.18); background: #222; touch-action: none; cursor: grab; }
+    .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; text-align: center; }
+    form { background: #fff; border-radius: 10px; padding: 20px; display: grid; gap: 18px; }
+    label { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
+    small { font-weight: 400; color: var(--muted); }
+    textarea, select, input[type=file] { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; background: #fff; }
+    textarea { min-height: 96px; resize: vertical; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .colors { display: flex; gap: 8px; flex-wrap: wrap; }
+    .colors button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; }
+    .colors button[aria-pressed="true"] { border-color: #000; }
+    .actions { display: grid; gap: 10px; }
+    .btn { font: 700 20px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
+    .btn--ghost { background: #000; }
+    .btn[hidden] { display: none; }
+    .rights { font-size: 12px; color: var(--muted); margin: 0; }
+    @media (max-width: 860px) {
+      main { grid-template-columns: 1fr; }
+      .preview { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header><b>VALOKEILA</b><span>Somekuva</span><a href="/admin/">← Julkaisutyökalu</a></header>
+  <main>
+    <div class="preview">
+      <canvas id="canvas" width="1080" height="1350" aria-label="Somekuvan esikatselu"></canvas>
+      <p class="hint">Vedä kuvaa siirtääksesi sitä.</p>
+    </div>
+
+    <form id="form" onsubmit="return false">
+      <label>Kuva
+        <input id="file" type="file" accept="image/*">
+      </label>
+
+      <label>Otsikko <small>Korosta sanoja tähdillä: *näin*</small>
+        <textarea id="title">*Kohu* roihahti somessa – näin julkkis vastaa nyt</textarea>
+      </label>
+
+      <div class="row">
+        <label>Koko
+          <select id="format">
+            <option value="1080x1350">4:5 · FB / IG</option>
+            <option value="1080x1080">1:1 · Neliö</option>
+            <option value="1080x1920">9:16 · Story</option>
+            <option value="1200x630">Linkkikuva</option>
+          </select>
+        </label>
+        <label>Logo
+          <select id="logo">
+            <option value="top">Otsikon yllä</option>
+            <option value="corner">Kulmassa</option>
+            <option value="none">Ei logoa</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Korostusväri
+        <div class="colors" id="colors">
+          <button type="button" style="background:#ff3d57" data-color="#ff3d57" aria-label="Punainen" aria-pressed="true"></button>
+          <button type="button" style="background:#ffd400" data-color="#ffd400" aria-label="Keltainen" aria-pressed="false"></button>
+          <button type="button" style="background:#3d8bff" data-color="#3d8bff" aria-label="Sininen" aria-pressed="false"></button>
+          <button type="button" style="background:#ff6ec7" data-color="#ff6ec7" aria-label="Pinkki" aria-pressed="false"></button>
+          <button type="button" style="background:#2ee59d" data-color="#2ee59d" aria-label="Vihreä" aria-pressed="false"></button>
+        </div>
+      </label>
+
+      <label>Zoomaus
+        <input id="zoom" type="range" min="1" max="3" step="0.01" value="1">
+      </label>
+
+      <label>Tummennus
+        <input id="shade" type="range" min="0.3" max="0.8" step="0.01" value="0.5">
+      </label>
+
+      <div class="actions">
+        <button class="btn" id="download" type="button">Lataa kuva</button>
+        <button class="btn btn--ghost" id="share" type="button" hidden>Jaa / tallenna kuviin</button>
+      </div>
+      <p class="rights">Käytä vain kuvia, joihin sinulla on oikeus: omia kuvia, tiedotekuvia käyttöehtojen mukaan tai lisensoituja kuvapankkikuvia. Merkitse kuvaaja juttuun.</p>
+    </form>
+  </main>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const $ = (id) => document.getElementById(id);
+const state = { img: null, accent: "#ff3d57", panX: 0.5, panY: 0.3 };
+
+// "*korostus* muu teksti" -> [{ text, hl }]
+function words(title) {
+  const out = [];
+  title.split(/(\*[^*]+\*)/).forEach((part) => {
+    const hl = /^\*[^*]+\*$/.test(part);
+    (hl ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean).forEach((text) => out.push({ text, hl }));
+  });
+  return out;
+}
+
+function wrap(list, maxWidth) {
+  const space = ctx.measureText(" ").width;
+  const lines = [];
+  let line = [], width = 0;
+  for (const w of list) {
+    const ww = ctx.measureText(w.text).width;
+    if (line.length && width + space + ww > maxWidth) { lines.push({ words: line, width }); line = []; width = 0; }
+    width += (line.length ? space : 0) + ww;
+    line.push({ ...w, width: ww });
+  }
+  if (line.length) lines.push({ words: line, width });
+  return lines;
+}
+
+function drawImage(W, H) {
+  const img = state.img;
+  if (!img) {
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, "#3b3943"); g.addColorStop(1, "#15141a");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    return;
+  }
+  const scale = Math.max(W / img.width, H / img.height) * Number($("zoom").value);
+  const dw = img.width * scale, dh = img.height * scale;
+  ctx.drawImage(img, (W - dw) * state.panX, (H - dh) * state.panY, dw, dh);
+}
+
+function drawWordmark(x, y, size, align) {
+  ctx.save();
+  ctx.font = `400 ${size}px Anton`;
+  ctx.textAlign = align;
+  ctx.textBaseline = "alphabetic";
+  const text = "VALOKEILA";
+  const w = ctx.measureText(text).width;
+  const left = align === "center" ? x - w / 2 : x;
+  const g = ctx.createLinearGradient(left, y - size, left + w, y);
+  g.addColorStop(0, "#ffffff"); g.addColorStop(0.45, "#ffffff"); g.addColorStop(1, "#9a97a1");
+  ctx.fillStyle = g;
+  ctx.shadowColor = "rgba(0,0,0,.45)"; ctx.shadowBlur = size * 0.25;
+  ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+function render() {
+  const [W, H] = $("format").value.split("x").map(Number);
+  if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+  ctx.clearRect(0, 0, W, H);
+  drawImage(W, H);
+
+  // Bottom shade so the headline stays readable on any photo.
+  const shade = Number($("shade").value);
+  const g = ctx.createLinearGradient(0, H * (1 - shade - 0.15), 0, H);
+  g.addColorStop(0, "rgba(0,0,0,0)");
+  g.addColorStop(0.45, "rgba(0,0,0,.72)");
+  g.addColorStop(1, "rgba(0,0,0,.96)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  const wide = W / H > 1.4;
+  const pad = W * 0.07;
+  const maxWidth = W - pad * 2;
+  const list = words($("title").value);
+
+  // Largest font size that fits in at most 4 lines (3 for the wide link image).
+  const maxLines = wide ? 3 : 4;
+  let size = (wide ? H * 0.14 : W * 0.105), lines = [];
+  for (; size > 20; size -= 2) {
+    ctx.font = `400 ${size}px Anton`;
+    lines = wrap(list, maxWidth);
+    if (lines.length <= maxLines) break;
+  }
+  const lineHeight = size * 1.12;
+  const bottom = H - pad * (wide ? 0.8 : 1.1);
+  const top = bottom - lineHeight * (lines.length - 1);
+
+  ctx.font = `400 ${size}px Anton`;
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+  ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = size * 0.18;
+  const space = ctx.measureText(" ").width;
+  lines.forEach((line, i) => {
+    let x = (W - line.width) / 2;
+    const y = top + i * lineHeight;
+    line.words.forEach((w) => {
+      ctx.fillStyle = w.hl ? state.accent : "#fff";
+      ctx.fillText(w.text, x, y);
+      x += w.width + space;
+    });
+  });
+  ctx.shadowBlur = 0;
+
+  const logo = $("logo").value;
+  if (logo === "top") drawWordmark(W / 2, top - size * 1.1, size * 0.62, "center");
+  if (logo === "corner") drawWordmark(pad * 0.7, pad * 0.7 + W * 0.05, W * 0.06, "left");
+}
+
+// Inputs
+["title", "format", "logo", "zoom", "shade"].forEach((id) => $(id).addEventListener("input", render));
+$("colors").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  $("colors").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  state.accent = b.dataset.color; render();
+});
+$("file").addEventListener("change", () => {
+  const f = $("file").files[0]; if (!f) return;
+  const img = new Image();
+  img.onload = () => { state.img = img; state.panX = 0.5; state.panY = 0.3; $("zoom").value = 1; render(); URL.revokeObjectURL(img.src); };
+  img.src = URL.createObjectURL(f);
+});
+
+// Drag the photo to reposition it.
+let drag = null;
+canvas.addEventListener("pointerdown", (e) => { if (!state.img) return; drag = { x: e.clientX, y: e.clientY, px: state.panX, py: state.panY }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  const rect = canvas.getBoundingClientRect();
+  state.panX = Math.min(1, Math.max(0, drag.px - (e.clientX - drag.x) / rect.width));
+  state.panY = Math.min(1, Math.max(0, drag.py - (e.clientY - drag.y) / rect.height));
+  render();
+});
+canvas.addEventListener("pointerup", () => (drag = null));
+canvas.addEventListener("pointercancel", () => (drag = null));
+
+// Export
+function fileName() {
+  const slug = $("title").value.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
+  return `valokeila-${slug || "somekuva"}.jpg`;
+}
+const toBlob = () => new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
+$("download").addEventListener("click", async () => {
+  const url = URL.createObjectURL(await toBlob());
+  const a = Object.assign(document.createElement("a"), { href: url, download: fileName() });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+});
+if (navigator.canShare && navigator.canShare({ files: [new File([""], "x.jpg", { type: "image/jpeg" })] })) {
+  $("share").hidden = false;
+  $("share").addEventListener("click", async () => {
+    const file = new File([await toBlob()], fileName(), { type: "image/jpeg" });
+    try { await navigator.share({ files: [file] }); } catch {}
+  });
+}
+
+document.fonts.load("400 80px Anton").then(render, render);
+render();
+</script>
+</body>
+</html>

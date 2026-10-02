@@ -52,6 +52,10 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 4. Päivitä `url` tiedostoon `src/_data/site.json`.
 5. Ota `/admin/`-kirjautuminen käyttöön (alla).
 
+## Somekuvat (/admin/somekuva/)
+
+Työkalu tekee juttujen mainoskuvat someen: valitse kuva, kirjoita otsikko (korosta sanoja tähdillä, `*näin*`), valitse koko ja lataa. Toimii myös puhelimella, jossa kuvan voi tallentaa suoraan kuviin.
+
 ## Kirjautuminen julkaisutyökaluun (/admin/)
 
 Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` ja toimii Cloudflare Pagesissa. Kertaluontoiset asetukset:
