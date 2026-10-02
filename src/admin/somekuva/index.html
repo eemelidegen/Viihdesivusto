@@ -8,9 +8,12 @@
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <style>
     @font-face { font-family: "Anton"; font-weight: 400; font-display: block; src: url("/assets/fonts/anton-400.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto Condensed"; font-weight: 800; font-display: block; src: url("/assets/fonts/roboto-condensed-800.woff2") format("woff2"); }
+    @font-face { font-family: "Fira Sans Condensed"; font-weight: 700; font-display: block; src: url("/assets/fonts/fira-sans-condensed-700.woff2") format("woff2"); }
     @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
     :root { --accent: #ff3d57; --line: #e4e1da; --muted: #6b6873; }
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     body { margin: 0; background: #f0f0f0; color: #16151a; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
     header { background: #000; color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 16px; }
     header b { font: 400 28px/1 Anton, Impact, sans-serif; letter-spacing: .02em; }
@@ -34,6 +37,15 @@
     .btn { font: 700 20px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
     .btn--ghost { background: #000; }
     .btn[hidden] { display: none; }
+    .switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 14px; cursor: pointer; }
+    .switch input { appearance: none; width: 52px; height: 30px; border-radius: 999px; background: #ccc; position: relative; cursor: pointer; transition: background .2s; flex-shrink: 0; margin: 0; }
+    .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
+    .switch input:checked { background: var(--accent); }
+    .switch input:checked::after { transform: translateX(22px); }
+    .fonts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .fonts button { padding: 10px 6px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 20px; line-height: 1.1; color: #16151a; }
+    .fonts button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
+    .fonts small { display: block; font: 400 11px/1.3 system-ui, sans-serif; color: var(--muted); margin-top: 4px; }
     .rights { font-size: 12px; color: var(--muted); margin: 0; }
     @media (max-width: 860px) {
       main { grid-template-columns: 1fr; }
@@ -58,23 +70,37 @@
         <textarea id="title">*Kohu* roihahti somessa – näin julkkis vastaa nyt</textarea>
       </label>
 
-      <div class="row">
-        <label>Koko
-          <select id="format">
-            <option value="1080x1350">4:5 · FB / IG</option>
-            <option value="1080x1080">1:1 · Neliö</option>
-            <option value="1080x1920">9:16 · Story</option>
-            <option value="1200x630">Linkkikuva</option>
-          </select>
-        </label>
-        <label>Logo
-          <select id="logo">
-            <option value="top">Otsikon yllä</option>
-            <option value="corner">Kulmassa</option>
-            <option value="none">Ei logoa</option>
-          </select>
-        </label>
+      <div>
+        <span style="font-weight:600;font-size:14px">Fontti</span>
+        <div class="fonts" id="fonts" style="margin-top:6px">
+          <button type="button" data-font="anton" aria-pressed="true" style="font-family:Anton">Anton<small>Valokeila</small></button>
+          <button type="button" data-font="roboto" aria-pressed="false" style="font-family:'Roboto Condensed';font-weight:800">Roboto<small>Tiivis groteski</small></button>
+          <button type="button" data-font="fira" aria-pressed="false" style="font-family:'Fira Sans Condensed';font-weight:700">Fira Sans<small>Pehmeä</small></button>
+        </div>
       </div>
+
+      <label class="switch">ISOT KIRJAIMET
+        <input id="upper" type="checkbox">
+      </label>
+
+      <label>Koko
+        <select id="format">
+          <option value="1080x1350">4:5 · Facebook / Instagram</option>
+          <option value="1080x1080">1:1 · Neliö</option>
+          <option value="1080x1920">9:16 · Story / TikTok</option>
+          <option value="1200x630">Linkkikuva</option>
+        </select>
+      </label>
+
+      <label class="switch">Valokeila-logo kuvassa
+        <input id="showLogo" type="checkbox" checked>
+      </label>
+      <label id="logoPosLabel">Logon paikka
+        <select id="logo">
+          <option value="top">Otsikon yllä</option>
+          <option value="corner">Vasemmassa yläkulmassa</option>
+        </select>
+      </label>
 
       <label>Korostusväri
         <div class="colors" id="colors">
@@ -106,7 +132,14 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const $ = (id) => document.getElementById(id);
-const state = { img: null, accent: "#ff3d57", panX: 0.5, panY: 0.3 };
+const state = { img: null, accent: "#ff3d57", panX: 0.5, panY: 0.3, font: "anton" };
+// Headline fonts: size scale and line height tuned so each fills the frame similarly.
+const FONTS = {
+  anton:  { family: "Anton", weight: 400, scale: 1, lineHeight: 1.12 },
+  roboto: { family: "Roboto Condensed", weight: 800, scale: 1, lineHeight: 1.02 },
+  fira:   { family: "Fira Sans Condensed", weight: 700, scale: 0.9, lineHeight: 1.08 },
+};
+const fontCss = (size) => { const f = FONTS[state.font]; return `${f.weight} ${size}px "${f.family}"`; };
 
 // "*korostus* muu teksti" -> [{ text, hl }]
 function words(title) {
@@ -178,21 +211,23 @@ function render() {
   const wide = W / H > 1.4;
   const pad = W * 0.07;
   const maxWidth = W - pad * 2;
-  const list = words($("title").value);
+  const raw = $("title").value;
+  const list = words($("upper").checked ? raw.toLocaleUpperCase("fi") : raw);
+  const font = FONTS[state.font];
 
   // Largest font size that fits in at most 4 lines (3 for the wide link image).
   const maxLines = wide ? 3 : 4;
-  let size = (wide ? H * 0.14 : W * 0.105), lines = [];
+  let size = (wide ? H * 0.14 : W * 0.105) * font.scale, lines = [];
   for (; size > 20; size -= 2) {
-    ctx.font = `400 ${size}px Anton`;
+    ctx.font = fontCss(size);
     lines = wrap(list, maxWidth);
     if (lines.length <= maxLines) break;
   }
-  const lineHeight = size * 1.12;
+  const lineHeight = size * font.lineHeight;
   const bottom = H - pad * (wide ? 0.8 : 1.1);
   const top = bottom - lineHeight * (lines.length - 1);
 
-  ctx.font = `400 ${size}px Anton`;
+  ctx.font = fontCss(size);
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = "left";
   ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = size * 0.18;
@@ -208,13 +243,19 @@ function render() {
   });
   ctx.shadowBlur = 0;
 
-  const logo = $("logo").value;
+  const logo = $("showLogo").checked ? $("logo").value : "none";
   if (logo === "top") drawWordmark(W / 2, top - size * 1.1, size * 0.62, "center");
   if (logo === "corner") drawWordmark(pad * 0.7, pad * 0.7 + W * 0.05, W * 0.06, "left");
 }
 
 // Inputs
-["title", "format", "logo", "zoom", "shade"].forEach((id) => $(id).addEventListener("input", render));
+["title", "format", "logo", "zoom", "shade", "upper"].forEach((id) => $(id).addEventListener("input", render));
+$("showLogo").addEventListener("input", () => { $("logoPosLabel").hidden = !$("showLogo").checked; render(); });
+$("fonts").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  $("fonts").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  state.font = b.dataset.font; render();
+});
 $("colors").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
   $("colors").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
@@ -260,7 +301,7 @@ if (navigator.canShare && navigator.canShare({ files: [new File([""], "x.jpg", {
   });
 }
 
-document.fonts.load("400 80px Anton").then(render, render);
+Promise.all(Object.values(FONTS).map((f) => document.fonts.load(`${f.weight} 80px "${f.family}"`))).then(render, render);
 render();
 </script>
 </body>
