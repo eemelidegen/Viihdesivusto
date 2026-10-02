@@ -1,0 +1,1 @@
+Anton (Vernon Adams) ja Barlow Condensed (Jeremy Tribby) ovat SIL Open Font License 1.1 -lisenssin alaisia fontteja (https://openfontlicense.org). Tiedostot on ladattu Google Fontsista ja niitä tarjoillaan omalta palvelimelta, jotta kävijöiden tietoja ei välity Googlelle.

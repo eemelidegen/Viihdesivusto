@@ -1,3 +1,9 @@
+/* Fonts are self-hosted (SIL OFL) so visitor data is not sent to Google. */
+@font-face { font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/anton-400.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("/assets/fonts/barlow-condensed-600.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 800; font-display: swap; src: url("/assets/fonts/barlow-condensed-800.woff2") format("woff2"); }
+
 :root {
   --bg: #f0f0f0;
   --soft: #f4f3f0;
@@ -136,6 +142,9 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .prose h1, .prose h2, .prose h3 { font-family: var(--font); line-height: 1.2; }
 .prose blockquote { margin: 24px 0; padding-left: 18px; border-left: 4px solid var(--cat, var(--brand)); font-style: italic; }
 .prose a { color: var(--brand); }
+.prose table { width: 100%; border-collapse: collapse; font: 15px/1.5 var(--font); margin: 16px 0; display: block; overflow-x: auto; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.prose th { font: 700 16px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 2px solid var(--text); }
 .page { max-width: 760px; margin: 0 auto; }
 .article__foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; }
 .article__foot a, .copy-link { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; background: var(--surface); color: inherit; font: inherit; cursor: pointer; }
@@ -163,8 +172,8 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
   .grid--3 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-  .nav__list a { font-size: clamp(14px, 4.3vw, 17px); padding: 12px 2px; }
-  .nav__list li + li::before { font-size: clamp(14px, 4.3vw, 17px); padding: 0 5px; }
+  .nav__list a { font-size: clamp(13px, 3.9vw, 17px); padding: 12px 0; }
+  .nav__list li + li::before { font-size: clamp(13px, 3.9vw, 17px); padding: 0 3px; }
   main.wrap { padding-left: 16px; padding-right: 16px; padding-top: 16px; }
   .feed, .grid--2, .grid--3, .footer__grid { grid-template-columns: 1fr; }
   .card__title, .grid--3 .card__title { font-size: 26px; }

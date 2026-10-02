@@ -31,7 +31,7 @@ npm run build    # valmis sivusto kansioon _site/
 title: Otsikko
 excerpt: Ingressi, 1–2 lausetta.
 date: 2026-10-05T09:00:00+03:00
-category: julkkikset      # elokuvat | sarjat | musiikki | julkkikset | pelit
+category: julkkikset      # elokuvat | sarjat | musiikki | julkkikset | pelit | kohut
 author: Nimi
 image: /assets/img/uploads/kuva.jpg   # valinnainen
 imageAlt: Kuvan kuvaus
@@ -87,7 +87,7 @@ Ennen kuin avain on asetettu, lomake kertoo, ettei tilaus ole vielä käytössä
 ## Ennen julkaisua – tarkistuslista
 
 - [ ] Lisää toimituksen sähköposti `site.json`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
-- [ ] Täydennä tietosuojaseloste
+- [ ] Lisää sähköposti, jotta tietosuojaselosteessa on yhteystieto. Päivitä seloste (`src/tietosuoja.md`), jos otat käyttöön analytiikan, mainokset tai upotukset.
 - [ ] Ota uutiskirje käyttöön (alla)
 - [ ] Lisää analytiikka (esim. Plausible) ja tarvittaessa evästeilmoitus
 - [ ] Rekisteröi sivusto Google Search Consoleen ja lähetä sivukartta

@@ -35,6 +35,7 @@ collections:
           - { label: Musiikki, value: musiikki }
           - { label: Julkkikset, value: julkkikset }
           - { label: Pelit, value: pelit }
+          - { label: Kohut, value: kohut }
       - { label: Toimittaja, name: author, widget: string, default: Toimitus }
       - { label: Pääkuva, name: image, widget: image, required: false }
       - { label: Kuvan kuvaus (saavutettavuus), name: imageAlt, widget: string, required: false }

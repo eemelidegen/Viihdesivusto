@@ -17,9 +17,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="/feed.xml">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&display=swap">
+  <link rel="preload" href="/assets/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
   {% block head %}{% endblock %}
 </head>
@@ -34,6 +33,7 @@
           <li><a href="/uusimmat/" {% if page.url == "/uusimmat/" %}aria-current="page"{% endif %}>Uusimmat</a></li>
           <li><a href="/luetuimmat/" {% if page.url == "/luetuimmat/" %}aria-current="page"{% endif %}>Luetuimmat</a></li>
           <li><a href="/kategoria/julkkikset/" {% if page.url == "/kategoria/julkkikset/" %}aria-current="page"{% endif %}>Julkkikset</a></li>
+          <li><a href="/kategoria/kohut/" {% if page.url == "/kategoria/kohut/" %}aria-current="page"{% endif %}>Kohut</a></li>
         </ul>
       </nav>
       <a class="tip-btn" href="/vinkkaa/">Vinkkaa</a>
