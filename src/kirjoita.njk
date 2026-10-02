@@ -1,0 +1,470 @@
+---
+permalink: /admin/kirjoita/
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Kirjoita – {{ site.name }}</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    [hidden] { display: none !important; }
+    body { background: #f0f0f0; }
+    .top { background: #000; color: #fff; position: sticky; top: 0; z-index: 10; }
+    .top__bar { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .top .logo { font-size: 30px; margin-right: 0; }
+    .tabs2 { display: flex; gap: 4px; }
+    .tabs2 button, .top a.link { background: none; border: 0; color: #cfcdd4; font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; padding: 8px 10px; cursor: pointer; text-decoration: none; border-bottom: 3px solid transparent; }
+    .tabs2 button[aria-selected="true"] { color: #fff; border-bottom-color: var(--accent); }
+    .top .right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+    .top a.link:hover, .tabs2 button:hover { color: #fff; }
+
+    .wrap2 { max-width: 1240px; margin: 0 auto; padding: 20px 16px 120px; }
+    .editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+    .card2 { background: #fff; border-radius: 10px; padding: 20px; display: grid; gap: 18px; margin-bottom: 14px; }
+    .card2 h2 { margin: 0; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+    .f { display: grid; gap: 6px; font: 600 14px/1.3 var(--font); }
+    .f small { font-weight: 400; color: var(--muted); }
+    .f input[type=text], .f textarea { font: 16px/1.5 var(--font); padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; resize: vertical; background: #fff; color: var(--text); }
+    .f textarea { overflow: hidden; }
+    #title { font: 400 30px/1.15 var(--headline); padding: 12px 14px; resize: none; }
+    #body { min-height: 320px; font: 18px/1.65 var(--serif); }
+    .seg2 { display: flex; gap: 8px; flex-wrap: wrap; }
+    .seg2 button { flex: 1 1 0; min-width: 120px; padding: 12px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; color: var(--text); }
+    .seg2 button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .drop { border: 2px dashed var(--line); border-radius: 10px; padding: 22px; text-align: center; color: var(--muted); cursor: pointer; display: grid; gap: 8px; place-items: center; }
+    .drop.over { border-color: var(--accent); background: #fff5f6; }
+    .drop b { color: var(--text); font: 800 20px/1 var(--display); text-transform: uppercase; }
+    .imgbox { position: relative; border-radius: 10px; overflow: hidden; background: #111; }
+    .imgbox img { display: block; width: 100%; max-height: 360px; object-fit: contain; }
+    .imgbox .imgbtns { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 8px; }
+    .mini { padding: 8px 12px; border: 0; border-radius: 6px; background: rgba(0,0,0,.75); color: #fff; font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; }
+    .toolbar { display: flex; gap: 6px; flex-wrap: wrap; }
+    .toolbar button { min-width: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 15px/1 var(--font); color: var(--text); }
+    .toolbar button:hover { border-color: #000; }
+    .switch2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 600 15px/1.3 var(--font); cursor: pointer; }
+    .switch2 small { display: block; font-weight: 400; color: var(--muted); }
+    .switch2 input { appearance: none; width: 52px; height: 30px; border-radius: 999px; background: #ccc; position: relative; cursor: pointer; flex-shrink: 0; margin: 0; transition: background .2s; }
+    .switch2 input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
+    .switch2 input:checked { background: var(--accent); }
+    .switch2 input:checked::after { transform: translateX(22px); }
+    details.more summary { cursor: pointer; font: 700 15px/1 var(--font); color: var(--muted); }
+
+    .preview2 { position: sticky; top: 80px; background: #fff; border-radius: 10px; padding: 24px; max-height: calc(100vh - 100px); overflow: auto; }
+    .preview2__label { font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+    .preview2 .article { max-width: none; }
+    .preview2 .article__head h1 { font-size: 40px; }
+    .preview2 .prose { font-size: 18px; }
+
+    .bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--line); z-index: 9; }
+    .bar__in { max-width: 1240px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 10px; align-items: center; }
+    .bar__status { flex: 1; color: var(--muted); font-size: 14px; }
+    .btn2 { padding: 14px 22px; border: 0; border-radius: 8px; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; background: var(--accent); color: #fff; }
+    .btn2--ghost { background: #fff; color: var(--text); border: 2px solid var(--text); }
+    .btn2:disabled { opacity: .5; cursor: wait; }
+
+    .done { background: #000; color: #fff; border-radius: 10px; padding: 22px; display: grid; gap: 12px; margin-bottom: 14px; }
+    .done h2 { margin: 0; font: 400 32px/1.1 var(--headline); }
+    .done p { margin: 0; color: #cfcdd4; }
+    .done .row2 { display: flex; gap: 10px; flex-wrap: wrap; }
+    .done a, .done button { padding: 10px 16px; border-radius: 6px; border: 0; background: var(--accent); color: #fff; text-decoration: none; font: 800 17px/1 var(--display); text-transform: uppercase; cursor: pointer; }
+    .done .alt { background: #fff; color: #000; }
+    .error { background: #fff0f2; color: #a3112a; border-radius: 8px; padding: 12px 14px; font-weight: 600; }
+
+    .list { display: grid; gap: 10px; }
+    .item { background: #fff; border-radius: 10px; padding: 12px; display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+    .item__thumb { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; background: linear-gradient(135deg, #3b3943, #15141a); }
+    .item__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .item__title { font: 400 22px/1.15 var(--headline); margin: 0 0 6px; }
+    .item__meta { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .tag2 { background: #ffd400; color: #000; font: 800 13px/1 var(--display); text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
+    .item__actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .item__actions a, .item__actions button { padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; color: var(--text); font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; text-decoration: none; }
+    .item__actions .primary { background: #000; color: #fff; border-color: #000; }
+    .item__actions .danger { color: #a3112a; }
+    .empty2 { background: #fff; border-radius: 10px; padding: 32px; text-align: center; color: var(--muted); }
+
+    .mobile-preview { display: none; }
+    @media (max-width: 600px) {
+      .top__bar { gap: 6px; padding: 8px 10px; flex-wrap: nowrap; }
+      .top .logo { font-size: 22px; }
+      .tabs2 button, .top a.link { font-size: 16px; padding: 8px 6px; }
+      .top .right { gap: 0; }
+    }
+    @media (max-width: 900px) {
+      .editor { grid-template-columns: 1fr; }
+      .preview2 { position: static; max-height: none; display: none; }
+      .preview2.show { display: block; }
+      .mobile-preview { display: block; }
+      .item { grid-template-columns: 84px minmax(0, 1fr); }
+      .item__actions { grid-column: 1 / -1; justify-content: flex-start; }
+      .bar__status { display: none; }
+      .bar__in .btn2 { flex: 1; padding: 14px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top__bar">
+      <a class="logo" href="/" target="_blank" rel="noopener">{{ site.name }}</a>
+      <div class="tabs2" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-view="editor">Kirjoita</button>
+        <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>
+      </div>
+      <div class="right">
+        <a class="link" href="/admin/somekuva/">Somekuva</a>
+        <a class="link" href="/api/ulos">Ulos</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap2">
+    <section id="view-editor">
+      <div id="done" class="done" hidden></div>
+      <div class="editor">
+        <div>
+          <div class="card2">
+            <label class="f">Otsikko
+              <textarea id="title" rows="2" placeholder="Kirjoita iskevä otsikko"></textarea>
+            </label>
+            <label class="f">Ingressi <small>1–2 lausetta, joilla lukija koukutetaan. Näkyy myös Googlessa.</small>
+              <textarea id="excerpt" rows="2"></textarea>
+            </label>
+            <div class="f">Kategoria
+              <div class="seg2" id="category">
+                {% for c in site.categories %}<button type="button" data-value="{{ c.slug }}">{{ c.name }}</button>{% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="card2">
+            <h2>Pääkuva</h2>
+            <div id="drop" class="drop" tabindex="0" role="button">
+              <b>Lisää kuva</b>
+              <span>Napauta, vedä kuva tähän tai liitä (Ctrl+V)</span>
+            </div>
+            <div id="imgbox" class="imgbox" hidden>
+              <img id="imgPreview" alt="">
+              <div class="imgbtns"><button type="button" class="mini" id="imgChange">Vaihda</button><button type="button" class="mini" id="imgRemove">Poista</button></div>
+            </div>
+            <input id="file" type="file" accept="image/*" hidden>
+            <label class="f">Kuvaaja / lähde <small>Esim. MTV / Tiedotekuva tai oma nimesi</small>
+              <input id="imageCredit" type="text" maxlength="120">
+            </label>
+            <label class="f">Mitä kuvassa on? <small>Lyhyt kuvaus näkövammaisille ja Googlelle</small>
+              <input id="imageAlt" type="text" maxlength="300">
+            </label>
+          </div>
+
+          <div class="card2">
+            <h2>Teksti</h2>
+            <div class="toolbar" id="toolbar">
+              <button type="button" data-cmd="bold" title="Lihavoi"><b>B</b></button>
+              <button type="button" data-cmd="italic" title="Kursivoi"><i>K</i></button>
+              <button type="button" data-cmd="h2" title="Väliotsikko">Väliotsikko</button>
+              <button type="button" data-cmd="quote" title="Lainaus">“ Lainaus</button>
+              <button type="button" data-cmd="list" title="Lista">• Lista</button>
+              <button type="button" data-cmd="link" title="Linkki">Linkki</button>
+            </div>
+            <label class="f"><span class="sr-only">Teksti</span>
+              <textarea id="body" placeholder="Kirjoita juttu tähän. Tyhjä rivi aloittaa uuden kappaleen."></textarea>
+            </label>
+          </div>
+
+          <div class="card2">
+            <label class="switch2"><span>Nosta "Suositut jutut" -listaan<small>Näkyy etusivun sivupalkissa ja Luetuimmat-sivulla</small></span><input id="nosto" type="checkbox"></label>
+            <details class="more">
+              <summary>Lisäasetukset</summary>
+              <div style="display:grid;gap:14px;margin-top:14px">
+                <label class="f">Toimittaja <small>Näkyy jutun alussa</small><input id="author" type="text" maxlength="80" placeholder="Toimitus"></label>
+              </div>
+            </details>
+          </div>
+
+          <button type="button" class="btn2 btn2--ghost mobile-preview" id="togglePreview" style="width:100%">Näytä esikatselu</button>
+        </div>
+
+        <aside class="preview2" id="preview">
+          <p class="preview2__label">Esikatselu</p>
+          <article class="article">
+            <header class="article__head">
+              <span class="pill" id="pvCat"></span>
+              <h1 id="pvTitle"></h1>
+              <p class="article__lead" id="pvLead"></p>
+              <p class="meta" id="pvMeta"></p>
+            </header>
+            <figure class="article__media" id="pvFig"></figure>
+            <div class="prose" id="pvBody"></div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <section id="view-list" hidden>
+      <div class="list" id="list"></div>
+    </section>
+  </main>
+
+  <div class="bar" id="bar">
+    <div class="bar__in">
+      <span class="bar__status" id="status">Muutokset tallentuvat tähän selaimeen automaattisesti.</span>
+      <button type="button" class="btn2 btn2--ghost" id="saveDraft">Tallenna luonnos</button>
+      <button type="button" class="btn2" id="publish">Julkaise</button>
+    </div>
+  </div>
+
+<script>
+const CATEGORIES = {{ site.categories | dump | safe }};
+const LOCAL = "valokeila-kirjoita";
+const $ = (id) => document.getElementById(id);
+const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, imageCredit: "", imageAlt: "", author: "", nosto: false }, body: "" });
+let doc = blank();
+let dirty = false;
+
+// ---------- Local autosave ----------
+function persist() { try { localStorage.setItem(LOCAL, JSON.stringify(doc)); } catch { try { localStorage.setItem(LOCAL, JSON.stringify({ ...doc, newImage: null })); } catch {} } }
+function restore() { try { const d = JSON.parse(localStorage.getItem(LOCAL) || "null"); if (d && d.fields) doc = { ...blank(), ...d, fields: { ...blank().fields, ...d.fields } }; } catch {} }
+
+// ---------- Form <-> doc ----------
+const TEXT = ["title", "excerpt", "imageCredit", "imageAlt", "author"];
+function fill() {
+  TEXT.forEach((k) => ($(k).value = doc.fields[k] || ""));
+  $("body").value = doc.body || "";
+  $("nosto").checked = !!doc.fields.nosto;
+  document.querySelectorAll("#category button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === doc.fields.category)));
+  showImage();
+  document.querySelectorAll("textarea").forEach(grow);
+  preview();
+}
+function changed() { dirty = true; persist(); preview(); $("status").textContent = "Tallennettu tähän selaimeen – muista julkaista."; }
+TEXT.forEach((k) => $(k).addEventListener("input", () => { doc.fields[k] = $(k).value; changed(); }));
+$("body").addEventListener("input", () => { doc.body = $("body").value; changed(); });
+$("nosto").addEventListener("change", () => { doc.fields.nosto = $("nosto").checked; changed(); });
+$("category").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; doc.fields.category = b.dataset.value; fill(); changed(); });
+function grow(t) { if (t.id === "body" || t.id === "title" || t.id === "excerpt") { t.style.height = "auto"; t.style.height = Math.max(t.id === "body" ? 320 : 0, t.scrollHeight + 2) + "px"; } }
+document.querySelectorAll("textarea").forEach((t) => t.addEventListener("input", () => grow(t)));
+$("title").addEventListener("keydown", (e) => { if (e.key === "Enter") e.preventDefault(); });
+
+// ---------- Images: resized in the browser to a light JPG ----------
+function showImage() {
+  const src = doc.newImage ? doc.newImage.dataUrl : doc.image;
+  $("imgbox").hidden = !src; $("drop").hidden = !!src;
+  if (src) $("imgPreview").src = src;
+}
+async function takeImage(file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  $("status").textContent = "Käsitellään kuvaa…";
+  try {
+    const url = URL.createObjectURL(file);
+    const img = await new Promise((ok, fail) => { const i = new Image(); i.onload = () => ok(i); i.onerror = fail; i.src = url; });
+    const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url);
+    const dataUrl = c.toDataURL("image/jpeg", 0.85);
+    doc.newImage = { dataUrl, base64: dataUrl.split(",")[1] };
+    showImage(); changed();
+    $("status").textContent = `Kuva valmis (${Math.round(doc.newImage.base64.length * 0.75 / 1024)} kt).`;
+  } catch {
+    $("status").textContent = "Kuvaa ei voitu avata. Kokeile JPG- tai PNG-kuvaa.";
+  }
+}
+$("drop").addEventListener("click", () => $("file").click());
+$("drop").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } });
+$("imgChange").addEventListener("click", () => $("file").click());
+$("imgRemove").addEventListener("click", () => { doc.newImage = null; doc.image = ""; showImage(); changed(); });
+$("file").addEventListener("change", () => { takeImage($("file").files[0]); $("file").value = ""; });
+["dragover", "dragenter"].forEach((t) => $("drop").addEventListener(t, (e) => { e.preventDefault(); $("drop").classList.add("over"); }));
+["dragleave", "drop"].forEach((t) => $("drop").addEventListener(t, () => $("drop").classList.remove("over")));
+$("drop").addEventListener("drop", (e) => { e.preventDefault(); takeImage(e.dataTransfer.files[0]); });
+document.addEventListener("paste", (e) => { const f = [...(e.clipboardData?.files || [])].find((x) => x.type.startsWith("image/")); if (f) { e.preventDefault(); takeImage(f); } });
+
+// ---------- Text toolbar (writes Markdown) ----------
+$("toolbar").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  const t = $("body"), s = t.selectionStart, end = t.selectionEnd, v = t.value, sel = v.slice(s, end);
+  const lineStart = v.lastIndexOf("\n", s - 1) + 1;
+  let out, cs, ce;
+  const wrapSel = (mark, ph) => { const text = sel || ph; out = v.slice(0, s) + mark + text + mark + v.slice(end); cs = s + mark.length; ce = cs + text.length; };
+  const prefixLines = (pre) => {
+    const block = v.slice(lineStart, end) || "";
+    const text = (block || "teksti").split("\n").map((l) => (l.startsWith(pre) ? l : pre + l)).join("\n");
+    out = v.slice(0, lineStart) + text + v.slice(end); cs = lineStart; ce = lineStart + text.length;
+  };
+  switch (b.dataset.cmd) {
+    case "bold": wrapSel("**", "lihavoitu"); break;
+    case "italic": wrapSel("*", "kursivoitu"); break;
+    case "h2": prefixLines("## "); break;
+    case "quote": prefixLines("> "); break;
+    case "list": prefixLines("- "); break;
+    case "link": {
+      const url = prompt("Linkin osoite (alkaa https://)", "https://");
+      if (!url || url === "https://") return;
+      const text = sel || "linkki";
+      out = v.slice(0, s) + `[${text}](${url})` + v.slice(end); cs = s + 1; ce = cs + text.length; break;
+    }
+  }
+  t.value = out; t.focus(); t.setSelectionRange(cs, ce);
+  doc.body = t.value; grow(t); changed();
+});
+
+// ---------- Preview (small Markdown subset, same look as the site) ----------
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const inline = (s) => esc(s)
+  .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  .replace(/\*(.+?)\*/g, "<em>$1</em>")
+  .replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/)[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+function markdown(md) {
+  return md.replace(/\r\n/g, "\n").split(/\n{2,}/).map((block) => {
+    const b = block.trim(); if (!b) return "";
+    const lines = b.split("\n");
+    if (b.startsWith("### ")) return `<h3>${inline(b.slice(4))}</h3>`;
+    if (b.startsWith("## ")) return `<h2>${inline(b.slice(3))}</h2>`;
+    if (lines.every((l) => l.startsWith(">"))) return `<blockquote><p>${lines.map((l) => inline(l.replace(/^>\s?/, ""))).join("<br>")}</p></blockquote>`;
+    if (lines.every((l) => /^[-*] /.test(l))) return `<ul>${lines.map((l) => `<li>${inline(l.slice(2))}</li>`).join("")}</ul>`;
+    if (lines.every((l) => /^\d+\. /.test(l))) return `<ol>${lines.map((l) => `<li>${inline(l.replace(/^\d+\. /, ""))}</li>`).join("")}</ol>`;
+    return `<p>${lines.map(inline).join("<br>")}</p>`;
+  }).join("");
+}
+const fiDateTime = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
+function preview() {
+  const cat = CATEGORIES.find((c) => c.slug === doc.fields.category) || CATEGORIES[0];
+  $("pvCat").textContent = cat.name;
+  $("pvTitle").textContent = doc.fields.title || "Otsikko";
+  $("pvLead").textContent = doc.fields.excerpt;
+  const words = (doc.body.match(/\S+/g) || []).length;
+  $("pvMeta").textContent = `${doc.fields.author || "Toimitus"} · ${fiDateTime.format(doc.date ? new Date(doc.date) : new Date())} · ${Math.max(1, Math.round(words / 200))} min lukuaika`;
+  const src = doc.newImage ? doc.newImage.dataUrl : doc.image;
+  $("pvFig").innerHTML = src ? `<img src="${esc(src)}" alt="">${doc.fields.imageCredit ? `<figcaption>Kuva: ${esc(doc.fields.imageCredit)}</figcaption>` : ""}` : '<span class="placeholder"></span>';
+  $("pvBody").innerHTML = markdown(doc.body) || '<p style="color:#999">Teksti näkyy tässä…</p>';
+}
+$("togglePreview").addEventListener("click", () => { const p = $("preview"); p.classList.toggle("show"); $("togglePreview").textContent = p.classList.contains("show") ? "Piilota esikatselu" : "Näytä esikatselu"; if (p.classList.contains("show")) p.scrollIntoView({ behavior: "smooth" }); });
+
+// ---------- Server calls ----------
+async function api(path, body) {
+  const res = await fetch(`/api/toimitus/${path}`, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 401 && data.kirjaudu) {
+    persist();
+    location.href = "/api/kirjaudu?next=" + encodeURIComponent("/admin/kirjoita/");
+    throw new Error("login");
+  }
+  if (!res.ok) throw new Error(data.virhe || "Jokin meni pieleen. Yritä uudelleen.");
+  return data;
+}
+
+async function save(asDraft) {
+  if (!doc.fields.title.trim()) { $("status").textContent = "Lisää jutulle otsikko."; $("title").focus(); return; }
+  if (!asDraft && !doc.body.trim() && !confirm("Jutussa ei ole tekstiä. Julkaistaanko silti?")) return;
+  ["publish", "saveDraft"].forEach((id) => ($(id).disabled = true));
+  $("status").textContent = asDraft ? "Tallennetaan luonnosta…" : "Julkaistaan…";
+  // A story gets its publication time when it is first published.
+  const date = !doc.date || (doc.wasDraft && !asDraft) ? new Date().toISOString() : doc.date;
+  try {
+    const res = await api("julkaise", {
+      file: doc.file,
+      fields: { ...doc.fields, date, draft: asDraft, image: doc.newImage ? "" : doc.image },
+      body: doc.body,
+      image: doc.newImage ? { base64: doc.newImage.base64 } : null,
+    });
+    Object.assign(doc, { file: res.file, date, wasDraft: asDraft, image: res.image || "", newImage: null });
+    dirty = false; persist(); showImage();
+    showDone(asDraft, res.url);
+    $("status").textContent = asDraft ? "Luonnos tallennettu." : "Julkaistu!";
+  } catch (e) {
+    if (e.message !== "login") { $("status").textContent = e.message; showError(e.message); }
+  } finally {
+    ["publish", "saveDraft"].forEach((id) => ($(id).disabled = false));
+  }
+}
+$("publish").addEventListener("click", () => save(false));
+$("saveDraft").addEventListener("click", () => save(true));
+
+function showError(msg) { const d = $("done"); d.hidden = false; d.className = "error"; d.textContent = msg; }
+function showDone(draft, url) {
+  const d = $("done"); d.hidden = false; d.className = "done";
+  d.innerHTML = draft
+    ? `<h2>Luonnos tallennettu</h2><p>Luonnos ei näy lukijoille. Löydät sen Jutut-välilehdeltä.</p><div class="row2"><button type="button" data-act="new" class="alt">Uusi juttu</button></div>`
+    : `<h2>Juttu julkaistu! 🎉</h2><p>Se näkyy sivulla noin minuutin kuluttua.</p><div class="row2"><a href="${url}" target="_blank" rel="noopener">Avaa juttu</a><button type="button" data-act="some">Tee somekuva</button><button type="button" data-act="new" class="alt">Uusi juttu</button></div>`;
+  d.scrollIntoView({ behavior: "smooth" });
+}
+$("done").addEventListener("click", (e) => {
+  const act = e.target.closest("[data-act]")?.dataset.act;
+  if (act === "new") newDoc();
+  if (act === "some") toSomekuva();
+});
+function toSomekuva() {
+  try { const k = "valokeila-somekuva"; const s = JSON.parse(localStorage.getItem(k) || "{}"); s.title = doc.fields.title; localStorage.setItem(k, JSON.stringify(s)); } catch {}
+  location.href = "/admin/somekuva/";
+}
+function newDoc() {
+  if (dirty && !confirm("Tallentamattomat muutokset katoavat. Aloitetaanko uusi juttu?")) return;
+  doc = blank(); dirty = false; persist(); $("done").hidden = true; fill(); switchView("editor"); $("title").focus();
+}
+
+// ---------- Article list ----------
+async function loadList() {
+  const box = $("list");
+  box.innerHTML = '<div class="empty2">Ladataan juttuja…</div>';
+  try {
+    const { jutut } = await api("jutut");
+    if (!jutut.length) { box.innerHTML = '<div class="empty2">Ei vielä juttuja. Kirjoita ensimmäinen!</div>'; return; }
+    box.innerHTML = jutut.map((j) => {
+      const cat = CATEGORIES.find((c) => c.slug === j.category);
+      const slug = j.file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+      return `<div class="item">
+        <div class="item__thumb">${j.image ? `<img src="${esc(j.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div>
+        <div><p class="item__title">${esc(j.title)}</p>
+          <div class="item__meta">${j.draft ? '<span class="tag2">Luonnos</span>' : ""}<span>${cat ? esc(cat.name) : ""}</span><span>${j.date ? fiDateTime.format(new Date(j.date)) : ""}</span></div></div>
+        <div class="item__actions">
+          <button type="button" class="primary" data-edit="${esc(j.file)}">Muokkaa</button>
+          ${j.draft ? "" : `<a href="/${slug}/" target="_blank" rel="noopener">Avaa</a>`}
+          <button type="button" class="danger" data-del="${esc(j.file)}" data-title="${esc(j.title)}">Poista</button>
+        </div></div>`;
+    }).join("");
+  } catch (e) {
+    if (e.message !== "login") box.innerHTML = `<div class="error">${esc(e.message)}</div>`;
+  }
+}
+$("list").addEventListener("click", async (e) => {
+  const edit = e.target.closest("[data-edit]"), del = e.target.closest("[data-del]");
+  if (edit) {
+    if (dirty && !confirm("Tallentamattomat muutokset katoavat. Avataanko toinen juttu?")) return;
+    edit.textContent = "Avataan…";
+    try {
+      const j = await api(`juttu?tiedosto=${encodeURIComponent(edit.dataset.edit)}`);
+      doc = { ...blank(), file: j.file, wasDraft: !!j.fields.draft, date: j.fields.date || null, image: j.fields.image || "", body: j.body,
+        fields: { ...blank().fields, ...Object.fromEntries(Object.entries(j.fields).filter(([k]) => k in blank().fields)) } };
+      dirty = false; persist(); $("done").hidden = true; fill(); switchView("editor");
+    } catch (err) { if (err.message !== "login") alert(err.message); edit.textContent = "Muokkaa"; }
+  }
+  if (del) {
+    if (!confirm(`Poistetaanko juttu "${del.dataset.title}" pysyvästi?`)) return;
+    del.textContent = "Poistetaan…";
+    try {
+      await api("poista", { file: del.dataset.del });
+      if (doc.file === del.dataset.del) { doc = blank(); persist(); fill(); }
+      loadList();
+    } catch (err) { if (err.message !== "login") alert(err.message); del.textContent = "Poista"; }
+  }
+});
+
+// ---------- Views ----------
+function switchView(v) {
+  document.querySelectorAll(".tabs2 button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === v)));
+  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("bar").hidden = v !== "editor";
+  if (v === "list") loadList();
+}
+document.querySelector(".tabs2").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) switchView(b.dataset.view); });
+addEventListener("beforeunload", (e) => { if (dirty) { persist(); } });
+
+restore(); fill();
+if (doc.file || doc.fields.title || doc.body) $("status").textContent = "Jatka siitä, mihin jäit.";
+</script>
+</body>
+</html>

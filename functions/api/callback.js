@@ -1,7 +1,7 @@
 // GitHub OAuth callback, shared by two flows:
 // - Decap CMS (/admin/): hand the token back to the window that opened this popup.
 // - Editor pages (/api/kirjaudu): check repo write access and issue a session cookie.
-import { SESSION_COOKIE, SESSION_DAYS, createSession, getCookie, repoName, safeNext } from "../../lib/session.js";
+import { SESSION_COOKIE, SESSION_DAYS, TOKEN_COOKIE, createSession, encryptToken, getCookie, repoName, safeNext } from "../../lib/session.js";
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
@@ -39,7 +39,7 @@ async function exchangeCode(url, env, code) {
 }
 
 // Only people who can push to the site's repository get a session. The GitHub
-// token is used for this check and then discarded.
+// token is kept only as an encrypted cookie for the writing tool's API.
 async function editorLogin(url, env, code, next) {
   const clearLogin = "vk_login=; Path=/api; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
   if (!code) return page("Kirjautuminen peruttiin.", 400, clearLogin);
@@ -58,6 +58,9 @@ async function editorLogin(url, env, code, next) {
   const headers = new Headers({ Location: `${url.origin}${safeNext(next)}` });
   headers.append("Set-Cookie", clearLogin);
   headers.append("Set-Cookie", `${SESSION_COOKIE}=${session}; Path=/admin; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_DAYS * 86400}`);
+  // GitHub tokens may expire (8 h); the writing tool asks for a fresh login when it does.
+  const tokenAge = Math.min(Number(data.expires_in) || 8 * 3600, SESSION_DAYS * 86400);
+  headers.append("Set-Cookie", `${TOKEN_COOKIE}=${await encryptToken(env, data.access_token, user.login)}; Path=/api/toimitus; HttpOnly; Secure; SameSite=Strict; Max-Age=${tokenAge}`);
   return new Response(null, { status: 302, headers });
 }
 

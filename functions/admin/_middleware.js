@@ -1,5 +1,5 @@
-// Editor-only: /admin/somekuva/ needs a signed session from /api/kirjaudu.
-import { readSession } from "../../../lib/session.js";
+// Editor-only: everything under /admin/ needs a signed session from /api/kirjaudu.
+import { readSession } from "../../lib/session.js";
 
 export async function onRequest({ request, env, next }) {
   if (!env.GITHUB_CLIENT_SECRET) {

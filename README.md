@@ -9,7 +9,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 - Artikkelisivu: lukuaika, jakonapit, aiheeseen liittyvät jutut, Googlen NewsArticle-merkintä
 - Sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
 - Tietoa meistä / julkaisutiedot ja tietosuojaselosteen pohja
-- Toimitustyökalu selaimessa: `/admin/` (Decap CMS)
+- Toimitustyökalu selaimessa: `/admin/` (oma kirjoitustyökalu, somekuvatyökalu; Decap CMS varalla)
 - Tumma tila ja mobiilinäkymä
 
 ## Käynnistys omalla koneella
@@ -22,7 +22,9 @@ npm run build    # valmis sivusto kansioon _site/
 
 ## Uuden jutun kirjoittaminen
 
-**Selaimessa:** avaa `/admin/`, kirjaudu ja paina "Uusi artikkeli".
+**Selaimessa (suositus):** avaa `/admin/` (ohjautuu osoitteeseen `/admin/kirjoita/`) ja kirjaudu GitHubilla. Kirjoita otsikko, ingressi ja teksti, valitse kategoria, lisää kuva ja paina **Julkaise** tai **Tallenna luonnos**. Kuvat pienennetään automaattisesti. Jutut-välilehdellä voit muokata ja poistaa juttuja. Keskeneräinen teksti tallentuu selaimeen automaattisesti.
+
+Työkalu tallentaa jutun suoraan GitHubiin (`functions/api/toimitus/`, `lib/articles.js`), ja sivu päivittyy noin minuutissa. Vanha Decap CMS on varalla osoitteessa `/admin/decap/`.
 
 **Tiedostona:** lisää `src/artikkelit/`-kansioon tiedosto, esim. `2026-10-05-otsikko.md`:
 
@@ -60,11 +62,11 @@ Jokaiselle jutulle luodaan julkaisun yhteydessä automaattisesti 1200×630-jakok
 
 Työkalu tekee juttujen mainoskuvat someen: valitse kuva, kirjoita otsikko (korosta sanoja tähdillä, `*näin*`), valitse koko ja lataa. Toimii myös puhelimella, jossa kuvan voi tallentaa suoraan kuviin.
 
-Työkalu vaatii kirjautumisen GitHub-tunnuksella, jolla on kirjoitusoikeus tähän repoon (tarkistus `functions/admin/somekuva/_middleware.js`, istunto 30 päivää, uloskirjautuminen `/api/ulos`). Asetuksia ei tarvita: se käyttää samaa OAuth-sovellusta ja `GITHUB_CLIENT_SECRET`-arvoa kuin julkaisutyökalu.
+Työkalu vaatii kirjautumisen GitHub-tunnuksella, jolla on kirjoitusoikeus tähän repoon (tarkistus `functions/admin/_middleware.js`, istunto 30 päivää, uloskirjautuminen `/api/ulos`). Asetuksia ei tarvita: se käyttää samaa OAuth-sovellusta ja `GITHUB_CLIENT_SECRET`-arvoa kuin julkaisutyökalu.
 
 Ominaisuudet: yksi tai kaksi kuvaa (rinnakkain/päällekkäin), kuvan siirto vetämällä ja zoomaus nipistämällä tai hiiren rullalla, kirkkaus/kontrasti/mustavalko, peilaus, yläotsikkotarra, kolme fonttia, isot kirjaimet, tekstin koko, sijainti ja tasaus, korostus värinä/laatikkona/alleviivauksena, oma väri, kehys, tummennuksen tyyli, logo kolmeen paikkaan, kuvaajan merkintä, JPG/PNG sekä viisi kokoa. Asetukset muistetaan selaimessa.
 
-## Kirjautuminen julkaisutyökaluun (/admin/)
+## Kirjautuminen toimitukseen (/admin/)
 
 Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` ja toimii Cloudflare Pagesissa. Kertaluontoiset asetukset:
 
@@ -77,7 +79,7 @@ Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` j
    - `GITHUB_CLIENT_ID` = Client ID
    - `GITHUB_CLIENT_SECRET` = Client secret (tyypiksi *Secret*)
 3. Tee uusi julkaisu (Deployments → Retry deployment), jotta asetukset tulevat voimaan.
-4. Avaa `https://valokeila.net/admin/` ja kirjaudu GitHubilla.
+4. Avaa `https://valokeila.net/admin/` ja kirjaudu GitHubilla. Koko `/admin/` vaatii kirjautumisen (`functions/admin/_middleware.js`).
 
 Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `valokeila.net` tai `valokeila.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
 
