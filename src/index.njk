@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+---
+{% set all = collections.artikkelit %}
+{% if all.length %}
+<section class="hero">
+  {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = true %}
+  {% include "partials/card.njk" %}
+  <div class="hero__side">
+    {% set cardClass = "card--compact" %}{% set showExcerpt = false %}
+    {% for item in all | ohita(1) | alku(3) %}{% include "partials/card.njk" %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<div class="layout">
+  <section class="section">
+    <h2 class="section__title">Uusimmat</h2>
+    <div class="grid grid--2">
+      {% set cardClass = "" %}{% set showExcerpt = true %}
+      {% for item in all | ohita(4) | alku(8) %}{% include "partials/card.njk" %}{% endfor %}
+    </div>
+  </section>
+
+  <aside class="sidebar">
+    <section class="box">
+      <h2 class="box__title">Toimitus suosittelee</h2>
+      <ol class="toplist">
+        {% for item in all | nostot | alku(5) %}<li><a href="{{ item.url }}">{{ item.data.title }}</a></li>{% endfor %}
+      </ol>
+    </section>
+    <section class="box box--accent">
+      <h2 class="box__title">Tilaa uutiskirje</h2>
+      <p>Viikon kuumimmat viihdeuutiset suoraan sähköpostiisi.</p>
+      <form class="newsletter" action="#" method="post">
+        <label class="sr-only" for="nl-email">Sähköposti</label>
+        <input id="nl-email" type="email" name="email" placeholder="sinä@esimerkki.fi" required>
+        <button type="submit">Tilaa</button>
+      </form>
+    </section>
+    <section class="box ad-slot" aria-label="Mainos">Mainospaikka 300×250</section>
+  </aside>
+</div>
+
+{% for c in site.categories %}
+  {% set inCat = all | kategoriassa(c.slug) | alku(3) %}
+  {% if inCat.length %}
+  <section class="section" style="--cat: {{ c.color }}">
+    <h2 class="section__title section__title--cat"><a href="/kategoria/{{ c.slug }}/">{{ c.name }} →</a></h2>
+    <div class="grid grid--3">
+      {% set cardClass = "" %}{% set showExcerpt = false %}
+      {% for item in inCat %}{% include "partials/card.njk" %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,43 @@
+# Decap CMS: kirjoita ja julkaise juttuja selaimessa osoitteessa /admin/
+# Vaihda "repo" omaan GitHub-repoosi. Kirjautuminen: katso README.md.
+backend:
+  name: github
+  repo: OMA-KAYTTAJA/OMA-REPO
+  branch: main
+
+# Paikallinen testaus: aja `npx decap-server` ja avaa http://localhost:8080/admin/
+local_backend: true
+
+locale: fi
+publish_mode: editorial_workflow   # luonnos → tarkastettavana → valmis
+media_folder: src/assets/img/uploads
+public_folder: /assets/img/uploads
+
+collections:
+  - name: artikkelit
+    label: Artikkelit
+    label_singular: Artikkeli
+    folder: src/artikkelit
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Otsikko, name: title, widget: string }
+      - { label: Ingressi, name: excerpt, widget: text, hint: "1–2 lausetta, näkyy etusivulla ja hakukoneissa" }
+      - { label: Julkaisuaika, name: date, widget: datetime }
+      - label: Kategoria
+        name: category
+        widget: select
+        options:
+          - { label: Elokuvat, value: elokuvat }
+          - { label: "TV & sarjat", value: sarjat }
+          - { label: Musiikki, value: musiikki }
+          - { label: Julkkikset, value: julkkikset }
+          - { label: Pelit, value: pelit }
+      - { label: Toimittaja, name: author, widget: string, default: Toimitus }
+      - { label: Pääkuva, name: image, widget: image, required: false }
+      - { label: Kuvan kuvaus (saavutettavuus), name: imageAlt, widget: string, required: false }
+      - { label: Kuvaaja / kuvan lähde, name: imageCredit, widget: string, required: false }
+      - { label: "Toimitus suosittelee -nosto", name: nosto, widget: boolean, default: false, required: false }
+      - { label: Luonnos (ei julkaista), name: draft, widget: boolean, default: false, required: false }
+      - { label: Teksti, name: body, widget: markdown }

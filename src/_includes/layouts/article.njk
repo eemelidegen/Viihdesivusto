@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+{% set cat = category | kategoria(site.categories) %}
+<article class="article" style="--cat: {{ cat.color }}">
+  <header class="article__head">
+    <a class="tag" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
+    <h1>{{ title }}</h1>
+    <p class="article__lead">{{ excerpt }}</p>
+    <p class="meta">
+      {{ author or "Toimitus" }} ·
+      <time datetime="{{ page.date | iso }}">{{ page.date | pvmAika }}</time> ·
+      {{ content | lukuaika }} min lukuaika
+    </p>
+  </header>
+  <figure class="article__media">
+    {% if image %}
+      <img src="{{ image }}" alt="{{ imageAlt }}">
+      {% if imageCredit %}<figcaption>Kuva: {{ imageCredit }}</figcaption>{% endif %}
+    {% else %}
+      <span class="card__placeholder card__placeholder--big">{{ cat.name }}</span>
+    {% endif %}
+  </figure>
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+  <footer class="article__foot">
+    <span>Jaa:</span>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absUrl(site.url) | urlencode }}" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://x.com/intent/post?url={{ page.url | absUrl(site.url) | urlencode }}&text={{ title | urlencode }}" target="_blank" rel="noopener">X</a>
+    <a href="https://wa.me/?text={{ (title + ' ' + (page.url | absUrl(site.url))) | urlencode }}" target="_blank" rel="noopener">WhatsApp</a>
+    <button class="copy-link" data-url="{{ page.url | absUrl(site.url) }}">Kopioi linkki</button>
+  </footer>
+</article>
+
+{% set related = collections.artikkelit | kategoriassa(category) | ilman(page.url) | alku(3) %}
+{% if related.length %}
+<section class="section" style="--cat: {{ cat.color }}">
+  <h2 class="section__title">Lisää aiheesta: {{ cat.name }}</h2>
+  <div class="grid grid--3">
+    {% for item in related %}{% include "partials/card.njk" %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": {{ title | dump | safe }},
+  "description": {{ excerpt | dump | safe }},
+  "datePublished": "{{ page.date | iso }}",
+  "author": { "@type": "Person", "name": {{ (author or "Toimitus") | dump | safe }} },
+  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }} }{% if image %},
+  "image": ["{{ image | absUrl(site.url) }}"]{% endif %}
+}
+</script>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set pageTitle = (title + " | " + site.name) if title else (site.name + " – " + site.tagline) %}
+  {% set pageDesc = excerpt or description or site.description %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDesc }}">
+  <link rel="canonical" href="{{ page.url | absUrl(site.url) }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:title" content="{{ title or site.name }}">
+  <meta property="og:description" content="{{ pageDesc }}">
+  <meta property="og:type" content="{{ 'article' if category else 'website' }}">
+  <meta property="og:url" content="{{ page.url | absUrl(site.url) }}">
+  {% if image %}<meta property="og:image" content="{{ image | absUrl(site.url) }}">{% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="/feed.xml">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <a class="skip" href="#main">Siirry sisältöön</a>
+  <header class="masthead">
+    <div class="wrap masthead__top">
+      <a class="logo" href="/"><span class="logo__dot"></span>{{ site.name }}</a>
+      <p class="masthead__tagline">{{ site.tagline }}</p>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Valikko</button>
+    </div>
+    <nav id="nav" class="nav" aria-label="Kategoriat">
+      <ul class="wrap nav__list">
+        <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Etusivu</a></li>
+        {% for c in site.categories %}
+        <li><a href="/kategoria/{{ c.slug }}/" style="--cat: {{ c.color }}" {% if page.url == "/kategoria/" + c.slug + "/" %}aria-current="page"{% endif %}>{{ c.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a class="logo logo--small" href="/"><span class="logo__dot"></span>{{ site.name }}</a>
+        <p>{{ site.description }}</p>
+      </div>
+      <div>
+        <h2>Kategoriat</h2>
+        <ul>{% for c in site.categories %}<li><a href="/kategoria/{{ c.slug }}/">{{ c.name }}</a></li>{% endfor %}</ul>
+      </div>
+      <div>
+        <h2>Toimitus</h2>
+        <ul>
+          <li><a href="/tietoa/">Tietoa meistä &amp; julkaisutiedot</a></li>
+          <li><a href="/tietosuoja/">Tietosuojaseloste</a></li>
+          <li><a href="mailto:{{ site.email }}">Vinkki toimitukselle</a></li>
+          <li><a href="/feed.xml">RSS-syöte</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="wrap footer__legal">© {{ build.year }} {{ site.name }}. Vastaava päätoimittaja: {{ site.editorInChief }}. Noudatamme Journalistin ohjeita.</p>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

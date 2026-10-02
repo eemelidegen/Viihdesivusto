@@ -1,0 +1,16 @@
+{% set cat = item.data.category | kategoria(site.categories) %}
+<article class="card {{ cardClass }}" style="--cat: {{ cat.color }}">
+  <a class="card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    {% if item.data.image %}
+      <img src="{{ item.data.image }}" alt="" loading="lazy">
+    {% else %}
+      <span class="card__placeholder">{{ cat.name }}</span>
+    {% endif %}
+  </a>
+  <div class="card__body">
+    <a class="tag" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
+    <h3 class="card__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+    {% if showExcerpt %}<p class="card__excerpt">{{ item.data.excerpt }}</p>{% endif %}
+    <p class="meta"><time datetime="{{ item.date | iso }}">{{ item.date | pvm }}</time></p>
+  </div>
+</article>

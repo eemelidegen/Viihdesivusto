@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: site.categories
+  size: 1
+  alias: cat
+permalink: "/kategoria/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.name }}"
+---
+<header class="page-head" style="--cat: {{ cat.color }}">
+  <h1>{{ cat.name }}</h1>
+</header>
+{% set inCat = collections.artikkelit | kategoriassa(cat.slug) %}
+{% if inCat.length %}
+<div class="grid grid--3">
+  {% set cardClass = "" %}{% set showExcerpt = true %}
+  {% for item in inCat %}{% include "partials/card.njk" %}{% endfor %}
+</div>
+{% else %}
+<p>Tässä kategoriassa ei ole vielä juttuja.</p>
+{% endif %}
