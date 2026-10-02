@@ -6,6 +6,6 @@ title: Uusimmat
   <h1>Uusimmat</h1>
 </header>
 <div class="grid grid--3">
-  {% set cardClass = "" %}{% set showExcerpt = true %}
+  {% set cardClass = "" %}{% set showExcerpt = false %}
   {% for item in collections.artikkelit %}{% include "partials/card.njk" %}{% endfor %}
 </div>

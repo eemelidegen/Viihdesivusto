@@ -2,33 +2,31 @@
 layout: layouts/base.njk
 ---
 {% set all = collections.artikkelit %}
-{% if all.length %}
-<section class="hero">
-  {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = true %}
-  {% include "partials/card.njk" %}
-  <div class="hero__side">
-    {% set cardClass = "card--compact" %}{% set showExcerpt = false %}
-    {% for item in all | ohita(1) | alku(3) %}{% include "partials/card.njk" %}{% endfor %}
-  </div>
-</section>
-{% endif %}
-
-<div class="layout">
-  <section class="section">
-    <h2 class="section__title">Uusimmat</h2>
-    <div class="grid grid--2">
-      {% set cardClass = "" %}{% set showExcerpt = true %}
-      {% for item in all | ohita(4) | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
+<div class="front">
+  <div class="front__main">
+    {% if all.length %}
+      {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = false %}
+      {% include "partials/card.njk" %}
+    {% endif %}
+    {# Feed repeats: two stories side by side, then one full-width story. #}
+    <div class="feed">
+      {% set cardClass = "" %}
+      {% for item in all | ohita(1) | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
     </div>
-  </section>
+  </div>
 
   <aside class="sidebar">
-    <section class="box">
-      <h2 class="box__title">Toimitus suosittelee</h2>
-      <ol class="toplist">
-        {% for item in all | nostot | alku(5) %}<li><a href="{{ item.url }}">{{ item.data.title }}</a></li>{% endfor %}
-      </ol>
-    </section>
+    <div class="tabs" role="tablist">
+      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Suosittua <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
+      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    </div>
+    <ol class="side-list" role="tabpanel" id="tab-suosittua" aria-labelledby="t-suosittua">
+      {% for item in all | nostot | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
+    </ol>
+    <ol class="side-list" role="tabpanel" id="tab-tuoreimmat" aria-labelledby="t-tuoreimmat" hidden>
+      {% for item in all | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
+    </ol>
+
     <section class="box box--accent">
       <h2 class="box__title">Tilaa uutiskirje</h2>
       <p>Viikon kuumimmat viihdeuutiset suoraan sähköpostiisi.</p>

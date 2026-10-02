@@ -1,0 +1,10 @@
+{% set cat = item.data.category | kategoria(site.categories) %}
+<li class="side-item">
+  <a class="side-item__thumb" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% else %}<span class="placeholder"></span>{% endif %}
+  </a>
+  <div>
+    <a class="pill pill--sm" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
+    <a class="side-item__title" href="{{ item.url }}">{{ item.data.title }}</a>
+  </div>
+</li>

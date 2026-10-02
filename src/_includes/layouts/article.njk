@@ -2,9 +2,9 @@
 layout: layouts/base.njk
 ---
 {% set cat = category | kategoria(site.categories) %}
-<article class="article" style="--cat: {{ cat.color }}">
+<article class="article">
   <header class="article__head">
-    <a class="tag" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
+    <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
     <h1>{{ title }}</h1>
     <p class="article__lead">{{ excerpt }}</p>
     <p class="meta">
@@ -18,7 +18,7 @@ layout: layouts/base.njk
       <img src="{{ image }}" alt="{{ imageAlt }}">
       {% if imageCredit %}<figcaption>Kuva: {{ imageCredit }}</figcaption>{% endif %}
     {% else %}
-      <span class="card__placeholder card__placeholder--big">{{ cat.name }}</span>
+      <span class="placeholder"></span>
     {% endif %}
   </figure>
   <div class="prose">
@@ -35,7 +35,7 @@ layout: layouts/base.njk
 
 {% set related = collections.artikkelit | kategoriassa(category) | ilman(page.url) | alku(3) %}
 {% if related.length %}
-<section class="section" style="--cat: {{ cat.color }}">
+<section class="section">
   <h2 class="section__title">Lisää aiheesta: {{ cat.name }}</h2>
   <div class="grid grid--3">
     {% for item in related %}{% include "partials/card.njk" %}{% endfor %}
