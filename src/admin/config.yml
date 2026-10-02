@@ -29,10 +29,10 @@ collections:
         name: category
         widget: select
         options:
-          - { label: Elokuvat, value: elokuvat }
-          - { label: "TV & sarjat", value: sarjat }
+          - { label: Leffat, value: elokuvat }
+          - { label: Sarjat, value: sarjat }
           - { label: Musiikki, value: musiikki }
-          - { label: Julkkikset, value: julkkikset }
+          - { label: Tähdet, value: julkkikset }
           - { label: Pelit, value: pelit }
       - { label: Toimittaja, name: author, widget: string, default: Toimitus }
       - { label: Pääkuva, name: image, widget: image, required: false }

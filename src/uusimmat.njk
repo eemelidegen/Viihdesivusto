@@ -1,0 +1,11 @@
+---
+layout: layouts/base.njk
+title: Uusimmat
+---
+<header class="page-head">
+  <h1>Uusimmat</h1>
+</header>
+<div class="grid grid--3">
+  {% set cardClass = "" %}{% set showExcerpt = true %}
+  {% for item in collections.artikkelit %}{% include "partials/card.njk" %}{% endfor %}
+</div>

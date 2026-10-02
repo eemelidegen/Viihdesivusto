@@ -17,25 +17,28 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="/feed.xml">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&display=swap">
   <link rel="stylesheet" href="/assets/css/style.css">
   {% block head %}{% endblock %}
 </head>
 <body>
   <a class="skip" href="#main">Siirry sisältöön</a>
   <header class="masthead">
-    <div class="wrap masthead__top">
+    <div class="wrap masthead__bar">
       <a class="logo" href="/"><span class="logo__dot"></span>{{ site.name }}</a>
-      <p class="masthead__tagline">{{ site.tagline }}</p>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Valikko</button>
+      <nav class="nav" aria-label="Päävalikko">
+        <ul class="nav__list">
+          <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Etusivu</a></li>
+          <li><a href="/uusimmat/" {% if page.url == "/uusimmat/" %}aria-current="page"{% endif %}>Uusimmat</a></li>
+          {% for c in site.categories %}
+          <li><a href="/kategoria/{{ c.slug }}/" style="--cat: {{ c.color }}" {% if page.url == "/kategoria/" + c.slug + "/" %}aria-current="page"{% endif %}>{{ c.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <a class="tip-btn" href="/vinkkaa/">Vinkkaa</a>
     </div>
-    <nav id="nav" class="nav" aria-label="Kategoriat">
-      <ul class="wrap nav__list">
-        <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Etusivu</a></li>
-        {% for c in site.categories %}
-        <li><a href="/kategoria/{{ c.slug }}/" style="--cat: {{ c.color }}" {% if page.url == "/kategoria/" + c.slug + "/" %}aria-current="page"{% endif %}>{{ c.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
   </header>
 
   <main id="main" class="wrap">
@@ -55,6 +58,7 @@
       <div>
         <h2>Toimitus</h2>
         <ul>
+          <li><a href="/vinkkaa/">Vinkkaa juttuaihe</a></li>
           <li><a href="/tietoa/">Tietoa meistä &amp; julkaisutiedot</a></li>
           <li><a href="/tietosuoja/">Tietosuojaseloste</a></li>
           {% if site.email %}<li><a href="mailto:{{ site.email }}">Vinkki toimitukselle</a></li>{% endif %}

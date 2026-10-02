@@ -9,12 +9,12 @@
   "categories": [
     {
       "slug": "elokuvat",
-      "name": "Elokuvat",
+      "name": "Leffat",
       "color": "#e4572e"
     },
     {
       "slug": "sarjat",
-      "name": "TV & sarjat",
+      "name": "Sarjat",
       "color": "#6c4ed9"
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       "slug": "julkkikset",
-      "name": "Julkkikset",
+      "name": "Tähdet",
       "color": "#d81e5b"
     },
     {
