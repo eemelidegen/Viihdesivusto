@@ -31,12 +31,12 @@ npm run build    # valmis sivusto kansioon _site/
 title: Otsikko
 excerpt: Ingressi, 1–2 lausetta.
 date: 2026-10-05T09:00:00+03:00
-category: elokuvat        # elokuvat | sarjat | musiikki | julkkikset | pelit
+category: julkkikset      # elokuvat | sarjat | musiikki | julkkikset | pelit
 author: Nimi
 image: /assets/img/uploads/kuva.jpg   # valinnainen
 imageAlt: Kuvan kuvaus
 imageCredit: Kuvaaja / lähde
-nosto: true               # valinnainen: näkyy sivupalkin "Suositut jutut" -listassa
+nosto: true               # valinnainen: näkyy "Suositut jutut" -listassa ja Luetuimmat-sivulla
 draft: true               # valinnainen: ei julkaista
 ---
 Jutun teksti tähän.

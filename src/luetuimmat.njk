@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+title: Luetuimmat
+---
+<header class="page-head">
+  <h1>Luetuimmat</h1>
+</header>
+{# Until visitor analytics is connected, this lists stories marked "nosto". #}
+{% set picks = collections.artikkelit | nostot | alku(30) %}
+{% if picks.length %}
+<div class="grid grid--3">
+  {% set cardClass = "" %}{% set showExcerpt = false %}
+  {% for item in picks %}{% include "partials/card.njk" %}{% endfor %}
+</div>
+{% else %}
+<p>Ensimmäiset jutut ovat tulossa pian.</p>
+{% endif %}

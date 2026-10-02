@@ -33,12 +33,12 @@ collections:
           - { label: Leffat, value: elokuvat }
           - { label: Sarjat, value: sarjat }
           - { label: Musiikki, value: musiikki }
-          - { label: Tähdet, value: julkkikset }
+          - { label: Julkkikset, value: julkkikset }
           - { label: Pelit, value: pelit }
       - { label: Toimittaja, name: author, widget: string, default: Toimitus }
       - { label: Pääkuva, name: image, widget: image, required: false }
       - { label: Kuvan kuvaus (saavutettavuus), name: imageAlt, widget: string, required: false }
       - { label: Kuvaaja / kuvan lähde, name: imageCredit, widget: string, required: false }
-      - { label: "Toimitus suosittelee -nosto", name: nosto, widget: boolean, default: false, required: false }
+      - { label: "Nosto (Suositut jutut & Luetuimmat)", name: nosto, widget: boolean, default: false, required: false }
       - { label: Luonnos (ei julkaista), name: draft, widget: boolean, default: false, required: false }
       - { label: Teksti, name: body, widget: markdown }
