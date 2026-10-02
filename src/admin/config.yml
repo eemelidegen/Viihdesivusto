@@ -4,7 +4,6 @@ backend:
   name: github
   repo: eemelidegen/Viihdesivusto
   branch: main
-  base_url: https://valokeila.pages.dev
   auth_endpoint: api/auth
 
 # Paikallinen testaus: aja `npx decap-server` ja avaa http://localhost:8080/admin/

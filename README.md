@@ -58,16 +58,16 @@ Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` j
 
 1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
    - Application name: `Valokeila CMS`
-   - Homepage URL: `https://valokeila.pages.dev`
-   - Authorization callback URL: `https://valokeila.pages.dev/api/callback`
+   - Homepage URL: `https://valokeila.net`
+   - Redirect URI: `https://valokeila.net/api/callback` (ja tarvittaessa `https://valokeila.pages.dev/api/callback`)
    - Paina *Register application*, kopioi **Client ID**, paina *Generate a new client secret* ja kopioi **Client secret**.
 2. **Cloudflare → Workers & Pages → valokeila → Settings → Variables and Secrets** (Production):
    - `GITHUB_CLIENT_ID` = Client ID
    - `GITHUB_CLIENT_SECRET` = Client secret (tyypiksi *Secret*)
 3. Tee uusi julkaisu (Deployments → Retry deployment), jotta asetukset tulevat voimaan.
-4. Avaa `https://valokeila.pages.dev/admin/` ja kirjaudu GitHubilla.
+4. Avaa `https://valokeila.net/admin/` ja kirjaudu GitHubilla.
 
-Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Jos vaihdat verkkotunnusta, päivitä osoite sekä OAuth-sovellukseen että `src/admin/config.yml`:n kohtaan `base_url`.
+Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `valokeila.net` tai `valokeila.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
 
 ## Uutiskirje (MailerLite)
 
