@@ -10,7 +10,8 @@
     @font-face { font-family: "Anton"; font-weight: 400; font-display: block; src: url("/assets/fonts/anton-400.woff2") format("woff2"); }
     @font-face { font-family: "Roboto Condensed"; font-weight: 800; font-display: block; src: url("/assets/fonts/roboto-condensed-800.woff2") format("woff2"); }
     @font-face { font-family: "Fira Sans Condensed"; font-weight: 700; font-display: block; src: url("/assets/fonts/fira-sans-condensed-700.woff2") format("woff2"); }
-    @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
+    @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: block; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
+    @font-face { font-family: "Barlow Condensed"; font-weight: 800; font-display: block; src: url("/assets/fonts/barlow-condensed-800.woff2") format("woff2"); }
     :root { --accent: #ff3d57; --line: #e4e1da; --muted: #6b6873; }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
@@ -19,35 +20,50 @@
     header b { font: 400 28px/1 Anton, Impact, sans-serif; letter-spacing: .02em; }
     header span { font: 700 18px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; color: #b5b2bb; }
     header a { margin-left: auto; color: #fff; font-size: 14px; }
-    main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: start; }
+    main { max-width: 1140px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 28px; align-items: start; }
     .preview { position: sticky; top: 16px; display: grid; place-items: center; }
-    canvas { width: 100%; max-width: 560px; height: auto; display: block; box-shadow: 0 10px 40px rgba(0,0,0,.18); background: #222; touch-action: none; cursor: grab; }
+    canvas { width: 100%; max-width: 560px; max-height: 80vh; object-fit: contain; height: auto; display: block; box-shadow: 0 10px 40px rgba(0,0,0,.18); background: #222; touch-action: none; cursor: grab; }
+    canvas.dragover { outline: 4px dashed var(--accent); outline-offset: 4px; }
     .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; text-align: center; }
-    form { background: #fff; border-radius: 10px; padding: 20px; display: grid; gap: 18px; }
+    form { display: grid; gap: 12px; }
+    details { background: #fff; border-radius: 10px; }
+    summary { padding: 14px 18px; font: 700 20px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 22px; }
+    details[open] summary::after { content: "–"; }
+    .group { padding: 0 18px 18px; display: grid; gap: 16px; }
     label { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
     small { font-weight: 400; color: var(--muted); }
-    textarea, select, input[type=file] { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; background: #fff; }
-    textarea { min-height: 96px; resize: vertical; }
+    textarea, select, input[type=file], input[type=text] { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; background: #fff; }
+    textarea { min-height: 90px; resize: vertical; }
     input[type=range] { width: 100%; accent-color: var(--accent); }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .colors { display: flex; gap: 8px; flex-wrap: wrap; }
+    .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+    .seg button, .chips button { flex: 1 1 auto; padding: 8px 10px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font: 600 14px/1.2 system-ui, sans-serif; color: #16151a; }
+    .seg button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips button { flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; font: 700 14px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; }
+    .colors { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .colors button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; }
     .colors button[aria-pressed="true"] { border-color: #000; }
-    .actions { display: grid; gap: 10px; }
-    .btn { font: 700 20px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
-    .btn--ghost { background: #000; }
-    .btn[hidden] { display: none; }
+    .colors input[type=color] { width: 40px; height: 36px; border: 0; padding: 0; background: none; cursor: pointer; }
+    .fonts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .fonts button { padding: 10px 6px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 20px; line-height: 1.1; color: #16151a; }
+    .fonts button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
+    .fonts small { display: block; font: 400 11px/1.3 system-ui, sans-serif; color: var(--muted); margin-top: 4px; }
     .switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 14px; cursor: pointer; }
     .switch input { appearance: none; width: 52px; height: 30px; border-radius: 999px; background: #ccc; position: relative; cursor: pointer; transition: background .2s; flex-shrink: 0; margin: 0; }
     .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
     .switch input:checked { background: var(--accent); }
     .switch input:checked::after { transform: translateX(22px); }
-    .fonts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .fonts button { padding: 10px 6px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 20px; line-height: 1.1; color: #16151a; }
-    .fonts button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
-    .fonts small { display: block; font: 400 11px/1.3 system-ui, sans-serif; color: var(--muted); margin-top: 4px; }
+    .sub { display: grid; gap: 12px; padding: 12px; border-radius: 8px; background: #f7f6f3; }
+    .sub b { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .actions { background: #fff; border-radius: 10px; padding: 18px; display: grid; gap: 10px; }
+    .btn { font: 700 20px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
+    .btn--ghost { background: #000; }
+    .btn--plain { background: none; color: var(--muted); font-size: 16px; padding: 6px; text-decoration: underline; }
     .rights { font-size: 12px; color: var(--muted); margin: 0; }
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       main { grid-template-columns: 1fr; }
       .preview { position: static; }
     }
@@ -58,73 +74,166 @@
   <main>
     <div class="preview">
       <canvas id="canvas" width="1080" height="1350" aria-label="Somekuvan esikatselu"></canvas>
-      <p class="hint">Vedä kuvaa siirtääksesi sitä.</p>
+      <p class="hint">Vedä kuvaa siirtääksesi sitä · nipistä tai rullaa zoomataksesi · voit myös pudottaa tai liittää (Ctrl+V) kuvan tähän</p>
     </div>
 
     <form id="form" onsubmit="return false">
-      <label>Kuva
-        <input id="file" type="file" accept="image/*">
-      </label>
-
-      <label>Otsikko <small>Korosta sanoja tähdillä: *näin*</small>
-        <textarea id="title">*Kohu* roihahti somessa – näin julkkis vastaa nyt</textarea>
-      </label>
-
-      <div>
-        <span style="font-weight:600;font-size:14px">Fontti</span>
-        <div class="fonts" id="fonts" style="margin-top:6px">
-          <button type="button" data-font="anton" aria-pressed="true" style="font-family:Anton">Anton<small>Valokeila</small></button>
-          <button type="button" data-font="roboto" aria-pressed="false" style="font-family:'Roboto Condensed';font-weight:800">Roboto<small>Tiivis groteski</small></button>
-          <button type="button" data-font="fira" aria-pressed="false" style="font-family:'Fira Sans Condensed';font-weight:700">Fira Sans<small>Pehmeä</small></button>
+      <details open>
+        <summary>Kuvat</summary>
+        <div class="group">
+          <div>
+            <span style="font-weight:600;font-size:14px">Asettelu</span>
+            <div class="seg" data-key="layout" style="margin-top:6px">
+              <button type="button" data-value="single">Yksi kuva</button>
+              <button type="button" data-value="side">Rinnakkain</button>
+              <button type="button" data-value="stack">Päällekkäin</button>
+            </div>
+          </div>
+          <div class="sub">
+            <b id="panel0Title">Kuva</b>
+            <input type="file" accept="image/*" data-panel="0">
+            <label>Zoomaus <input type="range" min="1" max="4" step="0.01" value="1" data-zoom="0"></label>
+          </div>
+          <div class="sub" id="panel1Box">
+            <b>Kuva 2</b>
+            <input type="file" accept="image/*" data-panel="1">
+            <label>Zoomaus <input type="range" min="1" max="4" step="0.01" value="1" data-zoom="1"></label>
+          </div>
+          <div id="filterControls" class="group" style="padding:0">
+            <div class="row">
+              <label>Kirkkaus <input id="brightness" type="range" min="60" max="140" value="100"></label>
+              <label>Kontrasti <input id="contrast" type="range" min="60" max="160" value="100"></label>
+            </div>
+            <label class="switch">Mustavalkoinen <input id="gray" type="checkbox"></label>
+          </div>
+          <label class="switch">Peilaa kuva <input id="flip" type="checkbox"></label>
         </div>
-      </div>
+      </details>
 
-      <label class="switch">ISOT KIRJAIMET
-        <input id="upper" type="checkbox">
-      </label>
-
-      <label>Koko
-        <select id="format">
-          <option value="1080x1350">4:5 · Facebook / Instagram</option>
-          <option value="1080x1080">1:1 · Neliö</option>
-          <option value="1080x1920">9:16 · Story / TikTok</option>
-          <option value="1200x630">Linkkikuva</option>
-        </select>
-      </label>
-
-      <label class="switch">Valokeila-logo kuvassa
-        <input id="showLogo" type="checkbox" checked>
-      </label>
-      <label id="logoPosLabel">Logon paikka
-        <select id="logo">
-          <option value="top">Otsikon yllä</option>
-          <option value="corner">Vasemmassa yläkulmassa</option>
-        </select>
-      </label>
-
-      <label>Korostusväri
-        <div class="colors" id="colors">
-          <button type="button" style="background:#ff3d57" data-color="#ff3d57" aria-label="Punainen" aria-pressed="true"></button>
-          <button type="button" style="background:#ffd400" data-color="#ffd400" aria-label="Keltainen" aria-pressed="false"></button>
-          <button type="button" style="background:#3d8bff" data-color="#3d8bff" aria-label="Sininen" aria-pressed="false"></button>
-          <button type="button" style="background:#ff6ec7" data-color="#ff6ec7" aria-label="Pinkki" aria-pressed="false"></button>
-          <button type="button" style="background:#2ee59d" data-color="#2ee59d" aria-label="Vihreä" aria-pressed="false"></button>
+      <details open>
+        <summary>Teksti</summary>
+        <div class="group">
+          <label>Otsikko <small>Korosta sanoja tähdillä: *näin*</small>
+            <textarea id="title">*Kohu* roihahti somessa – näin julkkis vastaa nyt</textarea>
+          </label>
+          <label>Yläotsikko / tarra <small>Jätä tyhjäksi, jos et halua</small>
+            <input id="badge" type="text" maxlength="30" placeholder="esim. KOHU">
+          </label>
+          <div class="chips" id="badgeChips">
+            <button type="button">Kohu</button><button type="button">Kuvat</button><button type="button">Video</button><button type="button">Yllätys</button><button type="button">Haastattelu</button><button type="button">Nyt</button><button type="button">Eksklusiivinen</button>
+          </div>
+          <div>
+            <span style="font-weight:600;font-size:14px">Fontti</span>
+            <div class="fonts" data-key="font" style="margin-top:6px">
+              <button type="button" data-value="anton" style="font-family:Anton">Anton<small>Valokeila</small></button>
+              <button type="button" data-value="roboto" style="font-family:'Roboto Condensed';font-weight:800">Roboto<small>Tiivis groteski</small></button>
+              <button type="button" data-value="fira" style="font-family:'Fira Sans Condensed';font-weight:700">Fira Sans<small>Pehmeä</small></button>
+            </div>
+          </div>
+          <label class="switch">ISOT KIRJAIMET <input id="upper" type="checkbox"></label>
+          <label>Tekstin koko <input id="textSize" type="range" min="60" max="130" value="100"></label>
+          <div>
+            <span style="font-weight:600;font-size:14px">Sijainti</span>
+            <div class="seg" data-key="textPos" style="margin-top:6px">
+              <button type="button" data-value="bottom">Alhaalla</button>
+              <button type="button" data-value="middle">Keskellä</button>
+              <button type="button" data-value="top">Ylhäällä</button>
+            </div>
+          </div>
+          <div>
+            <span style="font-weight:600;font-size:14px">Tasaus</span>
+            <div class="seg" data-key="align" style="margin-top:6px">
+              <button type="button" data-value="center">Keskitetty</button>
+              <button type="button" data-value="left">Vasen</button>
+            </div>
+          </div>
+          <div>
+            <span style="font-weight:600;font-size:14px">Korostustyyli</span>
+            <div class="seg" data-key="hlStyle" style="margin-top:6px">
+              <button type="button" data-value="color">Väri</button>
+              <button type="button" data-value="box">Laatikko</button>
+              <button type="button" data-value="underline">Alleviivaus</button>
+            </div>
+          </div>
+          <label>Korostusväri
+            <div class="colors" id="colors">
+              <button type="button" style="background:#ff3d57" data-color="#ff3d57" aria-label="Punainen"></button>
+              <button type="button" style="background:#ffd400" data-color="#ffd400" aria-label="Keltainen"></button>
+              <button type="button" style="background:#3d8bff" data-color="#3d8bff" aria-label="Sininen"></button>
+              <button type="button" style="background:#ff6ec7" data-color="#ff6ec7" aria-label="Pinkki"></button>
+              <button type="button" style="background:#2ee59d" data-color="#2ee59d" aria-label="Vihreä"></button>
+              <button type="button" style="background:#ffffff;box-shadow:inset 0 0 0 1px #ccc" data-color="#ffffff" aria-label="Valkoinen"></button>
+              <input id="customColor" type="color" value="#ff3d57" aria-label="Oma väri" title="Oma väri">
+            </div>
+          </label>
         </div>
-      </label>
+      </details>
 
-      <label>Zoomaus
-        <input id="zoom" type="range" min="1" max="3" step="0.01" value="1">
-      </label>
+      <details>
+        <summary>Tyyli ja koko</summary>
+        <div class="group">
+          <label>Koko
+            <select id="format">
+              <option value="1080x1350">4:5 · Facebook / Instagram</option>
+              <option value="1080x1080">1:1 · Neliö</option>
+              <option value="1080x1920">9:16 · Story / TikTok / Reels</option>
+              <option value="1600x900">16:9 · X / YouTube</option>
+              <option value="1200x630">Linkkikuva (1,91:1)</option>
+            </select>
+          </label>
+          <div>
+            <span style="font-weight:600;font-size:14px">Tummennus</span>
+            <div class="seg" data-key="shadeStyle" style="margin-top:6px">
+              <button type="button" data-value="gradient">Liukuva</button>
+              <button type="button" data-value="full">Koko kuva</button>
+              <button type="button" data-value="none">Ei</button>
+            </div>
+          </div>
+          <label>Tummennuksen määrä <input id="shade" type="range" min="0.2" max="0.9" step="0.01" value="0.5"></label>
+          <div>
+            <span style="font-weight:600;font-size:14px">Kehys</span>
+            <div class="seg" data-key="frame" style="margin-top:6px">
+              <button type="button" data-value="none">Ei</button>
+              <button type="button" data-value="accent">Korostusväri</button>
+              <button type="button" data-value="white">Valkoinen</button>
+              <button type="button" data-value="black">Musta</button>
+            </div>
+          </div>
+        </div>
+      </details>
 
-      <label>Tummennus
-        <input id="shade" type="range" min="0.3" max="0.8" step="0.01" value="0.5">
-      </label>
+      <details>
+        <summary>Logo ja kuvaaja</summary>
+        <div class="group">
+          <label class="switch">Valokeila-logo kuvassa <input id="showLogo" type="checkbox"></label>
+          <div id="logoPosBox">
+            <span style="font-weight:600;font-size:14px">Logon paikka</span>
+            <div class="seg" data-key="logoPos" style="margin-top:6px">
+              <button type="button" data-value="above">Otsikon yllä</button>
+              <button type="button" data-value="tl">Vasen yläkulma</button>
+              <button type="button" data-value="tr">Oikea yläkulma</button>
+            </div>
+          </div>
+          <label>Kuvaaja / lähde <small>Näkyy pienellä kuvan reunassa</small>
+            <input id="credit" type="text" maxlength="60" placeholder="esim. Kuva: MTV / Tiedotekuva">
+          </label>
+        </div>
+      </details>
 
       <div class="actions">
+        <div class="row">
+          <label>Tiedostomuoto
+            <select id="type">
+              <option value="image/jpeg">JPG (pienempi)</option>
+              <option value="image/png">PNG (tarkempi)</option>
+            </select>
+          </label>
+          <div style="display:grid;align-content:end"><button class="btn btn--plain" id="reset" type="button">Nollaa asetukset</button></div>
+        </div>
         <button class="btn" id="download" type="button">Lataa kuva</button>
         <button class="btn btn--ghost" id="share" type="button" hidden>Jaa / tallenna kuviin</button>
+        <p class="rights">Käytä vain kuvia, joihin sinulla on oikeus: omia kuvia, tiedotekuvia käyttöehtojen mukaan tai lisensoituja kuvapankkikuvia. Merkitse kuvaaja.</p>
       </div>
-      <p class="rights">Käytä vain kuvia, joihin sinulla on oikeus: omia kuvia, tiedotekuvia käyttöehtojen mukaan tai lisensoituja kuvapankkikuvia. Merkitse kuvaaja juttuun.</p>
     </form>
   </main>
 
@@ -132,16 +241,104 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const $ = (id) => document.getElementById(id);
-const state = { img: null, accent: "#ff3d57", panX: 0.5, panY: 0.3, font: "anton" };
-// Headline fonts: size scale and line height tuned so each fills the frame similarly.
+const STORE = "valokeila-somekuva";
+
 const FONTS = {
   anton:  { family: "Anton", weight: 400, scale: 1, lineHeight: 1.12 },
   roboto: { family: "Roboto Condensed", weight: 800, scale: 1, lineHeight: 1.02 },
   fira:   { family: "Fira Sans Condensed", weight: 700, scale: 0.9, lineHeight: 1.08 },
 };
-const fontCss = (size) => { const f = FONTS[state.font]; return `${f.weight} ${size}px "${f.family}"`; };
+const DEFAULTS = {
+  layout: "single", font: "anton", textPos: "bottom", align: "center", hlStyle: "color",
+  shadeStyle: "gradient", frame: "none", logoPos: "above", accent: "#ff3d57",
+  title: "*Kohu* roihahti somessa – näin julkkis vastaa nyt", badge: "", upper: false, textSize: 100,
+  format: "1080x1350", shade: 0.5, showLogo: true, credit: "", brightness: 100, contrast: 100, gray: false, flip: false, type: "image/jpeg",
+};
+const FIELDS = ["title", "badge", "upper", "textSize", "format", "shade", "showLogo", "credit", "brightness", "contrast", "gray", "flip", "type"];
+const SEGMENTS = ["layout", "font", "textPos", "align", "hlStyle", "shadeStyle", "frame", "logoPos"];
 
-// "*korostus* muu teksti" -> [{ text, hl }]
+const panels = [0, 1].map(() => ({ img: null, zoom: 1, panX: 0.5, panY: 0.3 }));
+let s = { ...DEFAULTS };
+
+// ---------- Settings: form <-> state, remembered between visits ----------
+function load() {
+  try { s = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(STORE) || "{}") }; } catch { s = { ...DEFAULTS }; }
+}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch {} }
+function syncForm() {
+  FIELDS.forEach((k) => { const el = $(k); if (el.type === "checkbox") el.checked = !!s[k]; else el.value = s[k]; });
+  SEGMENTS.forEach((k) => document.querySelectorAll(`[data-key="${k}"] button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === s[k]))));
+  document.querySelectorAll("#colors button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.color === s.accent)));
+  $("customColor").value = s.accent;
+  document.documentElement.style.setProperty("--accent", s.accent === "#ffffff" ? "#ff3d57" : s.accent);
+  $("panel1Box").hidden = s.layout === "single";
+  $("panel0Title").textContent = s.layout === "single" ? "Kuva" : "Kuva 1";
+  $("logoPosBox").hidden = !s.showLogo;
+}
+function update() { save(); syncForm(); render(); }
+
+FIELDS.forEach((k) => $(k).addEventListener("input", () => {
+  const el = $(k);
+  s[k] = el.type === "checkbox" ? el.checked : el.type === "range" ? Number(el.value) : el.value;
+  update();
+}));
+SEGMENTS.forEach((k) => document.querySelector(`[data-key="${k}"]`).addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  s[k] = b.dataset.value; update();
+}));
+$("colors").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; s.accent = b.dataset.color; update(); });
+$("customColor").addEventListener("input", (e) => { s.accent = e.target.value; update(); });
+$("badgeChips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; s.badge = b.textContent; update(); });
+$("reset").addEventListener("click", () => { s = { ...DEFAULTS }; panels.forEach((p) => Object.assign(p, { zoom: 1, panX: 0.5, panY: 0.3 })); document.querySelectorAll("[data-zoom]").forEach((z) => (z.value = 1)); update(); });
+
+// ---------- Images ----------
+function setImage(i, file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  const img = new Image();
+  img.onload = () => { Object.assign(panels[i], { img, zoom: 1, panX: 0.5, panY: 0.3 }); document.querySelector(`[data-zoom="${i}"]`).value = 1; render(); URL.revokeObjectURL(img.src); };
+  img.src = URL.createObjectURL(file);
+}
+// The next panel that still needs a photo (for drop and paste).
+const nextPanel = () => (s.layout !== "single" && panels[0].img && !panels[1].img ? 1 : 0);
+document.querySelectorAll("[data-panel]").forEach((input) => input.addEventListener("change", () => setImage(Number(input.dataset.panel), input.files[0])));
+document.querySelectorAll("[data-zoom]").forEach((r) => r.addEventListener("input", () => { panels[Number(r.dataset.zoom)].zoom = Number(r.value); render(); }));
+document.addEventListener("paste", (e) => { const f = [...(e.clipboardData?.files || [])].find((x) => x.type.startsWith("image/")); if (f) setImage(nextPanel(), f); });
+canvas.addEventListener("dragover", (e) => { e.preventDefault(); canvas.classList.add("dragover"); });
+canvas.addEventListener("dragleave", () => canvas.classList.remove("dragover"));
+canvas.addEventListener("drop", (e) => {
+  e.preventDefault(); canvas.classList.remove("dragover");
+  const files = [...e.dataTransfer.files].filter((f) => f.type.startsWith("image/"));
+  if (files.length > 1 && s.layout !== "single") { setImage(0, files[0]); setImage(1, files[1]); }
+  else if (files[0]) setImage(panelAt(e), files[0]);
+});
+
+// ---------- Layout ----------
+function geometry() {
+  const [W, H] = s.format.split("x").map(Number);
+  const frame = s.frame === "none" ? 0 : Math.round(Math.min(W, H) * 0.035);
+  const inner = { x: frame, y: frame, w: W - frame * 2, h: H - frame * 2 };
+  const gap = s.layout === "single" ? 0 : Math.round(Math.min(W, H) * 0.008);
+  let rects;
+  if (s.layout === "side") rects = [{ ...inner, w: (inner.w - gap) / 2 }, { ...inner, x: inner.x + (inner.w + gap) / 2, w: (inner.w - gap) / 2 }];
+  else if (s.layout === "stack") rects = [{ ...inner, h: (inner.h - gap) / 2 }, { ...inner, y: inner.y + (inner.h + gap) / 2, h: (inner.h - gap) / 2 }];
+  else rects = [inner];
+  return { W, H, frame, inner, rects };
+}
+function panelAt(e) {
+  const r = canvas.getBoundingClientRect();
+  const x = (e.clientX - r.left) * (canvas.width / r.width), y = (e.clientY - r.top) * (canvas.height / r.height);
+  const i = geometry().rects.findIndex((q) => x >= q.x && x <= q.x + q.w && y >= q.y && y <= q.y + q.h);
+  return Math.max(0, i);
+}
+
+// ---------- Drawing ----------
+// Older Safari lacks roundRect; a plain rectangle is fine there.
+if (!ctx.roundRect) CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
+const filterSupported = "filter" in ctx;
+if (!filterSupported) $("filterControls").hidden = true;
+const luminance = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
+const onAccent = () => (luminance(s.accent) > 0.6 ? "#000" : "#fff");
+
 function words(title) {
   const out = [];
   title.split(/(\*[^*]+\*)/).forEach((part) => {
@@ -150,11 +347,9 @@ function words(title) {
   });
   return out;
 }
-
 function wrap(list, maxWidth) {
   const space = ctx.measureText(" ").width;
-  const lines = [];
-  let line = [], width = 0;
+  const lines = []; let line = [], width = 0;
   for (const w of list) {
     const ww = ctx.measureText(w.text).width;
     if (line.length && width + space + ww > maxWidth) { lines.push({ words: line, width }); line = []; width = 0; }
@@ -165,128 +360,200 @@ function wrap(list, maxWidth) {
   return lines;
 }
 
-function drawImage(W, H) {
-  const img = state.img;
-  if (!img) {
-    const g = ctx.createLinearGradient(0, 0, W, H);
+function drawPanel(p, r) {
+  ctx.save();
+  ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip();
+  if (!p.img) {
+    const g = ctx.createLinearGradient(r.x, r.y, r.x + r.w, r.y + r.h);
     g.addColorStop(0, "#3b3943"); g.addColorStop(1, "#15141a");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    return;
+    ctx.fillStyle = g; ctx.fillRect(r.x, r.y, r.w, r.h);
+  } else {
+    if (filterSupported) ctx.filter = `brightness(${s.brightness}%) contrast(${s.contrast}%) grayscale(${s.gray ? 1 : 0})`;
+    const scale = Math.max(r.w / p.img.width, r.h / p.img.height) * p.zoom;
+    const dw = p.img.width * scale, dh = p.img.height * scale;
+    const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * p.panY;
+    if (s.flip) { ctx.translate(r.x * 2 + r.w, 0); ctx.scale(-1, 1); ctx.drawImage(p.img, r.x * 2 + r.w - dx - dw, dy, dw, dh); }
+    else ctx.drawImage(p.img, dx, dy, dw, dh);
   }
-  const scale = Math.max(W / img.width, H / img.height) * Number($("zoom").value);
-  const dw = img.width * scale, dh = img.height * scale;
-  ctx.drawImage(img, (W - dw) * state.panX, (H - dh) * state.panY, dw, dh);
+  ctx.restore();
 }
 
-function drawWordmark(x, y, size, align) {
+function drawShade(inner) {
+  if (s.shadeStyle === "none") return;
   ctx.save();
-  ctx.font = `400 ${size}px Anton`;
-  ctx.textAlign = align;
-  ctx.textBaseline = "alphabetic";
-  const text = "VALOKEILA";
-  const w = ctx.measureText(text).width;
-  const left = align === "center" ? x - w / 2 : x;
+  if (s.shadeStyle === "full") {
+    ctx.fillStyle = `rgba(0,0,0,${s.shade * 0.85})`;
+  } else {
+    const fromTop = s.textPos === "top";
+    const reach = inner.h * Math.min(1, s.shade + 0.15);
+    const y0 = fromTop ? inner.y + reach : inner.y + inner.h - reach;
+    const y1 = fromTop ? inner.y : inner.y + inner.h;
+    const g = ctx.createLinearGradient(0, y0, 0, y1);
+    g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.45, "rgba(0,0,0,.72)"); g.addColorStop(1, "rgba(0,0,0,.96)");
+    if (s.textPos === "middle") {
+      const m = ctx.createLinearGradient(0, inner.y, 0, inner.y + inner.h);
+      m.addColorStop(0, "rgba(0,0,0,0)"); m.addColorStop(0.5, `rgba(0,0,0,${0.35 + s.shade * 0.5})`); m.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = m;
+    } else ctx.fillStyle = g;
+  }
+  ctx.fillRect(inner.x, inner.y, inner.w, inner.h);
+  ctx.restore();
+}
+
+function wordmark(x, y, size, align) {
+  ctx.save();
+  ctx.font = `400 ${size}px Anton`; ctx.textAlign = align; ctx.textBaseline = "alphabetic";
+  const w = ctx.measureText("VALOKEILA").width;
+  const left = align === "center" ? x - w / 2 : align === "right" ? x - w : x;
   const g = ctx.createLinearGradient(left, y - size, left + w, y);
-  g.addColorStop(0, "#ffffff"); g.addColorStop(0.45, "#ffffff"); g.addColorStop(1, "#9a97a1");
-  ctx.fillStyle = g;
-  ctx.shadowColor = "rgba(0,0,0,.45)"; ctx.shadowBlur = size * 0.25;
-  ctx.fillText(text, x, y);
+  g.addColorStop(0, "#fff"); g.addColorStop(0.45, "#fff"); g.addColorStop(1, "#9a97a1");
+  ctx.fillStyle = g; ctx.shadowColor = "rgba(0,0,0,.45)"; ctx.shadowBlur = size * 0.25;
+  ctx.fillText("VALOKEILA", x, y);
   ctx.restore();
 }
 
 function render() {
-  const [W, H] = $("format").value.split("x").map(Number);
+  const { W, H, frame, inner, rects } = geometry();
   if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
   ctx.clearRect(0, 0, W, H);
-  drawImage(W, H);
+  if (frame) { ctx.fillStyle = { accent: s.accent, white: "#fff", black: "#000" }[s.frame]; ctx.fillRect(0, 0, W, H); }
+  if (s.layout !== "single") { ctx.fillStyle = frame ? ctx.fillStyle : "#000"; ctx.fillRect(inner.x, inner.y, inner.w, inner.h); }
+  rects.forEach((r, i) => drawPanel(panels[i], r));
+  drawShade(inner);
 
-  // Bottom shade so the headline stays readable on any photo.
-  const shade = Number($("shade").value);
-  const g = ctx.createLinearGradient(0, H * (1 - shade - 0.15), 0, H);
-  g.addColorStop(0, "rgba(0,0,0,0)");
-  g.addColorStop(0.45, "rgba(0,0,0,.72)");
-  g.addColorStop(1, "rgba(0,0,0,.96)");
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-
-  const wide = W / H > 1.4;
-  const pad = W * 0.07;
-  const maxWidth = W - pad * 2;
-  const raw = $("title").value;
-  const list = words($("upper").checked ? raw.toLocaleUpperCase("fi") : raw);
-  const font = FONTS[state.font];
-
-  // Largest font size that fits in at most 4 lines (3 for the wide link image).
+  const font = FONTS[s.font];
+  const wide = inner.w / inner.h > 1.4;
+  const pad = Math.min(inner.w, inner.h) * (wide ? 0.08 : 0.07);
+  const maxWidth = inner.w - pad * 2;
+  const list = words(s.upper ? s.title.toLocaleUpperCase("fi") : s.title);
   const maxLines = wide ? 3 : 4;
-  let size = (wide ? H * 0.14 : W * 0.105) * font.scale, lines = [];
-  for (; size > 20; size -= 2) {
-    ctx.font = fontCss(size);
-    lines = wrap(list, maxWidth);
-    if (lines.length <= maxLines) break;
-  }
-  const lineHeight = size * font.lineHeight;
-  const bottom = H - pad * (wide ? 0.8 : 1.1);
-  const top = bottom - lineHeight * (lines.length - 1);
+  let size = (wide ? inner.h * 0.14 : inner.w * 0.105) * font.scale * (s.textSize / 100), lines = [];
+  const fontCss = (px) => `${font.weight} ${px}px "${font.family}"`;
+  for (; size > 16; size -= 2) { ctx.font = fontCss(size); lines = wrap(list, maxWidth); if (lines.length <= maxLines) break; }
+  const lh = size * font.lineHeight;
 
-  ctx.font = fontCss(size);
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-  ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = size * 0.18;
+  // Optional pill above the headline.
+  const badgeText = s.badge.trim().toLocaleUpperCase("fi");
+  const badgeSize = size * 0.42;
+  const badgeH = badgeText ? badgeSize * 1.5 : 0;
+  const badgeGap = badgeText ? size * 0.3 : 0;
+  const logoAbove = s.showLogo && s.logoPos === "above";
+  const logoSize = size * 0.55;
+  const logoH = logoAbove ? logoSize * 1.25 : 0;
+
+  const textH = lh * (lines.length - 1) + size * 0.8;            // first line cap height to last baseline
+  const blockH = logoH + badgeH + badgeGap + textH;
+  let blockTop;
+  if (s.textPos === "top") blockTop = inner.y + pad + (s.showLogo && s.logoPos !== "above" ? W * 0.07 : 0);
+  else if (s.textPos === "middle") blockTop = inner.y + (inner.h - blockH) / 2;
+  else blockTop = inner.y + inner.h - pad * (wide ? 0.85 : 1.1) - blockH;
+
+  const ax = s.align === "center" ? inner.x + inner.w / 2 : inner.x + pad;
+  let y = blockTop;
+  if (logoAbove) { wordmark(ax, y + logoSize * 0.9, logoSize, s.align === "center" ? "center" : "left"); y += logoH; }
+
+  if (badgeText) {
+    ctx.save();
+    ctx.font = `800 ${badgeSize}px "Barlow Condensed"`;
+    const bw = ctx.measureText(badgeText).width + badgeSize * 1.1;
+    const bx = s.align === "center" ? ax - bw / 2 : ax;
+    ctx.fillStyle = s.accent;
+    ctx.beginPath(); ctx.roundRect(bx, y, bw, badgeH, badgeSize * 0.25); ctx.fill();
+    ctx.fillStyle = onAccent(); ctx.textBaseline = "middle"; ctx.textAlign = "center";
+    ctx.fillText(badgeText, bx + bw / 2, y + badgeH / 2 + badgeSize * 0.04);
+    ctx.restore();
+    y += badgeH + badgeGap;
+  }
+
+  const firstBaseline = y + size * 0.8;
+  ctx.font = fontCss(size); ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
   const space = ctx.measureText(" ").width;
   lines.forEach((line, i) => {
-    let x = (W - line.width) / 2;
-    const y = top + i * lineHeight;
+    let x = s.align === "center" ? ax - line.width / 2 : ax;
+    const by = firstBaseline + i * lh;
+    // Highlight boxes/underlines behind runs of marked words.
+    if (s.hlStyle !== "color") {
+      let runStart = null, runEnd = 0, cx = x;
+      const flush = () => {
+        if (runStart === null) return;
+        ctx.fillStyle = s.accent;
+        if (s.hlStyle === "box") { const p = size * 0.12; ctx.fillRect(runStart - p, by - size * 0.86, runEnd - runStart + p * 2, size * 1.04); }
+        else ctx.fillRect(runStart, by + size * 0.08, runEnd - runStart, size * 0.09);
+        runStart = null;
+      };
+      line.words.forEach((w) => { if (w.hl) { if (runStart === null) runStart = cx; runEnd = cx + w.width; } else flush(); cx += w.width + space; });
+      flush();
+    }
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = s.hlStyle === "box" ? 0 : size * 0.18;
     line.words.forEach((w) => {
-      ctx.fillStyle = w.hl ? state.accent : "#fff";
-      ctx.fillText(w.text, x, y);
+      ctx.fillStyle = !w.hl ? "#fff" : s.hlStyle === "color" ? s.accent : s.hlStyle === "box" ? onAccent() : "#fff";
+      ctx.fillText(w.text, x, by);
       x += w.width + space;
     });
+    ctx.restore();
   });
-  ctx.shadowBlur = 0;
 
-  const logo = $("showLogo").checked ? $("logo").value : "none";
-  if (logo === "top") drawWordmark(W / 2, top - size * 1.1, size * 0.62, "center");
-  if (logo === "corner") drawWordmark(pad * 0.7, pad * 0.7 + W * 0.05, W * 0.06, "left");
+  if (s.showLogo && s.logoPos === "tl") wordmark(inner.x + pad * 0.7, inner.y + pad * 0.7 + W * 0.05, W * 0.06, "left");
+  if (s.showLogo && s.logoPos === "tr") wordmark(inner.x + inner.w - pad * 0.7, inner.y + pad * 0.7 + W * 0.05, W * 0.06, "right");
+
+  if (s.credit.trim()) {
+    ctx.save();
+    const cs = Math.max(14, W * 0.017);
+    ctx.font = `700 ${cs}px "Barlow Condensed"`; ctx.fillStyle = "rgba(255,255,255,.85)";
+    ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = cs * 0.4;
+    ctx.translate(inner.x + inner.w - cs * 0.9, inner.y + inner.h / 2); ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(s.credit.trim(), 0, 0);
+    ctx.restore();
+  }
 }
 
-// Inputs
-["title", "format", "logo", "zoom", "shade", "upper"].forEach((id) => $(id).addEventListener("input", render));
-$("showLogo").addEventListener("input", () => { $("logoPosLabel").hidden = !$("showLogo").checked; render(); });
-$("fonts").addEventListener("click", (e) => {
-  const b = e.target.closest("button"); if (!b) return;
-  $("fonts").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-  state.font = b.dataset.font; render();
+// ---------- Drag to move, pinch / wheel to zoom ----------
+const pointers = new Map();
+let gesture = null;
+canvas.addEventListener("pointerdown", (e) => {
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  canvas.setPointerCapture(e.pointerId);
+  const i = panelAt(e), p = panels[i];
+  if (!p.img) return;
+  const pts = [...pointers.values()];
+  gesture = { i, panX: p.panX, panY: p.panY, zoom: p.zoom, start: pts.map((q) => ({ ...q })) };
 });
-$("colors").addEventListener("click", (e) => {
-  const b = e.target.closest("button"); if (!b) return;
-  $("colors").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-  state.accent = b.dataset.color; render();
-});
-$("file").addEventListener("change", () => {
-  const f = $("file").files[0]; if (!f) return;
-  const img = new Image();
-  img.onload = () => { state.img = img; state.panX = 0.5; state.panY = 0.3; $("zoom").value = 1; render(); URL.revokeObjectURL(img.src); };
-  img.src = URL.createObjectURL(f);
-});
-
-// Drag the photo to reposition it.
-let drag = null;
-canvas.addEventListener("pointerdown", (e) => { if (!state.img) return; drag = { x: e.clientX, y: e.clientY, px: state.panX, py: state.panY }; canvas.setPointerCapture(e.pointerId); });
 canvas.addEventListener("pointermove", (e) => {
-  if (!drag) return;
-  const rect = canvas.getBoundingClientRect();
-  state.panX = Math.min(1, Math.max(0, drag.px - (e.clientX - drag.x) / rect.width));
-  state.panY = Math.min(1, Math.max(0, drag.py - (e.clientY - drag.y) / rect.height));
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (!gesture) return;
+  const p = panels[gesture.i], pts = [...pointers.values()], r = canvas.getBoundingClientRect();
+  const rect = geometry().rects[gesture.i];
+  const sx = canvas.width / r.width, sy = canvas.height / r.height;
+  if (pts.length >= 2 && gesture.start.length >= 2) {
+    const d = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+    p.zoom = Math.min(4, Math.max(1, gesture.zoom * d(pts[0], pts[1]) / d(gesture.start[0], gesture.start[1])));
+    document.querySelector(`[data-zoom="${gesture.i}"]`).value = p.zoom;
+  } else {
+    const dx = (pts[0].x - gesture.start[0].x) * sx, dy = (pts[0].y - gesture.start[0].y) * sy;
+    p.panX = Math.min(1, Math.max(0, gesture.panX - dx / rect.w * (s.flip ? -1 : 1)));
+    p.panY = Math.min(1, Math.max(0, gesture.panY - dy / rect.h));
+  }
   render();
 });
-canvas.addEventListener("pointerup", () => (drag = null));
-canvas.addEventListener("pointercancel", () => (drag = null));
+const endPointer = (e) => { pointers.delete(e.pointerId); gesture = null; };
+canvas.addEventListener("pointerup", endPointer);
+canvas.addEventListener("pointercancel", endPointer);
+canvas.addEventListener("wheel", (e) => {
+  const i = panelAt(e), p = panels[i]; if (!p.img) return;
+  e.preventDefault();
+  p.zoom = Math.min(4, Math.max(1, p.zoom * (e.deltaY < 0 ? 1.06 : 1 / 1.06)));
+  document.querySelector(`[data-zoom="${i}"]`).value = p.zoom; render();
+}, { passive: false });
 
-// Export
+// ---------- Export ----------
 function fileName() {
-  const slug = $("title").value.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
-  return `valokeila-${slug || "somekuva"}.jpg`;
+  const slug = s.title.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
+  return `valokeila-${slug || "somekuva"}.${s.type === "image/png" ? "png" : "jpg"}`;
 }
-const toBlob = () => new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
+const toBlob = () => new Promise((resolve) => canvas.toBlob(resolve, s.type, 0.92));
 $("download").addEventListener("click", async () => {
   const url = URL.createObjectURL(await toBlob());
   const a = Object.assign(document.createElement("a"), { href: url, download: fileName() });
@@ -296,13 +563,14 @@ $("download").addEventListener("click", async () => {
 if (navigator.canShare && navigator.canShare({ files: [new File([""], "x.jpg", { type: "image/jpeg" })] })) {
   $("share").hidden = false;
   $("share").addEventListener("click", async () => {
-    const file = new File([await toBlob()], fileName(), { type: "image/jpeg" });
+    const file = new File([await toBlob()], fileName(), { type: s.type });
     try { await navigator.share({ files: [file] }); } catch {}
   });
 }
 
-Promise.all(Object.values(FONTS).map((f) => document.fonts.load(`${f.weight} 80px "${f.family}"`))).then(render, render);
-render();
+load(); syncForm(); render();
+Promise.all([...Object.values(FONTS).map((f) => `${f.weight} 80px "${f.family}"`), '800 40px "Barlow Condensed"', '700 40px "Barlow Condensed"']
+  .map((f) => document.fonts.load(f))).then(render, render);
 </script>
 </body>
 </html>
