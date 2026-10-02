@@ -7,7 +7,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 - Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suositut jutut" ja "Tuoreimmat jutut", uutiskirje ja mainospaikka
 - Kategoriasivut: Julkkikset ja Kohut
 - Artikkelisivu: lukuaika, jakonapit, aiheeseen liittyvät jutut, Googlen NewsArticle-merkintä
-- RSS-syöte (`/feed.xml`), sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
+- Sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
 - Tietoa meistä / julkaisutiedot ja tietosuojaselosteen pohja
 - Toimitustyökalu selaimessa: `/admin/` (Decap CMS)
 - Tumma tila ja mobiilinäkymä
