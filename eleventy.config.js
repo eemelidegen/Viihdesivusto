@@ -28,6 +28,25 @@ export default function (eleventyConfig) {
     return picked.length ? picked : articles;
   });
   eleventyConfig.addFilter("alku", (arr, n) => arr.slice(0, n));
+  // "Lue myös": two other stories, same category first.
+  eleventyConfig.addFilter("lueMyos", (articles, url, category) => {
+    const others = articles.filter((a) => a.url !== url);
+    return [...others.filter((a) => a.data.category === category), ...others.filter((a) => a.data.category !== category)].slice(0, 2);
+  });
+  // Insert a block after the middle top-level paragraph of an article body
+  // (not inside quotes or lists); short articles are left as they are.
+  eleventyConfig.addFilter("keskelle", (html, block) => {
+    if (!block || !html) return html;
+    const ends = [];
+    let depth = 0;
+    for (const m of html.matchAll(/<(\/?)(blockquote|ul|ol|table|figure|div|aside)\b[^>]*>|<\/p>/gi)) {
+      if (m[0].toLowerCase() === "</p>") { if (depth === 0) ends.push(m.index + 4); }
+      else depth += m[1] ? -1 : 1;
+    }
+    if (ends.length < 4) return html;
+    const at = ends[Math.floor(ends.length / 2) - 1];
+    return html.slice(0, at) + block + html.slice(at);
+  });
   eleventyConfig.addFilter("ohita", (arr, n) => arr.slice(n));
 
   // Newest first; drafts (draft: true) are excluded from listings and the build.

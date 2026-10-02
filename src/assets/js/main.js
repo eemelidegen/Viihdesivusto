@@ -55,3 +55,20 @@ document.querySelectorAll("[data-newsletter]").forEach((form) => {
     button.disabled = false;
   });
 });
+
+// Reading progress bar on article pages.
+const progress = document.querySelector(".read-progress");
+const body = document.querySelector(".article .prose");
+if (progress && body) {
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const top = body.getBoundingClientRect().top + scrollY - innerHeight * 0.3;
+    const end = top + body.offsetHeight - innerHeight * 0.4;
+    const p = Math.min(1, Math.max(0, (scrollY - top) / Math.max(1, end - top)));
+    progress.style.transform = `scaleX(${p})`;
+  };
+  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener("resize", update);
+  update();
+}

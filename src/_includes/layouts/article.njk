@@ -21,8 +21,21 @@ layout: layouts/base.njk
       <span class="placeholder"></span>
     {% endif %}
   </figure>
+  {% set picks = collections.artikkelit | lueMyos(page.url, category) %}
+  {% set lueMyosBox = "" %}
+  {% if picks.length %}{% set lueMyosBox %}
+    <aside class="read-also" aria-label="Lue myös">
+      <span class="read-also__label">Lue myös</span>
+      {% for item in picks %}
+      <a class="read-also__item" href="{{ item.url }}">
+        <span class="read-also__thumb">{% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% else %}<span class="placeholder"></span>{% endif %}</span>
+        <span class="read-also__title">{{ item.data.title }}</span>
+      </a>
+      {% endfor %}
+    </aside>
+  {% endset %}{% endif %}
   <div class="prose">
-    {{ content | safe }}
+    {{ content | keskelle(lueMyosBox) | safe }}
   </div>
   <footer class="article__foot">
     <span>Jaa:</span>
