@@ -18,7 +18,7 @@ layout: layouts/base.njk
     <h2 class="section__title">Uusimmat</h2>
     <div class="grid grid--2">
       {% set cardClass = "" %}{% set showExcerpt = true %}
-      {% for item in all | ohita(4) | alku(8) %}{% include "partials/card.njk" %}{% endfor %}
+      {% for item in all | ohita(4) | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
     </div>
   </section>
 
@@ -41,16 +41,3 @@ layout: layouts/base.njk
     <section class="box ad-slot" aria-label="Mainos">Mainospaikka 300×250</section>
   </aside>
 </div>
-
-{% for c in site.categories %}
-  {% set inCat = all | kategoriassa(c.slug) | alku(3) %}
-  {% if inCat.length %}
-  <section class="section" style="--cat: {{ c.color }}">
-    <h2 class="section__title section__title--cat"><a href="/kategoria/{{ c.slug }}/">{{ c.name }} →</a></h2>
-    <div class="grid grid--3">
-      {% set cardClass = "" %}{% set showExcerpt = false %}
-      {% for item in inCat %}{% include "partials/card.njk" %}{% endfor %}
-    </div>
-  </section>
-  {% endif %}
-{% endfor %}
