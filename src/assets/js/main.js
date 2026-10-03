@@ -61,3 +61,26 @@ if (progress && body) {
   nav?.addEventListener("scroll", atEnd, { passive: true });
   if (nav) atEnd();
 }
+
+// Menu (three lines): opens a panel with the theme switch and page links.
+{
+  const btn = document.querySelector(".menu-btn");
+  const menu = document.getElementById("menu");
+  if (btn && menu) {
+    const setOpen = (open) => { menu.hidden = !open; btn.setAttribute("aria-expanded", String(open)); };
+    btn.addEventListener("click", () => setOpen(menu.hidden));
+    document.addEventListener("click", (e) => { if (!menu.hidden && !menu.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { setOpen(false); btn.focus(); } });
+
+    // Light theme by default; the choice is remembered in this browser.
+    const theme = menu.querySelector(".menu__theme");
+    const sync = () => theme.setAttribute("aria-checked", String(document.documentElement.dataset.theme === "dark"));
+    theme.addEventListener("click", () => {
+      const dark = document.documentElement.dataset.theme !== "dark";
+      if (dark) document.documentElement.dataset.theme = "dark"; else delete document.documentElement.dataset.theme;
+      try { localStorage.setItem("hulina-teema", dark ? "dark" : "light"); } catch {}
+      sync();
+    });
+    sync();
+  }
+}

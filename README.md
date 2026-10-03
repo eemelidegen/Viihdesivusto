@@ -10,7 +10,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 - Sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
 - Tietoa meistä / julkaisutiedot ja tietosuojaselosteen pohja
 - Toimitustyökalu selaimessa: `/admin/` (oma kirjoitustyökalu, somekuvatyökalu; Decap CMS varalla)
-- Mobiilinäkymä
+- Vaalea ja tumma teema (valinta oikean yläkulman valikosta, muistetaan selaimessa) ja mobiilinäkymä
 
 ## Käynnistys omalla koneella
 
@@ -48,7 +48,7 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 
 ## Ilme
 
-- Värit: luumunvioletti `#2A1A4A` (ylä- ja alapalkki) ja pinkki `#FF8FB1` (logo, painikkeet, korostukset), vaalea pohja `#FBEFF4`
+- Värit: valkoinen pohja ja musta teksti (tumma teema: musta pohja ja valkoinen teksti), korostusvärinä pinkki `#FF8FB1`
 - Fontti: League Spartan (kaikki otsikot ja valikko), leipäteksti järjestelmäfontilla; tiedostot `src/assets/fonts/`. Logon kirjaimet ovat valmiina vektoreina, joten logo ei tarvitse fonttia.
 - Logo: `src/_includes/partials/logo.njk` (SVG, väri tulee CSS:stä), `src/assets/img/hulina-logo-*.svg` ja `favicon.svg`
 - Somekäyttöön tarkoitetut logot, profiilikuva ja kansikuva: `brand/`
