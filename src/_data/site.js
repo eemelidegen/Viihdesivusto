@@ -3,7 +3,7 @@
 export default {
   "name": "Hulina",
   "tagline": "Viihdettä, ilmiöitä ja puheenaiheita",
-  "description": "Julkkikset, juorut, urheilu ja kaikki mistä just nyt puhutaan, Suomesta ja maailmalta. Hulinasta kuulet ne ekana.",
+  "description": "Täältä löytyy kaikki mistä puhutaan. Julkkisten kuulumiset, mehukkaimmat juorut, urheilu ja uutiset niin Suomesta kuin maailmaltakin.",
   "url": "https://hulina.net",
   "lang": "fi",
   "email": "",
