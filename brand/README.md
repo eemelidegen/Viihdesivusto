@@ -1,19 +1,25 @@
-# Valokeilan logo
+# Hulinan brändi
 
-Kaksi versiota, joissa O-kirjaimen paikalla on symboli:
+Logo: vaaleanpunainen puhekupla, jonka sisällä on H ja kulmassa kolme "hälinäviivaa", sekä Hulina-sana. Kaikki tekstit on muutettu vektoripoluiksi, joten tiedostot toimivat ilman fontteja ja SVG:t skaalautuvat mihin kokoon tahansa.
 
-- `kohdevalo/` – VAL◎KEILA: rengas ja piste, valokeila ylhäältä katsottuna
-- `silma/` – VAL👁KEILA: silmä, "me näemme kaiken"
+**Värit**
 
-Punainen `#EE1C38` ja valkoinen. Teksti on muutettu vektoripoluiksi (Anton-fontti, SIL OFL), joten tiedostot toimivat ilman fonttia ja SVG:t skaalautuvat mihin kokoon tahansa.
-
-| Tiedosto | Käyttö |
+| | |
 |---|---|
-| `valokeila-profiilikuva` | Profiilikuva: TikTok, Instagram, Facebook (1080×1080) |
-| `valokeila-symboli` | Pelkkä symboli: pienet koot, vesileima, sovelluskuvake (1080×1080) |
-| `valokeila-fb-merkki` | Punainen laatta juttukuvien kulmaan (läpinäkyvä tausta) |
-| `valokeila-logo-valkoinen` | Pelkkä logo valkoisena tummien kuvien päälle |
-| `valokeila-logo-punainen` | Pelkkä logo punaisena vaaleille taustoille |
-| `valokeila-kansikuva` | Facebook-sivun kansikuva (1640×624) |
+| Luumunvioletti | `#2A1A4A` |
+| Pinkki | `#FF8FB1` |
+| Vaalea pohja (sivusto) | `#FBEFF4` |
 
-Kansio ei näy sivustolla.
+**Fontit** (SIL OFL): logo ja osioiden otsikot *Shrikhand*, juttujen otsikot ja valikot *League Spartan*.
+
+| Tiedosto (`hulina/`) | Käyttö |
+|---|---|
+| `hulina-profiilikuva` | Profiilikuva: TikTok, Instagram, Facebook (1080×1080, toimii pyöreänä) |
+| `hulina-symboli` | Pelkkä puhekupla: pienet koot, sovelluskuvake (1080×1080) |
+| `hulina-fb-merkki` | Violetti laatta logolla juttukuvien kulmaan |
+| `hulina-logo-pinkki` | Logo tummille taustoille (läpinäkyvä tausta) |
+| `hulina-logo-valkoinen` | Valkoinen logo kuvien päälle |
+| `hulina-logo-violetti` | Logo vaaleille taustoille |
+| `hulina-kansikuva` | Facebook-sivun kansikuva (1640×624) |
+
+Kansio ei näy sivustolla. Sivuston omat logotiedostot ovat `src/assets/img/` ja `src/_includes/partials/logo.njk`.

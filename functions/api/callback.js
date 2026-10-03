@@ -27,7 +27,7 @@ export async function onRequestGet({ request, env }) {
 async function exchangeCode(url, env, code) {
   const res = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json", "User-Agent": "valokeila-cms" },
+    headers: { Accept: "application/json", "Content-Type": "application/json", "User-Agent": "hulina-cms" },
     body: JSON.stringify({
       client_id: env.GITHUB_CLIENT_ID,
       client_secret: env.GITHUB_CLIENT_SECRET,
@@ -47,12 +47,12 @@ async function editorLogin(url, env, code, next) {
   if (!data.access_token) return page("GitHub ei palauttanut tunnusta. Yritä uudelleen.", 400, clearLogin);
 
   const gh = (path) => fetch(`https://api.github.com${path}`, {
-    headers: { Authorization: `Bearer ${data.access_token}`, Accept: "application/vnd.github+json", "User-Agent": "valokeila-cms" },
+    headers: { Authorization: `Bearer ${data.access_token}`, Accept: "application/vnd.github+json", "User-Agent": "hulina-cms" },
   }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   const [user, repo] = await Promise.all([gh("/user"), gh(`/repos/${repoName(env)}`)]);
 
   if (!user?.login || !repo?.permissions?.push) {
-    return page("Sinulla ei ole oikeutta tähän työkaluun. Kirjaudu GitHub-tunnuksella, jolla on kirjoitusoikeus Valokeilan repoon.", 403, clearLogin);
+    return page("Sinulla ei ole oikeutta tähän työkaluun. Kirjaudu GitHub-tunnuksella, jolla on kirjoitusoikeus Hulinan repoon.", 403, clearLogin);
   }
   const session = await createSession(env, user.login);
   const headers = new Headers({ Location: `${url.origin}${safeNext(next)}` });
@@ -65,7 +65,7 @@ async function editorLogin(url, env, code, next) {
 }
 
 function page(message, status, cookie) {
-  const html = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Valokeila</title>
+  const html = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hulina</title>
 <body style="font:18px/1.5 system-ui,sans-serif;max-width:560px;margin:15vh auto;padding:0 16px">
 <h1 style="font-size:28px">Kirjautuminen</h1><p>${message}</p><p><a href="/api/kirjaudu">Yritä uudelleen</a> · <a href="/">Etusivulle</a></p></body>`;
   return new Response(html, { status, headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": cookie } });

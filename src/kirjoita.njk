@@ -13,13 +13,14 @@ eleventyExcludeFromCollections: true
   <link rel="stylesheet" href="/assets/css/style.css">
   <style>
     [hidden] { display: none !important; }
-    body { background: #f0f0f0; }
-    .top { background: #000; color: #fff; position: sticky; top: 0; z-index: 10; }
+    body { background: var(--bg); }
+    .top { background: var(--plum); color: #fff; position: sticky; top: 0; z-index: 10; }
     .top__bar { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-    .top .logo { font-size: 30px; margin-right: 0; }
+    .top .logo { margin-right: 0; }
+    .top .logo svg { height: 40px; }
     .tabs2 { display: flex; gap: 4px; }
     .tabs2 button, .top a.link { background: none; border: 0; color: #cfcdd4; font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; padding: 8px 10px; cursor: pointer; text-decoration: none; border-bottom: 3px solid transparent; }
-    .tabs2 button[aria-selected="true"] { color: #fff; border-bottom-color: var(--accent); }
+    .tabs2 button[aria-selected="true"] { color: var(--pink); border-bottom-color: var(--pink); }
     .top .right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
     .top a.link:hover, .tabs2 button:hover { color: #fff; }
 
@@ -31,13 +32,13 @@ eleventyExcludeFromCollections: true
     .f small { font-weight: 400; color: var(--muted); }
     .f input[type=text], .f textarea { font: 16px/1.5 var(--font); padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; resize: vertical; background: #fff; color: var(--text); }
     .f textarea { overflow: hidden; }
-    #title { font: 400 30px/1.15 var(--headline); padding: 12px 14px; resize: none; }
+    #title { font: 800 28px/1.15 var(--headline); padding: 12px 14px; resize: none; }
     #body { min-height: 320px; font: 18px/1.65 var(--serif); }
     .seg2 { display: flex; gap: 8px; flex-wrap: wrap; }
     .seg2 button { flex: 1 1 0; min-width: 120px; padding: 12px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; color: var(--text); }
-    .seg2 button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .seg2 button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--plum); }
     .drop { border: 2px dashed var(--line); border-radius: 10px; padding: 22px; text-align: center; color: var(--muted); cursor: pointer; display: grid; gap: 8px; place-items: center; }
-    .drop.over { border-color: var(--accent); background: #fff5f6; }
+    .drop.over { border-color: var(--accent); background: var(--soft); }
     .drop b { color: var(--text); font: 800 20px/1 var(--display); text-transform: uppercase; }
     .imgbox { position: relative; border-radius: 10px; overflow: hidden; background: #111; }
     .imgbox img { display: block; width: 100%; max-height: 360px; object-fit: contain; }
@@ -45,7 +46,7 @@ eleventyExcludeFromCollections: true
     .mini { padding: 8px 12px; border: 0; border-radius: 6px; background: rgba(0,0,0,.75); color: #fff; font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; }
     .toolbar { display: flex; gap: 6px; flex-wrap: wrap; }
     .toolbar button { min-width: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 15px/1 var(--font); color: var(--text); }
-    .toolbar button:hover { border-color: #000; }
+    .toolbar button:hover { border-color: var(--plum); }
     .switch2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 600 15px/1.3 var(--font); cursor: pointer; }
     .switch2 small { display: block; font-weight: 400; color: var(--muted); }
     .switch2 input { appearance: none; width: 52px; height: 30px; border-radius: 999px; background: #ccc; position: relative; cursor: pointer; flex-shrink: 0; margin: 0; transition: background .2s; }
@@ -63,16 +64,16 @@ eleventyExcludeFromCollections: true
     .bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--line); z-index: 9; }
     .bar__in { max-width: 1240px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 10px; align-items: center; }
     .bar__status { flex: 1; color: var(--muted); font-size: 14px; }
-    .btn2 { padding: 14px 22px; border: 0; border-radius: 8px; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; background: var(--accent); color: #fff; }
+    .btn2 { padding: 14px 22px; border: 0; border-radius: 8px; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; background: var(--accent); color: var(--plum); }
     .btn2--ghost { background: #fff; color: var(--text); border: 2px solid var(--text); }
     .btn2:disabled { opacity: .5; cursor: wait; }
 
-    .done { background: #000; color: #fff; border-radius: 10px; padding: 22px; display: grid; gap: 12px; margin-bottom: 14px; }
+    .done { background: var(--plum); color: #fff; border-radius: 10px; padding: 22px; display: grid; gap: 12px; margin-bottom: 14px; }
     .done h2 { margin: 0; font: 400 32px/1.1 var(--headline); }
     .done p { margin: 0; color: #cfcdd4; }
     .done .row2 { display: flex; gap: 10px; flex-wrap: wrap; }
-    .done a, .done button { padding: 10px 16px; border-radius: 6px; border: 0; background: var(--accent); color: #fff; text-decoration: none; font: 800 17px/1 var(--display); text-transform: uppercase; cursor: pointer; }
-    .done .alt { background: #fff; color: #000; }
+    .done a, .done button { padding: 10px 16px; border-radius: 6px; border: 0; background: var(--accent); color: var(--plum); text-decoration: none; font: 800 17px/1 var(--display); text-transform: uppercase; cursor: pointer; }
+    .done .alt { background: #fff; color: var(--plum); }
     .error { background: #fff0f2; color: #a3112a; border-radius: 8px; padding: 12px 14px; font-weight: 600; }
 
     .list { display: grid; gap: 10px; }
@@ -81,20 +82,22 @@ eleventyExcludeFromCollections: true
     .item__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .item__title { font: 400 22px/1.15 var(--headline); margin: 0 0 6px; }
     .item__meta { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .tag2 { background: #ffd400; color: #000; font: 800 13px/1 var(--display); text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
+    .tag2 { background: #ffc94d; color: var(--plum); font: 800 13px/1 var(--display); text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
     .item__actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
     .item__actions a, .item__actions button { padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; color: var(--text); font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; text-decoration: none; }
-    .item__actions .primary { background: #000; color: #fff; border-color: #000; }
+    .item__actions .primary { background: var(--plum); color: #fff; border-color: var(--plum); }
     .item__actions .danger { color: #a3112a; }
     .empty2 { background: #fff; border-radius: 10px; padding: 32px; text-align: center; color: var(--muted); }
 
     .mobile-preview { display: none; }
     @media (max-width: 600px) {
       .top__bar { gap: 6px; padding: 8px 10px; flex-wrap: nowrap; }
-      .top .logo { font-size: 22px; }
-      .tabs2 button, .top a.link { font-size: 16px; padding: 8px 6px; }
+      .top .logo svg { height: 26px; }
+      .tabs2 { gap: 0; }
+      .tabs2 button, .top a.link { font-size: 13px; letter-spacing: 0; padding: 8px 5px; }
       .top .right { gap: 0; }
     }
+    @media (max-width: 340px) { .top .logo { display: none; } }
     @media (max-width: 900px) {
       .editor { grid-template-columns: 1fr; }
       .preview2 { position: static; max-height: none; display: none; }
@@ -110,7 +113,7 @@ eleventyExcludeFromCollections: true
 <body>
   <header class="top">
     <div class="top__bar">
-      <a class="logo" href="/" target="_blank" rel="noopener">{{ site.name }}</a>
+      {% set logoClass = "" %}{% include "partials/logo.njk" %}
       <div class="tabs2" role="tablist">
         <button type="button" role="tab" aria-selected="true" data-view="editor">Kirjoita</button>
         <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>

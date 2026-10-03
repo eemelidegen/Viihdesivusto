@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: Tietosuojaseloste
-description: Miten Valokeila käsittelee lukijoiden, uutiskirjeen tilaajien ja vinkkaajien henkilötietoja.
+description: Miten Hulina käsittelee lukijoiden, uutiskirjeen tilaajien ja vinkkaajien henkilötietoja.
 ---
 <div class="prose page">
 
