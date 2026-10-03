@@ -406,19 +406,19 @@ function drawShade(inner) {
   ctx.restore();
 }
 
-// The Hulina logo (pink bubble + wordmark). y is the wordmark's baseline,
-// size roughly the cap height of a matching text line.
+// The Hulina logo, stacked: speech bubble above the wordmark (same as the profile picture).
 const LOGO = new Image();
-LOGO.src = "/assets/img/hulina-logo-pinkki.svg";
+LOGO.src = "/assets/img/hulina-logo-pysty.svg";
 LOGO.onload = () => render();
-const LOGO_BOX = { w: 787.4, h: 224, baseline: 166 };   // viewBox size; baseline measured from the top
-function wordmark(x, y, size, align) {
+const LOGO_RATIO = 561.4 / 380;   // viewBox width / height
+// Draws the logo `h` pixels tall with its top edge at y; x is the left, centre or right edge per align.
+function wordmark(x, y, h, align) {
   if (!LOGO.complete || !LOGO.naturalWidth) return;
-  const h = size * 1.45, w = h * LOGO_BOX.w / LOGO_BOX.h;
+  const w = h * LOGO_RATIO;
   const left = align === "center" ? x - w / 2 : align === "right" ? x - w : x;
   ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,.4)"; ctx.shadowBlur = size * 0.2;
-  ctx.drawImage(LOGO, left, y - h * LOGO_BOX.baseline / LOGO_BOX.h, w, h);
+  ctx.shadowColor = "rgba(0,0,0,.4)"; ctx.shadowBlur = h * 0.08;
+  ctx.drawImage(LOGO, left, y, w, h);
   ctx.restore();
 }
 
@@ -448,19 +448,19 @@ function render() {
   const badgeH = badgeText ? badgeSize * 1.5 : 0;
   const badgeGap = badgeText ? size * 0.3 : 0;
   const logoAbove = s.showLogo && s.logoPos === "above";
-  const logoSize = size * 0.55;
-  const logoH = logoAbove ? logoSize * 1.25 : 0;
+  const logoSize = size * 1.9;                                      // stacked logo height
+  const logoH = logoAbove ? logoSize + size * 0.4 : 0;
 
   const textH = lh * (lines.length - 1) + size * 0.8;            // first line cap height to last baseline
   const blockH = logoH + badgeH + badgeGap + textH;
   let blockTop;
-  if (s.textPos === "top") blockTop = inner.y + pad + (s.showLogo && s.logoPos !== "above" ? W * 0.07 : 0);
+  if (s.textPos === "top") blockTop = inner.y + pad + (s.showLogo && s.logoPos !== "above" ? W * 0.18 : 0);
   else if (s.textPos === "middle") blockTop = inner.y + (inner.h - blockH) / 2;
   else blockTop = inner.y + inner.h - pad * (wide ? 0.85 : 1.1) - blockH;
 
   const ax = s.align === "center" ? inner.x + inner.w / 2 : inner.x + pad;
   let y = blockTop;
-  if (logoAbove) { wordmark(ax, y + logoSize * 0.9, logoSize, s.align === "center" ? "center" : "left"); y += logoH; }
+  if (logoAbove) { wordmark(ax, y, logoSize, s.align === "center" ? "center" : "left"); y += logoH; }
 
   if (badgeText) {
     ctx.save();
@@ -504,8 +504,8 @@ function render() {
     ctx.restore();
   });
 
-  if (s.showLogo && s.logoPos === "tl") wordmark(inner.x + pad * 0.7, inner.y + pad * 0.7 + W * 0.05, W * 0.06, "left");
-  if (s.showLogo && s.logoPos === "tr") wordmark(inner.x + inner.w - pad * 0.7, inner.y + pad * 0.7 + W * 0.05, W * 0.06, "right");
+  if (s.showLogo && s.logoPos === "tl") wordmark(inner.x + pad * 0.6, inner.y + pad * 0.6, W * 0.16, "left");
+  if (s.showLogo && s.logoPos === "tr") wordmark(inner.x + inner.w - pad * 0.6, inner.y + pad * 0.6, W * 0.16, "right");
 
   if (s.credit.trim()) {
     ctx.save();
