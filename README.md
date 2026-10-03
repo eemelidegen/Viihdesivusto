@@ -4,7 +4,7 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 
 ## Mitä sivustolla on
 
-- Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suositut jutut" ja "Tuoreimmat jutut", uutiskirje ja mainospaikka
+- Etusivu: iso pääjuttu ja juttuvirta (kaksi rinnakkain, joka kolmas leveänä); sivupalkissa välilehdet "Suositut jutut" ja "Tuoreimmat jutut" sekä mainospaikka
 - Kategoriasivut: Julkkikset, Kohut, Rikos ja Urheilu (valikko tulee suoraan `site.js`:n kategorioista)
 - Artikkelisivu: lukuaika, jakonapit, aiheeseen liittyvät jutut, Googlen NewsArticle-merkintä
 - Sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
@@ -80,43 +80,27 @@ Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` j
 1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
    - Application name: esim. `Hulina CMS` (nykyinen sovellus on nimeltään `Valokeila CMS`, nimellä ei ole merkitystä)
    - Homepage URL: `https://hulina.net`
-   - Redirect URI: `https://hulina.net/api/callback` (ja tarvittaessa `https://valokeila.pages.dev/api/callback`)
+   - Redirect URI: `https://hulina.net/api/callback` (ja `https://hulina.pages.dev/api/callback`)
    - Paina *Register application*, kopioi **Client ID**, paina *Generate a new client secret* ja kopioi **Client secret**.
-2. **Cloudflare → Workers & Pages → valokeila** (projektin nimi pysyy, vaikka sivun nimi vaihtui) **→ Settings → Variables and Secrets** (Production):
+2. **Cloudflare → Workers & Pages → hulina** **→ Settings → Variables and Secrets** (Production):
    - `GITHUB_CLIENT_ID` = Client ID
    - `GITHUB_CLIENT_SECRET` = Client secret (tyypiksi *Secret*)
 3. Tee uusi julkaisu (Deployments → Retry deployment), jotta asetukset tulevat voimaan.
 4. Avaa `https://hulina.net/admin/` ja kirjaudu GitHubilla. Koko `/admin/` vaatii kirjautumisen (`functions/admin/_middleware.js`).
 
-Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `hulina.net` tai `valokeila.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
+Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `hulina.net` tai `hulina.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
 
 ## Verkkotunnus
 
 Sivuston osoite on `hulina.net` (`url` tiedostossa `src/_data/site.js`). Vanhaa `valokeila.net`-osoitetta ei enää käytetä. Jos osoite vaihtuu joskus taas:
 
-1. Cloudflare → Workers & Pages → valokeila → **Custom domains → Set up a custom domain** ja lisää uusi osoite.
+1. Cloudflare → Workers & Pages → hulina → **Custom domains → Set up a custom domain** ja lisää uusi osoite.
 2. GitHub → OAuth App → lisää Redirect URI `https://<uusi-osoite>/api/callback`.
 3. Vaihda `url` tiedostossa `src/_data/site.js`.
-
-## Uutiskirje (MailerLite)
-
-Tilauslomake (sivupalkki ja `/uutiskirje/`) lähettää osoitteen funktiolle `functions/api/uutiskirje.js`, joka lisää sen MailerLiteen.
-
-1. Luo tili osoitteessa mailerlite.com.
-2. **Subscribers → Groups → Create group**, esim. `Hulina-uutiskirje`. Avaa ryhmä ja kopioi sen ID osoiteriviltä (numero).
-3. **Integrations → API → Generate new token**, kopioi avain.
-4. **Account settings → Subscribe settings:** ota käyttöön *Double opt-in for API and integrations* (tilaaja vahvistaa osoitteensa sähköpostista).
-5. Cloudflare → valokeila → Settings → Variables and Secrets:
-   - `MAILERLITE_API_KEY` = API-avain (tyypiksi *Secret*)
-   - `MAILERLITE_GROUP_ID` = ryhmän ID
-6. Julkaise uudelleen (Deployments → ⋯ → Retry deployment).
-
-Ennen kuin avain on asetettu, lomake kertoo, ettei tilaus ole vielä käytössä.
 
 ## Ennen julkaisua – tarkistuslista
 
 - [ ] Lisää toimituksen sähköposti `site.js`:iin (kenttä `email`) – yhteystietolinkit tulevat näkyviin automaattisesti
 - [ ] Lisää sähköposti, jotta tietosuojaselosteessa on yhteystieto. Päivitä seloste (`src/tietosuoja.md`), jos otat käyttöön analytiikan, mainokset tai upotukset.
-- [ ] Ota uutiskirje käyttöön (alla)
 - [ ] Lisää analytiikka (esim. Plausible) ja tarvittaessa evästeilmoitus
 - [ ] Rekisteröi sivusto Google Search Consoleen ja lähetä sivukartta

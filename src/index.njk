@@ -10,7 +10,7 @@ layout: layouts/base.njk
     {% else %}
       <div class="empty">
         <h1>Ensimmäiset jutut tulossa pian</h1>
-        <p>Kohta täällä on luettavaa julkkiksista, juoruista, urheilusta ja kaikesta mistä puhutaan. Tilaa uutiskirje, niin tiedät heti kun eka juttu tulee.</p>
+        <p>Kohta täällä on luettavaa julkkiksista, juoruista, urheilusta ja kaikesta mistä puhutaan. Käy pian uudestaan!</p>
       </div>
     {% endif %}
     {# Feed repeats: two stories side by side, then one full-width story. #}
@@ -34,11 +34,6 @@ layout: layouts/base.njk
     </ol>
     {% endif %}
 
-    <section class="box box--accent">
-      <h2 class="box__title">Tilaa uutiskirje</h2>
-      <p>Viikon kuumimmat viihdeuutiset suoraan sähköpostiisi.</p>
-      {% set formId = "sivupalkki" %}{% include "partials/newsletter-form.njk" %}
-    </section>
     <section class="box ad-slot" aria-label="Mainos">Mainospaikka 300×250</section>
   </aside>
 </div>
