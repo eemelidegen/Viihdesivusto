@@ -4,7 +4,7 @@ export default {
   "name": "Hulina",
   "tagline": "Viihdettä, ilmiöitä ja puheenaiheita",
   "description": "Hulina kertoo, mistä juuri nyt puhutaan: julkkisten kuulumiset, kohut, someilmiöt ja arjen sattumukset.",
-  "url": "https://valokeila.net",
+  "url": "https://hulina.net",
   "lang": "fi",
   "email": "",
   "publisher": "Hulina",

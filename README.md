@@ -79,25 +79,24 @@ Kirjautuminen tapahtuu GitHub-tunnuksilla. Koodi on kansiossa `functions/api/` j
 
 1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
    - Application name: esim. `Hulina CMS` (nykyinen sovellus on nimeltään `Valokeila CMS`, nimellä ei ole merkitystä)
-   - Homepage URL: `https://valokeila.net`
-   - Redirect URI: `https://valokeila.net/api/callback` (ja tarvittaessa `https://valokeila.pages.dev/api/callback`)
+   - Homepage URL: `https://hulina.net`
+   - Redirect URI: `https://hulina.net/api/callback` (ja tarvittaessa `https://valokeila.pages.dev/api/callback`)
    - Paina *Register application*, kopioi **Client ID**, paina *Generate a new client secret* ja kopioi **Client secret**.
 2. **Cloudflare → Workers & Pages → valokeila** (projektin nimi pysyy, vaikka sivun nimi vaihtui) **→ Settings → Variables and Secrets** (Production):
    - `GITHUB_CLIENT_ID` = Client ID
    - `GITHUB_CLIENT_SECRET` = Client secret (tyypiksi *Secret*)
 3. Tee uusi julkaisu (Deployments → Retry deployment), jotta asetukset tulevat voimaan.
-4. Avaa `https://valokeila.net/admin/` ja kirjaudu GitHubilla. Koko `/admin/` vaatii kirjautumisen (`functions/admin/_middleware.js`).
+4. Avaa `https://hulina.net/admin/` ja kirjaudu GitHubilla. Koko `/admin/` vaatii kirjautumisen (`functions/admin/_middleware.js`).
 
-Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `valokeila.net` tai `valokeila.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
+Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Julkaisutyökalu kirjautuu sen osoitteen kautta, jossa se on auki (esim. `hulina.net` tai `valokeila.pages.dev`). Jokaisen käytetyn osoitteen `/api/callback` pitää olla lisättynä OAuth-sovelluksen Redirect URI -listaan.
 
-## Verkkotunnuksen vaihto (esim. Hulina-domain)
+## Verkkotunnus
 
-Sivu toimii toistaiseksi osoitteessa `valokeila.net`. Jos otat käyttöön uuden verkkotunnuksen:
+Sivuston osoite on `hulina.net` (`url` tiedostossa `src/_data/site.js`). Vanha `valokeila.net` ohjataan uuteen osoitteeseen Cloudflaren Redirect Rules -säännöllä, jotta vanhat linkit toimivat. Jos osoite vaihtuu joskus taas:
 
 1. Cloudflare → Workers & Pages → valokeila → **Custom domains → Set up a custom domain** ja lisää uusi osoite.
-2. GitHub → OAuth App → lisää Redirect URI `https://<uusi-osoite>/api/callback` (vanhan voi jättää).
+2. GitHub → OAuth App → lisää Redirect URI `https://<uusi-osoite>/api/callback`.
 3. Vaihda `url` tiedostossa `src/_data/site.js`.
-4. Vanhan osoitteen voi ohjata uuteen Cloudflaren *Redirect Rules* -säännöllä, jotta vanhat linkit toimivat.
 
 ## Uutiskirje (MailerLite)
 
