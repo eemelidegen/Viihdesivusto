@@ -1,12 +1,13 @@
-# Valokeilan tunnukset
+# Valokeilan logo: VAL★KEILA
 
-Profiilikuvat ja tunnukset someen (1080×1080). SVG-tiedostot ovat vektoreita, joita voi käyttää missä koossa tahansa.
+Punainen `#EE1C38` ja valkoinen. Teksti on muutettu vektoripoluiksi (Anton-fontti, SIL OFL), joten tiedostot toimivat ilman fonttia ja SVG:t skaalautuvat mihin kokoon tahansa.
 
-| Tiedosto | Tunnus |
+| Tiedosto | Käyttö |
 |---|---|
-| `valokeila-maskotti` | Maskotti "Valo": silmää iskevä valonheitin |
-| `valokeila-tahti` | Tähti valokeilassa |
-| `valokeila-keila` | Näyttämön valonheitin ja valokeila |
-| `valokeila-silma` | Silmä, jonka iiriksessä on tähti |
+| `valokeila-profiilikuva` | Profiilikuva: TikTok, Instagram, Facebook (1080×1080) |
+| `valokeila-fb-merkki` | Punainen laatta juttukuvien kulmaan (läpinäkyvä tausta) |
+| `valokeila-logo-valkoinen` | Pelkkä logo valkoisena tummien kuvien päälle |
+| `valokeila-logo-punainen` | Pelkkä logo punaisena vaaleille taustoille |
+| `valokeila-kansikuva` | Facebook-sivun kansikuva (1640×624) |
 
 Kansio ei näy sivustolla.
