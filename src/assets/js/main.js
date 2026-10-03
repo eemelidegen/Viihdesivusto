@@ -72,3 +72,16 @@ if (progress && body) {
   addEventListener("resize", update);
   update();
 }
+
+// On small screens the menu scrolls sideways: bring the current section into view.
+{
+  const nav = document.querySelector(".nav");
+  const current = nav?.querySelector("[aria-current=page]");
+  if (current && nav.scrollWidth > nav.clientWidth) {
+    nav.scrollLeft = current.offsetLeft - (nav.clientWidth - current.offsetWidth) / 2;
+  }
+  // The fade at the right edge hints at more items; drop it once scrolled to the end.
+  const atEnd = () => nav.classList.toggle("is-end", nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 4);
+  nav?.addEventListener("scroll", atEnd, { passive: true });
+  if (nav) atEnd();
+}

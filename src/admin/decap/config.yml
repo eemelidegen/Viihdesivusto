@@ -31,6 +31,8 @@ collections:
         options:
           - { label: Julkkikset, value: julkkikset }
           - { label: Kohut, value: kohut }
+          - { label: Rikos, value: rikos }
+          - { label: Urheilu, value: urheilu }
       - { label: Toimittaja, name: author, widget: string, default: Toimitus }
       - { label: Pääkuva, name: image, widget: image, required: false }
       - { label: Kuvan kuvaus (saavutettavuus), name: imageAlt, widget: string, required: false }

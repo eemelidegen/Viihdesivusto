@@ -18,6 +18,16 @@ export default {
       "slug": "kohut",
       "name": "Kohut",
       "color": "#ffc94d"
+    },
+    {
+      "slug": "rikos",
+      "name": "Rikos",
+      "color": "#ff8fb1"
+    },
+    {
+      "slug": "urheilu",
+      "name": "Urheilu",
+      "color": "#ff8fb1"
     }
   ]
 };

@@ -17,6 +17,10 @@ Teemme viihdeuutisia, joita on hauska lukea, mutta joihin voi myös luottaa. Kir
 
 **Kohut.** Somemyrskyt, riidat, paljastukset ja puheenaiheet, joista kaikki keskustelevat. Selvitämme, mitä oikeasti tapahtui.
 
+**Rikos.** Tunnettuja ihmisiä koskevat oikeusjutut ja rikostapaukset, joista puhutaan. Kerromme vain sen, mitä viranomaiset ja oikeus ovat vahvistaneet, emmekä nimeä epäiltyjä kevyin perustein.
+
+**Urheilu.** Urheilutähtien elämä kentällä ja sen ulkopuolella: siirrot, menestykset, kohut ja kulissien takaiset tarinat.
+
 **Ilmiöt ja arki.** Somehitit, trendit, hauskat sattumukset ja tarinat tavallisista ihmisistä. Kaikki, mistä kahvipöydässä puhutaan.
 
 ## Vinkkaa meille

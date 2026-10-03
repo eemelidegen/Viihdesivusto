@@ -36,8 +36,8 @@
           <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Etusivu</a></li>
           <li><a href="/uusimmat/" {% if page.url == "/uusimmat/" %}aria-current="page"{% endif %}>Uusimmat</a></li>
           <li><a href="/luetuimmat/" {% if page.url == "/luetuimmat/" %}aria-current="page"{% endif %}>Luetuimmat</a></li>
-          <li><a href="/kategoria/julkkikset/" {% if page.url == "/kategoria/julkkikset/" %}aria-current="page"{% endif %}>Julkkikset</a></li>
-          <li><a href="/kategoria/kohut/" {% if page.url == "/kategoria/kohut/" %}aria-current="page"{% endif %}>Kohut</a></li>
+          {% for c in site.categories %}<li><a href="/kategoria/{{ c.slug }}/" {% if page.url == "/kategoria/" + c.slug + "/" %}aria-current="page"{% endif %}>{{ c.name }}</a></li>
+          {% endfor %}
         </ul>
       </nav>
       <a class="tip-btn" href="/vinkkaa/">Vinkkaa</a>
