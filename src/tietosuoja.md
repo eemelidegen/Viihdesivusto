@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: Tietosuojaseloste
-description: Miten Hulina käsittelee lukijoiden ja vinkkaajien henkilötietoja.
+description: Miten Hulina käsittelee henkilötietoja.
 ---
 <div class="prose page">
 
@@ -9,96 +9,33 @@ description: Miten Hulina käsittelee lukijoiden ja vinkkaajien henkilötietoja.
 
 *Päivitetty 3.10.2026*
 
-Tässä selosteessa kerromme, mitä henkilötietoja {{ site.name }} käsittelee, miksi ja kuinka kauan, kenelle tietoja luovutetaan ja mitä oikeuksia sinulla on. Seloste perustuu EU:n yleiseen tietosuoja-asetukseen (GDPR) ja Suomen tietosuojalakiin.
+## Rekisterinpitäjä
 
-## 1. Rekisterinpitäjä ja yhteystiedot
+{{ site.publisher }}, {{ site.url | replace("https://", "") }}<br>
+{% if site.email %}Yhteys tietosuoja-asioissa: [{{ site.email }}](mailto:{{ site.email }}){% else %}Yhteysosoite tietosuoja-asioihin lisätään tälle sivulle pian.{% endif %}
 
-**Rekisterinpitäjä:** {{ site.publisher }}
+## Mitä tietoja käsitellään ja miksi
 
-{% if site.email %}**Tietosuoja-asiat:** [{{ site.email }}](mailto:{{ site.email }})
-{% else %}**Tietosuoja-asiat:** yhteysosoite julkaistaan tällä sivulla lähiaikoina.
-{% endif %}
-Voit ottaa meihin yhteyttä kaikissa tätä selostetta ja henkilötietojesi käsittelyä koskevissa asioissa.
+**Sivuston käyttö.** Kun luet sivustoa, palvelimelle tallentuu teknisiä tietoja, kuten IP-osoite, selain ja avattu sivu. Niitä käytetään vain sivuston toiminnan ja tietoturvan varmistamiseen. Peruste: oikeutettu etu.
 
-## 2. Mitä tietoja käsittelemme
+**Vinkit ja yhteydenotot.** Jos lähetät meille vinkin tai viestin, käsittelemme yhteystietojasi ja viestisi sisältöä asian hoitamiseksi. Peruste: oikeutettu etu ja journalistinen tarkoitus.
 
-**Kun luet sivustoa**
-- Selaimesi lähettämät tekniset tiedot: IP-osoite, selaimen ja laitteen tyyppi, pyydetty sivu, viittaava sivu sekä ajankohta.
-- Emme tällä hetkellä käytä kävijäseurantaa, analytiikkapalveluita, mainosverkostoja emmekä seurantaevästeitä.
+Sivusto ei käytä evästeitä, kävijäseurantaa eikä mainosverkostoja.
 
-**Kun lähetät meille vinkin tai otat yhteyttä**
-- Nimesi (jos kerrot sen), yhteystietosi ja viestisi sisältö.
+## Kuka tietoja käsittelee
 
-**Kun kirjoitamme juttuja**
-- Jutuissa voidaan käsitellä niissä esiintyvien henkilöiden tietoja. Tästä kerrotaan tarkemmin kohdassa 9.
+Emme myy tai luovuta tietoja eteenpäin. Sivuston palvelimista vastaa Cloudflare, Inc., joka voi käsitellä tietoja myös EU:n ulkopuolella. Siirrot on suojattu EU:n hyväksymillä menetelmillä (EU–U.S. Data Privacy Framework tai vakiosopimuslausekkeet).
 
-## 3. Käyttötarkoitukset ja oikeusperusteet
+## Säilytys
 
-| Käyttötarkoitus | Oikeusperuste |
-|---|---|
-| Sivuston tarjoaminen, toiminnan varmistaminen sekä hyökkäysten ja väärinkäytösten estäminen | Oikeutettu etu (GDPR 6.1 f) |
-| Vinkkien ja yhteydenottojen käsittely | Oikeutettu etu (GDPR 6.1 f) ja journalistinen tarkoitus |
-| Journalistinen sisällöntuotanto | Tietosuojalain 27 §:n mukainen journalistinen tarkoitus |
-| Lakisääteisten velvoitteiden hoitaminen | Lakisääteinen velvoite (GDPR 6.1 c) |
+Tekniset tiedot säilyvät enintään muutamia viikkoja. Vinkit ja viestit säilytetään niin kauan kuin asian käsittely vaatii.
 
-## 4. Evästeet ja vastaavat tekniikat
+## Oikeutesi
 
-Sivusto ei aseta lukijoille evästeitä. Fontit tarjoillaan omalta palvelimeltamme, joten niiden lataaminen ei välitä tietojasi kolmansille osapuolille.
+Voit pyytää nähdä tietosi, korjata tai poistaa ne, rajoittaa niiden käsittelyä tai vastustaa sitä. Vastaamme kuukauden kuluessa. Jos koet, että tietojasi käsitellään väärin, voit tehdä valituksen tietosuojavaltuutetulle ([tietosuoja.fi](https://tietosuoja.fi)).
 
-Toimituksen julkaisutyökalu (/admin/) käyttää kirjautumisen yhteydessä teknisesti välttämätöntä evästettä ja selaimen tallennustilaa. Ne koskevat vain toimituksen jäseniä.
+## Journalistinen toiminta
 
-Jos otamme myöhemmin käyttöön analytiikkaa tai mainontaa, päivitämme tämän selosteen ja pyydämme tarvittaessa suostumuksesi ennen kuin asetamme muita kuin välttämättömiä evästeitä.
-
-## 5. Kenelle tietoja luovutetaan
-
-Emme myy henkilötietoja. Käytämme seuraavia palveluntarjoajia, jotka käsittelevät tietoja lukuunamme ja ohjeidemme mukaisesti:
-
-- **Cloudflare, Inc.** – sivuston palvelimet, tietoliikenne ja tietoturva. Käsittelee kävijöiden teknisiä tietoja, kuten IP-osoitteita.
-- **GitHub, Inc.** – sivuston sisällön ja julkaisujen säilytys. Käsittelee vain toimituksen jäsenten tietoja, ei lukijoiden.
-
-Jos jaat jutun Facebookissa, X:ssä tai WhatsAppissa, siirryt kyseisen palvelun sivuille, ja sen oma tietosuojaseloste koskee käsittelyä. Jos juttuun on upotettu sisältöä muista palveluista, kuten videoita tai somepäivityksiä, palvelu voi saada tietoja selaimeltasi.
-
-Voimme luovuttaa tietoja viranomaisille, jos laki niin velvoittaa.
-
-## 6. Siirrot EU:n ja ETA:n ulkopuolelle
-
-Osa palveluntarjoajistamme on yhdysvaltalaisia (Cloudflare ja GitHub), tai ne voivat käyttää alihankkijoita EU:n ulkopuolella. Siirroissa käytetään EU:n ja Yhdysvaltojen välistä tietosuojakehystä (EU–U.S. Data Privacy Framework) tai Euroopan komission hyväksymiä vakiosopimuslausekkeita.
-
-## 7. Kuinka kauan tietoja säilytetään
-
-- **Tekniset lokitiedot:** vain sen ajan, kun ne ovat tarpeen sivuston toiminnan ja tietoturvan kannalta. Tämä on tyypillisesti enintään muutamia viikkoja palveluntarjoajan käytännön mukaan.
-- **Vinkit ja yhteydenotot:** niin kauan kuin asian käsittely ja mahdollinen juttu sitä edellyttävät.
-- **Julkaistut jutut:** säilyvät arkistossa toistaiseksi osana julkaisua.
-
-## 8. Oikeutesi
-
-Sinulla on oikeus:
-
-- saada tietää, käsittelemmekö tietojasi, ja saada niistä kopio
-- pyytää virheellisten tietojen korjaamista
-- pyytää tietojesi poistamista
-- pyytää käsittelyn rajoittamista
-- vastustaa oikeutettuun etuun perustuvaa käsittelyä
-- siirtää antamasi tiedot järjestelmästä toiseen
-
-Toimimme pyyntösi mukaan viimeistään kuukauden kuluessa. Saatamme pyytää sinua todistamaan henkilöllisyytesi.
-
-Jos katsot, että tietojesi käsittely rikkoo tietosuojasääntelyä, voit tehdä valituksen **tietosuojavaltuutetun toimistolle** (tietosuoja.fi).
-
-## 9. Journalistinen toiminta ja lähdesuoja
-
-{{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan tietosuoja-asetuksen säännöksiä ei sovelleta kaikilta osin henkilötietojen käsittelyyn journalistisia tarkoituksia varten. Siksi esimerkiksi oikeus tietojen poistamiseen tai tarkastamiseen ei välttämättä koske toimitusaineistoa tai julkaistuja juttuja.
-
-Korjaamme virheet viipymättä, ja vaikka juttua ei poisteta, voit aina pyytää korjausta tai vastinetta.
-
-Suojaamme lähteitämme. Emme paljasta vinkkaajan henkilöllisyyttä ilman lupaa.
-
-## 10. Tietoturva
-
-Sivusto käyttää salattua HTTPS-yhteyttä. Pääsy julkaisutyökaluun ja palveluiden hallintaan on rajattu toimituksen jäsenille ja suojattu henkilökohtaisilla tunnuksilla. Palveluntarjoajamme huolehtivat palvelimiensa ja tietokantojensa teknisestä suojaamisesta.
-
-## 11. Muutokset tähän selosteeseen
-
-Päivitämme tätä selostetta, kun toimintamme tai lainsäädäntö muuttuu. Muutospäivä näkyy sivun alussa.
+{{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan kaikkia tietosuojasääntöjä ei sovelleta journalistiseen työhön, joten esimerkiksi julkaistuja juttuja ei välttämättä poisteta pyynnöstä. Virheet korjataan aina. Emme kerro vinkkaajan henkilöllisyyttä ilman lupaa.
 
 </div>
