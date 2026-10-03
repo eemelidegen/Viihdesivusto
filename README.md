@@ -92,7 +92,7 @@ Vain käyttäjät, joilla on kirjoitusoikeus GitHub-repoon, voivat julkaista. Ju
 
 ## Verkkotunnus
 
-Sivuston osoite on `hulina.net` (`url` tiedostossa `src/_data/site.js`). Vanha `valokeila.net` ohjataan uuteen osoitteeseen Cloudflaren Redirect Rules -säännöllä, jotta vanhat linkit toimivat. Jos osoite vaihtuu joskus taas:
+Sivuston osoite on `hulina.net` (`url` tiedostossa `src/_data/site.js`). Vanhaa `valokeila.net`-osoitetta ei enää käytetä. Jos osoite vaihtuu joskus taas:
 
 1. Cloudflare → Workers & Pages → valokeila → **Custom domains → Set up a custom domain** ja lisää uusi osoite.
 2. GitHub → OAuth App → lisää Redirect URI `https://<uusi-osoite>/api/callback`.
