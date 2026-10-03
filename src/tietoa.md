@@ -1,43 +1,21 @@
 ---
 layout: layouts/base.njk
 title: Tietoa meistä
-description: Hulina on suomalainen viihdemedia, joka kertoo julkkisten kuulumiset, kohut, someilmiöt ja arjen puheenaiheet.
+description: Hulina on suomalainen viihdemedia. Julkkikset, juorut, urheilu ja uutiset Suomesta ja maailmalta.
 ---
 <div class="prose page">
 
 # Tietoa meistä
 
-{{ site.name }} on suomalainen viihdemedia kaikille, jotka haluavat tietää, mistä juuri nyt puhutaan. Meiltä luet, kuka erosi, kuka löysi uuden rakkauden, mitä tosi-tv:n kulisseissa tapahtui ja mikä ilmiö somessa leviää. Kirjoitamme myös ihan tavallisista asioista, jotka saavat ihmiset hymyilemään, ihmettelemään tai tarttumaan puhelimeen.
+{{ site.name }} on suomalainen viihdemedia. Kirjoitetaan julkkiksista, juoruista, urheilusta ja kaikista muistakin uutisista, joista Suomessa ja maailmalla just nyt puhutaan.
 
-Teemme viihdeuutisia, joita on hauska lukea, mutta joihin voi myös luottaa. Kirjoitamme nopeasti, mutta emme keksi mitään. Jos jokin on vasta huhu, kerromme sen suoraan.
+Tehdään juttuja, joita on kiva lukea, mutta ei keksitä mitään. Jos joku on vasta huhu, sanotaan se suoraan. Ja jos meillä menee jotain pieleen, korjataan se heti ja kerrotaan korjauksesta jutun lopussa.
 
-## Mistä kirjoitamme
+Tiedätkö jotain, mistä pitäisi kirjoittaa? [Vinkkaa meille](/vinkkaa/).
 
-**Julkkikset.** Kotimaiset tähdet, tosi-tv-kasvot, artistit, urheilijat ja somevaikuttajat. Suhteet, erot, häät, vauvauutiset ja uudet käänteet.
+## Mainosyhteistyö
 
-**Kohut.** Somemyrskyt, riidat, paljastukset ja puheenaiheet, joista kaikki keskustelevat. Selvitämme, mitä oikeasti tapahtui.
-
-**Rikos.** Tunnettuja ihmisiä koskevat oikeusjutut ja rikostapaukset, joista puhutaan. Kerromme vain sen, mitä viranomaiset ja oikeus ovat vahvistaneet, emmekä nimeä epäiltyjä kevyin perustein.
-
-**Urheilu.** Urheilutähtien elämä kentällä ja sen ulkopuolella: siirrot, menestykset, kohut ja kulissien takaiset tarinat.
-
-**Ilmiöt ja arki.** Somehitit, trendit, hauskat sattumukset ja tarinat tavallisista ihmisistä. Kaikki, mistä kahvipöydässä puhutaan.
-
-## Vinkkaa meille
-
-Moni hyvä juttu alkaa lukijan vinkistä. Bongasitko tunnetun ihmisen yllättävästä paikasta tai kuulitko jotain, mikä pitäisi saada päivänvaloon? [Lähetä meille vinkki](/vinkkaa/).
-
-Emme paljasta vinkkaajan henkilöllisyyttä ilman lupaa.
-
-## Mainosta {{ site.name }}ssa
-
-Haluatko tavoittaa viihteestä kiinnostuneet lukijat? Teemme mielellämme yhteistyötä brändien, tapahtumien ja tuotantoyhtiöiden kanssa. {% if site.email %}Ota yhteyttä: [{{ site.email }}](mailto:{{ site.email }}).{% else %}Yhteystiedot mainosyhteistyöhön lisätään tälle sivulle pian.{% endif %}
-
-Kaupallinen yhteistyö merkitään aina selvästi, eikä mainostaja vaikuta toimituksen juttuihin.
-
-## Huomasitko virheen?
-
-Teemme parhaamme, mutta joskus virheitä sattuu. Jos huomaat jutussa virheen, kerro siitä meille. Korjaamme sen mahdollisimman pian ja lisäämme korjauksesta maininnan jutun loppuun.
+Kiinnostaako yhteistyö? {% if site.email %}Laita viestiä: [{{ site.email }}](mailto:{{ site.email }}).{% else %}Yhteystiedot tulee tähän pian.{% endif %} Kaupalliset jutut merkitään aina selvästi, eikä mainostaja päätä meidän sisällöistä.
 
 ## Julkaisutiedot
 
