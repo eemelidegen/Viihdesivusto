@@ -6,14 +6,18 @@ title: Vinkkaa
 
 # Vinkkaa meille
 
-Näitkö jotain, mistä pitäisi kertoa? Kuulitko kuvauksista, keikasta tai julkkisten kohtaamisesta? Kerro meille – parhaat vinkit päätyvät jutuiksi.
+Bongasitko julkkiksen kaupan kassajonosta? Kuulitko jotain mehukasta kaverin kaverilta? Vai tapahtuiko sun kotikulmilla jotain, mistä kaikki puhuu?
+
+Laita vinkki tulemaan! Julkkikset, juorut, urheilu tai joku ihan muu juttu Suomesta tai maailmalta, kaikki käy. Me luetaan jokainen viesti ja parhaat vinkit päätyy jutuiksi.
+
+Kuvat ja videot on aina plussaa. Kerro samalla, ootko ottanut ne itse, niin tiedetään saako niitä käyttää.
 
 {% if site.email %}
 **Lähetä vinkki:** [{{ site.email }}](mailto:{{ site.email }})
 {% else %}
-**Vinkkiosoite avataan pian.** Seuraa sivua – lisäämme yhteystiedot tähän lähiaikoina.
+**Vinkkiosoite aukeaa ihan just.** Laitetaan yhteystiedot tähän heti kun ne on valmiina.
 {% endif %}
 
-Emme paljasta vinkkaajan henkilöllisyyttä ilman lupaa.
+Sun henkilöllisyys pysyy meidän välisenä. Ei kerrota kenellekään kuka vinkkasi, ellet itse halua.
 
 </div>
