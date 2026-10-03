@@ -1,5 +1,4 @@
 /* Fonts are self-hosted (SIL OFL) so visitor data is not sent to Google. */
-@font-face { font-family: "Shrikhand"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/shrikhand-400.woff2") format("woff2"); }
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 600; font-display: swap; src: url("/assets/fonts/league-spartan-600.woff2") format("woff2"); }
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/league-spartan-700.woff2") format("woff2"); }
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 800; font-display: swap; src: url("/assets/fonts/league-spartan-800.woff2") format("woff2"); }
@@ -20,7 +19,6 @@
   --link: #c8326a;
   --radius: 14px;
   --max: 1180px;
-  --fun: "Shrikhand", Georgia, serif;
   --headline: "League Spartan", "Arial Black", system-ui, sans-serif;
   --display: "League Spartan", Arial, system-ui, sans-serif;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -91,7 +89,7 @@ main.wrap { background: var(--surface); border-radius: 0 0 var(--radius) var(--r
 .feed > .card:nth-child(3n) .card__title { font-size: clamp(28px, 3.2vw, 40px); }
 
 .empty { padding: 48px 0; border-bottom: 1px solid var(--line); }
-.empty h1 { font: 400 clamp(34px, 4.4vw, 52px)/1.15 var(--fun); color: var(--plum); margin: 0 0 12px; }
+.empty h1 { font: 800 clamp(34px, 4.4vw, 52px)/1.05 var(--headline); letter-spacing: -0.015em; color: var(--plum); margin: 0 0 12px; }
 .empty p { color: var(--muted); font-size: 18px; max-width: 34em; margin: 0; }
 
 /* Sidebar */
@@ -108,7 +106,7 @@ main.wrap { background: var(--surface); border-radius: 0 0 var(--radius) var(--r
 .side-item__title:hover { color: var(--link); }
 
 .box { background: var(--soft); border-radius: var(--radius); padding: 22px; }
-.box__title { margin: 0 0 10px; font: 400 27px/1.15 var(--fun); }
+.box__title { margin: 0 0 10px; font: 800 26px/1.1 var(--headline); }
 .box--accent { background: var(--plum); color: #fff; }
 .box--accent .box__title { color: var(--pink); }
 .newsletter { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -127,13 +125,13 @@ main.wrap { background: var(--surface); border-radius: 0 0 var(--radius) var(--r
 
 /* Lists (category, latest, related) */
 .section { margin-top: 40px; }
-.section__title { font: 400 30px/1.15 var(--fun); color: var(--plum); margin: 0 0 6px; padding-bottom: 8px; border-bottom: 4px solid var(--pink); }
+.section__title { font: 800 30px/1.1 var(--headline); letter-spacing: -0.01em; color: var(--plum); margin: 0 0 6px; padding-bottom: 8px; border-bottom: 4px solid var(--pink); }
 .grid { display: grid; gap: 28px 20px; }
 .grid--2 { grid-template-columns: repeat(2, 1fr); }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
 .grid--3 .card__title { font-size: 23px; }
 .page-head { border-bottom: 4px solid var(--pink); margin-bottom: 24px; }
-.page-head h1 { font: 400 clamp(38px, 5.6vw, 60px)/1.15 var(--fun); color: var(--plum); margin: 8px 0 14px; }
+.page-head h1 { font: 800 clamp(38px, 5.6vw, 60px)/1.05 var(--headline); letter-spacing: -0.015em; color: var(--plum); margin: 8px 0 14px; }
 
 .to-top { position: fixed; right: 16px; bottom: 16px; width: 48px; height: 48px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--pink); color: var(--plum); box-shadow: 0 4px 14px rgba(42,26,74,.25); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 6; }
 .to-top svg { width: 24px; height: 24px; }
@@ -163,7 +161,7 @@ main.wrap { background: var(--surface); border-radius: 0 0 var(--radius) var(--r
 
 /* "Lue myös" inside the article body */
 .read-also { margin: 32px 0; padding: 16px 0; border-top: 4px solid var(--pink); border-bottom: 1px solid var(--line); display: grid; gap: 14px; font-family: var(--font); }
-.read-also__label { font: 400 22px/1 var(--fun); color: var(--plum); }
+.read-also__label { font: 800 15px/1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--plum); }
 .read-also__item { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; text-decoration: none; color: var(--text); }
 .prose .read-also__item { color: var(--text); }
 .read-also__thumb { display: block; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; }

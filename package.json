@@ -11,7 +11,6 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@fontsource/league-spartan": "^5.3.0",
-    "@fontsource/shrikhand": "^5.3.0",
     "@resvg/resvg-js": "^2.6.2",
     "satori": "^0.35.0"
   }

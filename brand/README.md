@@ -10,7 +10,7 @@ Logo: vaaleanpunainen puhekupla, jonka sisällä on H ja kulmassa kolme "hälin�
 | Pinkki | `#FF8FB1` |
 | Vaalea pohja (sivusto) | `#FBEFF4` |
 
-**Fontit** (SIL OFL): logo ja osioiden otsikot *Shrikhand*, juttujen otsikot ja valikot *League Spartan*.
+**Fontti** (SIL OFL): otsikot ja valikot *League Spartan*. Logon kirjaimet on piirretty valmiiksi, joten logo ei tarvitse fonttia.
 
 | Tiedosto (`hulina/`) | Käyttö |
 |---|---|

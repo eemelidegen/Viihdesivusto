@@ -49,7 +49,7 @@ Kategoriat, sivuston nimi ja yhteystiedot muutetaan tiedostossa `src/_data/site.
 ## Ilme
 
 - Värit: luumunvioletti `#2A1A4A` (ylä- ja alapalkki) ja pinkki `#FF8FB1` (logo, painikkeet, korostukset), vaalea pohja `#FBEFF4`
-- Fontit: Shrikhand (logo ja osioiden otsikot) ja League Spartan (juttujen otsikot, valikko); tiedostot `src/assets/fonts/`
+- Fontti: League Spartan (kaikki otsikot ja valikko), leipäteksti järjestelmäfontilla; tiedostot `src/assets/fonts/`. Logon kirjaimet ovat valmiina vektoreina, joten logo ei tarvitse fonttia.
 - Logo: `src/_includes/partials/logo.njk` (SVG, väri tulee CSS:stä), `src/assets/img/hulina-logo-*.svg` ja `favicon.svg`
 - Somekäyttöön tarkoitetut logot, profiilikuva ja kansikuva: `brand/`
 
