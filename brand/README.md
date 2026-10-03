@@ -1,10 +1,16 @@
-# Valokeilan logo: VAL★KEILA
+# Valokeilan logo
+
+Kaksi versiota, joissa O-kirjaimen paikalla on symboli:
+
+- `kohdevalo/` – VAL◎KEILA: rengas ja piste, valokeila ylhäältä katsottuna
+- `silma/` – VAL👁KEILA: silmä, "me näemme kaiken"
 
 Punainen `#EE1C38` ja valkoinen. Teksti on muutettu vektoripoluiksi (Anton-fontti, SIL OFL), joten tiedostot toimivat ilman fonttia ja SVG:t skaalautuvat mihin kokoon tahansa.
 
 | Tiedosto | Käyttö |
 |---|---|
 | `valokeila-profiilikuva` | Profiilikuva: TikTok, Instagram, Facebook (1080×1080) |
+| `valokeila-symboli` | Pelkkä symboli: pienet koot, vesileima, sovelluskuvake (1080×1080) |
 | `valokeila-fb-merkki` | Punainen laatta juttukuvien kulmaan (läpinäkyvä tausta) |
 | `valokeila-logo-valkoinen` | Pelkkä logo valkoisena tummien kuvien päälle |
 | `valokeila-logo-punainen` | Pelkkä logo punaisena vaaleille taustoille |
