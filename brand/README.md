@@ -20,6 +20,7 @@ Logo: vaaleanpunainen puhekupla, jonka sisällä on H ja kulmassa kolme "hälin�
 | `hulina-logo-pinkki` | Logo tummille taustoille (läpinäkyvä tausta) |
 | `hulina-logo-valkoinen` | Valkoinen logo kuvien päälle |
 | `hulina-logo-violetti` | Logo vaaleille taustoille |
+| `tiktok/hulina-tiktok-1-kupla`, `-2-pinkki`, `-3-musta` | TikTok-profiilikuvat (1080×1080, toimivat pyöreinä ja pieninä) |
 | `hulina-kansikuva` | Facebook-sivun kansikuva (1640×624) |
 
 Kansio ei näy sivustolla. Sivuston omat logotiedostot ovat `src/assets/img/` ja `src/_includes/partials/logo.njk`.
