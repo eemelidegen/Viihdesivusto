@@ -402,7 +402,11 @@ $("done").addEventListener("click", (e) => {
   if (act === "some") toSomekuva();
 });
 function toSomekuva() {
-  try { const k = "valokeila-somekuva"; const s = JSON.parse(localStorage.getItem(k) || "{}"); s.title = doc.fields.title; localStorage.setItem(k, JSON.stringify(s)); } catch {}
+  // Hand the story's title, photo and credit over to the social image tool.
+  const image = doc.newImage ? doc.newImage.dataUrl : doc.image;
+  const handoff = { title: doc.fields.title, credit: doc.fields.imageCredit || "", image: image || "", t: Date.now() };
+  try { localStorage.setItem("hulina-somekuva-juttu", JSON.stringify(handoff)); }
+  catch { try { localStorage.setItem("hulina-somekuva-juttu", JSON.stringify({ ...handoff, image: "" })); } catch {} }
   location.href = "/admin/somekuva/";
 }
 function newDoc() {

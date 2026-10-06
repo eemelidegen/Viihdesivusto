@@ -71,7 +71,7 @@ Työkalu tekee juttujen mainoskuvat someen: valitse kuva, kirjoita otsikko (koro
 
 Työkalu vaatii kirjautumisen GitHub-tunnuksella, jolla on kirjoitusoikeus tähän repoon (tarkistus `functions/admin/_middleware.js`, istunto 30 päivää, uloskirjautuminen `/api/ulos`). Asetuksia ei tarvita: se käyttää samaa OAuth-sovellusta ja `GITHUB_CLIENT_SECRET`-arvoa kuin julkaisutyökalu.
 
-Ominaisuudet: yksi tai kaksi kuvaa (rinnakkain/päällekkäin), kuvan siirto vetämällä ja zoomaus nipistämällä tai hiiren rullalla, kirkkaus/kontrasti/mustavalko, peilaus, yläotsikkotarra, neljä fonttia, isot kirjaimet, tekstin koko, sijainti ja tasaus, korostus värinä/laatikkona/alleviivauksena, oma väri, kehys, tummennuksen tyyli, logo kolmeen paikkaan, kuvaajan merkintä, JPG/PNG sekä viisi kokoa. Asetukset muistetaan selaimessa.
+Ominaisuudet: 8 valmista mallia ja omat tallennettavat mallit, viisi kokoa (Instagram, Story/TikTok, neliö, linkkikuva, YouTube), kuusi asettelua (yksi kuva, kaksi rinnakkain/päällekkäin, kuva + laatikko, sitaatti, pelkkä teksti), kuvan siirto ja zoomaus, kuvan säädöt (kirkkaus, kontrasti, värit, lämpö, reunojen tummennus, mustavalko, peilaus), otsikon korostus neljällä tyylillä, tekstityylit (varjo, laatikot, ääriviiva), tarrat, alaotsikko, emojit, alapalkki ("Lue lisää: hulina.net"), viisi fonttia, Hulina-logo kolmena versiona seitsemään paikkaan, kumoa/tee uudelleen, Storyn turva-alue, jakaminen ja kopiointi sekä kaikkien kokojen lataus kerralla. Otsikon ja kuvan voi tuoda suoraan julkaistusta jutusta. Asetukset muistetaan selaimessa.
 
 ## Kirjautuminen toimitukseen (/admin/)
 

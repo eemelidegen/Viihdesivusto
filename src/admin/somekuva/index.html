@@ -2,584 +2,1128 @@
 <html lang="fi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex">
   <title>Somekuva – Hulina</title>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <style>
+    @font-face { font-family: "League Spartan"; font-weight: 600; font-display: block; src: url("/assets/fonts/league-spartan-600.woff2") format("woff2"); }
+    @font-face { font-family: "League Spartan"; font-weight: 700; font-display: block; src: url("/assets/fonts/league-spartan-700.woff2") format("woff2"); }
     @font-face { font-family: "League Spartan"; font-weight: 800; font-display: block; src: url("/assets/fonts/league-spartan-800.woff2") format("woff2"); }
     @font-face { font-family: "Anton"; font-weight: 400; font-display: block; src: url("/assets/fonts/anton-400.woff2") format("woff2"); }
     @font-face { font-family: "Roboto Condensed"; font-weight: 800; font-display: block; src: url("/assets/fonts/roboto-condensed-800.woff2") format("woff2"); }
     @font-face { font-family: "Fira Sans Condensed"; font-weight: 700; font-display: block; src: url("/assets/fonts/fira-sans-condensed-700.woff2") format("woff2"); }
-    @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: block; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
     @font-face { font-family: "Barlow Condensed"; font-weight: 800; font-display: block; src: url("/assets/fonts/barlow-condensed-800.woff2") format("woff2"); }
-    :root { --accent: #ff8fb1; --plum: #2a1a4a; --line: #e4e1da; --muted: #6b6873; }
+
+    :root { --pink: #ff8fb1; --plum: #2a1a4a; --ink: #111; --muted: #6b6b73; --line: #e6e6ea; --soft: #f4f4f6; --bg: #fafafa;
+      --ui: "League Spartan", system-ui, sans-serif; --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
-    body { margin: 0; background: #fbeff4; color: #22163b; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    header { background: var(--plum); color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 16px; }
-    header .brand { margin-left: 0; display: block; color: #ff8fb1; line-height: 0; }
-    header .brand svg { height: 40px; width: auto; display: block; }
-    header span { font: 800 16px/1 "League Spartan", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #cbbfe0; padding-top: 4px; }
-    header a { margin-left: auto; color: #fff; font-size: 14px; }
-    main { max-width: 1140px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 28px; align-items: start; }
-    .preview { position: sticky; top: 16px; display: grid; place-items: center; }
-    canvas { width: 100%; max-width: 560px; max-height: 80vh; object-fit: contain; height: auto; display: block; box-shadow: 0 10px 40px rgba(0,0,0,.18); background: #222; touch-action: none; cursor: grab; }
-    canvas.dragover { outline: 4px dashed var(--accent); outline-offset: 4px; }
-    .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; text-align: center; }
-    form { display: grid; gap: 12px; }
-    details { background: #fff; border-radius: 10px; }
-    summary { padding: 15px 18px 12px; font: 800 17px/1 "League Spartan", sans-serif; text-transform: uppercase; letter-spacing: .03em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: "+"; font-size: 22px; }
-    details[open] summary::after { content: "–"; }
-    .group { padding: 0 18px 18px; display: grid; gap: 16px; }
-    label { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
-    small { font-weight: 400; color: var(--muted); }
-    textarea, select, input[type=file], input[type=text] { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; background: #fff; }
-    textarea { min-height: 90px; resize: vertical; }
-    input[type=range] { width: 100%; accent-color: var(--accent); }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .seg { display: flex; flex-wrap: wrap; gap: 6px; }
-    .seg button, .chips button { flex: 1 1 auto; padding: 8px 10px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font: 600 14px/1.2 system-ui, sans-serif; color: #16151a; }
-    .seg button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chips button { flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; font: 700 14px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; }
-    .colors { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .colors button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; }
-    .colors button[aria-pressed="true"] { border-color: #000; }
-    .colors input[type=color] { width: 40px; height: 36px; border: 0; padding: 0; background: none; cursor: pointer; }
-    .fonts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .fonts button { padding: 10px 6px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 20px; line-height: 1.1; color: #16151a; }
-    .fonts button[aria-pressed="true"] { border-color: #000; background: #f4f3f0; }
-    .fonts small { display: block; font: 400 11px/1.3 system-ui, sans-serif; color: var(--muted); margin-top: 4px; }
-    .switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 14px; cursor: pointer; }
-    .switch input { appearance: none; width: 52px; height: 30px; border-radius: 999px; background: #ccc; position: relative; cursor: pointer; transition: background .2s; flex-shrink: 0; margin: 0; }
-    .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
-    .switch input:checked { background: var(--accent); }
-    .switch input:checked::after { transform: translateX(22px); }
-    .sub { display: grid; gap: 12px; padding: 12px; border-radius: 8px; background: #f7f6f3; }
-    .sub b { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-    .actions { background: #fff; border-radius: 10px; padding: 18px; display: grid; gap: 10px; }
-    .btn { font: 800 17px/1 "League Spartan", sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 15px 14px 12px; border: 0; border-radius: 999px; background: var(--accent); color: var(--plum); cursor: pointer; }
-    .btn--ghost { background: var(--plum); color: #fff; }
-    .btn--plain { background: none; color: var(--muted); font-size: 16px; padding: 6px; text-decoration: underline; }
-    .rights { font-size: 12px; color: var(--muted); margin: 0; }
-    @media (max-width: 900px) {
-      main { grid-template-columns: 1fr; }
-      .preview { position: static; }
+    html, body { margin: 0; }
+    body { background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); -webkit-tap-highlight-color: transparent; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+
+    /* Top bar */
+    .bar { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 6px; padding: 9px 14px; background: #fff; border-bottom: 1px solid var(--line); }
+    .bar__logo { display: block; margin-right: 6px; }
+    .bar__logo img { height: 30px; display: block; }
+    .bar__title { font: 800 13px/1 var(--ui); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding-top: 3px; }
+    .bar__sp { flex: 1; }
+    .bar a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14px; padding: 8px 10px; border-radius: 999px; white-space: nowrap; }
+    .bar a:hover { background: var(--soft); }
+    .iconbtn { width: 38px; height: 38px; border-radius: 50%; border: 0; background: none; display: grid; place-items: center; flex-shrink: 0; }
+    .iconbtn:hover { background: var(--soft); }
+    .iconbtn:disabled { opacity: .3; cursor: default; background: none; }
+    .iconbtn svg { width: 20px; height: 20px; }
+
+    /* Layout */
+    .app { max-width: 1320px; margin: 0 auto; padding: 22px 18px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 28px; align-items: start; }
+    .stage { position: sticky; top: 78px; display: grid; gap: 12px; justify-items: center; }
+    .formats { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .fmt { display: flex; align-items: center; gap: 8px; padding: 7px 13px 7px 10px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; font-weight: 600; font-size: 13px; white-space: nowrap; }
+    .fmt i { display: block; border: 2px solid currentColor; border-radius: 3px; }
+    .fmt small { color: var(--muted); font-weight: 500; }
+    .fmt[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
+    .fmt[aria-pressed="true"] small { color: #bbb; }
+    .cv-wrap { width: 100%; display: grid; place-items: center; }
+    #cv { display: block; max-width: 100%; max-height: calc(100vh - 200px); width: auto; height: auto; border-radius: 8px; box-shadow: 0 14px 44px rgba(0,0,0,.18); touch-action: none; cursor: grab; background: #ddd; }
+    #cv.drag { cursor: grabbing; }
+    .cv-wrap.over #cv { outline: 4px dashed var(--pink); outline-offset: 5px; }
+    .hint { margin: 0; color: var(--muted); font-size: 12.5px; text-align: center; }
+
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    .tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; overflow-x: auto; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs button { flex: 1 0 auto; min-width: 66px; padding: 12px 8px 10px; border: 0; background: none; font: 800 11.5px/1 var(--ui); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 3px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .tabs svg { width: 21px; height: 21px; }
+    .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--pink); }
+    .tab { padding: 18px; display: grid; gap: 18px; }
+
+    .field { display: grid; gap: 8px; }
+    .lbl { font-weight: 700; font-size: 13.5px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .lbl small, .lbl output { font-weight: 500; color: var(--muted); font-size: 12px; }
+    .note { margin: 0; color: var(--muted); font-size: 12.5px; }
+    .h { font: 800 12px/1 var(--ui); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin: 4px 0 -6px; }
+    input[type=text], textarea, select { width: 100%; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; outline: none; }
+    input[type=text]:focus, textarea:focus, select:focus { border-color: var(--ink); }
+    textarea { resize: vertical; min-height: 88px; font-weight: 600; font-size: 16px; line-height: 1.35; }
+    input[type=range] { width: 100%; accent-color: var(--pink); margin: 0; }
+    .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+    .seg button { flex: 1 1 0; min-width: 0; padding: 10px 6px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; font-weight: 600; font-size: 13px; white-space: nowrap; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .seg button svg { width: 34px; height: 26px; }
+    .seg button small { font-weight: 500; opacity: .7; font-size: 11.5px; }
+    .seg button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
+    .seg button[aria-pressed="true"] img { filter: brightness(0) invert(1); }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chips button { padding: 7px 11px 5px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; font: 700 12px/1.2 var(--ui); text-transform: uppercase; letter-spacing: .03em; }
+    .chips button:hover { border-color: var(--ink); }
+    .chips button[aria-pressed="true"] { background: var(--pink); border-color: var(--pink); }
+    .emoji { display: flex; gap: 4px; flex-wrap: wrap; }
+    .emoji button { font-size: 20px; line-height: 1; padding: 6px 7px; border: 0; background: var(--soft); border-radius: 8px; }
+    .emoji button:hover { background: #e9e9ee; }
+    .swatches { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .swatches button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1.5px var(--line); padding: 0; }
+    .swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2.5px var(--ink); }
+    .swatches input[type=color] { width: 36px; height: 36px; padding: 0; border: 0; background: none; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .switch { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; cursor: pointer; }
+    .switch input { appearance: none; -webkit-appearance: none; width: 46px; height: 28px; border-radius: 999px; background: #d4d4d8; position: relative; transition: background .2s; flex-shrink: 0; margin: 0; cursor: pointer; }
+    .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
+    .switch input:checked { background: var(--pink); }
+    .switch input:checked::after { transform: translateX(18px); }
+
+    .tpls { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .tpl { position: relative; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; padding: 8px; display: grid; gap: 8px; text-align: left; }
+    .tpl canvas { width: 100%; height: auto; display: block; border-radius: 6px; background: var(--soft); }
+    .tpl b { font: 800 12.5px/1 var(--ui); text-transform: uppercase; letter-spacing: .05em; padding: 0 2px; }
+    .tpl:hover { border-color: var(--ink); }
+    .tpl[aria-pressed="true"] { border-color: var(--pink); box-shadow: 0 0 0 2px var(--pink); }
+    .tpl .del { position: absolute; top: 2px; right: 2px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; font-size: 15px; line-height: 1; display: grid; place-items: center; }
+
+    .imgcard { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 12px; }
+    .imgcard__top { display: flex; gap: 12px; align-items: center; }
+    .thumb { width: 58px; height: 58px; border-radius: 9px; border: 0; background: var(--soft) center / cover no-repeat; flex-shrink: 0; display: grid; place-items: center; color: var(--muted); font-size: 22px; }
+    .imgcard__top > div { flex: 1; display: grid; gap: 6px; }
+    .imgcard__top b { font-size: 14px; }
+    .imgcard__btns { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 12px 16px 10px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 800 13.5px/1 var(--ui); text-transform: uppercase; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+    .btn svg { width: 18px; height: 18px; }
+    .btn--pink { background: var(--pink); color: var(--ink); }
+    .btn--ghost { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+    .btn--sm { padding: 9px 12px 7px; font-size: 12px; }
+    .btn--big { padding: 18px 20px 15px; font-size: 16px; width: 100%; }
+    .btn:disabled { opacity: .5; cursor: wait; }
+    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .import { display: grid; gap: 8px; }
+    .import__list { display: grid; gap: 6px; max-height: 280px; overflow: auto; }
+    .import__list button { display: flex; gap: 10px; align-items: center; text-align: left; padding: 8px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; }
+    .import__list button:hover { border-color: var(--ink); }
+    .import__list span { width: 44px; height: 44px; border-radius: 7px; background: var(--soft) center / cover; flex-shrink: 0; }
+    .import__list b { font-size: 13.5px; line-height: 1.25; }
+
+    .toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 16px); background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 999px; font-weight: 600; font-size: 14px; opacity: 0; transition: .25s; pointer-events: none; z-index: 60; max-width: calc(100vw - 32px); text-align: center; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .mbar { display: none; }
+
+    @media (max-width: 1000px) {
+      .app { grid-template-columns: 1fr; padding: 0 0 92px; gap: 0; }
+      .stage { position: sticky; top: 57px; z-index: 30; background: var(--bg); padding: 10px 12px; border-bottom: 1px solid var(--line); gap: 8px; }
+      #cv { max-height: 40vh; border-radius: 6px; }
+      .formats { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; scrollbar-width: none; }
+      .formats::-webkit-scrollbar { display: none; }
+      .hint { display: none; }
+      .panel { border-radius: 0; border: 0; }
+      .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--line); }
+      .mbar .btn { flex: 1; padding: 15px 12px 13px; }
+      .bar__title, .bar .hide-m { display: none; }
+      .toast { bottom: 96px; }
+      /* While typing, shrink the preview so the keyboard leaves room for the form */
+      .app:has(.panel textarea:focus, .panel input[type=text]:focus) #cv { max-height: 22vh; }
     }
   </style>
 </head>
 <body>
-  <header><a class="brand" href="/" aria-label="Hulina – etusivu"><svg viewBox="-240.0 -66.0 787.4 224.0" aria-hidden="true" focusable="false"><path d="M-215 -13H-96Q-76 -13 -76 7V102Q-76 122 -96 122H-169L-211 154L-209 122H-215Q-235 122 -235 102V7Q-235 -13 -215 -13Z" fill="currentColor"/><path d="M-106.16 19.67Q-103.83 19.67 -102.56 20.44Q-101.29 21.21 -101.29 22.43L-101.29 22.43Q-101.29 22.98 -101.62 23.87L-101.62 23.87Q-101.95 24.64 -102.56 25.25Q-103.17 25.86 -103.67 26.14Q-104.17 26.41 -104.39 26.63L-104.39 26.63Q-106.16 27.63 -107.26 28.85Q-108.37 30.06 -109.14 32.61L-109.14 32.61L-122.75 80.28Q-123.19 81.72 -123.19 83.05L-123.19 83.05Q-123.19 84.37 -122.80 85.15Q-122.42 85.92 -121.64 87.14L-121.64 87.14Q-121.53 87.25 -121.04 87.97Q-120.54 88.69 -120.54 89.46L-120.54 89.46Q-120.54 89.68 -120.76 90.57L-120.76 90.57Q-121.31 92.12 -122.86 92.73Q-124.41 93.33 -127.51 93.33L-127.51 93.33L-153.50 93.33Q-155.82 93.33 -157.09 92.56Q-158.37 91.79 -158.37 90.46L-158.37 90.46Q-158.37 89.79 -158.04 89.02L-158.04 89.02Q-157.59 88.14 -156.82 87.53Q-156.04 86.92 -155.27 86.48L-155.27 86.48Q-153.50 85.48 -152.39 84.21Q-151.29 82.94 -150.51 80.28L-150.51 80.28L-145.20 61.81L-164.78 61.81L-170.09 80.28Q-170.53 81.72 -170.53 83.05L-170.53 83.05Q-170.53 84.37 -170.15 85.15Q-169.76 85.92 -168.99 87.14L-168.99 87.14Q-168.88 87.25 -168.38 87.97Q-167.88 88.69 -167.88 89.46L-167.88 89.46Q-167.88 89.68 -168.10 90.57L-168.10 90.57Q-168.65 92.12 -170.20 92.73Q-171.75 93.33 -174.85 93.33L-174.85 93.33L-200.84 93.33Q-203.17 93.33 -204.44 92.56Q-205.71 91.79 -205.71 90.46L-205.71 90.46Q-205.71 89.79 -205.38 89.02L-205.38 89.02Q-204.93 88.14 -204.16 87.53Q-203.39 86.92 -202.61 86.48L-202.61 86.48Q-200.84 85.48 -199.74 84.21Q-198.63 82.94 -197.86 80.28L-197.86 80.28L-184.25 32.61Q-183.81 31.17 -183.81 29.84L-183.81 29.84Q-183.81 28.63 -184.20 27.80Q-184.58 26.97 -185.25 25.86L-185.25 25.86Q-185.69 25.31 -186.02 24.70Q-186.35 24.09 -186.35 23.43L-186.35 23.43Q-186.35 23.21 -186.13 22.32L-186.13 22.32Q-185.69 20.88 -184.14 20.27Q-182.59 19.67 -179.49 19.67L-179.49 19.67L-153.50 19.67Q-151.18 19.67 -149.91 20.44Q-148.63 21.21 -148.63 22.43L-148.63 22.43Q-148.63 22.98 -148.96 23.87L-148.96 23.87Q-149.30 24.64 -149.91 25.25Q-150.51 25.86 -151.01 26.14Q-151.51 26.41 -151.73 26.63L-151.73 26.63Q-153.50 27.63 -154.61 28.85Q-155.71 30.06 -156.49 32.61L-156.49 32.61L-161.69 50.75L-142.11 50.75L-136.91 32.61Q-136.47 31.17 -136.47 29.84L-136.47 29.84Q-136.47 28.63 -136.85 27.80Q-137.24 26.97 -137.90 25.86L-137.90 25.86Q-138.35 25.31 -138.68 24.70Q-139.01 24.09 -139.01 23.43L-139.01 23.43Q-139.01 23.21 -138.79 22.32L-138.79 22.32Q-138.35 20.88 -136.80 20.27Q-135.25 19.67 -132.15 19.67L-132.15 19.67L-106.16 19.67" fill="var(--plum, #2A1A4A)"/><g stroke="currentColor"><g stroke-width="10" stroke-linecap="round"><path d="M-87 -58L-81 -29"/><path d="M-62 -22L-46 -37"/><path d="M-63 8L-33 1"/></g></g><path d="M130.64 0.45Q133.78 0.45 135.50 1.49Q137.22 2.54 137.22 4.19L137.22 4.19Q137.22 4.93 136.77 6.13L136.77 6.13Q136.32 7.17 135.50 8.00Q134.68 8.82 134.01 9.19Q133.33 9.57 133.03 9.87L133.03 9.87Q130.64 11.21 129.15 12.86Q127.65 14.50 126.61 17.94L126.61 17.94L108.22 82.36Q107.62 84.30 107.62 86.10L107.62 86.10Q107.62 87.89 108.15 88.94Q108.67 89.99 109.72 91.63L109.72 91.63Q109.87 91.78 110.54 92.75Q111.21 93.72 111.21 94.77L111.21 94.77Q111.21 95.07 110.91 96.26L110.91 96.26Q110.16 98.36 108.07 99.18Q105.98 100.00 101.79 100.00L101.79 100.00L66.67 100.00Q63.53 100.00 61.81 98.95Q60.09 97.91 60.09 96.11L60.09 96.11Q60.09 95.22 60.54 94.17L60.54 94.17Q61.14 92.97 62.18 92.15Q63.23 91.33 64.28 90.73L64.28 90.73Q66.67 89.39 68.16 87.67Q69.66 85.95 70.70 82.36L70.70 82.36L77.88 57.40L51.42 57.40L44.25 82.36Q43.65 84.30 43.65 86.10L43.65 86.10Q43.65 87.89 44.17 88.94Q44.69 89.99 45.74 91.63L45.74 91.63Q45.89 91.78 46.56 92.75Q47.23 93.72 47.23 94.77L47.23 94.77Q47.23 95.07 46.94 96.26L46.94 96.26Q46.19 98.36 44.10 99.18Q42.00 100.00 37.82 100.00L37.82 100.00L2.69 100.00Q-0.45 100.00 -2.17 98.95Q-3.89 97.91 -3.89 96.11L-3.89 96.11Q-3.89 95.22 -3.44 94.17L-3.44 94.17Q-2.84 92.97 -1.79 92.15Q-0.75 91.33 0.30 90.73L0.30 90.73Q2.69 89.39 4.19 87.67Q5.68 85.95 6.73 82.36L6.73 82.36L25.11 17.94Q25.71 15.99 25.71 14.20L25.71 14.20Q25.71 12.56 25.19 11.43Q24.66 10.31 23.77 8.82L23.77 8.82Q23.17 8.07 22.72 7.25Q22.27 6.43 22.27 5.53L22.27 5.53Q22.27 5.23 22.57 4.04L22.57 4.04Q23.17 2.09 25.26 1.27Q27.35 0.45 31.54 0.45L31.54 0.45L66.67 0.45Q69.81 0.45 71.52 1.49Q73.24 2.54 73.24 4.19L73.24 4.19Q73.24 4.93 72.80 6.13L72.80 6.13Q72.35 7.17 71.52 8.00Q70.70 8.82 70.03 9.19Q69.36 9.57 69.06 9.87L69.06 9.87Q66.67 11.21 65.17 12.86Q63.68 14.50 62.63 17.94L62.63 17.94L55.61 42.45L82.06 42.45L89.09 17.94Q89.69 15.99 89.69 14.20L89.69 14.20Q89.69 12.56 89.16 11.43Q88.64 10.31 87.74 8.82L87.74 8.82Q87.14 8.07 86.70 7.25Q86.25 6.43 86.25 5.53L86.25 5.53Q86.25 5.23 86.55 4.04L86.55 4.04Q87.14 2.09 89.24 1.27Q91.33 0.45 95.52 0.45L95.52 0.45L130.64 0.45M225.56 39.76L213.45 79.37Q213.15 80.57 213.15 81.17L213.15 81.17Q213.15 82.21 213.68 82.81Q214.20 83.41 215.10 83.41L215.10 83.41Q216.89 83.41 218.16 81.84Q219.43 80.27 219.88 80.27L219.88 80.27Q220.63 80.27 221.15 81.24Q221.67 82.21 221.67 83.56L221.67 83.56Q221.82 87.74 218.68 91.85Q215.55 95.96 209.87 98.65Q204.19 101.35 197.16 101.35L197.16 101.35Q188.34 101.35 183.11 97.76Q177.88 94.17 176.38 88.34L176.38 88.34Q171.00 94.32 164.50 97.38Q158.00 100.45 151.27 100.45L151.27 100.45Q140.81 100.45 133.71 95.29Q126.61 90.13 126.61 80.87L126.61 80.87Q126.61 76.68 128.10 72.20L128.10 72.20L137.67 40.96Q138.12 39.61 138.12 38.71L138.12 38.71Q138.12 37.07 137.37 36.10Q136.62 35.13 135.13 34.08L135.13 34.08Q133.63 32.88 133.03 31.99Q132.44 31.09 132.88 29.60L132.88 29.60Q133.78 26.16 142.30 23.54Q150.82 20.93 160.09 20.93L160.09 20.93Q168.76 20.93 172.80 24.22Q176.83 27.50 176.83 33.18L176.83 33.18Q176.83 36.62 175.78 39.76L175.78 39.76L166.37 70.85Q165.77 72.50 165.77 73.99L165.77 73.99Q165.77 76.08 166.97 77.13Q168.16 78.18 170.10 78.18L170.10 78.18Q172.94 78.18 174.74 76.53Q176.53 74.89 178.33 71.00L178.33 71.00L187.44 40.96Q187.89 39.61 187.89 38.71L187.89 38.71Q187.89 37.07 187.14 36.10Q186.40 35.13 185.05 34.08L185.05 34.08Q183.56 32.88 182.96 31.99Q182.36 31.09 182.81 29.60L182.81 29.60Q183.56 26.16 192.08 23.54Q200.60 20.93 209.87 20.93L209.87 20.93Q218.54 20.93 222.65 24.22Q226.76 27.50 226.76 33.03L226.76 33.03Q226.76 35.87 225.56 39.76L225.56 39.76M274.89 -10.46Q283.56 -10.46 287.67 -7.17Q291.78 -3.89 291.78 1.79L291.78 1.79Q291.78 5.08 290.73 8.22L290.73 8.22L267.26 84.45Q266.82 86.25 266.82 87.59L266.82 87.59Q266.82 89.54 267.56 90.66Q268.31 91.78 269.66 92.83L269.66 92.83Q270.70 93.87 271.15 94.54Q271.60 95.22 271.30 96.26L271.30 96.26Q270.55 98.21 268.31 99.10Q266.07 100.00 261.43 100.00L261.43 100.00L227.35 100.00Q223.47 100.00 221.67 98.73Q219.88 97.46 220.48 95.37L220.48 95.37Q221.08 93.57 223.62 92.23L223.62 92.23Q225.86 91.03 227.35 89.39Q228.85 87.74 229.90 84.16L229.90 84.16L252.62 9.57Q253.06 8.22 253.06 7.32L253.06 7.32Q253.06 5.68 252.24 4.63Q251.42 3.59 250.07 2.54L250.07 2.54Q248.58 1.35 247.91 0.45Q247.23 -0.45 247.68 -1.94L247.68 -1.94Q248.58 -5.38 257.10 -7.92Q265.62 -10.46 274.89 -10.46L274.89 -10.46M320.78 20.93Q329.45 20.93 333.48 24.22Q337.52 27.50 337.52 33.18L337.52 33.18Q337.52 36.62 336.47 39.76L336.47 39.76L322.72 84.45Q322.27 86.25 322.27 87.59L322.27 87.59Q322.27 89.54 323.02 90.66Q323.77 91.78 325.11 92.83L325.11 92.83Q326.16 93.87 326.61 94.54Q327.06 95.22 326.76 96.26L326.76 96.26Q326.01 98.21 323.77 99.10Q321.52 100.00 316.89 100.00L316.89 100.00L282.81 100.00Q278.92 100.00 277.13 98.73Q275.34 97.46 275.93 95.37L275.93 95.37Q276.53 93.57 279.07 92.23L279.07 92.23Q281.32 91.03 282.81 89.39Q284.30 87.74 285.35 84.16L285.35 84.16L298.36 40.96Q298.80 39.61 298.80 38.71L298.80 38.71Q298.80 37.07 298.06 36.10Q297.31 35.13 295.81 34.08L295.81 34.08Q294.32 32.88 293.72 31.99Q293.12 31.09 293.57 29.60L293.57 29.60Q294.47 26.16 302.99 23.54Q311.51 20.93 320.78 20.93L320.78 20.93M330.79 -12.11Q336.62 -12.11 340.51 -8.30Q344.39 -4.48 344.39 1.05L344.39 1.05Q344.39 4.93 342.38 8.67Q340.36 12.41 336.70 14.72Q333.03 17.04 328.55 17.04L328.55 17.04Q322.87 17.04 319.06 13.23Q315.25 9.42 315.10 3.74L315.10 3.74Q315.10 0.00 317.04 -3.66Q318.98 -7.32 322.57 -9.72Q326.16 -12.11 330.79 -12.11L330.79 -12.11M438.27 49.93L429.15 79.37Q428.85 79.97 428.85 81.17L428.85 81.17Q428.85 82.21 429.37 82.81Q429.90 83.41 430.79 83.41L430.79 83.41Q432.59 83.41 433.86 81.84Q435.13 80.27 435.58 80.27L435.58 80.27Q436.32 80.27 436.77 81.24Q437.22 82.21 437.22 83.56L437.22 83.56Q437.37 87.89 434.38 92.00Q431.39 96.11 425.64 98.73Q419.88 101.35 411.81 101.35L411.81 101.35Q401.94 101.35 396.11 96.79Q390.28 92.23 390.13 84.60L390.13 84.60Q390.13 79.07 392.83 72.20L392.83 72.20L401.05 50.67Q401.79 48.73 401.79 47.53L401.79 47.53Q401.79 45.59 400.52 44.47Q399.25 43.35 397.46 43.35L397.46 43.35Q394.17 43.35 391.18 46.41Q388.19 49.48 386.85 53.96L386.85 53.96L377.58 84.45Q376.98 86.10 376.98 87.59L376.98 87.59Q376.98 89.39 377.73 90.51Q378.48 91.63 379.82 92.83L379.82 92.83Q380.87 93.72 381.32 94.47Q381.76 95.22 381.46 96.26L381.46 96.26Q380.87 98.21 378.62 99.10Q376.38 100.00 371.60 100.00L371.60 100.00L337.52 100.00Q333.63 100.00 331.91 98.73Q330.19 97.46 330.64 95.37L330.64 95.37Q331.24 93.57 333.78 92.23L333.78 92.23Q336.02 91.03 337.52 89.39Q339.01 87.74 340.06 84.16L340.06 84.16L353.36 40.96Q353.66 40.21 353.66 38.86L353.66 38.86Q353.66 37.22 352.99 36.32Q352.32 35.43 350.82 34.08L350.82 34.08Q349.33 32.88 348.73 31.99Q348.13 31.09 348.58 29.60L348.58 29.60Q349.48 26.16 358.00 23.54Q366.52 20.93 375.78 20.93L375.78 20.93Q383.26 20.93 387.59 25.04Q391.93 29.15 391.48 36.47L391.48 36.47Q397.61 27.65 404.48 24.29Q411.36 20.93 419.43 20.93L419.43 20.93Q428.55 20.93 434.16 26.46Q439.76 31.99 439.76 40.81L439.76 40.81Q439.76 45.44 438.27 49.93L438.27 49.93M497.01 20.93Q514.20 20.93 524.51 27.28Q534.83 33.63 534.83 46.64L534.83 46.64Q534.83 51.57 533.03 57.85L533.03 57.85L526.91 78.48Q526.76 79.07 526.76 79.97L526.76 79.97Q526.76 82.36 528.70 82.36L528.70 82.36Q530.49 82.36 531.76 80.79Q533.03 79.22 533.48 79.22L533.48 79.22Q534.23 79.22 534.75 80.27Q535.28 81.32 535.28 82.66L535.28 82.66Q535.43 86.70 532.21 90.88Q529.00 95.07 523.62 97.76Q518.24 100.45 511.81 100.45L511.81 100.45Q504.04 100.45 498.51 97.61Q492.97 94.77 490.88 89.24L490.88 89.24Q486.40 94.62 480.27 97.53Q474.14 100.45 467.12 100.45L467.12 100.45Q459.19 100.45 453.81 97.38Q448.43 94.32 445.81 89.46Q443.20 84.60 443.20 79.22L443.20 79.22Q443.20 76.83 443.65 74.59L443.65 74.59Q446.04 64.28 454.04 59.04Q462.03 53.81 473.09 53.81L473.09 53.81Q485.50 53.81 497.46 57.70L497.46 57.70L501.20 47.83Q503.14 41.55 503.14 38.12L503.14 38.12Q502.99 34.53 500.75 32.74Q498.51 30.94 493.87 30.94L493.87 30.94Q494.77 33.33 494.77 35.87L494.77 35.87Q494.77 41.41 490.58 45.44Q486.40 49.48 478.62 49.48L478.62 49.48Q471.30 49.48 467.19 46.26Q463.08 43.05 463.08 38.27L463.08 38.27Q463.08 30.79 471.45 25.86Q479.82 20.93 497.01 20.93L497.01 20.93M488.64 66.22Q484.45 66.22 481.84 69.43Q479.22 72.65 479.22 76.38L479.22 76.38Q479.22 78.77 480.34 80.27Q481.46 81.76 483.56 81.76L483.56 81.76Q485.50 81.76 487.82 80.19Q490.13 78.62 491.18 75.49L491.18 75.49L494.32 66.67Q491.78 66.22 488.64 66.22L488.64 66.22" fill="currentColor"/></svg></a><span>Somekuva</span><a href="/admin/kirjoita/">← Kirjoita juttu</a><a href="/api/ulos" style="margin-left:0">Kirjaudu ulos</a></header>
-  <main>
-    <div class="preview">
-      <canvas id="canvas" width="1080" height="1350" aria-label="Somekuvan esikatselu"></canvas>
-      <p class="hint">Vedä kuvaa siirtääksesi sitä · nipistä tai rullaa zoomataksesi · voit myös pudottaa tai liittää (Ctrl+V) kuvan tähän</p>
-    </div>
+  <header class="bar">
+    <a class="bar__logo" href="/" aria-label="Hulina – etusivu"><img src="/assets/img/hulina-logo-violetti.svg" alt=""></a>
+    <span class="bar__title">Somekuva</span>
+    <span class="bar__sp"></span>
+    <button class="iconbtn" id="undo" type="button" title="Kumoa" aria-label="Kumoa" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+    <button class="iconbtn" id="redo" type="button" title="Tee uudelleen" aria-label="Tee uudelleen" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+    <a href="/admin/kirjoita/">Kirjoita<span class="hide-m"> juttu</span></a>
+    <a href="/api/ulos" class="hide-m">Ulos</a>
+  </header>
 
-    <form id="form" onsubmit="return false">
-      <details open>
-        <summary>Kuvat</summary>
-        <div class="group">
-          <div>
-            <span style="font-weight:600;font-size:14px">Asettelu</span>
-            <div class="seg" data-key="layout" style="margin-top:6px">
-              <button type="button" data-value="single">Yksi kuva</button>
-              <button type="button" data-value="side">Rinnakkain</button>
-              <button type="button" data-value="stack">Päällekkäin</button>
-            </div>
-          </div>
-          <div class="sub">
-            <b id="panel0Title">Kuva</b>
-            <input type="file" accept="image/*" data-panel="0">
-            <label>Zoomaus <input type="range" min="1" max="4" step="0.01" value="1" data-zoom="0"></label>
-          </div>
-          <div class="sub" id="panel1Box">
-            <b>Kuva 2</b>
-            <input type="file" accept="image/*" data-panel="1">
-            <label>Zoomaus <input type="range" min="1" max="4" step="0.01" value="1" data-zoom="1"></label>
-          </div>
-          <div id="filterControls" class="group" style="padding:0">
-            <div class="row">
-              <label>Kirkkaus <input id="brightness" type="range" min="60" max="140" value="100"></label>
-              <label>Kontrasti <input id="contrast" type="range" min="60" max="160" value="100"></label>
-            </div>
-            <label class="switch">Mustavalkoinen <input id="gray" type="checkbox"></label>
-          </div>
-          <label class="switch">Peilaa kuva <input id="flip" type="checkbox"></label>
-        </div>
-      </details>
+  <main class="app">
+    <section class="stage" aria-label="Esikatselu">
+      <div class="formats" id="formats"></div>
+      <div class="cv-wrap" id="cvWrap"><canvas id="cv" width="1080" height="1350" aria-label="Somekuvan esikatselu"></canvas></div>
+      <p class="hint">Vedä kuvaa siirtääksesi · nipistä tai rullaa zoomataksesi · tuplaklikkaus palauttaa · voit myös pudottaa tai liittää kuvan</p>
+    </section>
 
-      <details open>
-        <summary>Teksti</summary>
-        <div class="group">
-          <label>Otsikko <small>Korosta sanoja tähdillä: *näin*</small>
-            <textarea id="title">*Kohu* roihahti somessa – näin julkkis vastaa nyt</textarea>
-          </label>
-          <label>Yläotsikko / tarra <small>Jätä tyhjäksi, jos et halua</small>
-            <input id="badge" type="text" maxlength="30" placeholder="esim. KOHU">
-          </label>
-          <div class="chips" id="badgeChips">
-            <button type="button">Kohu</button><button type="button">Kuvat</button><button type="button">Video</button><button type="button">Yllätys</button><button type="button">Haastattelu</button><button type="button">Nyt</button><button type="button">Eksklusiivinen</button>
-          </div>
-          <div>
-            <span style="font-weight:600;font-size:14px">Fontti</span>
-            <div class="fonts" data-key="font" style="margin-top:6px">
-              <button type="button" data-value="spartan" style="font-family:'League Spartan';font-weight:800">Spartan<small>Hulina</small></button>
-              <button type="button" data-value="anton" style="font-family:Anton">Anton<small>Iskevä</small></button>
-              <button type="button" data-value="roboto" style="font-family:'Roboto Condensed';font-weight:800">Roboto<small>Tiivis groteski</small></button>
-              <button type="button" data-value="fira" style="font-family:'Fira Sans Condensed';font-weight:700">Fira Sans<small>Pehmeä</small></button>
-            </div>
-          </div>
-          <label class="switch">ISOT KIRJAIMET <input id="upper" type="checkbox"></label>
-          <label>Tekstin koko <input id="textSize" type="range" min="60" max="130" value="100"></label>
-          <div>
-            <span style="font-weight:600;font-size:14px">Sijainti</span>
-            <div class="seg" data-key="textPos" style="margin-top:6px">
-              <button type="button" data-value="bottom">Alhaalla</button>
-              <button type="button" data-value="middle">Keskellä</button>
-              <button type="button" data-value="top">Ylhäällä</button>
-            </div>
-          </div>
-          <div>
-            <span style="font-weight:600;font-size:14px">Tasaus</span>
-            <div class="seg" data-key="align" style="margin-top:6px">
-              <button type="button" data-value="center">Keskitetty</button>
-              <button type="button" data-value="left">Vasen</button>
-            </div>
-          </div>
-          <div>
-            <span style="font-weight:600;font-size:14px">Korostustyyli</span>
-            <div class="seg" data-key="hlStyle" style="margin-top:6px">
-              <button type="button" data-value="color">Väri</button>
-              <button type="button" data-value="box">Laatikko</button>
-              <button type="button" data-value="underline">Alleviivaus</button>
-            </div>
-          </div>
-          <label>Korostusväri
-            <div class="colors" id="colors">
-              <button type="button" style="background:#ff8fb1" data-color="#ff8fb1" aria-label="Hulina-pinkki"></button>
-              <button type="button" style="background:#ffd400" data-color="#ffd400" aria-label="Keltainen"></button>
-              <button type="button" style="background:#3d8bff" data-color="#3d8bff" aria-label="Sininen"></button>
-              <button type="button" style="background:#ff3d57" data-color="#ff3d57" aria-label="Punainen"></button>
-              <button type="button" style="background:#2ee59d" data-color="#2ee59d" aria-label="Vihreä"></button>
-              <button type="button" style="background:#ffffff;box-shadow:inset 0 0 0 1px #ccc" data-color="#ffffff" aria-label="Valkoinen"></button>
-              <input id="customColor" type="color" value="#ff8fb1" aria-label="Oma väri" title="Oma väri">
-            </div>
-          </label>
-        </div>
-      </details>
+    <section class="panel">
+      <nav class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="mallit" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Mallit</button>
+        <button type="button" role="tab" data-tab="kuva" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>Kuva</button>
+        <button type="button" role="tab" data-tab="teksti" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>Teksti</button>
+        <button type="button" role="tab" data-tab="tyyli" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.6-1 1.1-2-.7-1.4.3-2.8 1.8-2.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.3" fill="currentColor"/><circle cx="10.5" cy="7" r="1.3" fill="currentColor"/><circle cx="15.5" cy="7.5" r="1.3" fill="currentColor"/></svg>Tyyli</button>
+        <button type="button" role="tab" data-tab="logo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>Logo</button>
+        <button type="button" role="tab" data-tab="valmis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Lataa</button>
+      </nav>
 
-      <details>
-        <summary>Tyyli ja koko</summary>
-        <div class="group">
-          <label>Koko
-            <select id="format">
-              <option value="1080x1350">4:5 · Facebook / Instagram</option>
-              <option value="1080x1080">1:1 · Neliö</option>
-              <option value="1080x1920">9:16 · Story / TikTok / Reels</option>
-              <option value="1600x900">16:9 · X / YouTube</option>
-              <option value="1200x630">Linkkikuva (1,91:1)</option>
-            </select>
-          </label>
-          <div>
-            <span style="font-weight:600;font-size:14px">Tummennus</span>
-            <div class="seg" data-key="shadeStyle" style="margin-top:6px">
-              <button type="button" data-value="gradient">Liukuva</button>
-              <button type="button" data-value="full">Koko kuva</button>
-              <button type="button" data-value="none">Ei</button>
-            </div>
-          </div>
-          <label>Tummennuksen määrä <input id="shade" type="range" min="0.2" max="0.9" step="0.01" value="0.5"></label>
-          <div>
-            <span style="font-weight:600;font-size:14px">Kehys</span>
-            <div class="seg" data-key="frame" style="margin-top:6px">
-              <button type="button" data-value="none">Ei</button>
-              <button type="button" data-value="accent">Korostusväri</button>
-              <button type="button" data-value="white">Valkoinen</button>
-              <button type="button" data-value="plum">Violetti</button>
-              <button type="button" data-value="black">Musta</button>
-            </div>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>Logo ja kuvaaja</summary>
-        <div class="group">
-          <label class="switch">Hulina-logo kuvassa <input id="showLogo" type="checkbox"></label>
-          <div id="logoPosBox">
-            <span style="font-weight:600;font-size:14px">Logon paikka</span>
-            <div class="seg" data-key="logoPos" style="margin-top:6px">
-              <button type="button" data-value="above">Otsikon yllä</button>
-              <button type="button" data-value="tl">Vasen yläkulma</button>
-              <button type="button" data-value="tr">Oikea yläkulma</button>
-            </div>
-          </div>
-          <label>Kuvaaja / lähde <small>Näkyy pienellä kuvan reunassa</small>
-            <input id="credit" type="text" maxlength="60" placeholder="esim. Kuva: MTV / Tiedotekuva">
-          </label>
-        </div>
-      </details>
-
-      <div class="actions">
-        <div class="row">
-          <label>Tiedostomuoto
-            <select id="type">
-              <option value="image/jpeg">JPG (pienempi)</option>
-              <option value="image/png">PNG (tarkempi)</option>
-            </select>
-          </label>
-          <div style="display:grid;align-content:end"><button class="btn btn--plain" id="reset" type="button">Nollaa asetukset</button></div>
-        </div>
-        <button class="btn" id="download" type="button">Lataa kuva</button>
-        <button class="btn btn--ghost" id="share" type="button" hidden>Jaa / tallenna kuviin</button>
-        <p class="rights">Käytä vain kuvia, joihin sinulla on oikeus: omia kuvia, tiedotekuvia käyttöehtojen mukaan tai lisensoituja kuvapankkikuvia. Merkitse kuvaaja.</p>
+      <!-- Templates -->
+      <div class="tab" data-panel="mallit">
+        <p class="note">Valitse valmis malli. Kuva ja otsikko säilyvät, ulkoasu vaihtuu. Kaikkea voi muokata vapaasti.</p>
+        <div class="tpls" id="tpls"></div>
+        <div class="h" id="ownHead" hidden>Omat mallit</div>
+        <div class="tpls" id="ownTpls"></div>
+        <button class="btn btn--ghost" type="button" id="saveTpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Tallenna tyyli omaksi malliksi</button>
       </div>
-    </form>
+
+      <!-- Image -->
+      <div class="tab" data-panel="kuva" hidden>
+        <div class="field">
+          <span class="lbl">Asettelu</span>
+          <div class="seg" data-seg="layout">
+            <button type="button" data-v="single"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="currentColor" opacity=".35"/><rect x="6" y="17" width="22" height="3" rx="1.5" fill="currentColor"/></svg>Yksi kuva</button>
+            <button type="button" data-v="split-h"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="15.5" height="24" rx="3" fill="currentColor" opacity=".35"/><rect x="17.5" y="1" width="15.5" height="24" rx="3" fill="currentColor" opacity=".35"/></svg>Rinnakkain</button>
+            <button type="button" data-v="split-v"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="11.5" rx="3" fill="currentColor" opacity=".35"/><rect x="1" y="13.5" width="32" height="11.5" rx="3" fill="currentColor" opacity=".35"/></svg>Päällekkäin</button>
+          </div>
+          <div class="seg" data-seg="layout">
+            <button type="button" data-v="panel"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="14" rx="3" fill="currentColor" opacity=".35"/><rect x="6" y="18" width="22" height="3" rx="1.5" fill="currentColor"/></svg>Kuva + laatikko</button>
+            <button type="button" data-v="quote"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="currentColor" opacity=".2"/><text x="5" y="19" font-size="18" font-weight="900" fill="currentColor">“</text><rect x="14" y="9" width="14" height="3" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="10" height="3" rx="1.5" fill="currentColor"/></svg>Sitaatti</button>
+            <button type="button" data-v="text"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="7" y="9" width="20" height="3" rx="1.5" fill="currentColor"/><rect x="10" y="14" width="14" height="3" rx="1.5" fill="currentColor"/></svg>Pelkkä teksti</button>
+          </div>
+        </div>
+        <div id="imgCards" class="field"></div>
+        <div class="field">
+          <span class="lbl">Taustaväri <small data-show="layout=single|split-h|split-v|quote">näkyy, kun kuvaa ei ole</small></span>
+          <div class="swatches" data-swatch="bg">
+            <button type="button" data-v="plum" style="background:linear-gradient(135deg,#3b2766,#2a1a4a)" aria-label="Violetti"></button>
+            <button type="button" data-v="pinkplum" style="background:linear-gradient(135deg,#ff8fb1,#2a1a4a)" aria-label="Pinkki-violetti liukuväri"></button>
+            <button type="button" data-v="black" style="background:#111" aria-label="Musta"></button>
+            <button type="button" data-v="white" style="background:#fff" aria-label="Valkoinen"></button>
+            <button type="button" data-v="pink" style="background:#ff8fb1" aria-label="Pinkki"></button>
+            <button type="button" data-v="accent" style="background:conic-gradient(#ff3b4e,#ffd23f,#2ee59d,#3d8bff,#a970ff,#ff3b4e)" aria-label="Sama kuin korostusväri"></button>
+          </div>
+        </div>
+        <div class="field" data-show="hasImage">
+          <div class="h">Kuvan säädöt</div>
+          <div class="row">
+            <label class="field"><span class="lbl">Kirkkaus <output data-out="brightness"></output></span><input type="range" min="50" max="150" data-k="brightness"></label>
+            <label class="field"><span class="lbl">Kontrasti <output data-out="contrast"></output></span><input type="range" min="50" max="150" data-k="contrast"></label>
+          </div>
+          <div class="row">
+            <label class="field"><span class="lbl">Värit <output data-out="saturation"></output></span><input type="range" min="0" max="200" data-k="saturation"></label>
+            <label class="field"><span class="lbl">Lämpö <output data-out="warmth"></output></span><input type="range" min="-50" max="50" data-k="warmth"></label>
+          </div>
+          <label class="field"><span class="lbl">Reunojen tummennus <output data-out="vignette"></output></span><input type="range" min="0" max="100" data-k="vignette"></label>
+          <label class="switch">Mustavalkoinen <input type="checkbox" data-k="gray"></label>
+          <label class="switch">Peilaa kuva <input type="checkbox" data-k="flip"></label>
+          <button class="btn btn--ghost btn--sm" type="button" id="resetAdjust">Palauta säädöt</button>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="tab" data-panel="teksti" hidden>
+        <div class="import">
+          <button class="btn btn--ghost" type="button" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m-5 5 5-5 5 5M5 14v5h14v-5"/></svg>Tuo otsikko ja kuva jutusta</button>
+          <div class="import__list" id="importList" hidden></div>
+        </div>
+        <label class="field">
+          <span class="lbl">Otsikko <small>korosta sanoja tähdillä: *näin*</small></span>
+          <textarea id="title" data-k="title" rows="3"></textarea>
+        </label>
+        <div class="emoji" id="emoji"></div>
+        <label class="field">
+          <span class="lbl">Alaotsikko <small>valinnainen</small></span>
+          <input type="text" data-k="sub" maxlength="140" placeholder="esim. Katso kuvat!">
+        </label>
+        <label class="field" data-show="layout=quote">
+          <span class="lbl">Kuka sanoi?</span><input type="text" data-k="quoteBy" maxlength="60" placeholder="esim. Laulaja Matti Meikäläinen">
+        </label>
+        <div class="field">
+          <label class="field"><span class="lbl">Tarra otsikon yllä <small>valinnainen</small></span><input type="text" data-k="badge" maxlength="30" placeholder="esim. KOHU"></label>
+          <div class="chips" data-chips="badge"></div>
+          <div class="seg" data-seg="badgeStyle" data-show="badge">
+            <button type="button" data-v="pill">Pyöreä</button><button type="button" data-v="rect">Kulmikas</button><button type="button" data-v="tilted">Vino</button><button type="button" data-v="outline">Reunus</button>
+          </div>
+        </div>
+        <div class="field" data-show="layout=split-h|split-v">
+          <span class="lbl">Tekstit kuvien päällä</span>
+          <div class="row"><input type="text" id="label0" maxlength="20" placeholder="Kuva 1, esim. ENNEN"><input type="text" id="label1" maxlength="20" placeholder="Kuva 2, esim. NYT"></div>
+        </div>
+        <div class="field">
+          <label class="field"><span class="lbl">Palkki alareunassa <small>valinnainen</small></span><input type="text" data-k="cta" maxlength="40" placeholder="esim. Lue lisää: hulina.net"></label>
+          <div class="chips" data-chips="cta"></div>
+        </div>
+        <label class="field">
+          <span class="lbl">Kuvaaja / lähde <small>näkyy pienellä reunassa</small></span>
+          <input type="text" data-k="credit" maxlength="60" placeholder="esim. Kuva: MTV / Tiedotekuva">
+        </label>
+      </div>
+
+      <!-- Style -->
+      <div class="tab" data-panel="tyyli" hidden>
+        <div class="field">
+          <span class="lbl">Fontti</span>
+          <div class="seg" data-seg="font" id="fontSeg"></div>
+        </div>
+        <label class="switch">ISOT KIRJAIMET <input type="checkbox" data-k="upper"></label>
+        <label class="field"><span class="lbl">Tekstin koko <output data-out="textSize"></output></span><input type="range" min="60" max="140" data-k="textSize"></label>
+        <div class="field">
+          <span class="lbl">Tekstityyli</span>
+          <div class="seg" data-seg="textStyle">
+            <button type="button" data-v="shadow">Varjo</button><button type="button" data-v="boxes">Laatikot</button><button type="button" data-v="boxesAccent">Värilaatikot</button><button type="button" data-v="outline">Ääriviiva</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Korostettujen sanojen tyyli</span>
+          <div class="seg" data-seg="hlStyle">
+            <button type="button" data-v="color">Väri</button><button type="button" data-v="box">Laatikko</button><button type="button" data-v="marker">Tussi</button><button type="button" data-v="underline">Viiva</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Korostusväri</span>
+          <div class="swatches" data-swatch="accent">
+            <button type="button" data-v="#ff8fb1" style="background:#ff8fb1" aria-label="Hulina-pinkki"></button>
+            <button type="button" data-v="#ff3b4e" style="background:#ff3b4e" aria-label="Punainen"></button>
+            <button type="button" data-v="#ffd23f" style="background:#ffd23f" aria-label="Keltainen"></button>
+            <button type="button" data-v="#2ee59d" style="background:#2ee59d" aria-label="Vihreä"></button>
+            <button type="button" data-v="#3d8bff" style="background:#3d8bff" aria-label="Sininen"></button>
+            <button type="button" data-v="#a970ff" style="background:#a970ff" aria-label="Liila"></button>
+            <button type="button" data-v="#ffffff" style="background:#fff" aria-label="Valkoinen"></button>
+            <input type="color" id="customAccent" aria-label="Oma väri" title="Oma väri">
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Tekstin paikka</span>
+          <div class="seg" data-seg="textPos"><button type="button" data-v="top">Ylhäällä</button><button type="button" data-v="middle">Keskellä</button><button type="button" data-v="bottom">Alhaalla</button></div>
+          <label class="field"><span class="lbl">Hienosäätö <output data-out="offsetY"></output></span><input type="range" min="-25" max="25" data-k="offsetY"></label>
+        </div>
+        <div class="field">
+          <span class="lbl">Tasaus</span>
+          <div class="seg" data-seg="align"><button type="button" data-v="left">Vasen</button><button type="button" data-v="center">Keskitetty</button><button type="button" data-v="right">Oikea</button></div>
+        </div>
+        <div class="field" data-show="overImage">
+          <span class="lbl">Kuvan tummennus</span>
+          <div class="seg" data-seg="shadeStyle"><button type="button" data-v="gradient">Liukuva</button><button type="button" data-v="full">Koko kuva</button><button type="button" data-v="none">Ei</button></div>
+          <label class="field" data-show="shadeStyle!=none"><span class="lbl">Voimakkuus <output data-out="shade"></output></span><input type="range" min="10" max="95" data-k="shade"></label>
+          <div class="seg" data-seg="tint" data-show="shadeStyle!=none"><button type="button" data-v="black">Musta sävy</button><button type="button" data-v="plum">Violetti</button><button type="button" data-v="accent">Korostusväri</button></div>
+        </div>
+        <div class="field">
+          <span class="lbl">Kehys</span>
+          <div class="seg" data-seg="frame"><button type="button" data-v="none">Ei</button><button type="button" data-v="accent">Väri</button><button type="button" data-v="white">Valkoinen</button><button type="button" data-v="plum">Violetti</button><button type="button" data-v="black">Musta</button></div>
+        </div>
+      </div>
+
+      <!-- Logo -->
+      <div class="tab" data-panel="logo" hidden>
+        <div class="field">
+          <span class="lbl">Logo</span>
+          <div class="seg" data-seg="logo">
+            <button type="button" data-v="stacked"><img src="/assets/img/hulina-logo-pysty-violetti.svg" alt="" height="30">Pysty</button>
+            <button type="button" data-v="wide"><img src="/assets/img/hulina-logo-violetti.svg" alt="" height="20" style="margin:5px 0">Vaaka</button>
+            <button type="button" data-v="symbol"><img src="/assets/img/hulina-symboli-violetti.svg" alt="" height="30">Kupla</button>
+            <button type="button" data-v="none"><svg viewBox="0 0 34 26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="17" cy="13" r="10"/><path d="m10 20 14-14"/></svg>Ei logoa</button>
+          </div>
+        </div>
+        <div class="field" data-show="logo!=none">
+          <span class="lbl">Paikka</span>
+          <div class="seg" data-seg="logoPos"><button type="button" data-v="above">Otsikon yllä</button><button type="button" data-v="tl">Vasen ylä</button><button type="button" data-v="tc">Keski ylä</button><button type="button" data-v="tr">Oikea ylä</button></div>
+          <div class="seg" data-seg="logoPos"><button type="button" data-v="bl">Vasen ala</button><button type="button" data-v="bc">Keski ala</button><button type="button" data-v="br">Oikea ala</button></div>
+          <label class="field"><span class="lbl">Koko <output data-out="logoSize"></output></span><input type="range" min="50" max="180" data-k="logoSize"></label>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="tab" data-panel="valmis" hidden>
+        <div class="field">
+          <span class="lbl">Tiedostomuoto</span>
+          <div class="seg" data-seg="type"><button type="button" data-v="image/jpeg">JPG <small>pienempi tiedosto</small></button><button type="button" data-v="image/png">PNG <small>tarkin laatu</small></button></div>
+        </div>
+        <button class="btn btn--pink btn--big" type="button" data-act="download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Lataa kuva</button>
+        <div class="btns">
+          <button class="btn btn--ghost" type="button" data-act="share" id="shareBtn" hidden>Jaa / tallenna kuviin</button>
+          <button class="btn btn--ghost" type="button" data-act="copy">Kopioi</button>
+          <button class="btn btn--ghost" type="button" data-act="all">Lataa kaikki koot</button>
+        </div>
+        <p class="note">"Lataa kaikki koot" tekee samasta kuvasta version Instagramiin, Storyyn ja TikTokiin, neliönä sekä linkkikuvaksi.</p>
+        <label class="switch">Näytä Storyn turva-alue esikatselussa <input type="checkbox" data-k="safe"></label>
+        <button class="btn btn--ghost btn--sm" type="button" id="resetAll">Aloita alusta</button>
+      </div>
+    </section>
   </main>
 
+  <div class="mbar">
+    <button class="btn btn--ghost" type="button" data-act="share" id="mShare" hidden>Jaa</button>
+    <button class="btn btn--pink" type="button" data-act="download">Lataa kuva</button>
+  </div>
+  <input type="file" id="file" accept="image/*" hidden>
+  <div class="toast" id="toast" role="status"></div>
+
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+"use strict";
 const $ = (id) => document.getElementById(id);
-const STORE = "valokeila-somekuva"; // key kept from the old name so saved settings survive
+const cv = $("cv");
+const ctx = cv.getContext("2d");
+const PLUM = "#2a1a4a", PINK = "#ff8fb1";
+const STORE = "hulina-somekuva", OWN = "hulina-somekuva-mallit", HANDOFF = "hulina-somekuva-juttu";
 
+const FORMATS = {
+  ig: { w: 1080, h: 1350, label: "Instagram", sub: "4:5" },
+  story: { w: 1080, h: 1920, label: "Story / TikTok", sub: "9:16" },
+  sq: { w: 1080, h: 1080, label: "Neliö", sub: "1:1" },
+  link: { w: 1200, h: 630, label: "Linkkikuva", sub: "FB / X" },
+  yt: { w: 1280, h: 720, label: "YouTube", sub: "16:9" },
+};
 const FONTS = {
-  spartan: { family: "League Spartan", weight: 800, scale: 0.92, lineHeight: 1.05 },
-  anton:  { family: "Anton", weight: 400, scale: 1, lineHeight: 1.12 },
-  roboto: { family: "Roboto Condensed", weight: 800, scale: 1, lineHeight: 1.02 },
-  fira:   { family: "Fira Sans Condensed", weight: 700, scale: 0.9, lineHeight: 1.08 },
+  spartan: { family: '"League Spartan"', weight: 800, scale: 0.94, lh: 1.02, label: "Spartan" },
+  anton: { family: "Anton", weight: 400, scale: 1.02, lh: 1.1, label: "Anton" },
+  barlow: { family: '"Barlow Condensed"', weight: 800, scale: 1.12, lh: 1.0, label: "Barlow" },
+  roboto: { family: '"Roboto Condensed"', weight: 800, scale: 1, lh: 1.04, label: "Roboto" },
+  fira: { family: '"Fira Sans Condensed"', weight: 700, scale: 0.94, lh: 1.08, label: "Fira" },
 };
+const BADGES = ["Kohu", "Nyt", "Paljastus", "Yllätys", "Kuvat", "Video", "Ero", "Rakkaus", "Urheilu", "Rikos", "Haastattelu", "Eksklusiivinen"];
+const CTAS = ["Lue lisää: hulina.net", "Linkki biossa", "Koko juttu: hulina.net", "Pyyhkäise →"];
+const EMOJI = ["😱", "🔥", "😳", "👀", "💔", "❤️", "💍", "👶", "🚨", "🏆", "⚽", "🏒", "😂", "🙏", "✨", "👉"];
+
 const DEFAULTS = {
-  layout: "single", font: "spartan", textPos: "bottom", align: "center", hlStyle: "color",
-  shadeStyle: "gradient", frame: "none", logoPos: "above", accent: "#ff8fb1",
-  title: "*Kohu* roihahti somessa – näin julkkis vastaa nyt", badge: "", upper: false, textSize: 100,
-  format: "1080x1350", shade: 0.5, showLogo: true, credit: "", brightness: 100, contrast: 100, gray: false, flip: false, type: "image/jpeg",
+  format: "ig", layout: "single", template: "uutinen",
+  title: "*Kohu* roihahti somessa – näin julkkis vastaa nyt", sub: "", badge: "", badgeStyle: "pill", quoteBy: "", labels: ["", ""],
+  cta: "", credit: "",
+  font: "spartan", upper: false, textSize: 100, align: "center", textPos: "bottom", offsetY: 0,
+  textStyle: "shadow", hlStyle: "color", accent: PINK,
+  shadeStyle: "gradient", shade: 60, tint: "black", bg: "plum", frame: "none",
+  brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false, flip: false,
+  logo: "stacked", logoPos: "above", logoSize: 100,
+  type: "image/jpeg", safe: true,
 };
-const FIELDS = ["title", "badge", "upper", "textSize", "format", "shade", "showLogo", "credit", "brightness", "contrast", "gray", "flip", "type"];
-const SEGMENTS = ["layout", "font", "textPos", "align", "hlStyle", "shadeStyle", "frame", "logoPos"];
+// A template changes the look, not the content.
+const CONTENT = ["title", "sub", "quoteBy", "credit", "format", "type", "safe", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
+const TEMPLATES = [
+  { id: "uutinen", name: "Uutinen", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 62, tint: "black", logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
+  { id: "kohu", name: "Kohu", set: { layout: "single", font: "spartan", upper: false, textStyle: "boxes", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 40, tint: "black", logo: "wide", logoPos: "tl", logoSize: 100, badge: "KOHU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
+  { id: "nyt", name: "Nyt", set: { layout: "single", font: "anton", upper: true, textStyle: "outline", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 55, tint: "black", logo: "symbol", logoPos: "tr", logoSize: 100, badge: "NYT", badgeStyle: "rect", frame: "accent", cta: "", accent: "#ff3b4e" } },
+  { id: "sitaatti", name: "Sitaatti", set: { layout: "quote", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "left", textPos: "middle", offsetY: 0, shadeStyle: "full", shade: 70, tint: "plum", bg: "plum", logo: "wide", logoPos: "bl", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
+  { id: "vertailu", name: "Ennen ja nyt", set: { layout: "split-h", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 65, tint: "black", logo: "stacked", logoPos: "above", logoSize: 90, badge: "", labels: ["ENNEN", "NYT"], frame: "none", cta: "", accent: PINK } },
+  { id: "paneeli", name: "Kuva + laatikko", set: { layout: "panel", bg: "white", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "marker", align: "left", textPos: "top", offsetY: 0, logo: "wide", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
+  { id: "teksti", name: "Pelkkä teksti", set: { layout: "text", bg: "pinkplum", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "box", align: "center", textPos: "middle", offsetY: 0, logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: "#ffffff" } },
+  { id: "urheilu", name: "Urheilu", set: { layout: "single", font: "barlow", upper: true, textStyle: "shadow", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 65, tint: "black", logo: "wide", logoPos: "tr", logoSize: 100, badge: "URHEILU", badgeStyle: "rect", frame: "none", cta: "Lue lisää: hulina.net", accent: "#ffd23f" } },
+];
 
-const panels = [0, 1].map(() => ({ img: null, zoom: 1, panX: 0.5, panY: 0.3 }));
-let s = { ...DEFAULTS };
+let s = clone(DEFAULTS);
+const panels = [newPanel(), newPanel()];
+function newPanel() { return { img: null, src: "", zoom: 1, panX: 0.5, panY: 0.35, cache: null, key: "", soft: null }; }
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
 
-// ---------- Settings: form <-> state, remembered between visits ----------
-function load() {
-  try { s = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(STORE) || "{}") }; } catch { s = { ...DEFAULTS }; }
-}
-function save() { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch {} }
-function syncForm() {
-  FIELDS.forEach((k) => { const el = $(k); if (el.type === "checkbox") el.checked = !!s[k]; else el.value = s[k]; });
-  SEGMENTS.forEach((k) => document.querySelectorAll(`[data-key="${k}"] button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === s[k]))));
-  document.querySelectorAll("#colors button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.color === s.accent)));
-  $("customColor").value = s.accent;
-  document.documentElement.style.setProperty("--accent", s.accent === "#ffffff" ? "#ff8fb1" : s.accent);
-  $("panel1Box").hidden = s.layout === "single";
-  $("panel0Title").textContent = s.layout === "single" ? "Kuva" : "Kuva 1";
-  $("logoPosBox").hidden = !s.showLogo;
-}
-function update() { save(); syncForm(); render(); }
-
-FIELDS.forEach((k) => $(k).addEventListener("input", () => {
-  const el = $(k);
-  s[k] = el.type === "checkbox" ? el.checked : el.type === "range" ? Number(el.value) : el.value;
-  update();
-}));
-SEGMENTS.forEach((k) => document.querySelector(`[data-key="${k}"]`).addEventListener("click", (e) => {
-  const b = e.target.closest("button"); if (!b) return;
-  s[k] = b.dataset.value; update();
-}));
-$("colors").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; s.accent = b.dataset.color; update(); });
-$("customColor").addEventListener("input", (e) => { s.accent = e.target.value; update(); });
-$("badgeChips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; s.badge = b.textContent; update(); });
-$("reset").addEventListener("click", () => { s = { ...DEFAULTS }; panels.forEach((p) => Object.assign(p, { zoom: 1, panX: 0.5, panY: 0.3 })); document.querySelectorAll("[data-zoom]").forEach((z) => (z.value = 1)); update(); });
-
-// ---------- Images ----------
-function setImage(i, file) {
-  if (!file || !file.type.startsWith("image/")) return;
-  const img = new Image();
-  img.onload = () => { Object.assign(panels[i], { img, zoom: 1, panX: 0.5, panY: 0.3 }); document.querySelector(`[data-zoom="${i}"]`).value = 1; render(); URL.revokeObjectURL(img.src); };
-  img.src = URL.createObjectURL(file);
-}
-// The next panel that still needs a photo (for drop and paste).
-const nextPanel = () => (s.layout !== "single" && panels[0].img && !panels[1].img ? 1 : 0);
-document.querySelectorAll("[data-panel]").forEach((input) => input.addEventListener("change", () => setImage(Number(input.dataset.panel), input.files[0])));
-document.querySelectorAll("[data-zoom]").forEach((r) => r.addEventListener("input", () => { panels[Number(r.dataset.zoom)].zoom = Number(r.value); render(); }));
-document.addEventListener("paste", (e) => { const f = [...(e.clipboardData?.files || [])].find((x) => x.type.startsWith("image/")); if (f) setImage(nextPanel(), f); });
-canvas.addEventListener("dragover", (e) => { e.preventDefault(); canvas.classList.add("dragover"); });
-canvas.addEventListener("dragleave", () => canvas.classList.remove("dragover"));
-canvas.addEventListener("drop", (e) => {
-  e.preventDefault(); canvas.classList.remove("dragover");
-  const files = [...e.dataTransfer.files].filter((f) => f.type.startsWith("image/"));
-  if (files.length > 1 && s.layout !== "single") { setImage(0, files[0]); setImage(1, files[1]); }
-  else if (files[0]) setImage(panelAt(e), files[0]);
-});
-
-// ---------- Layout ----------
-function geometry() {
-  const [W, H] = s.format.split("x").map(Number);
-  const frame = s.frame === "none" ? 0 : Math.round(Math.min(W, H) * 0.035);
-  const inner = { x: frame, y: frame, w: W - frame * 2, h: H - frame * 2 };
-  const gap = s.layout === "single" ? 0 : Math.round(Math.min(W, H) * 0.008);
-  let rects;
-  if (s.layout === "side") rects = [{ ...inner, w: (inner.w - gap) / 2 }, { ...inner, x: inner.x + (inner.w + gap) / 2, w: (inner.w - gap) / 2 }];
-  else if (s.layout === "stack") rects = [{ ...inner, h: (inner.h - gap) / 2 }, { ...inner, y: inner.y + (inner.h + gap) / 2, h: (inner.h - gap) / 2 }];
-  else rects = [inner];
-  return { W, H, frame, inner, rects };
-}
-function panelAt(e) {
-  const r = canvas.getBoundingClientRect();
-  const x = (e.clientX - r.left) * (canvas.width / r.width), y = (e.clientY - r.top) * (canvas.height / r.height);
-  const i = geometry().rects.findIndex((q) => x >= q.x && x <= q.x + q.w && y >= q.y && y <= q.y + q.h);
-  return Math.max(0, i);
+// ---------- Logos: pink for dark backgrounds, plum for light ones ----------
+const LOGOS = {
+  stacked: { ratio: 561.4 / 380, h: 150, src: ["hulina-logo-pysty", "hulina-logo-pysty-violetti"] },
+  wide: { ratio: 787.4 / 224, h: 66, src: ["hulina-logo-pinkki", "hulina-logo-violetti"] },
+  symbol: { ratio: 214 / 224, h: 104, src: ["hulina-symboli", "hulina-symboli-violetti"] },
+};
+for (const L of Object.values(LOGOS)) {
+  L.img = L.src.map((name) => { const im = new Image(); im.onload = () => refresh(); im.src = `/assets/img/${name}.svg`; return im; });
 }
 
-// ---------- Drawing ----------
-// Older Safari lacks roundRect; a plain rectangle is fine there.
-if (!ctx.roundRect) CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
-const filterSupported = "filter" in ctx;
-if (!filterSupported) $("filterControls").hidden = true;
-const luminance = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
-const onAccent = () => (luminance(s.accent) > 0.55 ? "#2a1a4a" : "#fff");
+// ---------- Colours ----------
+const lum = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
+const onAccent = (hex) => (lum(hex) > 0.55 ? "#111111" : "#ffffff");
+const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+function bgBase(st) { return { plum: PLUM, pinkplum: "#8a4f7d", black: "#111111", white: "#ffffff", pink: PINK, accent: st.accent }[st.bg] || PLUM; }
+function paintBg(c, r, st) {
+  if (st.bg === "plum") { const g = c.createLinearGradient(r.x, r.y, r.x + r.w, r.y + r.h); g.addColorStop(0, "#3b2766"); g.addColorStop(1, PLUM); c.fillStyle = g; }
+  else if (st.bg === "pinkplum") { const g = c.createLinearGradient(r.x, r.y, r.x + r.w * 0.6, r.y + r.h); g.addColorStop(0, PINK); g.addColorStop(1, PLUM); c.fillStyle = g; }
+  else c.fillStyle = bgBase(st);
+  c.fillRect(r.x, r.y, r.w, r.h);
+}
+const frameColor = (st) => ({ accent: st.accent, white: "#ffffff", plum: PLUM, black: "#000000" }[st.frame] || "#000000");
+const tintColor = (st) => ({ black: "#000000", plum: "#1c1033", accent: st.accent }[st.tint] || "#000000");
 
-function words(title) {
+// ---------- Image processing (pixel by pixel, so it also works in Safari) ----------
+function processed(p, st) {
+  const key = [st.brightness, st.contrast, st.saturation, st.warmth, st.gray].join();
+  if (p.cache && p.key === key) return p.cache;
+  const max = 2400, im = p.img;
+  const k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+  const c = document.createElement("canvas");
+  c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+  const x = c.getContext("2d", { willReadFrequently: true });
+  x.drawImage(im, 0, 0, c.width, c.height);
+  if (key !== "100,100,100,0,false") {
+    const d = x.getImageData(0, 0, c.width, c.height), a = d.data;
+    const b = st.brightness / 100, ct = st.contrast / 100, sat = st.gray ? 0 : st.saturation / 100, w = st.warmth * 0.7;
+    for (let i = 0; i < a.length; i += 4) {
+      let r = a[i] * b, g = a[i + 1] * b, bl = a[i + 2] * b;
+      r = (r - 128) * ct + 128; g = (g - 128) * ct + 128; bl = (bl - 128) * ct + 128;
+      const l = 0.299 * r + 0.587 * g + 0.114 * bl;
+      r = l + (r - l) * sat; g = l + (g - l) * sat; bl = l + (bl - l) * sat;
+      a[i] = r + w; a[i + 1] = g + w * 0.15; a[i + 2] = bl - w;
+    }
+    x.putImageData(d, 0, 0);
+  }
+  p.cache = c; p.key = key; p.soft = null;
+  return c;
+}
+// Soft (blurred) copy for the quote background: shrink and scale back up.
+function softened(p, st) {
+  const src = processed(p, st);
+  if (p.soft) return p.soft;
+  const small = document.createElement("canvas");
+  small.width = Math.max(1, Math.round(src.width / 14)); small.height = Math.max(1, Math.round(src.height / 14));
+  const sx = small.getContext("2d"); sx.imageSmoothingQuality = "high"; sx.drawImage(src, 0, 0, small.width, small.height);
+  const big = document.createElement("canvas"); big.width = src.width; big.height = src.height;
+  const bx = big.getContext("2d"); bx.imageSmoothingQuality = "high"; bx.drawImage(small, 0, 0, big.width, big.height);
+  p.soft = big;
+  return big;
+}
+function drawCover(c, src, r, p, flip) {
+  const sc = Math.max(r.w / src.width, r.h / src.height) * p.zoom;
+  const dw = src.width * sc, dh = src.height * sc;
+  const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * p.panY;
+  c.save();
+  c.beginPath(); c.rect(r.x, r.y, r.w, r.h); c.clip();
+  if (flip) { c.translate(r.x * 2 + r.w, 0); c.scale(-1, 1); }
+  c.drawImage(src, dx, dy, dw, dh);
+  c.restore();
+}
+
+// ---------- Text helpers ----------
+function rr(c, x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath();
+}
+function tokens(text, upper) {
   const out = [];
-  title.split(/(\*[^*]+\*)/).forEach((part) => {
-    const hl = /^\*[^*]+\*$/.test(part);
-    (hl ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean).forEach((text) => out.push({ text, hl }));
+  text.split("\n").forEach((para, pi) => {
+    if (pi > 0) out.push({ br: true });
+    para.split(/(\*[^*]+\*)/).forEach((part) => {
+      const hl = /^\*[^*]+\*$/.test(part);
+      (hl ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean).forEach((w) => out.push({ text: upper ? w.toLocaleUpperCase("fi") : w, hl }));
+    });
   });
   return out;
 }
-function wrap(list, maxWidth) {
-  const space = ctx.measureText(" ").width;
-  const lines = []; let line = [], width = 0;
-  for (const w of list) {
-    const ww = ctx.measureText(w.text).width;
-    if (line.length && width + space + ww > maxWidth) { lines.push({ words: line, width }); line = []; width = 0; }
-    width += (line.length ? space : 0) + ww;
-    line.push({ ...w, width: ww });
+function wrap(c, toks, maxW) {
+  const lines = [[]]; let w = 0; const sp = c.measureText(" ").width;
+  for (const t of toks) {
+    if (t.br) { lines.push([]); w = 0; continue; }
+    const tw = c.measureText(t.text).width, line = lines[lines.length - 1];
+    if (line.length && w + sp + tw > maxW) { lines.push([t]); w = tw; } else { w += (line.length ? sp : 0) + tw; line.push(t); }
   }
-  if (line.length) lines.push({ words: line, width });
-  return lines;
+  return lines.filter((l, i) => l.length || i === 0);
 }
-
-function drawPanel(p, r) {
-  ctx.save();
-  ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip();
-  if (!p.img) {
-    const g = ctx.createLinearGradient(r.x, r.y, r.x + r.w, r.y + r.h);
-    g.addColorStop(0, "#3b3943"); g.addColorStop(1, "#15141a");
-    ctx.fillStyle = g; ctx.fillRect(r.x, r.y, r.w, r.h);
-  } else {
-    if (filterSupported) ctx.filter = `brightness(${s.brightness}%) contrast(${s.contrast}%) grayscale(${s.gray ? 1 : 0})`;
-    const scale = Math.max(r.w / p.img.width, r.h / p.img.height) * p.zoom;
-    const dw = p.img.width * scale, dh = p.img.height * scale;
-    const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * p.panY;
-    if (s.flip) { ctx.translate(r.x * 2 + r.w, 0); ctx.scale(-1, 1); ctx.drawImage(p.img, r.x * 2 + r.w - dx - dw, dy, dw, dh); }
-    else ctx.drawImage(p.img, dx, dy, dw, dh);
-  }
-  ctx.restore();
+// Consecutive words with the same highlight become one run, so a box or marker covers them together.
+function runs(c, line) {
+  const out = [];
+  for (const t of line) { const last = out[out.length - 1]; if (last && last.hl === t.hl) last.text += " " + t.text; else out.push({ text: t.text, hl: t.hl }); }
+  const sp = c.measureText(" ").width;
+  out.forEach((r) => { r.w = c.measureText(r.text).width; });
+  return { runs: out, w: out.reduce((a, r) => a + r.w, 0) + sp * Math.max(0, out.length - 1), sp };
 }
+function setLS(c, px) { if ("letterSpacing" in c) c.letterSpacing = `${px}px`; }
 
-function drawShade(inner) {
-  if (s.shadeStyle === "none") return;
-  ctx.save();
-  if (s.shadeStyle === "full") {
-    ctx.fillStyle = `rgba(0,0,0,${s.shade * 0.85})`;
-  } else {
-    const fromTop = s.textPos === "top";
-    const reach = inner.h * Math.min(1, s.shade + 0.15);
-    const y0 = fromTop ? inner.y + reach : inner.y + inner.h - reach;
-    const y1 = fromTop ? inner.y : inner.y + inner.h;
-    const g = ctx.createLinearGradient(0, y0, 0, y1);
-    g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.45, "rgba(0,0,0,.72)"); g.addColorStop(1, "rgba(0,0,0,.96)");
-    if (s.textPos === "middle") {
-      const m = ctx.createLinearGradient(0, inner.y, 0, inner.y + inner.h);
-      m.addColorStop(0, "rgba(0,0,0,0)"); m.addColorStop(0.5, `rgba(0,0,0,${0.35 + s.shade * 0.5})`); m.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = m;
-    } else ctx.fillStyle = g;
-  }
-  ctx.fillRect(inner.x, inner.y, inner.w, inner.h);
-  ctx.restore();
-}
+// ---------- Rendering ----------
+let geo = null; // geometry of the last preview render, used for dragging
+function draw(c, st, { preview = false, main = false } = {}) {
+  const F = FORMATS[st.format], W = F.w, H = F.h;
+  const U = Math.min(W / 1080, H / 864);
+  const fr = st.frame === "none" ? 0 : Math.round(Math.min(W, H) * 0.028);
+  c.save();
+  c.fillStyle = st.frame === "none" ? "#000" : frameColor(st);
+  c.fillRect(0, 0, W, H);
+  const inner = { x: fr, y: fr, w: W - fr * 2, h: H - fr * 2 };
+  const ctaH = st.cta.trim() ? Math.round(86 * U) : 0;
+  const area = { x: inner.x, y: inner.y, w: inner.w, h: inner.h - ctaH };
+  const portrait = H >= W, L = st.layout, gap = Math.max(4, Math.round(8 * U));
+  let rects = [], bgRect = null;
+  if (L === "split-h") { const w2 = (area.w - gap) / 2; rects = [{ ...area, w: w2 }, { ...area, x: area.x + w2 + gap, w: w2 }]; }
+  else if (L === "split-v") { const h2 = (area.h - gap) / 2; rects = [{ ...area, h: h2 }, { ...area, y: area.y + h2 + gap, h: h2 }]; }
+  else if (L === "panel") {
+    if (portrait) { const ih = Math.round(area.h * 0.56); rects = [{ ...area, h: ih }]; bgRect = { ...area, y: area.y + ih, h: area.h - ih }; }
+    else { const iw = Math.round(area.w * 0.5); rects = [{ ...area, w: iw }]; bgRect = { ...area, x: area.x + iw, w: area.w - iw }; }
+  } else if (L === "text") bgRect = area;
+  else rects = [area];
+  const overImage = !bgRect;
+  if (main) geo = { rects };
 
-// The Hulina logo, stacked: speech bubble above the wordmark (same as the profile picture).
-const LOGO = new Image();
-LOGO.src = "/assets/img/hulina-logo-pysty.svg";
-LOGO.onload = () => render();
-const LOGO_RATIO = 561.4 / 380;   // viewBox width / height
-// Draws the logo `h` pixels tall with its top edge at y; x is the left, centre or right edge per align.
-function wordmark(x, y, h, align) {
-  if (!LOGO.complete || !LOGO.naturalWidth) return;
-  const w = h * LOGO_RATIO;
-  const left = align === "center" ? x - w / 2 : align === "right" ? x - w : x;
-  ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,.4)"; ctx.shadowBlur = h * 0.08;
-  ctx.drawImage(LOGO, left, y, w, h);
-  ctx.restore();
-}
-
-function render() {
-  const { W, H, frame, inner, rects } = geometry();
-  if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
-  ctx.clearRect(0, 0, W, H);
-  if (frame) { ctx.fillStyle = { accent: s.accent, white: "#fff", plum: "#2a1a4a", black: "#000" }[s.frame]; ctx.fillRect(0, 0, W, H); }
-  if (s.layout !== "single") { ctx.fillStyle = frame ? ctx.fillStyle : "#000"; ctx.fillRect(inner.x, inner.y, inner.w, inner.h); }
-  rects.forEach((r, i) => drawPanel(panels[i], r));
-  drawShade(inner);
-
-  const font = FONTS[s.font];
-  const wide = inner.w / inner.h > 1.4;
-  const pad = Math.min(inner.w, inner.h) * (wide ? 0.08 : 0.07);
-  const maxWidth = inner.w - pad * 2;
-  const list = words(s.upper ? s.title.toLocaleUpperCase("fi") : s.title);
-  const maxLines = wide ? 3 : 4;
-  let size = (wide ? inner.h * 0.14 : inner.w * 0.105) * font.scale * (s.textSize / 100), lines = [];
-  const fontCss = (px) => `${font.weight} ${px}px "${font.family}"`;
-  for (; size > 16; size -= 2) { ctx.font = fontCss(size); lines = wrap(list, maxWidth); if (lines.length <= maxLines) break; }
-  const lh = size * font.lineHeight;
-
-  // Optional pill above the headline.
-  const badgeText = s.badge.trim().toLocaleUpperCase("fi");
-  const badgeSize = size * 0.42;
-  const badgeH = badgeText ? badgeSize * 1.5 : 0;
-  const badgeGap = badgeText ? size * 0.3 : 0;
-  const logoAbove = s.showLogo && s.logoPos === "above";
-  const logoSize = size * 1.9;                                      // stacked logo height
-  const logoH = logoAbove ? logoSize + size * 0.4 : 0;
-
-  const textH = lh * (lines.length - 1) + size * 0.8;            // first line cap height to last baseline
-  const blockH = logoH + badgeH + badgeGap + textH;
-  let blockTop;
-  if (s.textPos === "top") blockTop = inner.y + pad + (s.showLogo && s.logoPos !== "above" ? W * 0.18 : 0);
-  else if (s.textPos === "middle") blockTop = inner.y + (inner.h - blockH) / 2;
-  else blockTop = inner.y + inner.h - pad * (wide ? 0.85 : 1.1) - blockH;
-
-  const ax = s.align === "center" ? inner.x + inner.w / 2 : inner.x + pad;
-  let y = blockTop;
-  if (logoAbove) { wordmark(ax, y, logoSize, s.align === "center" ? "center" : "left"); y += logoH; }
-
-  if (badgeText) {
-    ctx.save();
-    ctx.font = `800 ${badgeSize}px "Barlow Condensed"`;
-    const bw = ctx.measureText(badgeText).width + badgeSize * 1.1;
-    const bx = s.align === "center" ? ax - bw / 2 : ax;
-    ctx.fillStyle = s.accent;
-    ctx.beginPath(); ctx.roundRect(bx, y, bw, badgeH, badgeSize * 0.25); ctx.fill();
-    ctx.fillStyle = onAccent(); ctx.textBaseline = "middle"; ctx.textAlign = "center";
-    ctx.fillText(badgeText, bx + bw / 2, y + badgeH / 2 + badgeSize * 0.04);
-    ctx.restore();
-    y += badgeH + badgeGap;
-  }
-
-  const firstBaseline = y + size * 0.8;
-  ctx.font = fontCss(size); ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
-  const space = ctx.measureText(" ").width;
-  lines.forEach((line, i) => {
-    let x = s.align === "center" ? ax - line.width / 2 : ax;
-    const by = firstBaseline + i * lh;
-    // Highlight boxes/underlines behind runs of marked words.
-    if (s.hlStyle !== "color") {
-      let runStart = null, runEnd = 0, cx = x;
-      const flush = () => {
-        if (runStart === null) return;
-        ctx.fillStyle = s.accent;
-        if (s.hlStyle === "box") { const p = size * 0.12; ctx.fillRect(runStart - p, by - size * 0.86, runEnd - runStart + p * 2, size * 1.04); }
-        else ctx.fillRect(runStart, by + size * 0.08, runEnd - runStart, size * 0.09);
-        runStart = null;
-      };
-      line.words.forEach((w) => { if (w.hl) { if (runStart === null) runStart = cx; runEnd = cx + w.width; } else flush(); cx += w.width + space; });
-      flush();
+  // Photos
+  if (L.startsWith("split")) { c.fillStyle = st.frame === "none" ? "#ffffff" : frameColor(st); c.fillRect(area.x, area.y, area.w, area.h); }
+  rects.forEach((r, i) => {
+    const p = panels[i];
+    if (p.img) drawCover(c, L === "quote" ? softened(p, st) : processed(p, st), r, p, st.flip);
+    else {
+      paintBg(c, r, st);
+      if (preview) {
+        c.save(); c.fillStyle = lum(bgBase(st)) > 0.5 ? "rgba(0,0,0,.35)" : "rgba(255,255,255,.55)"; c.textAlign = "center"; c.font = `700 ${Math.round(34 * U)}px "League Spartan"`;
+        c.fillText(rects.length > 1 ? `+ Kuva ${i + 1}` : "+ Lisää kuva napauttamalla", r.x + r.w / 2, r.y + r.h * (st.textPos === "top" ? 0.75 : 0.25)); c.restore();
+      }
     }
-    ctx.save();
-    ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = s.hlStyle === "box" ? 0 : size * 0.18;
-    line.words.forEach((w) => {
-      ctx.fillStyle = !w.hl ? "#fff" : s.hlStyle === "color" ? s.accent : s.hlStyle === "box" ? onAccent() : "#fff";
-      ctx.fillText(w.text, x, by);
-      x += w.width + space;
-    });
-    ctx.restore();
+    if (st.vignette > 0 && p.img) {
+      const g = c.createRadialGradient(r.x + r.w / 2, r.y + r.h / 2, Math.min(r.w, r.h) * 0.3, r.x + r.w / 2, r.y + r.h / 2, Math.hypot(r.w, r.h) * 0.6);
+      g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, `rgba(0,0,0,${st.vignette / 100 * 0.85})`);
+      c.fillStyle = g; c.fillRect(r.x, r.y, r.w, r.h);
+    }
   });
+  if (bgRect) paintBg(c, bgRect, st);
 
-  if (s.showLogo && s.logoPos === "tl") wordmark(inner.x + pad * 0.6, inner.y + pad * 0.6, W * 0.16, "left");
-  if (s.showLogo && s.logoPos === "tr") wordmark(inner.x + inner.w - pad * 0.6, inner.y + pad * 0.6, W * 0.16, "right");
-
-  if (s.credit.trim()) {
-    ctx.save();
-    const cs = Math.max(14, W * 0.017);
-    ctx.font = `700 ${cs}px "Barlow Condensed"`; ctx.fillStyle = "rgba(255,255,255,.85)";
-    ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = cs * 0.4;
-    ctx.translate(inner.x + inner.w - cs * 0.9, inner.y + inner.h / 2); ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillText(s.credit.trim(), 0, 0);
-    ctx.restore();
+  // Shade over photos so the text stays readable
+  if (overImage) {
+    const t = tintColor(st), a = L === "quote" ? Math.max(st.shade, 55) / 100 : st.shade / 100;
+    if (L === "quote" || st.shadeStyle === "full") { c.fillStyle = rgba(t, a * 0.85); c.fillRect(area.x, area.y, area.w, area.h); }
+    else if (st.shadeStyle === "gradient") {
+      let g;
+      if (st.textPos === "top") { g = c.createLinearGradient(0, area.y, 0, area.y + area.h * 0.7); g.addColorStop(0, rgba(t, a)); g.addColorStop(0.55, rgba(t, a * 0.45)); g.addColorStop(1, rgba(t, 0)); }
+      else if (st.textPos === "middle") { g = c.createLinearGradient(0, area.y, 0, area.y + area.h); g.addColorStop(0, rgba(t, 0)); g.addColorStop(0.5, rgba(t, a * 0.9)); g.addColorStop(1, rgba(t, 0)); }
+      else { g = c.createLinearGradient(0, area.y + area.h * 0.3, 0, area.y + area.h); g.addColorStop(0, rgba(t, 0)); g.addColorStop(0.45, rgba(t, a * 0.5)); g.addColorStop(1, rgba(t, Math.min(1, a * 1.15))); }
+      c.fillStyle = g; c.fillRect(area.x, area.y, area.w, area.h);
+    }
   }
+
+  // Labels on split photos
+  if (L.startsWith("split")) rects.forEach((r, i) => { const t = (st.labels[i] || "").trim(); if (t) drawBadge(c, st, t.toLocaleUpperCase("fi"), r.x + 28 * U, r.y + 28 * U, 30 * U, "left", "rect"); });
+
+  // Text block
+  const pad = Math.round((portrait ? 64 : 56) * U), zoneT = bgRect || area;
+  const box = { x: zoneT.x + pad, y: zoneT.y + pad, w: zoneT.w - pad * 2, h: zoneT.h - pad * 2 };
+  const light = !overImage && lum(bgBase(st)) > 0.5;
+  const ink = light ? "#111111" : "#ffffff";
+  const logo = st.logo !== "none" ? LOGOS[st.logo] : null;
+  const corner = logo && st.logoPos !== "above" ? st.logoPos : null;
+  const logoH = logo ? logo.h * U * st.logoSize / 100 * (corner ? 0.8 : 1) : 0;
+  const sameZone = L !== "panel";
+  if (corner && sameZone && corner[0] === "t" && st.textPos === "top") { box.y += logoH + 18 * U; box.h -= logoH + 18 * U; }
+  if (corner && sameZone && corner[0] === "b" && st.textPos !== "top") box.h -= logoH + 18 * U;
+
+  const f = FONTS[st.font];
+  const base = { single: 100, "split-h": 84, "split-v": 84, panel: 84, quote: 84, text: 110 }[L] * (st.format === "story" ? 1.08 : 1);
+  let size = base * U * f.scale * st.textSize / 100;
+  const maxH = box.h * (overImage && L !== "quote" ? 0.72 : 1);
+  let lay;
+  for (let k = 0; k < 40; k++) { lay = layout(c, st, size, box.w, U, logo && !corner ? logo : null); if (lay.h <= maxH || size < 22 * U) break; size *= 0.95; }
+
+  let y = st.textPos === "top" ? box.y : st.textPos === "middle" ? box.y + (box.h - lay.h) / 2 : box.y + box.h - lay.h;
+  y += st.offsetY / 100 * H;
+  const ax = st.align === "center" ? box.x + box.w / 2 : st.align === "right" ? box.x + box.w : box.x;
+  const accentOn = (bgLight) => (bgLight && lum(st.accent) > 0.72 ? PLUM : st.accent);
+  for (const it of lay.items) {
+    if (it.type === "logo") drawLogo(c, logo, ax, y, it.h, st.align, light);
+    if (it.type === "badge") drawBadge(c, st, it.text, ax, y, it.size, st.align, st.badgeStyle);
+    if (it.type === "quote") { c.save(); c.fillStyle = accentOn(light); c.font = `900 ${it.size}px Georgia, serif`; c.textAlign = st.align; c.textBaseline = "top"; c.fillText("“", ax, y - it.size * 0.08); c.restore(); }
+    if (it.type === "title") drawTitle(c, st, it, ax, y, ink, overImage);
+    if (it.type === "sub") drawPlain(c, it, ax, y, st.align, rgba(ink, 0.9), overImage);
+    if (it.type === "by") drawPlain(c, it, ax, y, st.align, accentOn(light), overImage);
+    y += it.h + it.gap;
+  }
+
+  // Logo in a corner (over the photo in the panel layout)
+  if (corner) {
+    const zone = L === "panel" ? rects[0] : zoneT, m = Math.round(36 * U);
+    const lx = corner[1] === "l" ? zone.x + m : corner[1] === "r" ? zone.x + zone.w - m : zone.x + zone.w / 2;
+    const ly = corner[0] === "t" ? zone.y + m : zone.y + zone.h - m - logoH;
+    drawLogo(c, logo, lx, ly, logoH, corner[1] === "l" ? "left" : corner[1] === "r" ? "right" : "center", L !== "panel" && light);
+  }
+
+  // Bottom bar
+  if (ctaH) {
+    const by = inner.y + inner.h - ctaH;
+    c.save();
+    c.fillStyle = st.accent; c.fillRect(inner.x, by, inner.w, ctaH);
+    c.fillStyle = onAccent(st.accent); c.font = `800 ${Math.round(34 * U)}px "League Spartan"`; c.textAlign = "center"; c.textBaseline = "alphabetic"; setLS(c, 1.5 * U);
+    const capH = c.measureText("H").actualBoundingBoxAscent || 34 * U * 0.7;
+    c.fillText(st.cta.trim().toLocaleUpperCase("fi"), inner.x + inner.w / 2, by + ctaH / 2 + capH / 2);
+    c.restore();
+  }
+
+  // Photo credit, vertically along the right edge of the photo
+  if (st.credit.trim() && rects.length) {
+    const r = rects[rects.length - 1];
+    c.save(); c.font = `600 ${Math.round(19 * U)}px system-ui, sans-serif`; c.fillStyle = "rgba(255,255,255,.85)"; c.shadowColor = "rgba(0,0,0,.6)"; c.shadowBlur = 6 * U;
+    c.translate(r.x + r.w - 16 * U, r.y + r.h - 24 * U); c.rotate(-Math.PI / 2); c.textAlign = "left"; c.fillText(st.credit.trim(), 0, 0); c.restore();
+  }
+
+  // Story safe zone (preview only)
+  if (preview && st.safe && st.format === "story") {
+    c.save(); c.fillStyle = "rgba(255,40,110,.14)"; c.fillRect(0, 0, W, 250); c.fillRect(0, H - 380, W, 380);
+    c.setLineDash([16, 12]); c.strokeStyle = "rgba(255,255,255,.8)"; c.lineWidth = 3;
+    c.beginPath(); c.moveTo(0, 250); c.lineTo(W, 250); c.moveTo(0, H - 380); c.lineTo(W, H - 380); c.stroke();
+    c.fillStyle = "#fff"; c.font = '700 26px "League Spartan"'; c.textAlign = "center"; c.shadowColor = "rgba(0,0,0,.6)"; c.shadowBlur = 8;
+    c.fillText("Sovelluksen painikkeet peittävät tämän alueen", W / 2, 140); c.fillText("Sovelluksen painikkeet peittävät tämän alueen", W / 2, H - 190);
+    c.restore();
+  }
+  c.restore();
 }
 
-// ---------- Drag to move, pinch / wheel to zoom ----------
-const pointers = new Map();
-let gesture = null;
-canvas.addEventListener("pointerdown", (e) => {
-  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  canvas.setPointerCapture(e.pointerId);
-  const i = panelAt(e), p = panels[i];
-  if (!p.img) return;
-  const pts = [...pointers.values()];
-  gesture = { i, panX: p.panX, panY: p.panY, zoom: p.zoom, start: pts.map((q) => ({ ...q })) };
+// Measure everything in the text block for a given title size.
+function layout(c, st, size, maxW, U, aboveLogo) {
+  const f = FONTS[st.font], items = [];
+  if (aboveLogo) items.push({ type: "logo", h: aboveLogo.h * U * st.logoSize / 100, gap: size * 0.38 });
+  if (st.layout === "quote") items.push({ type: "quote", size: size * 2.2, h: size * 1.1, gap: size * 0.1 });
+  const badge = st.badge.trim();
+  if (badge) { const bs = Math.max(size * 0.4, 24 * U); items.push({ type: "badge", text: badge.toLocaleUpperCase("fi"), size: bs, h: bs * 1.6, gap: size * 0.32 }); }
+  c.font = `${f.weight} ${size}px ${f.family}`;
+  const boxed = st.textStyle.startsWith("boxes");
+  const lines = wrap(c, tokens(st.title, st.upper), maxW - (boxed ? size * 0.6 : 0));
+  const lh = size * (f.lh + (boxed ? 0.34 : 0) + (st.hlStyle === "box" && !boxed ? 0.08 : 0));
+  items.push({ type: "title", lines, size, lh, h: lines.length * lh, gap: size * 0.3 });
+  const sub = st.sub.trim();
+  if (sub) {
+    const ss = Math.max(size * 0.42, 26 * U); c.font = `600 ${ss}px "League Spartan"`;
+    const sl = wrap(c, tokens(sub, false), maxW).map((l) => l.map((t) => t.text).join(" "));
+    items.push({ type: "sub", lines: sl, font: c.font, size: ss, lh: ss * 1.25, h: sl.length * ss * 1.25, gap: size * 0.3 });
+  }
+  const by = st.layout === "quote" ? st.quoteBy.trim() : "";
+  if (by) { const bs = Math.max(size * 0.4, 24 * U); items.push({ type: "by", lines: ["– " + by.toLocaleUpperCase("fi")], font: `800 ${bs}px "League Spartan"`, size: bs, lh: bs * 1.2, h: bs * 1.2, gap: 0, ls: bs * 0.05 }); }
+  items[items.length - 1].gap = 0;
+  return { items, h: items.reduce((a, it) => a + it.h + it.gap, 0) };
+}
+
+function drawLogo(c, logo, ax, y, h, align, onLight) {
+  const im = logo.img[onLight ? 1 : 0];
+  if (!im.complete || !im.naturalWidth) return;
+  const w = h * logo.ratio, x = align === "center" ? ax - w / 2 : align === "right" ? ax - w : ax;
+  c.save(); if (!onLight) { c.shadowColor = "rgba(0,0,0,.35)"; c.shadowBlur = h * 0.08; }
+  c.drawImage(im, x, y, w, h); c.restore();
+}
+function drawBadge(c, st, text, ax, y, bs, align, style) {
+  c.save();
+  c.font = `800 ${bs}px "League Spartan"`; setLS(c, bs * 0.05);
+  const tw = c.measureText(text).width, ph = bs * 0.62, h = bs * 1.6, w = tw + ph * 2;
+  const x = align === "center" ? ax - w / 2 : align === "right" ? ax - w : ax;
+  if (style === "tilted") { c.translate(x + w / 2, y + h / 2); c.rotate(-0.07); c.translate(-(x + w / 2), -(y + h / 2)); }
+  rr(c, x, y, w, h, style === "pill" || style === "outline" ? h / 2 : bs * 0.18);
+  if (style === "outline") { c.lineWidth = Math.max(3, bs * 0.12); c.strokeStyle = st.accent; c.stroke(); c.fillStyle = st.accent; }
+  else { c.shadowColor = "rgba(0,0,0,.25)"; c.shadowBlur = bs * 0.4; c.fillStyle = st.accent; c.fill(); c.shadowColor = "transparent"; c.fillStyle = onAccent(st.accent); }
+  const capH = c.measureText("H").actualBoundingBoxAscent || bs * 0.7;
+  c.textAlign = "left"; c.textBaseline = "alphabetic";
+  c.fillText(text, x + ph, y + h / 2 + capH / 2);
+  c.restore();
+}
+function drawTitle(c, st, it, ax, y, ink, overImage) {
+  const f = FONTS[st.font], size = it.size, A = st.accent;
+  c.save();
+  c.font = `${f.weight} ${size}px ${f.family}`; c.textBaseline = "alphabetic"; c.textAlign = "left";
+  const capH = c.measureText("H").actualBoundingBoxAscent || size * 0.72;
+  const style = st.textStyle, boxed = style.startsWith("boxes");
+  const boxBg = style === "boxes" ? "#ffffff" : A, boxInk = style === "boxes" ? "#111111" : onAccent(A);
+  it.lines.forEach((line, li) => {
+    const { runs: rs, w: lw, sp } = runs(c, line);
+    const top = y + li * it.lh, base = top + it.lh / 2 + capH / 2;
+    let x = st.align === "center" ? ax - lw / 2 : st.align === "right" ? ax - lw : ax;
+    if (boxed) {
+      const px = size * 0.26, py = size * 0.2;
+      if (st.align === "left") x += px; else if (st.align === "right") x -= px;
+      c.save(); c.shadowColor = "rgba(0,0,0,.25)"; c.shadowBlur = overImage ? size * 0.3 : 0;
+      c.fillStyle = boxBg; c.fillRect(x - px, base - capH - py, lw + px * 2, capH + py * 2); c.restore();
+    }
+    // Backgrounds for highlighted runs
+    let rx = x;
+    for (const r of rs) {
+      if (r.hl) {
+        c.save();
+        if (boxed || st.hlStyle === "box") { c.fillStyle = style === "boxesAccent" ? "#ffffff" : A; const p = size * 0.1; c.fillRect(rx - p, base - capH - size * 0.14, r.w + p * 2, capH + size * 0.28); }
+        else if (st.hlStyle === "marker") { c.fillStyle = rgba(A, 0.92); c.fillRect(rx - size * 0.06, base - capH * 0.5, r.w + size * 0.12, capH * 0.5 + size * 0.1); }
+        else if (st.hlStyle === "underline") { c.fillStyle = A; c.fillRect(rx, base + size * 0.08, r.w, Math.max(4, size * 0.09)); }
+        c.restore();
+      }
+      rx += r.w + sp;
+    }
+    // Words
+    rx = x;
+    for (const r of rs) {
+      let fill = boxed ? boxInk : ink, plain = true;
+      if (r.hl) {
+        if (style === "boxes") { fill = onAccent(A); plain = false; }
+        else if (style === "boxesAccent") { fill = "#111111"; plain = false; }
+        else if (st.hlStyle === "box" || st.hlStyle === "marker") { fill = onAccent(A); plain = false; }
+        else if (st.hlStyle === "color") fill = ink === "#111111" && lum(A) > 0.72 ? PLUM : A;
+      }
+      c.save();
+      if (style === "outline") { c.lineJoin = "round"; c.lineWidth = size * 0.13; c.strokeStyle = "#000"; c.strokeText(r.text, rx, base); }
+      if (overImage && style === "shadow" && plain) { c.shadowColor = "rgba(0,0,0,.5)"; c.shadowBlur = size * 0.22; c.shadowOffsetY = size * 0.03; }
+      c.fillStyle = fill; c.fillText(r.text, rx, base);
+      c.restore();
+      rx += r.w + sp;
+    }
+  });
+  c.restore();
+}
+function drawPlain(c, it, ax, y, align, color, overImage) {
+  c.save(); c.font = it.font; c.fillStyle = color; c.textAlign = align; c.textBaseline = "alphabetic"; setLS(c, it.ls || 0);
+  if (overImage) { c.shadowColor = "rgba(0,0,0,.5)"; c.shadowBlur = it.size * 0.3; }
+  it.lines.forEach((l, i) => c.fillText(l, ax, y + i * it.lh + it.size * 0.95));
+  c.restore();
+}
+
+// ---------- State, form and history ----------
+function load() {
+  try { s = { ...clone(DEFAULTS), ...JSON.parse(localStorage.getItem(STORE) || "{}") }; } catch { s = clone(DEFAULTS); }
+  if (!FORMATS[s.format]) s.format = "ig";
+  if (!FONTS[s.font]) s.font = "spartan";
+  if (!Array.isArray(s.labels)) s.labels = ["", ""];
+}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch {} }
+
+let hist = [], hIdx = -1, hTimer = 0;
+function commit() {
+  clearTimeout(hTimer);
+  const j = JSON.stringify(s);
+  if (hist[hIdx] === j) return;
+  hist = hist.slice(0, hIdx + 1); hist.push(j);
+  if (hist.length > 80) hist.shift();
+  hIdx = hist.length - 1; undoUi();
+}
+const commitSoon = () => { clearTimeout(hTimer); hTimer = setTimeout(commit, 450); };
+function undoUi() { $("undo").disabled = hIdx <= 0; $("redo").disabled = hIdx >= hist.length - 1; }
+function step(d) {
+  commit();
+  const i = hIdx + d; if (i < 0 || i >= hist.length) return;
+  hIdx = i; s = JSON.parse(hist[i]); save(); syncForm(); refresh(); undoUi();
+}
+$("undo").addEventListener("click", () => step(-1));
+$("redo").addEventListener("click", () => step(1));
+document.addEventListener("keydown", (e) => {
+  if (!(e.ctrlKey || e.metaKey) || e.target.matches("input[type=text], textarea")) return;
+  if (e.key.toLowerCase() === "z") { e.preventDefault(); step(e.shiftKey ? 1 : -1); }
+  if (e.key.toLowerCase() === "y") { e.preventDefault(); step(1); }
 });
-canvas.addEventListener("pointermove", (e) => {
-  if (!pointers.has(e.pointerId)) return;
-  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  if (!gesture) return;
-  const p = panels[gesture.i], pts = [...pointers.values()], r = canvas.getBoundingClientRect();
-  const rect = geometry().rects[gesture.i];
-  const sx = canvas.width / r.width, sy = canvas.height / r.height;
-  if (pts.length >= 2 && gesture.start.length >= 2) {
-    const d = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
-    p.zoom = Math.min(4, Math.max(1, gesture.zoom * d(pts[0], pts[1]) / d(gesture.start[0], gesture.start[1])));
-    document.querySelector(`[data-zoom="${gesture.i}"]`).value = p.zoom;
+
+const panelCount = () => (s.layout.startsWith("split") ? 2 : s.layout === "text" ? 0 : 1);
+const hasImage = () => panels.slice(0, panelCount()).some((p) => p.img);
+function showIf(expr) {
+  if (expr === "hasImage") return hasImage();
+  if (expr === "overImage") return !["panel", "text"].includes(s.layout);
+  if (expr === "badge") return !!s.badge.trim();
+  const neg = expr.includes("!=");
+  const [k, vals] = expr.split(neg ? "!=" : "=");
+  const hit = vals.split("|").includes(String(s[k]));
+  return neg ? !hit : hit;
+}
+const UNIT = { brightness: "%", contrast: "%", saturation: "%", textSize: "%", logoSize: "%", shade: "%", vignette: "%" };
+function syncForm() {
+  document.querySelectorAll("[data-k]").forEach((el) => {
+    const k = el.dataset.k;
+    if (el.type === "checkbox") el.checked = !!s[k];
+    else if (document.activeElement !== el && el.value !== String(s[k])) el.value = s[k];
+  });
+  document.querySelectorAll("[data-out]").forEach((o) => { const k = o.dataset.out; o.textContent = k === "warmth" || k === "offsetY" ? (s[k] > 0 ? "+" : "") + s[k] : s[k] + (UNIT[k] || ""); });
+  document.querySelectorAll("[data-seg]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === String(s[g.dataset.seg])))));
+  document.querySelectorAll("[data-swatch]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === s[g.dataset.swatch]))));
+  document.querySelectorAll("[data-chips]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v.toLowerCase() === (s[g.dataset.chips] || "").trim().toLowerCase()))));
+  document.querySelectorAll("#formats .fmt").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === s.format)));
+  document.querySelectorAll("[data-show]").forEach((el) => { el.hidden = !showIf(el.dataset.show); });
+  if (document.activeElement !== $("customAccent")) $("customAccent").value = s.accent;
+  ["label0", "label1"].forEach((id, i) => { if (document.activeElement !== $(id)) $(id).value = s.labels[i] || ""; });
+  imageCards();
+}
+function changed(soon) {
+  save(); syncForm(); refresh();
+  if (soon) commitSoon(); else commit();
+}
+
+document.querySelectorAll("[data-k]").forEach((el) => {
+  el.addEventListener("input", () => {
+    const k = el.dataset.k;
+    s[k] = el.type === "checkbox" ? el.checked : el.type === "range" ? Number(el.value) : el.value;
+    if (k !== "template") s.template = CONTENT.includes(k) ? s.template : "";
+    changed(el.type !== "checkbox");
+  });
+});
+function pickStyle(key, v) { s[key] = v; if (!CONTENT.includes(key)) s.template = ""; changed(); }
+document.querySelectorAll("[data-seg]").forEach((g) => g.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pickStyle(g.dataset.seg, b.dataset.v); }));
+document.querySelectorAll("[data-swatch]").forEach((g) => g.addEventListener("click", (e) => { const b = e.target.closest("button[data-v]"); if (b) pickStyle(g.dataset.swatch, b.dataset.v); }));
+$("customAccent").addEventListener("input", (e) => { s.accent = e.target.value; s.template = ""; changed(true); });
+["label0", "label1"].forEach((id, i) => $(id).addEventListener("input", (e) => { s.labels[i] = e.target.value; changed(true); }));
+function fillChips(key, list) {
+  const g = document.querySelector(`[data-chips="${key}"]`);
+  g.innerHTML = list.map((t) => `<button type="button" data-v="${t}">${t}</button>`).join("");
+  g.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const v = key === "badge" ? b.dataset.v.toLocaleUpperCase("fi") : b.dataset.v;
+    s[key] = s[key].trim().toLowerCase() === v.toLowerCase() ? "" : v; changed();
+  });
+}
+fillChips("badge", BADGES);
+fillChips("cta", CTAS);
+$("emoji").innerHTML = EMOJI.map((e) => `<button type="button" aria-label="Lisää ${e}">${e}</button>`).join("");
+$("emoji").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  const t = $("title"), a = t.selectionStart ?? t.value.length, z = t.selectionEnd ?? a;
+  const before = t.value.slice(0, a), add = (before && !/\s$/.test(before) ? " " : "") + b.textContent;
+  t.value = before + add + t.value.slice(z); s.title = t.value; changed();
+  t.focus(); t.setSelectionRange(a + add.length, a + add.length);
+});
+$("fontSeg").innerHTML = Object.entries(FONTS).map(([k, f]) => `<button type="button" data-v="${k}" style="font-family:${f.family.replace(/"/g, "'")};font-weight:${f.weight};font-size:17px">${f.label}</button>`).join("");
+$("formats").innerHTML = Object.entries(FORMATS).map(([k, F]) => { const sc = 16 / Math.max(F.w, F.h); return `<button type="button" class="fmt" data-v="${k}"><i style="width:${Math.round(F.w * sc)}px;height:${Math.round(F.h * sc)}px"></i>${F.label} <small>${F.sub}</small></button>`; }).join("");
+$("formats").addEventListener("click", (e) => { const b = e.target.closest(".fmt"); if (b) { s.format = b.dataset.v; changed(); } });
+
+// Tabs
+document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+  document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== b.dataset.tab; });
+  if (b.dataset.tab === "mallit") thumbsSoon();
+}));
+
+// ---------- Photos ----------
+let pickTarget = 0;
+const pick = (i) => { pickTarget = i; $("file").value = ""; $("file").click(); };
+$("file").addEventListener("change", (e) => { const f = e.target.files[0]; if (f) readFile(pickTarget, f); });
+function readFile(i, file) {
+  if (!file || !file.type.startsWith("image/")) return toast("Valitse kuvatiedosto.");
+  const r = new FileReader(); r.onload = () => loadImage(i, r.result); r.readAsDataURL(file);
+}
+function loadImage(i, src) {
+  return new Promise((resolve) => {
+    const im = new Image();
+    im.onload = () => { Object.assign(panels[i], newPanel(), { img: im, src }); syncForm(); refresh(); resolve(true); };
+    im.onerror = () => { toast("Kuvaa ei voitu avata. Kokeile JPG- tai PNG-kuvaa."); resolve(false); };
+    im.src = src;
+  });
+}
+function imageCards() {
+  const n = panelCount(), box = $("imgCards");
+  const sig = n + ":" + panels.map((p) => p.src.length + ":" + p.zoom).join();
+  if (box.dataset.sig === sig) return;
+  box.dataset.sig = sig;
+  if (!n) { box.innerHTML = '<p class="note">Pelkkä teksti -asettelussa ei ole kuvaa. Valitse alta taustaväri.</p>'; return; }
+  box.innerHTML = panels.slice(0, n).map((p, i) => `
+    <div class="imgcard">
+      <div class="imgcard__top">
+        <button type="button" class="thumb" data-pick="${i}" aria-label="Valitse kuva">${p.img ? "" : "+"}</button>
+        <div><b>${n > 1 ? `Kuva ${i + 1}` : "Kuva"}</b>
+          <div class="imgcard__btns"><button class="btn btn--sm" type="button" data-pick="${i}">${p.img ? "Vaihda" : "Valitse kuva"}</button>${p.img ? `<button class="btn btn--ghost btn--sm" type="button" data-remove="${i}">Poista</button>` : ""}</div>
+        </div>
+      </div>
+      ${p.img ? `<label class="field"><span class="lbl">Zoomaus <small>tai vedä ja nipistä kuvaa</small></span><input type="range" min="100" max="500" value="${Math.round(p.zoom * 100)}" data-zoom="${i}"></label>` : ""}
+    </div>`).join("");
+  box.querySelectorAll(".thumb").forEach((t) => { const p = panels[t.dataset.pick]; if (p.img) t.style.backgroundImage = `url("${p.img.src}")`; });
+}
+$("imgCards").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-pick],[data-remove]"); if (!b) return;
+  if (b.dataset.remove) { Object.assign(panels[b.dataset.remove], newPanel()); syncForm(); refresh(); return; }
+  pick(Number(b.dataset.pick));
+});
+$("imgCards").addEventListener("input", (e) => { const z = e.target.dataset.zoom; if (z !== undefined) { panels[z].zoom = e.target.value / 100; render(); thumbsSoon(); } });
+$("resetAdjust").addEventListener("click", () => { Object.assign(s, { brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false, flip: false }); changed(); });
+
+// Drag, pinch and wheel on the preview
+const pts = new Map(); let drag = null;
+function toCanvas(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * cv.width / r.width, y: (e.clientY - r.top) * cv.height / r.height }; }
+function panelAt(pt) { if (!geo) return -1; return geo.rects.findIndex((r) => pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h); }
+const pdist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+cv.addEventListener("pointerdown", (e) => {
+  pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  const i = drag ? drag.i : panelAt(toCanvas(e));
+  if (i < 0) return;
+  cv.setPointerCapture(e.pointerId);
+  const p = panels[i];
+  drag = { i, x: e.clientX, y: e.clientY, panX: p.panX, panY: p.panY, zoom: p.zoom, dist: pts.size > 1 ? pdist() : 0, moved: drag ? drag.moved : false };
+  if (p.img) cv.classList.add("drag");
+});
+cv.addEventListener("pointermove", (e) => {
+  if (!pts.has(e.pointerId) || !drag) return;
+  pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  const p = panels[drag.i], r = geo && geo.rects[drag.i];
+  if (!p.img || !r) return;
+  if (pts.size > 1) {
+    if (!drag.dist) { drag.dist = pdist(); drag.zoom = p.zoom; }
+    p.zoom = Math.min(5, Math.max(1, drag.zoom * pdist() / drag.dist)); drag.moved = true;
   } else {
-    const dx = (pts[0].x - gesture.start[0].x) * sx, dy = (pts[0].y - gesture.start[0].y) * sy;
-    p.panX = Math.min(1, Math.max(0, gesture.panX - dx / rect.w * (s.flip ? -1 : 1)));
-    p.panY = Math.min(1, Math.max(0, gesture.panY - dy / rect.h));
+    const k = cv.width / cv.getBoundingClientRect().width;
+    const dx = (e.clientX - drag.x) * k, dy = (e.clientY - drag.y) * k;
+    if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
+    const src = processed(p, s), sc = Math.max(r.w / src.width, r.h / src.height) * p.zoom;
+    const ox = src.width * sc - r.w, oy = src.height * sc - r.h;
+    if (ox > 0) p.panX = Math.min(1, Math.max(0, drag.panX + (s.flip ? dx : -dx) / ox));
+    if (oy > 0) p.panY = Math.min(1, Math.max(0, drag.panY - dy / oy));
   }
   render();
 });
-const endPointer = (e) => { pointers.delete(e.pointerId); gesture = null; };
-canvas.addEventListener("pointerup", endPointer);
-canvas.addEventListener("pointercancel", endPointer);
-canvas.addEventListener("wheel", (e) => {
-  const i = panelAt(e), p = panels[i]; if (!p.img) return;
-  e.preventDefault();
-  p.zoom = Math.min(4, Math.max(1, p.zoom * (e.deltaY < 0 ? 1.06 : 1 / 1.06)));
-  document.querySelector(`[data-zoom="${i}"]`).value = p.zoom; render();
-}, { passive: false });
-
-// ---------- Export ----------
-function fileName() {
-  const slug = s.title.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
-  return `hulina-${slug || "somekuva"}.${s.type === "image/png" ? "png" : "jpg"}`;
+function endPointer(e) {
+  if (!pts.has(e.pointerId)) return;
+  pts.delete(e.pointerId);
+  if (pts.size === 1 && drag) { const [v] = pts.values(); const p = panels[drag.i]; Object.assign(drag, { x: v.x, y: v.y, panX: p.panX, panY: p.panY, dist: 0 }); return; }
+  if (pts.size) return;
+  cv.classList.remove("drag");
+  if (drag && !drag.moved && !panels[drag.i].img) pick(drag.i);
+  if (drag && drag.moved) { syncForm(); thumbsSoon(); }
+  drag = null;
 }
-const toBlob = () => new Promise((resolve) => canvas.toBlob(resolve, s.type, 0.92));
-$("download").addEventListener("click", async () => {
-  const url = URL.createObjectURL(await toBlob());
-  const a = Object.assign(document.createElement("a"), { href: url, download: fileName() });
-  document.body.append(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 5000);
+cv.addEventListener("pointerup", endPointer);
+cv.addEventListener("pointercancel", endPointer);
+let wheelT = 0;
+cv.addEventListener("wheel", (e) => {
+  const i = panelAt(toCanvas(e)); if (i < 0 || !panels[i].img) return;
+  e.preventDefault();
+  panels[i].zoom = Math.min(5, Math.max(1, panels[i].zoom * Math.exp(-e.deltaY * 0.0015)));
+  render(); clearTimeout(wheelT); wheelT = setTimeout(() => { syncForm(); thumbsSoon(); }, 300);
+}, { passive: false });
+cv.addEventListener("dblclick", (e) => { const i = panelAt(toCanvas(e)); if (i >= 0 && panels[i].img) { Object.assign(panels[i], { zoom: 1, panX: 0.5, panY: 0.35 }); syncForm(); refresh(); } });
+const wrapEl = $("cvWrap");
+wrapEl.addEventListener("dragover", (e) => { e.preventDefault(); wrapEl.classList.add("over"); });
+wrapEl.addEventListener("dragleave", () => wrapEl.classList.remove("over"));
+wrapEl.addEventListener("drop", (e) => {
+  e.preventDefault(); wrapEl.classList.remove("over");
+  const files = [...e.dataTransfer.files].filter((f) => f.type.startsWith("image/")); if (!files.length) return;
+  const start = Math.max(0, panelAt(toCanvas(e)));
+  files.slice(0, Math.max(1, panelCount())).forEach((f, k) => readFile(Math.min(start + k, 1), f));
 });
-if (navigator.canShare && navigator.canShare({ files: [new File([""], "x.jpg", { type: "image/jpeg" })] })) {
-  $("share").hidden = false;
-  $("share").addEventListener("click", async () => {
-    const file = new File([await toBlob()], fileName(), { type: s.type });
-    try { await navigator.share({ files: [file] }); } catch {}
+document.addEventListener("paste", (e) => {
+  if (e.target.matches("input[type=text], textarea")) return;
+  const item = [...(e.clipboardData?.items || [])].find((x) => x.type.startsWith("image/")); if (!item) return;
+  const i = panels.slice(0, Math.max(1, panelCount())).findIndex((p) => !p.img);
+  readFile(i < 0 ? 0 : i, item.getAsFile());
+});
+
+// ---------- Drawing loop ----------
+let raf = 0;
+function render() {
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+    const F = FORMATS[s.format];
+    if (cv.width !== F.w || cv.height !== F.h) { cv.width = F.w; cv.height = F.h; }
+    draw(ctx, s, { preview: true, main: true });
   });
 }
+function refresh() { render(); thumbsSoon(); }
 
-load(); syncForm(); render();
-Promise.all([...Object.values(FONTS).map((f) => `${f.weight} 80px "${f.family}"`), '800 40px "Barlow Condensed"', '700 40px "Barlow Condensed"']
-  .map((f) => document.fonts.load(f))).then(render, render);
+// ---------- Templates ----------
+let ownTpls = [];
+try { ownTpls = JSON.parse(localStorage.getItem(OWN) || "[]"); } catch {}
+function styleOf(st) { const o = {}; for (const k of Object.keys(DEFAULTS)) if (!CONTENT.includes(k)) o[k] = clone(st[k]); return o; }
+const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+function tplCard(t, own) {
+  return `<button type="button" class="tpl" data-tpl="${t.id}" aria-pressed="false"><canvas></canvas><b>${esc(t.name)}</b>${own ? `<span class="del" data-del="${t.id}" aria-label="Poista malli">×</span>` : ""}</button>`;
+}
+function buildTemplates() {
+  $("tpls").innerHTML = TEMPLATES.map((t) => tplCard(t)).join("");
+  $("ownTpls").innerHTML = ownTpls.map((t) => tplCard(t, true)).join("");
+  $("ownHead").hidden = !ownTpls.length;
+  thumbsSoon();
+}
+let tTimer = 0;
+function thumbsSoon() { clearTimeout(tTimer); tTimer = setTimeout(thumbs, 250); }
+function thumbs() {
+  document.querySelectorAll(".tpl").forEach((card) => card.setAttribute("aria-pressed", String(s.template === card.dataset.tpl)));
+  if (document.querySelector('[data-panel="mallit"]').hidden) return;
+  const all = [...TEMPLATES, ...ownTpls];
+  document.querySelectorAll(".tpl").forEach((card) => {
+    const t = all.find((x) => x.id === card.dataset.tpl); if (!t) return;
+    const st = { ...s, ...clone(t.set), safe: false };
+    const F = FORMATS[st.format], c = card.querySelector("canvas"), w = 320;
+    c.width = w; c.height = Math.round(w * F.h / F.w);
+    const x = c.getContext("2d"); x.setTransform(w / F.w, 0, 0, w / F.w, 0, 0);
+    draw(x, st, { preview: false });
+  });
+}
+document.querySelector('[data-panel="mallit"]').addEventListener("click", (e) => {
+  const del = e.target.closest("[data-del]");
+  if (del) {
+    e.stopPropagation();
+    if (confirm("Poistetaanko oma malli?")) { ownTpls = ownTpls.filter((t) => t.id !== del.dataset.del); try { localStorage.setItem(OWN, JSON.stringify(ownTpls)); } catch {} buildTemplates(); }
+    return;
+  }
+  const card = e.target.closest("[data-tpl]"); if (!card) return;
+  const t = [...TEMPLATES, ...ownTpls].find((x) => x.id === card.dataset.tpl); if (!t) return;
+  Object.assign(s, clone(t.set), { template: t.id }); changed(); toast(`Malli: ${t.name}`);
+});
+$("saveTpl").addEventListener("click", () => {
+  const name = (prompt("Anna mallille nimi", "Oma malli") || "").trim(); if (!name) return;
+  const id = "oma-" + Date.now();
+  ownTpls.push({ id, name: name.slice(0, 30), set: styleOf(s) });
+  try { localStorage.setItem(OWN, JSON.stringify(ownTpls)); } catch {}
+  s.template = id; save(); buildTemplates(); toast("Malli tallennettu");
+});
+
+// ---------- Import from an article ----------
+$("importBtn").addEventListener("click", async () => {
+  const list = $("importList");
+  if (!list.hidden) { list.hidden = true; return; }
+  list.hidden = false; list.innerHTML = '<p class="note">Haetaan juttuja…</p>';
+  try {
+    const res = await fetch("/api/toimitus/jutut", { credentials: "same-origin" });
+    if (res.status === 401) { list.innerHTML = '<p class="note">Kirjautuminen on vanhentunut. <a href="/api/kirjaudu?next=/admin/somekuva/">Kirjaudu uudelleen</a>.</p>'; return; }
+    if (!res.ok) throw new Error(res.status);
+    const { jutut = [] } = await res.json();
+    if (!jutut.length) { list.innerHTML = '<p class="note">Juttuja ei vielä ole.</p>'; return; }
+    list.innerHTML = jutut.map((j, i) => `<button type="button" data-i="${i}"><span></span><b></b></button>`).join("");
+    list.querySelectorAll("button").forEach((b, i) => {
+      b.querySelector("b").textContent = (jutut[i].draft ? "Luonnos: " : "") + jutut[i].title;
+      if (jutut[i].image) b.querySelector("span").style.backgroundImage = `url("${encodeURI(jutut[i].image)}")`;
+    });
+    list.onclick = async (e) => {
+      const b = e.target.closest("button"); if (!b) return;
+      const j = jutut[b.dataset.i];
+      s.title = j.title; list.hidden = true; changed();
+      if (j.image && !(await loadImage(0, j.image))) toast("Jutun kuvaa ei saatu ladattua.");
+      else toast("Juttu tuotu");
+    };
+  } catch { list.innerHTML = '<p class="note">Juttuja ei saatu haettua. Tarkista verkkoyhteys.</p>'; }
+});
+
+// ---------- Export ----------
+function slug() {
+  return s.title.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "somekuva";
+}
+function exportBlob(fmt = s.format, type = s.type) {
+  const F = FORMATS[fmt], c = document.createElement("canvas"); c.width = F.w; c.height = F.h;
+  draw(c.getContext("2d"), { ...s, format: fmt }, { preview: false });
+  return new Promise((ok) => c.toBlob(ok, type, 0.92));
+}
+const ext = (type) => (type === "image/png" ? "png" : "jpg");
+function saveFile(blob, name) {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+const canShare = (() => { try { return !!navigator.canShare && navigator.canShare({ files: [new File(["x"], "a.png", { type: "image/png" })] }); } catch { return false; } })();
+$("shareBtn").hidden = $("mShare").hidden = !canShare;
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act; b.disabled = true;
+  try {
+    if (act === "download") { saveFile(await exportBlob(), `hulina-${slug()}.${ext(s.type)}`); toast("Kuva ladattu"); }
+    if (act === "share") { const blob = await exportBlob(); await navigator.share({ files: [new File([blob], `hulina-${slug()}.${ext(s.type)}`, { type: s.type })] }).catch(() => {}); }
+    if (act === "copy") {
+      try { await navigator.clipboard.write([new ClipboardItem({ "image/png": exportBlob(s.format, "image/png") })]); toast("Kuva kopioitu leikepöydälle"); }
+      catch { toast("Kopiointi ei onnistu tässä selaimessa. Käytä Lataa-painiketta."); }
+    }
+    if (act === "all") {
+      for (const k of ["ig", "story", "sq", "link"]) { saveFile(await exportBlob(k), `hulina-${slug()}-${k}.${ext(s.type)}`); await new Promise((r) => setTimeout(r, 450)); }
+      toast("Neljä kokoa ladattu");
+    }
+  } finally { b.disabled = false; }
+});
+$("resetAll").addEventListener("click", () => {
+  if (!confirm("Aloitetaanko alusta? Kuvat ja tekstit tyhjennetään.")) return;
+  s = clone(DEFAULTS); panels.forEach((p) => Object.assign(p, newPanel())); changed();
+});
+
+let toastT = 0;
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2200); }
+
+// ---------- Start ----------
+load();
+buildTemplates();
+syncForm();
+commit();
+render();
+// A story handed over from the writing tool ("Tee somekuva")
+try {
+  const h = JSON.parse(localStorage.getItem(HANDOFF) || "null");
+  localStorage.removeItem(HANDOFF);
+  if (h && Date.now() - (h.t || 0) < 3 * 3600e3) {
+    if (h.title) s.title = h.title;
+    s.credit = h.credit ? "Kuva: " + h.credit : "";
+    changed();
+    if (h.image) loadImage(0, h.image);
+    toast("Juttu tuotu kirjoitustyökalusta");
+  }
+} catch {}
+Promise.all(Object.values(FONTS).map((f) => document.fonts.load(`${f.weight} 60px ${f.family}`)).concat([document.fonts.load('600 30px "League Spartan"')])).then(refresh, refresh);
 </script>
 </body>
 </html>
