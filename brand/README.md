@@ -24,3 +24,5 @@ Logo: vaaleanpunainen puhekupla, jonka sisällä on H ja kulmassa kolme "hälin�
 | `hulina-kansikuva` | Facebook-sivun kansikuva (1640×624) |
 
 Kansio ei näy sivustolla. Sivuston omat logotiedostot ovat `src/assets/img/` ja `src/_includes/partials/logo.njk`.
+
+Mainosvideon emojit: Microsoft Fluent Emoji (MIT-lisenssi, © Microsoft Corporation).
