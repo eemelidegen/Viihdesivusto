@@ -2,6 +2,13 @@
 layout: layouts/base.njk
 ---
 {% set all = collections.artikkelit %}
+{% set trending = collections.aiheet | nytPuhutaan %}
+{% if trending.length %}
+<nav class="trending" aria-label="Nyt puhutaan">
+  <span class="trending__label">Nyt puhutaan</span>
+  {% for a in trending %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}
+</nav>
+{% endif %}
 <div class="front">
   <div class="front__main">
     {% if all.length %}

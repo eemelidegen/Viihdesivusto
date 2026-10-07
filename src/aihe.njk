@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.aiheet
+  size: 1
+  alias: aihe
+permalink: "/aihe/{{ aihe.slug }}/"
+eleventyComputed:
+  title: "{{ aihe.name }}"
+  description: "Kaikki Hulinan jutut aiheesta {{ aihe.name }}."
+---
+<header class="page-head">
+  <p class="page-head__kicker">Aihe</p>
+  <h1>{{ aihe.name }}</h1>
+</header>
+<div class="grid grid--3">
+  {% set cardClass = "" %}{% set showExcerpt = false %}
+  {% for item in aihe.items %}{% include "partials/card.njk" %}{% endfor %}
+</div>

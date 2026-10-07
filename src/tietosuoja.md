@@ -22,6 +22,8 @@ description: Miten Hulina käsittelee henkilötietoja.
 
 **Mainokset ja evästeet.** Sivuston mainokset näyttää Google (Google Ireland Ltd, AdSense). Kun avaat sivuston ensimmäistä kertaa, kysymme suostumustasi. Jos annat sen, Google voi käyttää evästeitä ja laitteesi tunnisteita mainosten valintaan, kohdentamiseen ja mittaamiseen. Jos et anna suostumusta, näytämme vain rajoitettuja mainoksia, joissa evästeitä käytetään ainoastaan välttämättömiin tarkoituksiin, kuten väärinkäytösten estämiseen. Peruste: suostumus. Voit muuttaa valintaasi milloin tahansa sivun alareunan Evästeasetukset-linkistä. Lisätietoa Googlen tietojenkäsittelystä: [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites).
 
+**Upotetut videot ja somepostaukset.** Jutuissa olevat YouTube-, TikTok-, Instagram- ja X-sisällöt latautuvat vasta, kun painat niitä. Silloin kyseinen palvelu voi tallentaa evästeitä ja käsitellä tietojasi oman tietosuojakäytäntönsä mukaisesti.
+
 Selaimesi muistaa myös valitsemasi teeman (vaalea tai tumma). Tieto pysyy vain omalla laitteellasi.
 
 ## Kuka tietoja käsittelee

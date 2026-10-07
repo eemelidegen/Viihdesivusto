@@ -35,16 +35,30 @@ layout: layouts/base.njk
     </aside>
   {% endset %}{% endif %}
   <div class="prose">
-    {{ content | keskelle(lueMyosBox) | safe }}
+    {{ content | rikasta | keskelle(lueMyosBox) | safe }}
   </div>
-  <footer class="article__foot">
-    <span>Jaa:</span>
-    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absUrl(site.url) | urlencode }}" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://x.com/intent/post?url={{ page.url | absUrl(site.url) | urlencode }}&text={{ title | urlencode }}" target="_blank" rel="noopener">X</a>
-    <a href="https://wa.me/?text={{ (title + ' ' + (page.url | absUrl(site.url))) | urlencode }}" target="_blank" rel="noopener">WhatsApp</a>
-    <button class="copy-link" data-url="{{ page.url | absUrl(site.url) }}">Kopioi linkki</button>
+  {% set topics = aiheet | aiheLista %}
+  {% if topics.length %}
+  <p class="topics" aria-label="Aiheet">{% for a in topics %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}</p>
+  {% endif %}
+  {% set shareUrl = page.url | absUrl(site.url) %}
+  <footer class="share" aria-label="Jaa juttu">
+    <span class="share__label">Jaa juttu</span>
+    <button class="share__btn share__btn--native" type="button" data-share data-url="{{ shareUrl }}" data-title="{{ title }}" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Jaa</button>
+    <a class="share__btn" href="https://wa.me/?text={{ (title + ' ' + shareUrl) | urlencode }}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="share__btn" href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl | urlencode }}" target="_blank" rel="noopener">Facebook</a>
+    <a class="share__btn" href="https://x.com/intent/post?url={{ shareUrl | urlencode }}&text={{ title | urlencode }}" target="_blank" rel="noopener">X</a>
+    <button class="share__btn copy-link" type="button" data-url="{{ shareUrl }}">Kopioi linkki</button>
   </footer>
 </article>
+
+{% set next = collections.artikkelit | seuraava(page.url) %}
+{% if next %}
+<a class="next-story" href="{{ next.url }}">
+  <span class="next-story__thumb">{% if next.data.image %}<img src="{{ next.data.image }}" alt="" loading="lazy">{% else %}<span class="placeholder"></span>{% endif %}</span>
+  <span class="next-story__text"><span class="next-story__label">Seuraava juttu →</span><span class="next-story__title">{{ next.data.title }}</span></span>
+</a>
+{% endif %}
 
 {% set related = collections.artikkelit | kategoriassa(category) | ilman(page.url) | alku(3) %}
 {% if related.length %}
@@ -63,8 +77,12 @@ layout: layouts/base.njk
   "headline": {{ title | dump | safe }},
   "description": {{ excerpt | dump | safe }},
   "datePublished": "{{ page.date | iso }}",
+  "dateModified": "{{ page.date | iso }}",
+  "mainEntityOfPage": "{{ page.url | absUrl(site.url) }}",
+  "articleSection": {{ cat.name | dump | safe }},
+  "keywords": {{ (aiheet or "") | dump | safe }},
   "author": { "@type": "Person", "name": {{ (author or "Toimitus") | dump | safe }} },
-  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }} },
+  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }}, "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/icon-512.png' | absUrl(site.url) }}" } },
   "image": [{% if image %}"{{ image | absUrl(site.url) }}", {% endif %}"{{ ('/og/' + page.fileSlug + '.png') | absUrl(site.url) }}"]
 }
 </script>

@@ -3,6 +3,7 @@ import site from "../../../src/_data/site.js";
 import { ARTICLE_DIR, UPLOAD_DIR, commit, slugify, toMarkdown, validFile } from "../../../lib/articles.js";
 
 const MAX_IMAGE_BASE64 = 8 * 1024 * 1024;
+const MAX_BODY_IMAGES = 30;
 const helsinkiDay = (d) => new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Helsinki" }).format(d);
 const str = (v, max) => String(v ?? "").trim().slice(0, max);
 
@@ -18,12 +19,14 @@ export async function onRequestPost({ request, data }) {
   const fields = {
     title, category,
     excerpt: str(f.excerpt, 400),
+    aiheet: str(f.aiheet, 200).split(",").map((s) => s.trim()).filter(Boolean).slice(0, 8).join(", "),
     date: date.toISOString(),
     author: str(f.author, 80) || "Toimitus",
     image: str(f.image, 300),
     imageAlt: str(f.imageAlt, 300),
     imageCredit: str(f.imageCredit, 120),
     nosto: f.nosto === true,
+    kiire: f.kiire === true,
     draft: f.draft === true,
   };
 
@@ -45,7 +48,16 @@ export async function onRequestPost({ request, data }) {
     changes.push({ path: `${UPLOAD_DIR}/${name}`, base64: input.image.base64 });
     fields.image = `/assets/img/uploads/${name}`;
   }
-  changes.push({ path: `${ARTICLE_DIR}/${file}`, content: toMarkdown(fields, input.body) });
+  // Photos added inside the text: only ones the text actually uses, with names the editor generated.
+  const body = String(input.body || "");
+  const extra = Array.isArray(input.images) ? input.images.slice(0, MAX_BODY_IMAGES) : [];
+  for (const img of extra) {
+    const name = String(img?.name || "");
+    if (!/^kuva-[a-z0-9-]{4,40}\.jpg$/.test(name) || !body.includes(`/assets/img/uploads/${name}`)) continue;
+    if (typeof img.base64 !== "string" || img.base64.length > MAX_IMAGE_BASE64) return Response.json({ virhe: "Jokin tekstin kuvista on liian suuri." }, { status: 413 });
+    changes.push({ path: `${UPLOAD_DIR}/${name}`, base64: img.base64 });
+  }
+  changes.push({ path: `${ARTICLE_DIR}/${file}`, content: toMarkdown(fields, body) });
 
   const verb = fields.draft ? "Luonnos" : isNew ? "Julkaise" : "Päivitä";
   await commit(data.gh, data.repo, data.branch, `${verb}: ${title} (${data.login})`, changes);

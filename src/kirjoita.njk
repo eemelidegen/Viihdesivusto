@@ -87,6 +87,10 @@ eleventyExcludeFromCollections: true
     .item__actions a, .item__actions button { padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; color: var(--text); font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; text-decoration: none; }
     .item__actions .primary { background: var(--plum); color: #fff; border-color: var(--plum); }
     .item__actions .danger { color: #a3112a; }
+    .chips2 { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips2 button { padding: 6px 11px 5px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font: 700 13px/1 var(--display); cursor: pointer; }
+    .chips2 button:hover { border-color: #111; }
+    .hint2 { margin: -8px 0 0; color: var(--muted); font: 12.5px/1.4 var(--font); }
     .empty2 { background: #fff; border-radius: 10px; padding: 32px; text-align: center; color: var(--muted); }
 
     .mobile-preview { display: none; }
@@ -142,6 +146,11 @@ eleventyExcludeFromCollections: true
                 {% for c in site.categories %}<button type="button" data-value="{{ c.slug }}">{{ c.name }}</button>{% endfor %}
               </div>
             </div>
+            <label class="f">Aiheet <small>Pilkulla erotettuna, esim. Big Brother, Tosi-tv. Saman aiheen jutut kootaan omalle sivulleen, ja suosituimmat näkyvät etusivun Nyt puhutaan -palkissa.</small>
+              <input id="aiheet" type="text" maxlength="200" list="aiheLista" autocomplete="off">
+            </label>
+            <datalist id="aiheLista"></datalist>
+            <div class="chips2" id="aiheChips"></div>
           </div>
 
           <div class="card2">
@@ -172,7 +181,11 @@ eleventyExcludeFromCollections: true
               <button type="button" data-cmd="quote" title="Lainaus">“ Lainaus</button>
               <button type="button" data-cmd="list" title="Lista">• Lista</button>
               <button type="button" data-cmd="link" title="Linkki">Linkki</button>
+              <button type="button" data-cmd="image" title="Lisää kuvia tekstiin">📷 Kuvia</button>
+              <button type="button" data-cmd="embed" title="Upota video tai somepostaus">▶ Video / some</button>
             </div>
+            <input id="bodyFiles" type="file" accept="image/*" multiple hidden>
+            <p class="hint2">Useampi kuva peräkkäin muuttuu pyyhkäistäväksi kuvagalleriaksi. Video: liitä YouTube-, TikTok-, Instagram- tai X-linkki omalle rivilleen.</p>
             <label class="f"><span class="sr-only">Teksti</span>
               <textarea id="body" placeholder="Kirjoita juttu tähän. Tyhjä rivi aloittaa uuden kappaleen."></textarea>
             </label>
@@ -180,6 +193,7 @@ eleventyExcludeFromCollections: true
 
           <div class="card2">
             <label class="switch2"><span>Nosta "Suositut jutut" -listaan<small>Näkyy etusivun sivupalkissa ja Luetuimmat-sivulla</small></span><input id="nosto" type="checkbox"></label>
+            <label class="switch2"><span>Tuore uutinen -palkki<small>Juttu näkyy punaisena palkkina koko sivun yläreunassa 12 tuntia julkaisusta</small></span><input id="kiire" type="checkbox"></label>
             <details class="more">
               <summary>Lisäasetukset</summary>
               <div style="display:grid;gap:14px;margin-top:14px">
@@ -224,20 +238,22 @@ eleventyExcludeFromCollections: true
 const CATEGORIES = {{ site.categories | dump | safe }};
 const LOCAL = "valokeila-kirjoita";
 const $ = (id) => document.getElementById(id);
-const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, imageCredit: "", imageAlt: "", author: "", nosto: false }, body: "" });
+const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageAlt: "", author: "", nosto: false, kiire: false }, body: "", images: [] });
 let doc = blank();
 let dirty = false;
 
 // ---------- Local autosave ----------
-function persist() { try { localStorage.setItem(LOCAL, JSON.stringify(doc)); } catch { try { localStorage.setItem(LOCAL, JSON.stringify({ ...doc, newImage: null })); } catch {} } }
+function persist() { try { localStorage.setItem(LOCAL, JSON.stringify(doc)); } catch { try { localStorage.setItem(LOCAL, JSON.stringify({ ...doc, newImage: null, images: [] })); } catch {} } }
 function restore() { try { const d = JSON.parse(localStorage.getItem(LOCAL) || "null"); if (d && d.fields) doc = { ...blank(), ...d, fields: { ...blank().fields, ...d.fields } }; } catch {} }
 
 // ---------- Form <-> doc ----------
-const TEXT = ["title", "excerpt", "imageCredit", "imageAlt", "author"];
+const TEXT = ["title", "excerpt", "aiheet", "imageCredit", "imageAlt", "author"];
 function fill() {
   TEXT.forEach((k) => ($(k).value = doc.fields[k] || ""));
   $("body").value = doc.body || "";
   $("nosto").checked = !!doc.fields.nosto;
+  $("kiire").checked = !!doc.fields.kiire;
+  topicChips();
   document.querySelectorAll("#category button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === doc.fields.category)));
   showImage();
   document.querySelectorAll("textarea").forEach(grow);
@@ -247,6 +263,28 @@ function changed() { dirty = true; persist(); preview(); $("status").textContent
 TEXT.forEach((k) => $(k).addEventListener("input", () => { doc.fields[k] = $(k).value; changed(); }));
 $("body").addEventListener("input", () => { doc.body = $("body").value; changed(); });
 $("nosto").addEventListener("change", () => { doc.fields.nosto = $("nosto").checked; changed(); });
+$("kiire").addEventListener("change", () => { doc.fields.kiire = $("kiire").checked; changed(); });
+
+// Topic suggestions from the published stories
+let knownTopics = [];
+fetch("/haku.json").then((r) => r.json()).then((list) => {
+  const count = new Map();
+  list.forEach((a) => (a.a || "").split(",").map((t) => t.trim()).filter(Boolean).forEach((t) => count.set(t, (count.get(t) || 0) + 1)));
+  knownTopics = [...count].sort((x, y) => y[1] - x[1]).map(([t]) => t);
+  $("aiheLista").innerHTML = knownTopics.map((t) => `<option value="${esc(t)}">`).join("");
+  topicChips();
+}).catch(() => {});
+function topicChips() {
+  const have = (doc.fields.aiheet || "").split(",").map((t) => t.trim().toLowerCase());
+  $("aiheChips").innerHTML = knownTopics.filter((t) => !have.includes(t.toLowerCase())).slice(0, 10).map((t) => `<button type="button">+ ${esc(t)}</button>`).join("");
+}
+$("aiheChips").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  const list = (doc.fields.aiheet || "").split(",").map((t) => t.trim()).filter(Boolean);
+  list.push(b.textContent.replace(/^\+ /, ""));
+  doc.fields.aiheet = list.join(", "); $("aiheet").value = doc.fields.aiheet; topicChips(); changed();
+});
+$("aiheet").addEventListener("input", topicChips);
 $("category").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; doc.fields.category = b.dataset.value; fill(); changed(); });
 function grow(t) { if (t.id === "body" || t.id === "title" || t.id === "excerpt") { t.style.height = "auto"; t.style.height = Math.max(t.id === "body" ? 320 : 0, t.scrollHeight + 2) + "px"; } }
 document.querySelectorAll("textarea").forEach((t) => t.addEventListener("input", () => grow(t)));
@@ -277,6 +315,38 @@ async function takeImage(file) {
     $("status").textContent = "Kuvaa ei voitu avata. Kokeile JPG- tai PNG-kuvaa.";
   }
 }
+// Photos inside the text: resized like the main photo, uploaded when the story is saved.
+async function resized(file, max) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, fail) => { const i = new Image(); i.onload = () => ok(i); i.onerror = fail; i.src = url; });
+    const scale = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL("image/jpeg", 0.85);
+  } finally { URL.revokeObjectURL(url); }
+}
+$("bodyFiles").addEventListener("change", async () => {
+  const files = [...$("bodyFiles").files].filter((f) => f.type.startsWith("image/")); $("bodyFiles").value = "";
+  if (!files.length) return;
+  $("status").textContent = "Käsitellään kuvia…";
+  const lines = [];
+  for (const f of files) {
+    try {
+      const dataUrl = await resized(f, 1600);
+      const name = `kuva-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}.jpg`;
+      doc.images.push({ name, dataUrl, base64: dataUrl.split(",")[1] });
+      lines.push(`![](/assets/img/uploads/${name} "")`);
+    } catch { $("status").textContent = "Jotain kuvaa ei voitu avata."; }
+  }
+  if (!lines.length) return;
+  const t = $("body"), at = t.selectionEnd ?? t.value.length, v = t.value;
+  const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
+  t.value = (before ? before + "\n\n" : "") + lines.join("\n\n") + (after ? "\n\n" + after : "");
+  doc.body = t.value; grow(t); changed();
+  $("status").textContent = lines.length > 1 ? `${lines.length} kuvaa lisätty – ne näkyvät jutussa kuvagalleriana. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.` : "Kuva lisätty. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.";
+});
 $("drop").addEventListener("click", () => $("file").click());
 $("drop").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } });
 $("imgChange").addEventListener("click", () => $("file").click());
@@ -305,6 +375,13 @@ $("toolbar").addEventListener("click", (e) => {
     case "h2": prefixLines("## "); break;
     case "quote": prefixLines("> "); break;
     case "list": prefixLines("- "); break;
+    case "image": $("bodyFiles").click(); return;
+    case "embed": {
+      const url = (prompt("Liitä videon tai somepostauksen osoite (YouTube, TikTok, Instagram tai X)", "https://") || "").trim();
+      if (!/^https?:\/\/\S+$/.test(url) || url === "https://") return;
+      const before = v.slice(0, end).replace(/\s*$/, ""), after = v.slice(end).replace(/^\s*/, "");
+      out = (before ? before + "\n\n" : "") + url + (after ? "\n\n" + after : ""); cs = ce = (before ? before.length + 2 : 0) + url.length; break;
+    }
     case "link": {
       const url = prompt("Linkin osoite (alkaa https://)", "https://");
       if (!url || url === "https://") return;
@@ -326,6 +403,9 @@ function markdown(md) {
   return md.replace(/\r\n/g, "\n").split(/\n{2,}/).map((block) => {
     const b = block.trim(); if (!b) return "";
     const lines = b.split("\n");
+    const imgs = lines.map((l) => l.match(/^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/));
+    if (imgs.every(Boolean)) return imgs.map((m) => { const own = doc.images.find((i) => m[2].endsWith("/" + i.name)); return `<figure class="inline-img"><img src="${esc(own ? own.dataUrl : m[2])}" alt="${esc(m[1])}">${m[3] ? `<figcaption>${esc(m[3])}</figcaption>` : ""}</figure>`; }).join("");
+    if (/^https?:\/\/\S+$/.test(b) && /youtu|tiktok|instagram|twitter\.com|x\.com/.test(b)) return `<div class="embed"><span class="embed__btn">▶ Upotettu sisältö</span><p class="embed__note">${esc(b)}</p></div>`;
     if (b.startsWith("### ")) return `<h3>${inline(b.slice(4))}</h3>`;
     if (b.startsWith("## ")) return `<h2>${inline(b.slice(3))}</h2>`;
     if (lines.every((l) => l.startsWith(">"))) return `<blockquote><p>${lines.map((l) => inline(l.replace(/^>\s?/, ""))).join("<br>")}</p></blockquote>`;
@@ -374,8 +454,9 @@ async function save(asDraft) {
       fields: { ...doc.fields, date, draft: asDraft, image: doc.newImage ? "" : doc.image },
       body: doc.body,
       image: doc.newImage ? { base64: doc.newImage.base64 } : null,
+      images: doc.images.filter((i) => doc.body.includes(i.name)).map(({ name, base64 }) => ({ name, base64 })),
     });
-    Object.assign(doc, { file: res.file, date, wasDraft: asDraft, image: res.image || "", newImage: null });
+    Object.assign(doc, { file: res.file, date, wasDraft: asDraft, image: res.image || "", newImage: null, images: [] });
     dirty = false; persist(); showImage();
     showDone(asDraft, res.url);
     $("status").textContent = asDraft ? "Luonnos tallennettu." : "Julkaistu!";

@@ -1,0 +1,46 @@
+---
+layout: layouts/base.njk
+title: Haku
+description: Hae Hulinan juttuja.
+---
+<header class="page-head">
+  <h1>Haku</h1>
+</header>
+<form class="search" role="search" action="/haku/">
+  <label class="sr-only" for="q">Hakusana</label>
+  <input id="q" name="q" type="search" placeholder="Hae juttuja, julkkiksia tai aiheita…" autocomplete="off" enterkeyhint="search">
+</form>
+<p class="search__info" id="searchInfo" aria-live="polite"></p>
+<div class="grid grid--3" id="results"></div>
+{% if collections.aiheet.length %}
+<section class="section" id="searchTopics">
+  <h2 class="section__title">Aiheet</h2>
+  <p class="topics">{% for a in collections.aiheet | alku(30) %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}</p>
+</section>
+{% endif %}
+<script>
+(() => {
+  const input = document.getElementById("q"), out = document.getElementById("results"), info = document.getElementById("searchInfo");
+  const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const esc = (s) => String(s || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fmt = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  let index = null;
+  const load = () => (index ??= fetch("/haku.json").then((r) => r.json()).then((list) => list.map((a) => ({ ...a, hay: norm([a.t, a.e, a.c, a.a].join(" ")) }))));
+  async function run() {
+    const q = input.value.trim();
+    history.replaceState(null, "", q ? `?q=${encodeURIComponent(q)}` : location.pathname);
+    document.getElementById("searchTopics")?.toggleAttribute("hidden", !!q);
+    if (!q) { out.innerHTML = ""; info.textContent = ""; return; }
+    const words = norm(q).split(/\s+/).filter(Boolean);
+    const hits = (await load()).filter((a) => words.every((w) => a.hay.includes(w)));
+    info.textContent = hits.length ? `${hits.length} ${hits.length === 1 ? "juttu" : "juttua"}` : "Ei tuloksia. Kokeile toista hakusanaa.";
+    out.innerHTML = hits.slice(0, 60).map((a) => `<article class="card"><div class="card__figure"><a class="card__media" href="${a.u}" tabindex="-1" aria-hidden="true">${a.i ? `<img src="${esc(a.i)}" alt="" loading="lazy">` : '<span class="placeholder"></span>'}</a><span class="pill">${esc(a.c)}</span></div><h3 class="card__title"><a href="${a.u}">${esc(a.t)}</a></h3><p class="meta"><time datetime="${a.d}">${fmt.format(new Date(a.d))}</time></p></article>`).join("");
+  }
+  let t = 0;
+  input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 150); });
+  document.querySelector(".search").addEventListener("submit", (e) => { e.preventDefault(); run(); });
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) { input.value = q; run(); }
+  input.focus();
+})();
+</script>

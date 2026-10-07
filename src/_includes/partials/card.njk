@@ -1,5 +1,5 @@
 {% set cat = item.data.category | kategoria(site.categories) %}
-<article class="card {{ cardClass }}">
+<article class="card {{ cardClass }}" data-date="{{ item.date | iso }}">
   <div class="card__figure">
     <a class="card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
       {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% else %}<span class="placeholder"></span>{% endif %}

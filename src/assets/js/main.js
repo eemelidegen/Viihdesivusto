@@ -91,3 +91,62 @@ document.querySelectorAll("[data-consent]").forEach((btn) => btn.addEventListene
   googlefc.callbackQueue = googlefc.callbackQueue || [];
   googlefc.callbackQueue.push(() => googlefc.showRevocationMessage());
 }));
+
+// Relative times ("15 min sitten"), "Tuore" badges and the breaking news bar.
+{
+  const now = Date.now();
+  const clock = new Intl.DateTimeFormat("fi-FI", { hour: "2-digit", minute: "2-digit" });
+  const rel = (d) => {
+    const m = Math.round((now - d) / 60000);
+    if (m < 1) return "juuri nyt";
+    if (m < 60) return `${m} min sitten`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h} ${h === 1 ? "tunti" : "tuntia"} sitten`;
+    if (h < 48) return `eilen klo ${clock.format(d)}`;
+    return "";
+  };
+  document.querySelectorAll("time[datetime]").forEach((t) => {
+    const d = new Date(t.dateTime);
+    if (Number.isNaN(+d) || d > now + 60000) return;
+    const r = rel(d);
+    if (r) { t.title = t.textContent.trim(); t.textContent = r; }
+  });
+  document.querySelectorAll(".card[data-date]").forEach((c) => {
+    const f = c.querySelector(".card__figure");
+    if (f && now - new Date(c.dataset.date) < 3 * 3600e3) f.insertAdjacentHTML("afterbegin", '<span class="fresh">Tuore</span>');
+  });
+  const hot = document.querySelector(".breaking[data-date]");
+  if (hot && now - new Date(hot.dataset.date) < 12 * 3600e3) hot.hidden = false;
+}
+
+// Photo galleries inside stories: swipe, arrows and a counter.
+document.querySelectorAll("[data-gallery]").forEach((g) => {
+  const track = g.querySelector(".gallery__track"), n = track.children.length;
+  const count = g.querySelector(".gallery__count b");
+  const prev = g.querySelector(".gallery__nav--prev"), next = g.querySelector(".gallery__nav--next");
+  const update = () => {
+    const i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+    count.textContent = i + 1; prev.disabled = i <= 0; next.disabled = i >= n - 1;
+  };
+  prev.addEventListener("click", () => track.scrollBy({ left: -track.clientWidth, behavior: "smooth" }));
+  next.addEventListener("click", () => track.scrollBy({ left: track.clientWidth, behavior: "smooth" }));
+  track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  update();
+});
+
+// Videos and posts from other services load only when the reader asks for them.
+document.querySelectorAll("[data-embed]").forEach((box) => {
+  box.querySelector(".embed__btn").addEventListener("click", () => {
+    const f = document.createElement("iframe");
+    f.src = box.dataset.embed; f.title = "Upotettu sisältö"; f.allowFullscreen = true;
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+    box.classList.add("is-loaded"); box.replaceChildren(f);
+  });
+});
+
+// Phone share sheet, when the browser has one.
+document.querySelectorAll("[data-share]").forEach((b) => {
+  if (!navigator.share) return;
+  b.hidden = false;
+  b.addEventListener("click", () => navigator.share({ title: b.dataset.title, url: b.dataset.url }).catch(() => {}));
+});

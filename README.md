@@ -10,6 +10,14 @@ Nopea, halpa ylläpitää ja hakukoneystävällinen viihdeuutismedia. Rakennettu
 - Sivukartta (`/sitemap.xml`), `robots.txt`, 404-sivu
 - Tietoa meistä / julkaisutiedot ja tietosuojaselosteen pohja
 - Toimitustyökalu selaimessa: `/admin/` (oma kirjoitustyökalu, somekuvatyökalu; Decap CMS varalla)
+- Aiheet: jutulle voi antaa aiheita (esim. "Big Brother, Tosi-tv"); jokaisella aiheella on oma sivu `/aihe/<nimi>/`, ja suosituimmat näkyvät etusivun "Nyt puhutaan" -palkissa
+- Haku (`/haku/`), joka toimii suoraan selaimessa (`/haku.json`)
+- "Tuore"-merkki alle 3 tuntia vanhoissa jutuissa ja ajat muodossa "15 min sitten"
+- Tuore uutinen -palkki sivun yläreunassa 12 tuntia (valinta julkaisutyökalussa)
+- Juttuihin kuvagalleriat (useampi kuva peräkkäin), kuvat kuvateksteineen ja YouTube-, TikTok-, Instagram- ja X-upotukset, jotka latautuvat vasta painettaessa
+- "Seuraava juttu" jutun lopussa ja jakonapit (myös puhelimen oma jakovalikko)
+- Google News -sivukartta (`/news-sitemap.xml`) ja isot kuvat Google Discoveriin
+- Kotinäyttökuvake (`/manifest.webmanifest`)
 - Vaalea ja tumma teema (valinta oikean yläkulman valikosta, muistetaan selaimessa) ja mobiilinäkymä
 
 ## Käynnistys omalla koneella
