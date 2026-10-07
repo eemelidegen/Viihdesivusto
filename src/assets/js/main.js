@@ -84,3 +84,10 @@ if (progress && body) {
     sync();
   }
 }
+
+// "Evästeasetukset" in the footer reopens Google's consent message.
+document.querySelectorAll("[data-consent]").forEach((btn) => btn.addEventListener("click", () => {
+  window.googlefc = window.googlefc || {};
+  googlefc.callbackQueue = googlefc.callbackQueue || [];
+  googlefc.callbackQueue.push(() => googlefc.showRevocationMessage());
+}));

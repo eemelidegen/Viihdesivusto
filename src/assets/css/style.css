@@ -132,7 +132,6 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 
 .box { background: var(--soft); border-radius: var(--radius); padding: 22px; }
 .box__title { margin: 0 0 10px; font: 800 26px/1.1 var(--headline); }
-.ad-slot { min-height: 250px; display: grid; place-items: center; color: var(--muted); font-size: 13px; border: 2px dashed var(--line); background: none; }
 
 /* Lists (category, latest, related) */
 .section { margin-top: 40px; }
@@ -186,7 +185,8 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .footer h2 { font: 800 15px/1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text); }
 .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .footer a { text-decoration: none; }
-.footer a:hover { color: var(--link); }
+.footer a:hover, .linkbtn:hover { color: var(--link); }
+.linkbtn { padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
 .footer__legal { color: var(--muted); margin-top: 24px; font-size: 13px; }
 
 @media (max-width: 1180px) {

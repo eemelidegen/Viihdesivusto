@@ -8,6 +8,8 @@ export default {
   "lang": "fi",
   "email": "",
   "publisher": "Hulina",
+  // Google AdSense publisher ID (public, also listed in ads.txt)
+  "adsense": "ca-pub-4612798370547578",
   "categories": [
     {
       "slug": "julkkikset",
