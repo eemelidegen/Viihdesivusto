@@ -4,6 +4,8 @@ import site from "./src/_data/site.js";
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
+  // ads.txt: tells ad networks which accounts may sell ads on this site (Google AdSense)
+  eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
 
   const fiDate = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric" });
   const fiDateTime = new Intl.DateTimeFormat("fi-FI", {
