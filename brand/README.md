@@ -30,3 +30,7 @@ Mainosvideon emojit: Microsoft Fluent Emoji (MIT-lisenssi, © Microsoft Corporat
 ## Mainoskuva 6 (puhelin)
 
 Taustakuva: "Hand holding (Unsplash)", kuvaaja Samson Vowles, Wikimedia Commons, lisenssi CC0 (vapaa käyttää myös kaupallisesti ilman nimimainintaa). Puhelimen näytön sisältö on Hulinan oma grafiikka.
+
+## Mainoskuva 7 (Me ollaan jo paikalla)
+
+Taustakuva: "Paparazzi ICA Decemeber 2005 1", kuvaaja Justinc, Wikimedia Commons, lisenssi CC BY-SA 2.0. Lisenssi vaatii kuvaajan nimen mainitsemisen (kuvassa on maininta oikeassa alakulmassa) ja sen, että muokattu kuva jaetaan samalla lisenssillä. Kuvaa on rajattu, sävytetty ja siihen on lisätty salamavälähdykset ja tekstit.
