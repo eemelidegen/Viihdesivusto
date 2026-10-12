@@ -26,3 +26,7 @@ Logo: vaaleanpunainen puhekupla, jonka sisällä on H ja kulmassa kolme "hälin�
 Kansio ei näy sivustolla. Sivuston omat logotiedostot ovat `src/assets/img/` ja `src/_includes/partials/logo.njk`.
 
 Mainosvideon emojit: Microsoft Fluent Emoji (MIT-lisenssi, © Microsoft Corporation).
+
+## Mainoskuva 6 (puhelin)
+
+Taustakuva: "Hand holding (Unsplash)", kuvaaja Samson Vowles, Wikimedia Commons, lisenssi CC0 (vapaa käyttää myös kaupallisesti ilman nimimainintaa). Puhelimen näytön sisältö on Hulinan oma grafiikka.
