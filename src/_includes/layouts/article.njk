@@ -2,18 +2,16 @@
 layout: layouts/base.njk
 ---
 {% set cat = category | kategoria(site.categories) %}
-<article class="article" style="--cat: {{ cat.color }}">
+<article class="article">
   <header class="article__head">
     <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
     <h1>{{ title }}</h1>
     <p class="article__lead">{{ excerpt }}</p>
-    <div class="byline">
-      <img class="byline__avatar" src="/assets/img/icon-192.png" alt="" width="44" height="44">
-      <div>
-        <span class="byline__name">{{ author or "Toimitus" }}</span>
-        <span class="byline__meta"><time datetime="{{ page.date | iso }}">{{ page.date | pvmAika }}</time> · {{ content | lukuaika }} min lukuaika</span>
-      </div>
-    </div>
+    <p class="meta">
+      {{ author or "Toimitus" }} ·
+      <time datetime="{{ page.date | iso }}">{{ page.date | pvmAika }}</time> ·
+      {{ content | lukuaika }} min lukuaika
+    </p>
   </header>
   <figure class="article__media">
     {% if image %}

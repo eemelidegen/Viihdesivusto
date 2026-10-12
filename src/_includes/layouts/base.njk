@@ -33,12 +33,6 @@
 </head>
 <body>
   <a class="skip" href="#main">Siirry sisältöön</a>
-  <div class="topbar">
-    <div class="wrap topbar__in">
-      <span class="topbar__date" data-today></span>
-      <span class="topbar__links"><a href="/vinkkaa/">Vinkkaa juttuaihe</a><a href="/tietoa/">Tietoa meistä</a></span>
-    </div>
-  </div>
   <header class="masthead">
     <div class="wrap masthead__bar">
       {% set logoClass = "" %}{% include "partials/logo.njk" %}
@@ -65,19 +59,6 @@
     </div>
     {% if category %}<div class="read-progress" aria-hidden="true"></div>{% endif %}
   </header>
-  {% set latest = collections.artikkelit | alku(8) %}
-  {% if latest.length > 1 and not category %}
-  <div class="ticker" aria-label="Uusimmat otsikot">
-    <div class="wrap ticker__in">
-      <span class="ticker__tag">Uusimmat</span>
-      <div class="ticker__track">
-        <div class="ticker__move">
-          {% for pass in [1, 2] %}{% for a in latest %}<a href="{{ a.url }}"{% if pass == 2 %} tabindex="-1" aria-hidden="true"{% endif %}>{{ a.data.title }}</a>{% endfor %}{% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
   {% set hot = collections.artikkelit | kiireinen %}
   {% if hot and hot.url != page.url %}
   <a class="breaking" href="{{ hot.url }}" data-date="{{ hot.date | iso }}" hidden><span class="wrap breaking__in"><span class="breaking__tag">Tuore uutinen</span><span class="breaking__title">{{ hot.data.title }}</span><span class="breaking__go" aria-hidden="true">→</span></span></a>
@@ -88,23 +69,14 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__top">
-      <div class="footer__brand">
+    <div class="wrap footer__grid">
+      <div>
         {% set logoClass = "logo--small" %}{% include "partials/logo.njk" %}
-        <p class="footer__claim">Kaikki mistä puhutaan.</p>
         <p>{{ site.description }}</p>
       </div>
       <div>
         <h2>Kategoriat</h2>
-        <ul>{% for c in site.categories %}<li><a href="/kategoria/{{ c.slug }}/" style="--cat: {{ c.color }}"><i class="dot" aria-hidden="true"></i>{{ c.name }}</a></li>{% endfor %}</ul>
-      </div>
-      <div>
-        <h2>Lue</h2>
-        <ul>
-          <li><a href="/uusimmat/">Uusimmat</a></li>
-          <li><a href="/luetuimmat/">Luetuimmat</a></li>
-          <li><a href="/haku/">Haku</a></li>
-        </ul>
+        <ul>{% for c in site.categories %}<li><a href="/kategoria/{{ c.slug }}/">{{ c.name }}</a></li>{% endfor %}</ul>
       </div>
       <div>
         <h2>Toimitus</h2>
@@ -117,7 +89,7 @@
         </ul>
       </div>
     </div>
-    <div class="wrap footer__legal"><span>© {{ build.year }} {{ site.name }}</span><a href="#main">Takaisin ylös ↑</a></div>
+    <p class="wrap footer__legal">© {{ build.year }} {{ site.name }}</p>
   </footer>
   <button class="to-top" aria-label="Takaisin ylös"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <script src="/assets/js/main.js?v={{ build.version }}" defer></script>

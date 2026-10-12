@@ -150,9 +150,3 @@ document.querySelectorAll("[data-share]").forEach((b) => {
   b.hidden = false;
   b.addEventListener("click", () => navigator.share({ title: b.dataset.title, url: b.dataset.url }).catch(() => {}));
 });
-
-// Today's date in the top bar, e.g. "maanantai 12. lokakuuta 2026".
-document.querySelectorAll("[data-today]").forEach((el) => {
-  const d = new Intl.DateTimeFormat("fi-FI", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date());
-  el.textContent = d.charAt(0).toUpperCase() + d.slice(1);
-});
