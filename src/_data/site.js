@@ -24,12 +24,12 @@ export default {
     {
       "slug": "rikos",
       "name": "Rikos",
-      "color": "#ff8fb1"
+      "color": "#ff7a6b"
     },
     {
       "slug": "urheilu",
       "name": "Urheilu",
-      "color": "#ff8fb1"
+      "color": "#62c9ff"
     }
   ]
 };

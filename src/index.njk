@@ -9,37 +9,73 @@ layout: layouts/base.njk
   {% for a in trending %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}
 </nav>
 {% endif %}
-<div class="front">
+
+{% if all.length %}
+{# Top of the page: one big story with the headline on the photo, two smaller beside it. #}
+<section class="hero{% if all.length < 2 %} hero--single{% endif %}" aria-label="Pääjutut">
+  {% set item = all[0] %}{% set cardClass = "card--overlay card--hero" %}{% set showExcerpt = true %}
+  {% include "partials/card.njk" %}
+  {% if all.length > 1 %}
+  <div class="hero__side">
+    {% set cardClass = "card--overlay" %}{% set showExcerpt = false %}
+    {% for item in all | ohita(1) | alku(2) %}{% include "partials/card.njk" %}{% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% else %}
+<div class="empty">
+  <h1>Ensimmäiset jutut tulossa pian</h1>
+  <p>Kohta täällä on luettavaa julkkiksista, juoruista, urheilusta ja kaikesta mistä puhutaan. Käy pian uudestaan!</p>
+</div>
+{% endif %}
+
+{% set rest = all | ohita(3) %}
+<div class="front{% if not rest.length %} front--nofeed{% endif %}">
   <div class="front__main">
-    {% if all.length %}
-      {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = false %}
-      {% include "partials/card.njk" %}
-    {% else %}
-      <div class="empty">
-        <h1>Ensimmäiset jutut tulossa pian</h1>
-        <p>Kohta täällä on luettavaa julkkiksista, juoruista, urheilusta ja kaikesta mistä puhutaan. Käy pian uudestaan!</p>
-      </div>
-    {% endif %}
+    {% if rest.length %}
+    <h2 class="section__title">Uusimmat</h2>
     {# Feed repeats: two stories side by side, then one full-width story. #}
     <div class="feed">
-      {% set cardClass = "" %}
-      {% for item in all | ohita(1) | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
+      {% set cardClass = "" %}{% set showExcerpt = false %}
+      {% for item in rest | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
     </div>
+    {% endif %}
+
   </div>
 
   <aside class="sidebar">
     {% if all.length %}
     <div class="tabs" role="tablist">
-      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Suositut jutut <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
-      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat jutut <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Luetuimmat <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></svg></button>
+      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
     </div>
-    <ol class="side-list" role="tabpanel" id="tab-suosittua" aria-labelledby="t-suosittua">
+    <ol class="side-list side-list--num" role="tabpanel" id="tab-suosittua" aria-labelledby="t-suosittua">
       {% for item in all | nostot | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
     <ol class="side-list" role="tabpanel" id="tab-tuoreimmat" aria-labelledby="t-tuoreimmat" hidden>
       {% for item in all | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
     {% endif %}
-
+    <a class="tipbox" href="/vinkkaa/">
+      <span class="tipbox__kicker">Tiedätkö jotain?</span>
+      <span class="tipbox__title">Vinkkaa meille juttuaihe</span>
+      <span class="tipbox__go">Lähetä vinkki <span aria-hidden="true">→</span></span>
+    </a>
   </aside>
 </div>
+
+{% for c in site.categories %}
+{% set list = all | kategoriassa(c.slug) | alku(4) %}
+{% if list.length %}
+<section class="catsec" style="--cat: {{ c.color }}" aria-labelledby="sec-{{ c.slug }}">
+  <header class="catsec__head">
+    <h2 id="sec-{{ c.slug }}"><a href="/kategoria/{{ c.slug }}/">{{ c.name }}</a></h2>
+    <a class="catsec__all" href="/kategoria/{{ c.slug }}/">Kaikki <span aria-hidden="true">→</span></a>
+  </header>
+  <div class="catsec__grid">
+    {% set cardClass = "card--compact" %}{% set showExcerpt = false %}
+    {% for item in list %}{% include "partials/card.njk" %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endfor %}
