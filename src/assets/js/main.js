@@ -92,7 +92,7 @@ document.querySelectorAll("[data-consent]").forEach((btn) => btn.addEventListene
   googlefc.callbackQueue.push(() => googlefc.showRevocationMessage());
 }));
 
-// Relative times ("15 min sitten"), "Tuore" badges and the breaking news bar.
+// Relative times ("15 min sitten") and "Tuore" badges.
 {
   const now = Date.now();
   const clock = new Intl.DateTimeFormat("fi-FI", { hour: "2-digit", minute: "2-digit" });
@@ -115,8 +115,6 @@ document.querySelectorAll("[data-consent]").forEach((btn) => btn.addEventListene
     const f = c.querySelector(".card__figure");
     if (f && now - new Date(c.dataset.date) < 3 * 3600e3) f.insertAdjacentHTML("afterbegin", '<span class="fresh">Tuore</span>');
   });
-  const hot = document.querySelector(".breaking[data-date]");
-  if (hot && now - new Date(hot.dataset.date) < 12 * 3600e3) hot.hidden = false;
 }
 
 // Photo galleries inside stories: swipe, arrows and a counter.

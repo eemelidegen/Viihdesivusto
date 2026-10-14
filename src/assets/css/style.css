@@ -198,15 +198,6 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .linkbtn { padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
 .footer__legal { color: var(--muted); margin-top: 24px; font-size: 13px; }
 
-/* Breaking news bar */
-.breaking { display: block; background: var(--text); color: var(--bg); text-decoration: none; }
-.breaking__in { display: flex; align-items: center; gap: 12px; padding-top: 10px; padding-bottom: 10px; }
-.breaking__tag { flex-shrink: 0; background: #ff3b4e; color: #fff; font: 800 12px/1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; padding: 6px 9px 4px; border-radius: 4px; animation: pulse 1.6s ease-in-out infinite; }
-.breaking__title { min-width: 0; font: 700 16px/1.25 var(--display); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.breaking__go { margin-left: auto; font-weight: 800; }
-.breaking:hover .breaking__title { text-decoration: underline; }
-@keyframes pulse { 50% { opacity: 0.55; } }
-@media (prefers-reduced-motion: reduce) { .breaking__tag { animation: none; } }
 
 /* Topics and "Nyt puhutaan" */
 .trending { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 18px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
@@ -286,7 +277,6 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
   .prose { font-size: 18px; }
   .next-story { grid-template-columns: 100px 1fr; gap: 12px; padding: 12px; }
   .next-story__title { font-size: 17px; }
-  .breaking__title { font-size: 14px; }
 }
 
 /* Photos whose shape or size does not suit the frame are shown whole on a blurred copy of themselves,

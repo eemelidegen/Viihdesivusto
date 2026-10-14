@@ -59,10 +59,6 @@
     </div>
     {% if category %}<div class="read-progress" aria-hidden="true"></div>{% endif %}
   </header>
-  {% set hot = collections.artikkelit | kiireinen %}
-  {% if hot and hot.url != page.url %}
-  <a class="breaking" href="{{ hot.url }}" data-date="{{ hot.date | iso }}" hidden><span class="wrap breaking__in"><span class="breaking__tag">Tuore uutinen</span><span class="breaking__title">{{ hot.data.title }}</span><span class="breaking__go" aria-hidden="true">→</span></span></a>
-  {% endif %}
 
   <main id="main" class="wrap">
     {{ content | safe }}
