@@ -1,14 +1,13 @@
 ---
 title: "Martina Aitolehti lipsautti podcastissa ”mun Muhis” – Esko Eerikäinen tarttui heti"
 excerpt: "Ex-pari pelasi podcastissa arvauspeliä, ja yksi pieni sana nosti suhdehuhut taas pintaan."
-date: "2026-10-14T12:00:00.000Z"
+date: "2026-10-14T09:34:23.428Z"
 category: "julkkikset"
 aiheet: "Martina Aitolehti, Esko Eerikäinen, Hajji Muhis"
 author: "Toimitus"
 image: "/assets/img/uploads/martina-aitolehti-lipsautti-mun-muhis-411cf7.jpg"
 imageCredit: "Juulironka / Wikimedia Commons, CC BY-SA 4.0"
 kiire: true
-draft: true
 ---
 
 Ex-aviopari **Martina Aitolehti** ja **Esko Eerikäinen** pelasivat tuoreessa Martina & Esko -podcastin jaksossa peliä, jossa kumpikin esittää kolme väitettä elämästään ja toisen pitää arvata, mikä on totta. Apuna oli Haluatko miljonääriksi -tyylinen oljenkorsi: kilauta kaverille.
