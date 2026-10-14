@@ -150,3 +150,24 @@ document.querySelectorAll("[data-share]").forEach((b) => {
   b.hidden = false;
   b.addEventListener("click", () => navigator.share({ title: b.dataset.title, url: b.dataset.url }).catch(() => {}));
 });
+
+// Fit photos to their frames: a portrait or a small photo would be cropped badly or blown up,
+// so it is shown whole on a blurred copy of itself instead.
+function fitImage(img) {
+  const box = img.closest("[data-fit], .card__media, .side-item__thumb, .read-also__thumb, .next-story__thumb");
+  if (!box || !img.naturalWidth) return;
+  const isArticle = box.hasAttribute("data-fit");
+  const boxW = box.clientWidth || 1;
+  const boxRatio = isArticle ? (window.innerWidth <= 640 ? 4 / 5 : 16 / 10) : boxW / (box.clientHeight || 1);
+  const ratio = img.naturalWidth / img.naturalHeight;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const tooSmall = img.naturalWidth < boxW * dpr * 0.6;
+  const wrongShape = ratio < boxRatio * 0.72;
+  if (tooSmall || wrongShape) {
+    box.classList.add("is-fit");
+    box.style.setProperty("--fit-bg", `url("${img.currentSrc || img.src}")`);
+  }
+}
+document.querySelectorAll(".card__media img, .side-item__thumb img, .read-also__thumb img, .next-story__thumb img, [data-fit] img").forEach((img) => {
+  if (img.complete) fitImage(img); else img.addEventListener("load", () => fitImage(img), { once: true });
+});
