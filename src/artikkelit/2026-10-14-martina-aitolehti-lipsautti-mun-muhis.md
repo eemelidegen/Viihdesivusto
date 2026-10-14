@@ -5,9 +5,9 @@ date: "2026-10-14T12:00:00.000Z"
 category: "julkkikset"
 aiheet: "Martina Aitolehti, Esko Eerikäinen, Hajji Muhis"
 author: "Toimitus"
-image: "/assets/img/uploads/martina-mun-muhis.jpg"
-imageAlt: "Hulinan grafiikka: Martina Aitolehti ja mun Muhis"
-imageCredit: "Hulina"
+image: "/assets/img/uploads/martina-aitolehti-lipsautti-mun-muhis-411cf7.jpg"
+imageCredit: "Juulironka / Wikimedia Commons, CC BY-SA 4.0"
+kiire: true
 draft: true
 ---
 
@@ -29,6 +29,6 @@ Martina varmisteli, oliko se tyhmästi sanottu. Ei kuulemma ollut.
 
 – Tosi söpö, Martina totesi.
 
-Esko on aiemminkin piikitellyt podcastissa Martinaa ”uudesta poikaystävästä”. Hänen oma soittokaverinsa oli hyvä ystävä Toni. Eli virallista vahvistusta ei vieläkään tullut, mutta ”mun Muhis” kertoo aika paljon. 👀
+Esko on aiemminkin piikitellyt podcastissa Martinaa ”uudesta poikaystävästä”. Hänen oma soittokaverinsa oli hyvä ystävä Toni. Eli virallista vahvistusta ei vieläkään tullut, mutta ”mun Muhis” kertoo aika paljon. 
 
 *Lähde: [Iltalehti](https://www.iltalehti.fi/viihdeuutiset/a/663ba117-7506-4956-b9c6-aae032988b9d), Martina & Esko -podcast*
