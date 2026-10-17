@@ -2,8 +2,8 @@
 // Used by the templates (as `site`), the share-image generator and the writing tool API.
 export default {
   "name": "Hulina",
-  "tagline": "Viihdettä, ilmiöitä ja puheenaiheita",
-  "description": "Täältä löytyy kaikki mistä puhutaan. Julkkisten kuulumiset, mehukkaimmat juorut, urheilu ja uutiset niin Suomesta kuin maailmaltakin.",
+  "tagline": "Viihdeuutiset, julkkikset ja puheenaiheet",
+  "description": "Hulina on suomalainen viihdemedia. Kirjoitamme julkkiksista, tv-ohjelmista, kohuista ja urheilusta Suomesta ja maailmalta.",
   "url": "https://hulina.net",
   "lang": "fi",
   "email": "",

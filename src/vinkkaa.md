@@ -4,20 +4,20 @@ title: Vinkkaa
 ---
 <div class="prose page">
 
-# Vinkkaa meille
+# Lähetä juttuvinkki
 
-Bongasitko julkkiksen kaupan kassajonosta? Kuulitko jotain mehukasta kaverin kaverilta? Vai tapahtuiko sun kotikulmilla jotain, mistä kaikki puhuu?
+Näitkö tai kuulitko jotain, mistä meidän pitäisi kirjoittaa? Otamme vastaan vinkkejä julkkiksista, tv-ohjelmista, tapahtumista, urheilusta ja muista puheenaiheista.
 
-Laita vinkki tulemaan! Julkkikset, juorut, urheilu tai joku ihan muu juttu Suomesta tai maailmalta, kaikki käy. Me luetaan jokainen viesti ja parhaat vinkit päätyy jutuiksi.
-
-Kuvat ja videot on aina plussaa. Kerro samalla, ootko ottanut ne itse, niin tiedetään saako niitä käyttää.
+Kerro vinkissä mahdollisimman tarkasti, mitä tapahtui, missä ja milloin. Jos sinulla on kuvia tai videoita, mainitse, oletko ottanut ne itse. Julkaisemme kuvia vain, jos meillä on niihin lupa.
 
 {% if site.email %}
 **Lähetä vinkki:** [{{ site.email }}](mailto:{{ site.email }})
 {% else %}
-**Vinkkiosoite aukeaa ihan just.** Laitetaan yhteystiedot tähän heti kun ne on valmiina.
+**Vinkkiosoite julkaistaan tällä sivulla pian.**
 {% endif %}
 
-Sun henkilöllisyys pysyy meidän välisenä. Ei kerrota kenellekään kuka vinkkasi, ellet itse halua.
+Käsittelemme vinkit luottamuksellisesti. Vinkin lähettäjän henkilöllisyyttä ei kerrota kenellekään ilman lupaa.
+
+Huomasitko virheen jutussa? Kerro siitä samaan osoitteeseen, niin korjaamme sen.
 
 </div>

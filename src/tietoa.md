@@ -1,21 +1,21 @@
 ---
 layout: layouts/base.njk
 title: Tietoa meistä
-description: Hulina on suomalainen viihdemedia. Julkkikset, juorut, urheilu ja uutiset Suomesta ja maailmalta.
+description: Hulina on suomalainen viihdemedia. Julkkisuutiset, tv-ohjelmat, kohut ja urheilu.
 ---
 <div class="prose page">
 
 # Tietoa meistä
 
-{{ site.name }} on suomalainen viihdemedia. Kirjoitetaan julkkiksista, juoruista, urheilusta ja kaikista muistakin uutisista, joista Suomessa ja maailmalla just nyt puhutaan.
+{{ site.name }} on suomalainen viihdemedia. Kirjoitamme julkkiksista, tv-ohjelmista, kohuista, rikoksista ja urheilusta Suomesta ja maailmalta.
 
-Tehdään juttuja, joita on kiva lukea, mutta ei keksitä mitään. Jos joku on vasta huhu, sanotaan se suoraan. Ja jos meillä menee jotain pieleen, korjataan se heti ja kerrotaan korjauksesta jutun lopussa.
+Jutut perustuvat haastatteluihin, julkisiin somepäivityksiin, tv-ohjelmiin, tiedotteisiin ja muiden medioiden uutisiin. Kerromme jokaisessa jutussa, mistä tieto on peräisin. Virheet korjataan, ja olennaisesta korjauksesta kerrotaan jutussa. Lue lisää [toimituksen periaatteista](/periaatteet/).
 
-Tiedätkö jotain, mistä pitäisi kirjoittaa? [Vinkkaa meille](/vinkkaa/).
+Juttuvinkin voi lähettää [vinkkisivulla](/vinkkaa/).
 
-## Mainosyhteistyö
+## Mainonta ja yhteistyö
 
-Kiinnostaako yhteistyö? {% if site.email %}Laita viestiä: [{{ site.email }}](mailto:{{ site.email }}).{% else %}Yhteystiedot tulee tähän pian.{% endif %} Kaupalliset jutut merkitään aina selvästi, eikä mainostaja päätä meidän sisällöistä.
+{% if site.email %}Mainonnasta ja yhteistyöstä voi kysyä osoitteesta [{{ site.email }}](mailto:{{ site.email }}).{% else %}Mainonnan ja yhteistyön yhteystiedot julkaistaan tällä sivulla.{% endif %} Kaupalliset yhteistyöt merkitään aina selvästi, eikä mainostaja vaikuta juttujen sisältöön.
 
 ## Julkaisutiedot
 
@@ -23,6 +23,7 @@ Kiinnostaako yhteistyö? {% if site.email %}Laita viestiä: [{{ site.email }}](m
 **Verkko-osoite:** {{ site.url | replace("https://", "") }}<br>
 {% if site.email %}**Toimitus:** [{{ site.email }}](mailto:{{ site.email }})<br>
 {% endif %}**Juttuvinkit:** [{{ site.url | replace("https://", "") }}/vinkkaa](/vinkkaa/)<br>
+**Toimituksen periaatteet:** [{{ site.url | replace("https://", "") }}/periaatteet](/periaatteet/)<br>
 **Tietosuoja:** [Tietosuojaseloste](/tietosuoja/)
 
 </div>

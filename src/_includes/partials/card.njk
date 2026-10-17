@@ -4,8 +4,8 @@
     <a class="card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
       {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy"{% if item.data.imageFocus %} style="object-position: {{ item.data.imageFocus }}"{% endif %}>{% else %}<span class="placeholder"></span>{% endif %}
     </a>
-    <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
   </div>
+  <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
   <h3 class="card__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
   {% if showExcerpt %}<p class="card__excerpt">{{ item.data.excerpt }}</p>{% endif %}
   <p class="meta"><time datetime="{{ item.date | iso }}">{{ item.date | pvmAika }}</time></p>

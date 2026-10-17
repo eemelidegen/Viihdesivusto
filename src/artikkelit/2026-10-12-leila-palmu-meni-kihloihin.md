@@ -11,7 +11,7 @@ imageCredit: "Hulina"
 draft: true
 ---
 
-Nyt on ihana uutinen! Edesmenneen taiteilija **Juhani Palmun** leski **Leila Palmu**, 60, on mennyt kihloihin.
+Edesmenneen taiteilija **Juhani Palmun** leski **Leila Palmu**, 60, on mennyt kihloihin.
 
 Uunon mukaan Leila päivitti suhdetilansa Facebookiin keskiviikkona 7. lokakuuta. Onnekas on **Jani**, pääkaupunkiseudulla asuva muusikko ja laulaja.
 
@@ -25,6 +25,6 @@ Juhani Palmu kuoli kesäkuussa 2024 79-vuotiaana. Liettualaissyntyinen taidegall
 
 Juhanin viimeiset vuodet olivat raskaita. Hän loukkaantui kahdesti vakavasti tulipalossa kotonaan, vuosina 2017 ja 2021.
 
-Nyt Leilan elämässä alkaa uusi luku. Onnea kihlaparille! 💍
+Hääpäivästä ei ole vielä kerrottu.
 
 *Lähde: [Uuno](https://www.uuno.fi/yllatys-juhani-palmun-leski-leila-palmu-meni-kihloihin/), MeNaiset*

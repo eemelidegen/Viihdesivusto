@@ -305,3 +305,45 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .factbox__title { margin: 0 0 6px !important; font: 800 15px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; }
 .factbox p { margin: 0; white-space: pre-line; }
 .factbox ul, .factbox ol { margin: 6px 0 0; padding-left: 20px; }
+
+/* ---- Editorial look: category as coloured text, straight photos, calmer details ---- */
+:root { --hot: #d4145a; --link: #c0104f; }
+:root[data-theme="dark"] { --hot: #ff6f9c; --link: #ff8fb1; }
+.pill, .pill--sm, .card--lead .card__figure .pill { position: static; display: inline-block; background: none; color: var(--hot); padding: 0; border-radius: 0; font: 800 13px/1 var(--display); letter-spacing: .07em; text-transform: uppercase; }
+.pill:hover { background: none; color: var(--text); text-decoration: underline; }
+.card > .pill { margin-top: 12px; }
+.card--lead > .pill { font-size: 15px; margin-top: 16px; }
+.card__title { margin-top: 6px; }
+.card__media, .side-item__thumb, .read-also__thumb, .next-story__thumb, .article__img, .article__media img, .inline-img img, .gallery__track { border-radius: 2px; }
+.card:hover .card__media img { transform: none; }
+.card__title a:hover { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.side-item .pill { margin-top: 2px; font-size: 12px; }
+.side-item__title { margin-top: 5px; }
+.article__head .pill { font-size: 14px; }
+/* Navigation without separators */
+.nav__list li + li::before { content: none; }
+.nav__list a { padding-left: 11px; padding-right: 11px; font-size: 16px; letter-spacing: .03em; }
+.nav__list a::after { left: 11px; right: 11px; background: var(--hot); }
+/* Topics as plain links */
+.trending { gap: 4px 14px; }
+.trending__label { color: var(--hot); }
+.topic { background: none; padding: 6px 0; border-radius: 0; font-weight: 700; }
+.topic:hover { background: none; color: var(--hot); text-decoration: underline; }
+/* Sidebar tabs and numbered most-read list */
+.tabs__btn { font-size: 15px; border-bottom-width: 3px; }
+.tabs__btn[aria-selected="true"] { border-bottom-color: var(--hot); }
+.side-list--num { counter-reset: n; }
+.side-list--num .side-item { counter-increment: n; grid-template-columns: 30px 104px 1fr; gap: 12px; align-items: start; }
+.side-list--num .side-item::before { content: counter(n); font: 800 30px/1 var(--headline); color: var(--text); padding-top: 4px; }
+/* Section lines in ink instead of pink */
+.section__title, .page-head { border-bottom: 3px solid var(--text); }
+.read-also { border-top: 3px solid var(--text); }
+.factbox { border-left-color: var(--hot); border-radius: 2px; }
+.sources { border-radius: 2px; }
+.next-story { border-radius: 2px; }
+@media (max-width: 640px) {
+  .nav__list a { font-size: 14px; padding-left: 8px; padding-right: 8px; }
+  .nav__list a::after { left: 8px; right: 8px; }
+  .side-list--num .side-item { grid-template-columns: 24px 88px 1fr; }
+  .side-list--num .side-item::before { font-size: 24px; }
+}

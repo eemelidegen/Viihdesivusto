@@ -4,7 +4,7 @@
     {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy"{% if item.data.imageFocus %} style="object-position: {{ item.data.imageFocus }}"{% endif %}>{% else %}<span class="placeholder"></span>{% endif %}
   </a>
   <div>
-    <a class="pill pill--sm" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
+    <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
     <a class="side-item__title" href="{{ item.url }}">{{ item.data.title }}</a>
   </div>
 </li>

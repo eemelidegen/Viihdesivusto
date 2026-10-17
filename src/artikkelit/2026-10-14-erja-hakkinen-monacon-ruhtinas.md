@@ -11,13 +11,13 @@ imageCredit: "Hulina"
 draft: true
 ---
 
-Tätä ei ihan jokainen pääse kertomaan. **Erja Häkkinen** muistelee Anna-lehdessä aikoja Monacossa, kun hän ja silloinen puoliso, F1-maailmanmestari **Mika Häkkinen** saivat kutsuja Monacon ruhtinas **Rainierin** luo.
+**Erja Häkkinen** muistelee Anna-lehdessä aikoja Monacossa, kun hän ja silloinen puoliso, F1-maailmanmestari **Mika Häkkinen** saivat kutsuja Monacon ruhtinas **Rainierin** luo.
 
 Ruhtinaalla oli tapana kutsua Häkkiset katsomaan jalkapalloa. Erja oli seurueen ainoa nainen, ja hänen paikkansa oli aina ruhtinaan vieressä.
 
 – Kaikki sanoivat silloin, että ruhtinas piti minusta erityisesti. Mikakin nauroi, ettei tämä saanut silmiään irti minusta, Erja kertoo Anna-lehdelle Ilta-Sanomien mukaan.
 
-Ja jos matsi oli tylsä, ruhtinas alkoi kertoa Erjalle omia juttujaan. 😄
+Ja jos matsi oli tylsä, ruhtinas alkoi kertoa Erjalle omia juttujaan.
 
 ## Illallisia palatsissa
 
