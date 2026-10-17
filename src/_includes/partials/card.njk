@@ -2,7 +2,7 @@
 <article class="card {{ cardClass }}" data-date="{{ item.date | iso }}">
   <div class="card__figure">
     <a class="card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
-      {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% else %}<span class="placeholder"></span>{% endif %}
+      {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy"{% if item.data.imageFocus %} style="object-position: {{ item.data.imageFocus }}"{% endif %}>{% else %}<span class="placeholder"></span>{% endif %}
     </a>
     <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
   </div>

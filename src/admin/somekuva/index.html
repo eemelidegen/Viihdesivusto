@@ -144,7 +144,8 @@
       /* While typing, shrink the preview so the keyboard leaves room for the form */
       .app:has(.panel textarea:focus, .panel input[type=text]:focus) #cv { max-height: 22vh; }
     }
-  </style>
+    .cap-out { width: 100%; font: 15px/1.5 system-ui, sans-serif; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; resize: vertical; }
+</style>
 </head>
 <body>
   <header class="bar">
@@ -209,6 +210,14 @@
             <button type="button" data-v="pink" style="background:#ff8fb1" aria-label="Pinkki"></button>
             <button type="button" data-v="accent" style="background:conic-gradient(#ff3b4e,#ffd23f,#2ee59d,#3d8bff,#a970ff,#ff3b4e)" aria-label="Sama kuin korostusväri"></button>
           </div>
+        </div>
+        <div class="field" data-show="hasImage">
+          <span class="lbl">Kuvan sovitus <small>pystykuva vaakakehyksessä? valitse "Koko kuva"</small></span>
+          <div class="seg" data-seg="fit"><button type="button" data-v="cover">Täytä kehys</button><button type="button" data-v="blur">Koko kuva + sumennus</button></div>
+        </div>
+        <div class="field" data-show="hasImage">
+          <span class="lbl">Pikasuotimet</span>
+          <div class="chips" id="presets"></div>
         </div>
         <div class="field" data-show="hasImage">
           <div class="h">Kuvan säädöt</div>
@@ -353,6 +362,14 @@
         </div>
         <p class="note">"Lataa kaikki koot" tekee samasta kuvasta version Instagramiin, Storyyn ja TikTokiin, neliönä sekä linkkikuvaksi.</p>
         <label class="switch">Näytä Storyn turva-alue esikatselussa <input type="checkbox" data-k="safe"></label>
+        <label class="switch">Näytä apuviivat (kolmanneksen sääntö) <input type="checkbox" data-k="grid"></label>
+        <div class="h">Kuvateksti-apuri</div>
+        <p class="note">Valmis teksti julkaisuun. Tiedot tulevat otsikosta ja jutusta, jos toit sen Teksti-välilehdeltä. Muokkaa vapaasti ennen kopiointia.</p>
+        <div class="seg" id="capSeg"><button type="button" data-v="ig" aria-pressed="true">Instagram</button><button type="button" data-v="tiktok">TikTok</button><button type="button" data-v="fb">Facebook</button><button type="button" data-v="x">X</button></div>
+        <label class="field"><span class="lbl">Jutun linkki <small>valinnainen</small></span><input type="text" id="capLink" placeholder="https://hulina.net/..."></label>
+        <label class="field"><span class="lbl">Aihetunnisteet <small>pilkulla erotettuna</small></span><input type="text" id="capTags" placeholder="esim. Martina Aitolehti, Tosi-tv"></label>
+        <textarea id="capOut" rows="7" class="cap-out"></textarea>
+        <div class="btns"><button class="btn btn--ghost" type="button" id="capCopy">Kopioi teksti</button><button class="btn btn--ghost" type="button" id="capNew">Uusi versio</button></div>
         <button class="btn btn--ghost btn--sm" type="button" id="resetAll">Aloita alusta</button>
       </div>
     </section>
@@ -400,10 +417,10 @@ const DEFAULTS = {
   shadeStyle: "gradient", shade: 60, tint: "black", bg: "plum", frame: "none",
   brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false, flip: false,
   logo: "stacked", logoPos: "above", logoSize: 100,
-  type: "image/jpeg", safe: true,
+  type: "image/jpeg", safe: true, fit: "cover", grid: false,
 };
 // A template changes the look, not the content.
-const CONTENT = ["title", "sub", "quoteBy", "credit", "format", "type", "safe", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
+const CONTENT = ["title", "sub", "quoteBy", "credit", "format", "type", "safe", "grid", "fit", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
 const TEMPLATES = [
   { id: "uutinen", name: "Uutinen", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 62, tint: "black", logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
   { id: "kohu", name: "Kohu", set: { layout: "single", font: "spartan", upper: false, textStyle: "boxes", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 40, tint: "black", logo: "wide", logoPos: "tl", logoSize: 100, badge: "KOHU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
@@ -481,7 +498,19 @@ function softened(p, st) {
   p.soft = big;
   return big;
 }
-function drawCover(c, src, r, p, flip) {
+function drawCover(c, src, r, p, flip, soft) {
+  if (soft) {
+    // Whole photo on a blurred, darkened copy of itself: nothing is cut off.
+    drawCover(c, soft, r, { zoom: 1, panX: 0.5, panY: 0.5 }, flip);
+    c.save(); c.fillStyle = "rgba(0,0,0,.25)"; c.fillRect(r.x, r.y, r.w, r.h); c.restore();
+    const sc = Math.min(r.w / src.width, r.h / src.height) * p.zoom;
+    const dw = src.width * sc, dh = src.height * sc;
+    const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * (dh > r.h ? p.panY : 0.5);
+    c.save(); c.beginPath(); c.rect(r.x, r.y, r.w, r.h); c.clip();
+    if (flip) { c.translate(r.x * 2 + r.w, 0); c.scale(-1, 1); }
+    c.drawImage(src, dx, dy, dw, dh); c.restore();
+    return;
+  }
   const sc = Math.max(r.w / src.width, r.h / src.height) * p.zoom;
   const dw = src.width * sc, dh = src.height * sc;
   const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * p.panY;
@@ -555,7 +584,7 @@ function draw(c, st, { preview = false, main = false } = {}) {
   if (L.startsWith("split")) { c.fillStyle = st.frame === "none" ? "#ffffff" : frameColor(st); c.fillRect(area.x, area.y, area.w, area.h); }
   rects.forEach((r, i) => {
     const p = panels[i];
-    if (p.img) drawCover(c, L === "quote" ? softened(p, st) : processed(p, st), r, p, st.flip);
+    if (p.img) drawCover(c, L === "quote" ? softened(p, st) : processed(p, st), r, p, st.flip, L !== "quote" && st.fit === "blur" ? softened(p, st) : null);
     else {
       paintBg(c, r, st);
       if (preview) {
@@ -646,6 +675,13 @@ function draw(c, st, { preview = false, main = false } = {}) {
     c.translate(r.x + r.w - 16 * U, r.y + r.h - 24 * U); c.rotate(-Math.PI / 2); c.textAlign = "left"; c.fillText(st.credit.trim(), 0, 0); c.restore();
   }
 
+  // Rule-of-thirds guides (preview only)
+  if (preview && st.grid) {
+    c.save(); c.strokeStyle = "rgba(255,255,255,.55)"; c.lineWidth = 2; c.setLineDash([10, 10]);
+    c.beginPath();
+    for (const k of [1, 2]) { c.moveTo(W * k / 3, 0); c.lineTo(W * k / 3, H); c.moveTo(0, H * k / 3); c.lineTo(W, H * k / 3); }
+    c.stroke(); c.restore();
+  }
   // Story safe zone (preview only)
   if (preview && st.safe && st.format === "story") {
     c.save(); c.fillStyle = "rgba(255,40,110,.14)"; c.fillRect(0, 0, W, 250); c.fillRect(0, H - 380, W, 380);
@@ -1058,7 +1094,9 @@ $("importBtn").addEventListener("click", async () => {
     list.onclick = async (e) => {
       const b = e.target.closest("button"); if (!b) return;
       const j = jutut[b.dataset.i];
-      s.title = j.title; list.hidden = true; changed();
+      s.title = j.title; if (j.imageCredit) s.credit = "Kuva: " + j.imageCredit;
+      capInfo = { excerpt: j.excerpt || "", link: j.draft ? "" : j.url || "", tags: j.aiheet || "" };
+      $("capLink").value = capInfo.link; $("capTags").value = capInfo.tags; list.hidden = true; changed(); makeCaption();
       if (j.image && !(await loadImage(0, j.image))) toast("Jutun kuvaa ei saatu ladattua.");
       else toast("Juttu tuotu");
     };
@@ -1100,6 +1138,47 @@ document.addEventListener("click", async (e) => {
 $("resetAll").addEventListener("click", () => {
   if (!confirm("Aloitetaanko alusta? Kuvat ja tekstit tyhjennetään.")) return;
   s = clone(DEFAULTS); panels.forEach((p) => Object.assign(p, newPanel())); changed();
+});
+
+// ---------- Quick filters ----------
+const PRESETS = {
+  "Luonnollinen": { brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false },
+  "Kirkas": { brightness: 112, contrast: 106, saturation: 112, warmth: 0, vignette: 0, gray: false },
+  "Lämmin": { brightness: 104, contrast: 104, saturation: 108, warmth: 18, vignette: 15, gray: false },
+  "Viileä": { brightness: 102, contrast: 108, saturation: 92, warmth: -18, vignette: 10, gray: false },
+  "Dramaattinen": { brightness: 94, contrast: 128, saturation: 88, warmth: 0, vignette: 45, gray: false },
+  "Mustavalko": { brightness: 104, contrast: 120, saturation: 0, warmth: 0, vignette: 25, gray: true },
+  "Vintage": { brightness: 106, contrast: 92, saturation: 78, warmth: 22, vignette: 35, gray: false },
+};
+$("presets").innerHTML = Object.keys(PRESETS).map((n) => `<button type="button" data-v="${n}">${n}</button>`).join("");
+$("presets").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; Object.assign(s, PRESETS[b.dataset.v]); changed(); toast(`Suodin: ${b.dataset.v}`); });
+
+// ---------- Caption helper ----------
+let capInfo = { excerpt: "", link: "", tags: "" }, capPlat = "ig", capVar = 0;
+const capPick = (arr) => arr[capVar % arr.length];
+function makeCaption() {
+  const title = s.title.replace(/\*/g, "").replace(/\s+/g, " ").trim();
+  const sub = s.sub.trim(), lead = capInfo.excerpt.trim();
+  const link = $("capLink").value.trim();
+  const tags = $("capTags").value.split(",").map((t) => t.trim()).filter(Boolean);
+  const hash = (t) => "#" + t.toLowerCase().normalize("NFC").replace(/[^a-z0-9åäö]+/g, "");
+  const hashtags = [...new Set([...tags.map(hash), "#hulina"])];
+  if (!title) { $("capOut").value = "Kirjoita ensin otsikko Teksti-välilehdellä."; return; }
+  const ask = capPick(["Mitä mieltä? 💬", "Kerro kommenteissa 👇", "Yllättikö? 👀", "Mitä tästä ajattelet? 💭"]);
+  let out;
+  if (capPlat === "ig") out = `${title} ${capPick(["👀", "😳", "🔥", "💬"])}\n\n${sub || lead}\n\n${ask}\nKoko juttu: linkki biossa 🔗\n\n${hashtags.join(" ")}`;
+  if (capPlat === "tiktok") out = `${title} ${capPick(["👀", "😳", "🔥"])} ${ask}\n${hashtags.concat(["#fyp", "#suomi"]).join(" ")}`;
+  if (capPlat === "fb") out = `${title}\n\n${lead || sub}\n\n${capPick(["Lue koko juttu 👇", "Koko juttu Hulinassa 👇", "Lue lisää 👇"])}\n${link || "https://hulina.net"}`;
+  if (capPlat === "x") out = `${title} ${capPick(["👀", "🔥", ""])}\n${link || "hulina.net"} ${hashtags.slice(0, 2).join(" ")}`;
+  $("capOut").value = out.replace(/\n{3,}/g, "\n\n").trim();
+}
+$("capSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; capPlat = b.dataset.v; $("capSeg").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); makeCaption(); });
+["capLink", "capTags"].forEach((id) => $(id).addEventListener("input", makeCaption));
+$("capNew").addEventListener("click", () => { capVar++; makeCaption(); });
+$("capCopy").addEventListener("click", async () => { try { await navigator.clipboard.writeText($("capOut").value); toast("Teksti kopioitu"); } catch { $("capOut").select(); toast("Valitse teksti ja kopioi"); } });
+document.querySelector('[data-tab="valmis"]').addEventListener("click", makeCaption);
+document.addEventListener("keydown", async (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); saveFile(await exportBlob(), `hulina-${slug()}.${ext(s.type)}`); toast("Kuva ladattu"); }
 });
 
 let toastT = 0;

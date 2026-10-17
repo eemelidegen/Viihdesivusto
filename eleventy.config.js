@@ -68,6 +68,11 @@ export default function (eleventyConfig) {
   // Stories published within the last `days` days (Google News sitemap).
   eleventyConfig.addFilter("tuoreet", (articles, days) => articles.filter((a) => a.date >= Date.now() - days * 86400e3));
   eleventyConfig.addFilter("rikasta", rikasta);
+  // Sources stored as "Name | https://url ; Name 2 | url" -> [{name, url}]
+  eleventyConfig.addFilter("lahteet", (v = "") => String(v).split(";").map((x) => x.trim()).filter(Boolean).map((x) => {
+    const [name, url = ""] = x.split("|").map((y) => y.trim());
+    return { name: name || url, url: /^https?:\/\//.test(url) ? url : "" };
+  }));
 
   // Newest first; drafts (draft: true) are excluded from listings and the build.
   // Articles seen in this build; their share images are drawn after the build.
@@ -108,6 +113,9 @@ const EMBEDS = [
   { name: "X", re: /^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/\w+\/status\/(\d+)/, src: (id) => `https://platform.twitter.com/embed/Tweet.html?id=${id}&lang=fi`, shape: () => "post" },
 ];
 export function rikasta(html = "") {
+  // A quote that starts with a bold "Fakta…", "Taustaa…" or "Tiesitkö…" becomes a fact box.
+  html = html.replace(/<blockquote>\s*<p><strong>((?:Fakta|Faktat|Taustaa|Tiesitkö|Näin)[^<]*)<\/strong>([\s\S]*?)<\/blockquote>/g, (m, title, rest) =>
+    `<aside class="factbox"><p class="factbox__title">${title}</p><p>${rest.replace(/^(?:\s|<br>)+/, "")}</aside>`.replace(/<p>\s*<\/p>/g, "").replace(/<p>\s*(<\/p>)?\s*(<(?:ul|ol)>)/g, "$2"));
   html = html.replace(/(?:<p><img [^>]*><\/p>\s*){2,}/g, (block) => {
     const imgs = block.match(/<img [^>]*>/g);
     return `<div class="gallery" data-gallery><div class="gallery__track">${imgs.map((i) => figure(i, "gallery__slide")).join("")}</div>`

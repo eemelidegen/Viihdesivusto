@@ -7,15 +7,21 @@ layout: layouts/base.njk
     <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
     <h1>{{ title }}</h1>
     <p class="article__lead">{{ excerpt }}</p>
-    <p class="meta">
-      {{ author or "Toimitus" }} ·
-      <time datetime="{{ page.date | iso }}">{{ page.date | pvmAika }}</time> ·
-      {{ content | lukuaika }} min lukuaika
-    </p>
+    <div class="byline">
+      <img class="byline__avatar" src="/assets/img/icon-192.png" alt="" width="40" height="40">
+      <div class="byline__text">
+        <span class="byline__name">{{ (author if author and author != "Toimitus" else "Hulinan toimitus") }}</span>
+        <span class="byline__meta">
+          Julkaistu <time datetime="{{ page.date | iso }}">{{ page.date | pvmAika }}</time>
+          {% if paivitetty %}<span class="byline__upd">· Päivitetty <time datetime="{{ paivitetty | iso }}">{{ paivitetty | pvmAika }}</time></span>{% endif %}
+          · {{ content | lukuaika }} min lukuaika
+        </span>
+      </div>
+    </div>
   </header>
   <figure class="article__media">
     {% if image %}
-      <span class="article__img" data-fit><img src="{{ image }}" alt="{{ imageAlt }}"></span>
+      <span class="article__img" data-fit><img src="{{ image }}" alt="{{ imageAlt }}"{% if imageFocus %} style="object-position: {{ imageFocus }}"{% endif %}></span>
       {% if imageCredit %}<figcaption>Kuva: {{ imageCredit }}</figcaption>{% endif %}
     {% else %}
       <span class="placeholder"></span>
@@ -37,6 +43,14 @@ layout: layouts/base.njk
   <div class="prose">
     {{ content | rikasta | keskelle(lueMyosBox) | safe }}
   </div>
+  {% set sources = lahteet | lahteet %}
+  {% if sources.length %}
+  <aside class="sources" aria-label="Lähteet">
+    <p class="sources__title">Lähteet</p>
+    <ul>{% for l in sources %}<li>{% if l.url %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% else %}{{ l.name }}{% endif %}</li>{% endfor %}</ul>
+  </aside>
+  {% endif %}
+  <p class="article__foot">Huomasitko virheen? <a href="/vinkkaa/">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
   {% set topics = aiheet | aiheLista %}
   {% if topics.length %}
   <p class="topics" aria-label="Aiheet">{% for a in topics %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}</p>
@@ -77,7 +91,7 @@ layout: layouts/base.njk
   "headline": {{ title | dump | safe }},
   "description": {{ excerpt | dump | safe }},
   "datePublished": "{{ page.date | iso }}",
-  "dateModified": "{{ page.date | iso }}",
+  "dateModified": "{{ (paivitetty or page.date) | iso }}",
   "mainEntityOfPage": "{{ page.url | absUrl(site.url) }}",
   "articleSection": {{ cat.name | dump | safe }},
   "keywords": {{ (aiheet or "") | dump | safe }},
