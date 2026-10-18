@@ -1,0 +1,51 @@
+---
+layout: layouts/base.njk
+title: Oma tili
+permalink: /tili/
+eleventyExcludeFromCollections: true
+---
+<div class="account">
+  <div id="accLoading" class="account__note">Ladataan…</div>
+  <div id="accOff" hidden class="account__note">Kirjautuminen ja kommentointi otetaan käyttöön pian.</div>
+
+  <section id="accIn" hidden>
+    <h1>Oma tili</h1>
+    <p>Olet kirjautunut nimimerkillä <b id="accName"></b>.</p>
+    <div class="account__btns">
+      <button type="button" class="btn-ink" id="logout">Kirjaudu ulos</button>
+    </div>
+    <details class="account__danger">
+      <summary>Poista tili</summary>
+      <p>Tili ja kaikki kommenttisi poistetaan pysyvästi.</p>
+      <form id="delForm" class="account__form">
+        <label>Salasana<input type="password" name="salasana" autocomplete="current-password" required></label>
+        <button type="submit" class="btn-danger">Poista tili pysyvästi</button>
+        <p class="account__err" role="alert"></p>
+      </form>
+    </details>
+  </section>
+
+  <section id="accOut" hidden>
+    <div class="account__tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-t="login">Kirjaudu</button>
+      <button type="button" role="tab" aria-selected="false" data-t="register">Luo tili</button>
+    </div>
+    <form id="loginForm" class="account__form">
+      <h1>Kirjaudu sisään</h1>
+      <label>Nimimerkki<input name="nimi" autocomplete="username" required maxlength="24"></label>
+      <label>Salasana<input type="password" name="salasana" autocomplete="current-password" required></label>
+      <button type="submit" class="btn-ink">Kirjaudu</button>
+      <p class="account__err" role="alert"></p>
+    </form>
+    <form id="regForm" class="account__form" hidden>
+      <h1>Luo tili</h1>
+      <p class="account__note">Tilillä voit kommentoida juttuja. Kommenteissa näkyy vain nimimerkkisi.</p>
+      <label>Nimimerkki <small>3–24 merkkiä: kirjaimia, numeroita tai _ . -</small><input name="nimi" autocomplete="username" required minlength="3" maxlength="24"></label>
+      <label>Salasana <small>vähintään 8 merkkiä</small><input type="password" name="salasana" autocomplete="new-password" required minlength="8"></label>
+      <label class="account__check"><input type="checkbox" name="hyvaksyn" required> <span>Olen vähintään 15-vuotias ja hyväksyn <a href="/kommentointi/" target="_blank">kommentointisäännöt</a> ja <a href="/tietosuoja/" target="_blank">tietosuojaselosteen</a>.</span></label>
+      <button type="submit" class="btn-ink">Luo tili</button>
+      <p class="account__err" role="alert"></p>
+      <p class="account__note">Huom. salasanaa ei voi palauttaa sähköpostilla, joten pidä se tallessa.</p>
+    </form>
+  </section>
+</div>

@@ -50,6 +50,11 @@ layout: layouts/base.njk
     <ul>{% for l in sources %}<li>{% if l.url %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% else %}{{ l.name }}{% endif %}</li>{% endfor %}</ul>
   </aside>
   {% endif %}
+  <section class="comments" id="kommentit" data-story="{{ page.fileSlug }}" hidden>
+    <h2 class="comments__title">Kommentit <span class="comments__count"></span></h2>
+    <div class="comments__form"></div>
+    <ol class="comments__list"></ol>
+  </section>
   <p class="article__foot">Huomasitko virheen? <a href="/vinkkaa/">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
   {% set topics = aiheet | aiheLista %}
   {% if topics.length %}

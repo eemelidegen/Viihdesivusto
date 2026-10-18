@@ -7,7 +7,7 @@ description: Miten Hulina käsittelee henkilötietoja.
 
 # Tietosuojaseloste
 
-*Päivitetty 7.10.2026*
+*Päivitetty 18.10.2026*
 
 ## Rekisterinpitäjä
 
@@ -19,6 +19,8 @@ description: Miten Hulina käsittelee henkilötietoja.
 **Sivuston käyttö.** Kun luet sivustoa, palvelimelle tallentuu teknisiä tietoja, kuten IP-osoite, selain ja avattu sivu. Niitä käytetään vain sivuston toiminnan ja tietoturvan varmistamiseen. Peruste: oikeutettu etu.
 
 **Vinkit ja yhteydenotot.** Jos lähetät meille vinkin tai viestin, käsittelemme yhteystietojasi ja viestisi sisältöä asian hoitamiseksi. Peruste: oikeutettu etu ja journalistinen tarkoitus.
+
+**Käyttäjätili ja kommentit.** Jos luot tilin, tallennamme nimimerkkisi, salasanastasi tehdyn tiivisteen (itse salasanaa ei tallenneta), tilin luontiajan sekä kirjoittamasi kommentit ja niiden ajat. Kirjautuminen tallentaa selaimeesi välttämättömän evästeen, joka pitää sinut kirjautuneena enintään 60 päivää. Kommentit ja nimimerkkisi näkyvät kaikille sivuston lukijoille. Tietoja käytetään kommentoinnin mahdollistamiseen, kommenttien valvontaan ja väärinkäytösten estämiseen. Peruste: sopimus (käyttöehdot) ja oikeutettu etu. Voit poistaa tilisi ja kaikki kommenttisi milloin tahansa [Oma tili](/tili/) -sivulla.
 
 **Mainokset ja evästeet.** Sivuston mainokset näyttää Google (Google Ireland Ltd, AdSense). Kun avaat sivuston ensimmäistä kertaa, kysymme suostumustasi. Jos annat sen, Google voi käyttää evästeitä ja laitteesi tunnisteita mainosten valintaan, kohdentamiseen ja mittaamiseen. Jos et anna suostumusta, näytämme vain rajoitettuja mainoksia, joissa evästeitä käytetään ainoastaan välttämättömiin tarkoituksiin, kuten väärinkäytösten estämiseen. Peruste: suostumus. Voit muuttaa valintaasi milloin tahansa sivun alareunan Evästeasetukset-linkistä. Lisätietoa Googlen tietojenkäsittelystä: [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites).
 
@@ -32,7 +34,7 @@ Emme myy tai luovuta tietoja eteenpäin. Sivuston palvelimista vastaa Cloudflare
 
 ## Säilytys
 
-Tekniset tiedot säilyvät enintään muutamia viikkoja. Mainosevästeiden säilytysajat kerrotaan suostumusikkunassa, ja voit poistaa evästeet myös selaimesi asetuksista. Vinkit ja viestit säilytetään niin kauan kuin asian käsittely vaatii.
+Tekniset tiedot säilyvät enintään muutamia viikkoja. Mainosevästeiden säilytysajat kerrotaan suostumusikkunassa, ja voit poistaa evästeet myös selaimesi asetuksista. Vinkit ja viestit säilytetään niin kauan kuin asian käsittely vaatii. Tilin ja kommenttien tiedot säilyvät, kunnes poistat tilisi tai poistamme sen sääntörikkomuksen vuoksi.
 
 ## Oikeutesi
 

@@ -169,3 +169,121 @@ function fitImage(img) {
 document.querySelectorAll(".card__media img, .side-item__thumb img, .read-also__thumb img, .next-story__thumb img, [data-fit] img").forEach((img) => {
   if (img.complete) fitImage(img); else img.addEventListener("load", () => fitImage(img), { once: true });
 });
+
+// ---------- Reader accounts ----------
+const accApi = async (path, body) => {
+  const res = await fetch(`/api/${path}`, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : { credentials: "same-origin" });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(data.virhe || "Jokin meni pieleen. Yritä uudelleen."), { status: res.status });
+  return data;
+};
+const me = fetch("/api/kayttaja/mina", { credentials: "same-origin" }).then((r) => (r.ok ? r.json() : { nimi: null, kaytossa: false })).catch(() => ({ nimi: null, kaytossa: false }));
+me.then((u) => {
+  document.querySelectorAll("[data-acc-name]").forEach((el) => { el.textContent = u.nimi || ""; });
+  document.querySelectorAll("[data-acc-menu]").forEach((el) => { el.textContent = u.nimi ? `Oma tili (${u.nimi})` : "Kirjaudu / luo tili"; });
+});
+
+// Account page
+if (document.getElementById("accLoading")) {
+  const $a = (id) => document.getElementById(id);
+  const show = (u) => {
+    $a("accLoading").hidden = true;
+    $a("accOff").hidden = u.kaytossa;
+    $a("accIn").hidden = !u.kaytossa || !u.nimi;
+    $a("accOut").hidden = !u.kaytossa || !!u.nimi;
+    $a("accName").textContent = u.nimi || "";
+  };
+  me.then(show);
+  const back = () => { const n = new URLSearchParams(location.search).get("takaisin"); location.href = n && n.startsWith("/") && !n.startsWith("//") ? n : "/tili/"; };
+  document.querySelector(".account__tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    document.querySelectorAll(".account__tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+    $a("loginForm").hidden = b.dataset.t !== "login"; $a("regForm").hidden = b.dataset.t !== "register";
+  });
+  if (location.hash === "#luo") document.querySelector('.account__tabs [data-t="register"]').click();
+  const handle = (form, path, done) => form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = new FormData(form), err = form.querySelector(".account__err"), btn = form.querySelector("button[type=submit]");
+    const body = Object.fromEntries(f); if ("hyvaksyn" in body) body.hyvaksyn = true;
+    err.textContent = ""; btn.disabled = true;
+    try { await accApi(path, body); done(); } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; }
+  });
+  handle($a("loginForm"), "kayttaja/kirjaudu", back);
+  handle($a("regForm"), "kayttaja/rekisteroidy", back);
+  handle($a("delForm"), "kayttaja/poista", () => { location.href = "/"; });
+  $a("logout").addEventListener("click", async () => { await accApi("kayttaja/ulos", {}).catch(() => {}); location.href = "/"; });
+}
+
+// Comments under stories
+const cBox = document.getElementById("kommentit");
+if (cBox) {
+  const story = cBox.dataset.story, list = cBox.querySelector(".comments__list"), formBox = cBox.querySelector(".comments__form");
+  const fmt = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const when = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? "juuri nyt" : m < 60 ? `${m} min sitten` : m < 1440 ? `${Math.floor(m / 60)} t sitten` : fmt.format(new Date(t)); };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  let user = null, replyTo = null;
+
+  const composer = (parentId) => {
+    const f = el("form", "comments__compose");
+    const ta = el("textarea"); ta.maxLength = 1500; ta.rows = parentId ? 3 : 4; ta.required = true;
+    ta.placeholder = parentId ? "Kirjoita vastaus…" : "Kirjoita kommentti…"; ta.setAttribute("aria-label", ta.placeholder);
+    const row = el("div", "comments__row");
+    const info = el("span", "comments__info", `Kommentoit nimimerkillä ${user}`);
+    const btn = el("button", "btn-ink", parentId ? "Vastaa" : "Lähetä"); btn.type = "submit";
+    const err = el("p", "comments__err"); err.setAttribute("role", "alert");
+    row.append(info, btn); f.append(ta, row, err);
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault(); err.textContent = ""; btn.disabled = true;
+      try {
+        const r = await accApi("kommentit", { juttu: story, teksti: ta.value, vastaus: parentId || null });
+        ta.value = ""; replyTo = null;
+        if (r.odottaa) err.textContent = "Kiitos! Kommenttisi näkyy muille, kun toimitus on tarkistanut sen.";
+        await load();
+      } catch (x) {
+        if (x.status === 401) location.href = `/tili/?takaisin=${encodeURIComponent(location.pathname + "#kommentit")}`;
+        err.textContent = x.message;
+      } finally { btn.disabled = false; }
+    });
+    return f;
+  };
+
+  const item = (c, kids) => {
+    const li = el("li", "comment" + (c.odottaa ? " comment--pending" : ""));
+    const head = el("div", "comment__head");
+    head.append(el("b", "comment__name", c.nimi), el("time", "comment__time", when(c.aika)));
+    if (c.odottaa) head.append(el("span", "comment__flag", "Odottaa tarkistusta"));
+    const body = el("p", "comment__body", c.teksti);
+    const acts = el("div", "comment__acts");
+    if (!c.vastaus) { const b = el("button", "", "Vastaa"); b.type = "button"; b.onclick = () => { if (!user) return (location.href = `/tili/?takaisin=${encodeURIComponent(location.pathname + "#kommentit")}`); replyTo = replyTo === c.id ? null : c.id; render(); }; acts.append(b); }
+    if (c.oma) { const b = el("button", "", "Poista"); b.type = "button"; b.onclick = async () => { if (confirm("Poistetaanko kommenttisi?")) { await accApi("kommentit/poista", { id: c.id }).catch((x) => alert(x.message)); load(); } }; acts.append(b); }
+    else if (user) { const b = el("button", "", "Ilmoita asiaton"); b.type = "button"; b.onclick = async () => { if (confirm("Ilmoitetaanko kommentti toimitukselle asiattomana?")) { await accApi("kommentit/ilmoita", { id: c.id }).catch((x) => alert(x.message)); b.textContent = "Ilmoitettu"; b.disabled = true; } }; acts.append(b); }
+    li.append(head, body, acts);
+    if (replyTo === c.id) li.append(composer(c.id));
+    if (kids.length) { const ol = el("ol", "comments__replies"); kids.forEach((k) => ol.append(item(k, []))); li.append(ol); }
+    return li;
+  };
+
+  let data = [];
+  const render = () => {
+    const top = data.filter((c) => !c.vastaus);
+    cBox.querySelector(".comments__count").textContent = data.length ? `(${data.length})` : "";
+    list.replaceChildren(...top.map((c) => item(c, data.filter((k) => k.vastaus === c.id))));
+    if (!data.length) list.replaceChildren(el("li", "comments__empty", "Ei vielä kommentteja. Kirjoita ensimmäinen!"));
+  };
+  const load = async () => { const r = await accApi(`kommentit?juttu=${encodeURIComponent(story)}`); data = r.kommentit; render(); return r; };
+
+  me.then(async (u) => {
+    if (!u.kaytossa) return;
+    user = u.nimi;
+    cBox.hidden = false;
+    if (user) formBox.replaceChildren(composer(null));
+    else {
+      const p = el("p", "comments__login");
+      const a1 = el("a", "", "Kirjaudu sisään"); a1.href = `/tili/?takaisin=${encodeURIComponent(location.pathname + "#kommentit")}`;
+      const a2 = el("a", "", "luo tili"); a2.href = `/tili/?takaisin=${encodeURIComponent(location.pathname + "#kommentit")}#luo`;
+      p.append(a1, " tai ", a2, " kommentoidaksesi. ", Object.assign(el("a", "", "Kommentointisäännöt"), { href: "/kommentointi/" }));
+      formBox.replaceChildren(p);
+    }
+    await load().catch(() => { cBox.hidden = true; });
+  });
+}

@@ -123,6 +123,13 @@ eleventyExcludeFromCollections: true
     .listbar input { flex: 1 1 220px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; font: 15px/1.3 var(--font); }
     .listbar .chips2 button[aria-pressed="true"] { background: var(--plum); color: #fff; border-color: var(--plum); }
     .stats { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+    .mod { background: #fff; border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; }
+    .mod--review { box-shadow: inset 4px 0 0 #e8a100; }
+    .mod--hidden { opacity: .6; }
+    .mod__head { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 13px; color: var(--muted); align-items: center; }
+    .mod__head b { color: var(--text); font: 800 15px/1 var(--display); }
+    .mod__body { margin: 0; white-space: pre-line; overflow-wrap: anywhere; font: 15px/1.5 var(--font); }
+    .mod .item__actions { justify-content: flex-start; }
     .mobile-preview { display: none; }
     @media (max-width: 600px) {
       .top__bar { gap: 6px; padding: 8px 10px; flex-wrap: nowrap; }
@@ -151,6 +158,7 @@ eleventyExcludeFromCollections: true
       <div class="tabs2" role="tablist">
         <button type="button" role="tab" aria-selected="true" data-view="editor">Kirjoita</button>
         <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>
+        <button type="button" role="tab" aria-selected="false" data-view="mod">Kommentit</button>
       </div>
       <div class="right">
         <a class="link" href="/admin/somekuva/">Somekuva</a>
@@ -281,6 +289,11 @@ eleventyExcludeFromCollections: true
           </article>
         </aside>
       </div>
+    </section>
+
+    <section id="view-mod" hidden>
+      <p class="stats" id="modStats"></p>
+      <div class="list" id="modList"></div>
     </section>
 
     <section id="view-list" hidden>
@@ -791,11 +804,40 @@ $("list").addEventListener("click", async (e) => {
   }
 });
 
+// ---------- Comment moderation ----------
+const STATUS = { ok: "Näkyvissä", review: "Odottaa tarkistusta", hidden: "Piilotettu" };
+async function loadMod() {
+  const box = $("modList"); box.innerHTML = '<div class="empty2">Ladataan kommentteja…</div>';
+  try {
+    const r = await api("kommentit");
+    if (!r.kaytossa) { $("modStats").textContent = ""; box.innerHTML = '<div class="empty2">Kommentointi ei ole vielä käytössä. Liitä Cloudflaressa D1-tietokanta nimellä DB (ohjeet saat Claudelta).</div>'; return; }
+    $("modStats").textContent = `${r.kayttajat} käyttäjää · ${r.kommentit} kommenttia · ${r.jonossa} odottaa tarkistusta tai piilotettu`;
+    if (!r.kommentit.length) { box.innerHTML = '<div class="empty2">Ei vielä kommentteja.</div>'; return; }
+    box.innerHTML = r.kommentit.map((c) => `<div class="mod mod--${esc(c.status)}">
+      <div class="mod__head"><b>${esc(c.name)}</b>${c.banned ? '<span class="tag2">Estetty</span>' : ""}<span>${fiDateTime.format(new Date(c.created))}</span><a href="/${esc(c.story)}/#kommentit" target="_blank" rel="noopener">${esc(c.story)}</a><span>${STATUS[c.status] || esc(c.status)}</span>${c.reports ? `<span>⚑ ${c.reports} ilmoitusta</span>` : ""}</div>
+      <p class="mod__body">${esc(c.body)}</p>
+      <div class="item__actions">
+        ${c.status !== "ok" ? `<button type="button" class="primary" data-mod="hyvaksy" data-id="${c.id}">Hyväksy</button>` : `<button type="button" data-mod="piilota" data-id="${c.id}">Piilota</button>`}
+        <button type="button" class="danger" data-mod="poista" data-id="${c.id}">Poista</button>
+        ${c.banned ? "" : `<button type="button" class="danger" data-mod="esta" data-id="${c.id}">Estä käyttäjä</button>`}
+      </div></div>`).join("");
+  } catch (e) { if (e.message !== "login") box.innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+}
+$("modList").addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-mod]"); if (!b) return;
+  const act = b.dataset.mod;
+  if (act === "poista" && !confirm("Poistetaanko kommentti pysyvästi?")) return;
+  if (act === "esta" && !confirm("Estetäänkö käyttäjä? Kaikki hänen kommenttinsa piilotetaan, eikä hän voi enää kommentoida.")) return;
+  b.disabled = true;
+  try { await api("kommentit", { id: Number(b.dataset.id), toiminto: act }); loadMod(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
+});
+
 // ---------- Views ----------
 function switchView(v) {
   document.querySelectorAll(".tabs2 button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === v)));
-  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("bar").hidden = v !== "editor";
+  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("view-mod").hidden = v !== "mod"; $("bar").hidden = v !== "editor";
   if (v === "list") loadList();
+  if (v === "mod") loadMod();
 }
 document.querySelector(".tabs2").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) switchView(b.dataset.view); });
 addEventListener("beforeunload", (e) => { if (dirty) { persist(); } });
