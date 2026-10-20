@@ -1,15 +1,14 @@
 ---
 title: "Kokoomuksen imago romahti – enemmistö pitää puoluetta ylimielisenä"
 excerpt: "Ilta-Sanomien haltuunsa saama imagotutkimus kertoo puolueen heikoimmista luvuista lähes kymmeneen vuoteen. Paras imago on SDP:llä."
-date: "2026-10-20T09:30:00.000Z"
+date: "2026-10-20T10:27:00.771Z"
 category: "politiikka"
 aiheet: "Kokoomus, Petteri Orpo"
 author: "Toimitus"
-image: "/assets/img/uploads/kokoomus-imago.jpg"
-imageAlt: "Hulinan grafiikka"
-imageCredit: "Hulina"
+image: "/assets/img/uploads/kokoomus-imago-kysely-540b44.jpg"
+imageAlt: "Petteri Orpo"
+imageCredit: "Katja Säilä / valtioneuvoston kanslia, CC BY 4.0"
 lahteet: "Ilta-Sanomat | https://www.is.fi/politiikka/art-2000012353113.html ; Verian"
-draft: true
 ---
 
 Kokoomuksen kokonaisimago on pudonnut eduskuntapuolueista heikoimmaksi. Tämä selviää Verianin puolueille tekemästä imagotutkimuksesta, jonka Ilta-Sanomat sai haltuunsa.
