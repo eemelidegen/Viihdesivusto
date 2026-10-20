@@ -403,3 +403,9 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .comment__acts { display: flex; gap: 14px; }
 .comment__acts button { background: none; border: 0; padding: 4px 0; color: var(--muted); font: 600 13px/1 var(--font); cursor: pointer; }
 .comment__acts button:hover { color: var(--text); text-decoration: underline; }
+/* Six categories: slightly tighter navigation on desktop */
+@media (min-width: 1181px) {
+  .nav__list a { padding-left: 8px; padding-right: 8px; font-size: 15px; }
+  .nav__list a::after { left: 8px; right: 8px; }
+  .masthead__bar { gap: 14px; }
+}

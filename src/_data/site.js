@@ -27,6 +27,11 @@ export default {
       "color": "#ff8fb1"
     },
     {
+      "slug": "politiikka",
+      "name": "Politiikka",
+      "color": "#ff8fb1"
+    },
+    {
       "slug": "urheilu",
       "name": "Urheilu",
       "color": "#ff8fb1"
