@@ -1,15 +1,26 @@
-// Kuvahaku: search freely licensed photos (Openverse, Wikimedia Commons) for the writing
-// and social-image tools. Only licences that allow commercial use and editing are shown,
-// and every pick comes with a ready credit line.
+// Kuvahaku: search freely licensed photos for the writing and social-image tools.
+// Sources: Wikipedia/Wikidata person → their Commons category, Openverse (Flickr, Commons ym.),
+// Wikimedia Commons text search and Finna (Finnish museums and archives). Only licences that
+// allow commercial use and editing are shown, and every pick comes with a ready credit line.
 //
 //   Kuvahaku.open({ actions: [{ label: "Käytä pääkuvana", run: async (photo) => { … } }] })
 //
 // photo = { title, author, license, source, page, credit, short, load() → Blob }
 (() => {
   const UA = "HulinaKuvahaku/1.0 (https://hulina.net)";
+  const PER = 20;
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   const strip = (html) => { const d = document.createElement("div"); d.innerHTML = String(html || ""); return d.textContent.replace(/\s+/g, " ").trim(); };
   const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
+  const busyMsg = "Hakuja on tehty liikaa hetken sisällä. Odota minuutti.";
+
+  async function getJSON(url, init) {
+    const res = await fetch(url, init);
+    if (res.status === 429) throw new Error(busyMsg);
+    if (!res.ok) throw new Error("Haku ei onnistunut. Kokeile uudelleen.");
+    return res.json();
+  }
+  const wmFetch = (params) => getJSON("https://commons.wikimedia.org/w/api.php?" + new URLSearchParams({ action: "query", format: "json", origin: "*", ...params }), { headers: { "Api-User-Agent": UA } });
 
   // Commons serves fixed thumbnail sizes; ask for one instead of a huge original.
   function commonsThumb(url, width, want) {
@@ -18,6 +29,8 @@
     return `https://upload.wikimedia.org/wikipedia/commons/thumb/${m[1]}/${m[2]}/${want}px-${m[2]}`;
   }
   const flickrSize = (url, s) => String(url).replace(/_[a-z]\.jpg$/, `_${s}.jpg`);
+  // Same Commons file found through two sources → show it once.
+  const fileKey = (url) => { const m = String(url).match(/upload\.wikimedia\.org\/.*\/(?:\d+px-)?([^/?#]+)$/); return m ? "wm:" + decodeURIComponent(m[1]).toLowerCase() : url; };
 
   function licenseLabel(code, version) {
     code = String(code || "").toLowerCase();
@@ -30,29 +43,29 @@
     const author = cut(p.author || "Tuntematon tekijä", 70);
     const free = /^(CC0|Public domain)/i.test(p.license);
     p.author = author;
+    p.key = fileKey(p.full);
     p.credit = cut(`${author} / ${p.source}${free ? "" : ", " + p.license}`, 120);
     p.short = cut(`${author} / ${free ? p.source : p.license}`, 52);
     p.load = async () => {
-      const res = await fetch("/api/toimitus/kuva?url=" + encodeURIComponent(p.full), { credentials: "same-origin" });
-      if (res.status === 401) throw new Error("Kirjaudu ensin juttutyökaluun (/admin/kirjoita/), niin kuvan voi hakea.");
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).virhe || "Kuvaa ei saatu haettua.");
-      return res.blob();
+      let last;
+      for (const url of [p.full, ...(p.fallback || [])]) {
+        const res = await fetch("/api/toimitus/kuva?url=" + encodeURIComponent(url), { credentials: "same-origin" });
+        if (res.status === 401) throw new Error("Kirjaudu ensin juttutyökaluun (/admin/kirjoita/), niin kuvan voi hakea.");
+        if (res.ok) return res.blob();
+        last = (await res.json().catch(() => ({}))).virhe;
+      }
+      throw new Error(last || "Kuvaa ei saatu haettua.");
     };
     return p;
   }
 
-  // Openverse indexes Commons, Flickr and other open collections.
-  async function openverse(q, page) {
-    const u = `https://api.openverse.org/v1/images/?q=${encodeURIComponent(q)}&license_type=commercial,modification&page_size=20&page=${page}`;
-    const res = await fetch(u);
-    if (res.status === 429) throw new Error("Hakuja on tehty liikaa hetken sisällä. Odota minuutti tai vaihda lähteeksi Wikimedia Commons.");
-    if (!res.ok) throw new Error("Haku ei onnistunut. Kokeile uudelleen.");
-    const d = await res.json();
+  // ---------- Openverse: Flickr (valtioneuvosto, EU-parlamentti, puolueet…), Commons ym. ----------
+  async function openverse(q, page, extra = "") {
+    const d = await getJSON(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(q)}&license_type=commercial,modification&page_size=${PER}&page=${page}${extra}`);
     const items = (d.results || []).filter((r) => r.url && !/\.(svg|gif)$/i.test(r.url)).map((r) => {
       const wiki = r.provider === "wikimedia" || r.source === "wikimedia";
       const flickr = /staticflickr\.com/.test(r.url);
       return finish({
-        id: "ov-" + r.id,
         title: strip(r.title) || "Nimetön kuva",
         author: strip(r.creator),
         license: licenseLabel(r.license, r.license_version),
@@ -66,23 +79,15 @@
     return { items, more: page < (d.page_count || 1) };
   }
 
+  // ---------- Wikimedia Commons ----------
   const OK_LICENSE = /^(cc0|public domain|pd\b|pdm|cc[- ]by(-sa)?([- ]\d|$)|attribution)/i;
-  async function commons(q, page) {
-    const offset = (page - 1) * 20;
-    const u = "https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6"
-      + `&gsrsearch=${encodeURIComponent(q + " filetype:bitmap")}&gsrlimit=20&gsroffset=${offset}`
-      + "&prop=imageinfo&iiprop=url|size|extmetadata&iiurlwidth=1280&iiextmetadatafilter=Artist|LicenseShortName|ObjectName";
-    const res = await fetch(u, { headers: { "Api-User-Agent": UA } });
-    if (!res.ok) throw new Error(res.status === 429 ? "Hakuja on tehty liikaa hetken sisällä. Odota minuutti." : "Haku ei onnistunut. Kokeile uudelleen.");
-    const d = await res.json();
-    const pages = Object.values(d.query?.pages || {}).sort((a, b) => a.index - b.index);
-    const items = pages.map((p) => {
-      const ii = p.imageinfo?.[0]; if (!ii) return null;
+  function commonsItems(pages) {
+    return pages.map((p) => {
+      const ii = p.imageinfo?.[0]; if (!ii || !/^image\/(jpeg|png|webp)/.test(ii.mime || "image/jpeg")) return null;
       const m = ii.extmetadata || {}, license = strip(m.LicenseShortName?.value);
       if (!OK_LICENSE.test(license) || /\b(nc|nd)\b/i.test(license)) return null;
       const full = ii.thumburl || ii.url;
       return finish({
-        id: "wc-" + p.pageid,
         title: strip(m.ObjectName?.value) || p.title.replace(/^File:|\.\w+$/g, ""),
         author: strip(m.Artist?.value),
         license: /^public domain|^pd/i.test(license) ? "Public domain" : license,
@@ -93,7 +98,110 @@
         full,
       });
     }).filter(Boolean);
-    return { items, more: !!d.continue };
+  }
+  const II = { prop: "imageinfo", iiprop: "url|size|mime|extmetadata", iiurlwidth: "1280", iiextmetadatafilter: "Artist|LicenseShortName|ObjectName" };
+  async function commonsSearch(search, page) {
+    const d = await wmFetch({ generator: "search", gsrnamespace: "6", gsrsearch: search, gsrlimit: PER, gsroffset: (page - 1) * PER, ...II });
+    const pages = Object.values(d.query?.pages || {}).sort((a, b) => a.index - b.index);
+    return { items: commonsItems(pages), more: !!d.continue };
+  }
+  const commons = (q, page) => commonsSearch(q + " filetype:bitmap", page);
+
+  // ---------- Person: Wikidata finds the person, their Commons category holds the photos ----------
+  const people = new Map();
+  async function person(q) {
+    if (people.has(q)) return people.get(q);
+    const job = (async () => {
+      const wd = (params) => getJSON("https://www.wikidata.org/w/api.php?" + new URLSearchParams({ format: "json", origin: "*", ...params }), { headers: { "Api-User-Agent": UA } });
+      const found = await wd({ action: "wbsearchentities", search: q, language: "fi", uselang: "fi", type: "item", limit: "5" });
+      const ids = (found.search || []).map((x) => x.id);
+      if (!ids.length) return null;
+      const ent = await wd({ action: "wbgetentities", ids: ids.join("|"), props: "claims|labels", languages: "fi|en" });
+      for (const id of ids) {
+        const c = ent.entities?.[id]?.claims || {};
+        const val = (k) => (c[k] || []).map((x) => x.mainsnak?.datavalue?.value).filter(Boolean);
+        const cat = val("P373")[0], img = val("P18");
+        if (!cat && !img.length) continue;
+        let cats = [];
+        if (cat) {
+          // Photos are often sorted into sub-categories ("Sanna Marin in 2022"); include one level.
+          const sub = await wmFetch({ list: "categorymembers", cmtitle: "Category:" + cat, cmtype: "subcat", cmlimit: "40" }).catch(() => ({}));
+          cats = [cat, ...(sub.query?.categorymembers || []).map((x) => x.title.replace(/^Category:/, ""))
+            .filter((t) => !/\b(signatures?|logos?|maps?|graves?|videos?|audio|drawings?|caricatures?)\b/i.test(t))].slice(0, 25);
+        }
+        const name = ent.entities[id].labels?.fi?.value || ent.entities[id].labels?.en?.value || q;
+        return { name, cats, img };
+      }
+      return null;
+    })();
+    people.set(q, job);
+    job.catch(() => people.delete(q));
+    return job;
+  }
+  async function wikiPerson(q, page) {
+    const who = await person(q);
+    if (!who) return { items: [], more: false };
+    const tasks = [];
+    if (page === 1 && who.img.length) tasks.push(wmFetch({ titles: who.img.slice(0, 5).map((f) => "File:" + f).join("|"), ...II }).then((d) => ({ items: commonsItems(Object.values(d.query?.pages || {})), more: false })));
+    if (who.cats.length) tasks.push(commonsSearch("filetype:bitmap incategory:" + who.cats.map((c) => c.replace(/[\s"]+/g, "_")).join("|"), page));
+    const res = await Promise.all(tasks);
+    return { items: res.flatMap((r) => r.items), more: res.some((r) => r.more), who: who.name };
+  }
+
+  // ---------- Finna: Finnish museums and archives (Museovirasto, kaupunginmuseot…) ----------
+  async function finna(q, page) {
+    const params = new URLSearchParams({ lookfor: q, type: "AllFields", limit: String(PER), page: String(page) });
+    ["~usage_rights_str_mv:\"usage_A\"", "~usage_rights_str_mv:\"usage_B\"", "format:\"0/Image/\""].forEach((f) => params.append("filter[]", f));
+    ["id", "title", "year", "images", "imageRights", "nonPresenterAuthors", "buildings"].forEach((f) => params.append("field[]", f));
+    const d = await getJSON("https://api.finna.fi/v1/search?" + params);
+    const items = (d.records || []).map((r) => {
+      const rights = String(r.imageRights?.copyright || "");
+      if (!r.images?.length || /\b(nc|nd)\b/i.test(rights) || !/cc|public|pdm|vapaa/i.test(rights)) return null;
+      const img = "https://api.finna.fi" + r.images[0];
+      const org = r.buildings?.[0]?.translated || "Finna";
+      const who = (r.nonPresenterAuthors || []).map((a) => String(a.name || "").replace(/^([^,]+),\s*(.+)$/, "$2 $1")).filter(Boolean)[0];
+      return finish({
+        title: (r.title || "Nimetön kuva") + (r.year ? ` (${r.year})` : ""),
+        author: who || org,
+        license: /pdm|public/i.test(rights) ? "Public domain" : rights.replace(/^CC0.*/i, "CC0"),
+        source: who ? org : "Finna",
+        page: "https://www.finna.fi/Record/" + encodeURIComponent(r.id),
+        thumb: img.replace(/size=\w+/, "size=medium"),
+        preview: img.replace(/size=\w+/, "size=large"),
+        full: img.replace(/size=\w+/, "size=master"),
+        fallback: [img.replace(/size=\w+/, "size=large")],
+      });
+    }).filter(Boolean);
+    return { items, more: page * PER < (d.resultCount || 0) };
+  }
+
+  const SOURCES = {
+    all: { label: "Kaikki lähteet", parts: ["wiki", "ov", "finna"] },
+    wiki: { label: "Henkilö (Wikipedia / Commons)", run: wikiPerson },
+    ov: { label: "Flickr, Commons ym. (Openverse)", run: openverse },
+    flickr: { label: "Vain Flickr", run: (q, page) => openverse(q, page, "&source=flickr") },
+    wc: { label: "Wikimedia Commons -haku", run: commons },
+    finna: { label: "Finna (museot ja arkistot)", run: finna },
+  };
+
+  // One "page" of a source mix: every source that still has more, results interleaved.
+  async function fetchPage(src, q, cursor) {
+    const parts = SOURCES[src].parts || [src];
+    const live = parts.filter((k) => cursor[k] !== false);
+    const res = await Promise.allSettled(live.map((k) => SOURCES[k].run(q, (cursor[k] || 0) + 1)));
+    const lists = [], errors = [];
+    let who = "";
+    res.forEach((r, i) => {
+      const k = live[i];
+      if (r.status === "rejected") { errors.push(r.reason?.message || "Haku ei onnistunut."); return; }
+      cursor[k] = r.value.more && r.value.items.length ? (cursor[k] || 0) + 1 : false;
+      if (r.value.who) who = r.value.who;
+      lists.push(r.value.items);
+    });
+    const items = [];
+    for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => l[i] && items.push(l[i]));
+    if (!lists.length && errors.length) throw new Error(errors[0]);
+    return { items, more: live.some((k) => cursor[k] !== false), who, error: errors.length ? (errors.includes(busyMsg) ? "Osa lähteistä ei vastannut juuri nyt. " + busyMsg : "Osa lähteistä ei vastannut.") : "" };
   }
 
   const CSS = `
@@ -114,6 +222,8 @@
   .kh__item{border:0;padding:0;background:#f2f0f5;border-radius:8px;overflow:hidden;cursor:pointer;text-align:left;display:flex;flex-direction:column;color:inherit;font:inherit}
   .kh__item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
   .kh__item span{padding:6px 8px;font-size:12px;line-height:1.3;color:#4a4552;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .kh__item i{display:block;font-style:normal;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a8494;overflow:hidden;text-overflow:ellipsis}
+  .kh__who{margin:0 0 10px}
   .kh__item:hover,.kh__item:focus-visible{outline:3px solid #ff5fa2;outline-offset:-3px}
   .kh__msg{padding:30px 10px;text-align:center;color:#6b6575}
   .kh__more{display:flex;justify-content:center;margin-top:14px}
@@ -141,10 +251,10 @@
           <div class="kh__row"><p class="kh__title">Hae vapaasti käytettäviä kuvia</p><button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button></div>
           <form class="kh__row" data-kh="form">
             <input class="kh__q" type="search" placeholder="Esim. Sanna Marin, Linnan juhlat, Eurovision" aria-label="Hakusana" required>
-            <select aria-label="Lähde"><option value="ov">Kaikki lähteet (Commons, Flickr ym.)</option><option value="wc">Wikimedia Commons</option></select>
+            <select aria-label="Lähde">${Object.entries(SOURCES).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join("")}</select>
             <button class="kh__btn" type="submit">Hae</button>
           </form>
-          <p class="kh__note">Mukana vain kuvat, joiden lisenssi sallii käytön ja muokkauksen (CC0, CC BY, CC BY-SA, public domain). Tekijä ja lisenssi lisätään kuvatekstiin automaattisesti. Avaa kuvan lähdesivu, jos haluat varmistaa tiedot.</p>
+          <p class="kh__note">Haku käy läpi Wikipedian henkilökuvat, Wikimedia Commonsin, Flickrin (mm. valtioneuvosto ja EU-parlamentti) ja Finnan museo- ja arkistokuvat. Mukana vain kuvat, joiden lisenssi sallii käytön ja muokkauksen (CC0, CC BY, CC BY-SA, public domain). Tekijä ja lisenssi lisätään kuvatekstiin automaattisesti. Henkilökuvia ei saa käyttää mainonnassa ilman kuvatun lupaa.</p>
         </div>
         <div class="kh__body" data-kh="body"></div>
       </div>`;
@@ -159,16 +269,16 @@
     const q = root.querySelector(".kh__q").value.trim(); if (!q) return;
     const src = root.querySelector("select").value;
     try { localStorage.setItem("hulina-kuvahaku", JSON.stringify({ q, src })); } catch {}
-    if (fresh) Object.assign(state, { q, src, page: 1, items: [], more: false, detail: null });
-    else state.page++;
+    if (fresh) Object.assign(state, { q, src, cursor: {}, items: [], more: false, detail: null, who: "", run: (state.run || 0) + 1 });
+    const run = state.run;
     state.busy = true; render(fresh ? "Haetaan…" : "");
     try {
-      const r = await (src === "wc" ? commons : openverse)(q, state.page);
-      const seen = new Set(state.items.map((x) => x.id));
-      state.items.push(...r.items.filter((x) => !seen.has(x.id)));
-      state.more = r.more && r.items.length > 0;
-      state.error = "";
-    } catch (e) { state.error = e.message; if (!fresh) state.page--; }
+      const r = await fetchPage(src, q, state.cursor);
+      if (run !== state.run) return;
+      const seen = new Set(state.items.map((x) => x.key));
+      state.items.push(...r.items.filter((x) => !seen.has(x.key) && seen.add(x.key)));
+      state.more = r.more; state.error = r.error; state.who = r.who || state.who;
+    } catch (e) { if (run !== state.run) return; state.error = e.message; }
     state.busy = false; render();
   }
 
@@ -179,10 +289,10 @@
     if (state.error && !state.items.length) { b.innerHTML = `<p class="kh__msg">${esc(state.error)}</p>`; return; }
     if (!state.q) { b.innerHTML = `<p class="kh__msg">Kirjoita hakusana. Julkkiksia ja poliitikkoja kannattaa hakea koko nimellä.</p>`; return; }
     if (!state.items.length) { b.innerHTML = `<p class="kh__msg">Ei vapaasti käytettäviä kuvia haulla ”${esc(state.q)}”. Kokeile toista lähdettä tai hakusanaa.</p>`; return; }
-    b.innerHTML = `<div class="kh__grid">${state.items.map((p, i) => `
+    b.innerHTML = `${state.who ? `<p class="kh__note kh__who">Henkilö: <b>${esc(state.who)}</b> · ${state.items.length}${state.more ? "+" : ""} kuvaa</p>` : `<p class="kh__note kh__who">${state.items.length}${state.more ? "+" : ""} kuvaa</p>`}<div class="kh__grid">${state.items.map((p, i) => `
       <button type="button" class="kh__item" data-kh-i="${i}" title="${esc(p.title)}">
         <img src="${esc(p.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.kh__item').remove()">
-        <span>${esc(p.author)} · ${esc(p.license)}</span>
+        <span><i>${esc(p.source)}</i>${esc(p.author)} · ${esc(p.license)}</span>
       </button>`).join("")}</div>
       ${state.error ? `<p class="kh__err">${esc(state.error)}</p>` : ""}
       ${state.more ? `<div class="kh__more"><button type="button" class="kh__btn kh__btn--ghost" data-kh="more" ${state.busy ? "disabled" : ""}>${state.busy ? "Haetaan…" : "Näytä lisää"}</button></div>` : ""}`;
@@ -192,7 +302,7 @@
     state.detail = p;
     $b().innerHTML = `
       <div class="kh__detail">
-        <img src="${esc(p.thumb.replace(/\/330px-/, "/960px-").replace(/_n\.jpg$/, "_c.jpg"))}" alt="" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=${esc(JSON.stringify(p.thumb))}}">
+        <img src="${esc(p.preview || p.thumb.replace(/\/330px-/, "/960px-").replace(/_n\.jpg$/, "_c.jpg"))}" alt="" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=${esc(JSON.stringify(p.thumb))}}">
         <div class="kh__meta">
           <h3>${esc(p.title)}</h3>
           <dl>
@@ -233,7 +343,7 @@
     lastFocus = document.activeElement;
     let saved = {}; try { saved = JSON.parse(localStorage.getItem("hulina-kuvahaku") || "{}"); } catch {}
     const keep = state && state.items.length && (!query || query === state.q);
-    if (!keep) state = { q: "", src: saved.src || "ov", page: 1, items: [], more: false, detail: null, error: "" };
+    if (!keep) state = { q: "", src: SOURCES[saved.src] ? saved.src : "all", cursor: {}, items: [], more: false, detail: null, error: "", who: "", run: 0 };
     state.actions = actions || []; state.detail = null;
     root.querySelector(".kh__q").value = keep ? state.q : (query || "");
     root.querySelector("select").value = state.src;
