@@ -44,6 +44,9 @@ eleventyExcludeFromCollections: true
     .imgbox img { display: block; width: 100%; max-height: 360px; object-fit: contain; }
     .imgbox .imgbtns { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 8px; }
     .mini { padding: 8px 12px; border: 0; border-radius: 6px; background: rgba(0,0,0,.75); color: #fff; font: 700 15px/1 var(--display); text-transform: uppercase; cursor: pointer; }
+    .find2 { display: grid; gap: 4px; width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; text-align: left; font: 700 15px/1.3 var(--font); color: var(--text); }
+    .find2 small { font-weight: 400; color: var(--muted); font-size: 13px; }
+    .find2:hover { border-color: var(--plum); }
     .toolbar { display: flex; gap: 6px; flex-wrap: wrap; }
     .toolbar button { min-width: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 15px/1 var(--font); color: var(--text); }
     .toolbar button:hover { border-color: var(--plum); }
@@ -197,6 +200,7 @@ eleventyExcludeFromCollections: true
               <b>Lisää kuva</b>
               <span>Napauta, vedä kuva tähän tai liitä (Ctrl+V)</span>
             </div>
+            <button type="button" class="find2" id="imgSearch">Hae vapaasti käytettävä kuva <small>Wikimedia Commons, Flickr ym. – lähde merkitään automaattisesti</small></button>
             <div id="imgbox" class="imgbox focus-wrap" hidden title="Napauta kohtaa, joka ei saa rajautua pois (esim. kasvot)">
               <img id="imgPreview" alt="">
               <span class="focus-dot" id="focusDot"></span>
@@ -226,6 +230,7 @@ eleventyExcludeFromCollections: true
               <button type="button" data-cmd="readalso" title="Lue myös -linkki toiseen juttuun">↗ Lue myös</button>
               <button type="button" data-cmd="link" title="Linkki">Linkki</button>
               <button type="button" data-cmd="image" title="Lisää kuvia tekstiin">📷 Kuvia</button>
+              <button type="button" data-cmd="imgsearch" title="Hae vapaasti käytettävä kuva tekstiin">🔎 Kuvahaku</button>
               <button type="button" data-cmd="embed" title="Upota video tai somepostaus">▶ Video / some</button>
               <button type="button" data-cmd="tidy" title="Korjaa lainausmerkit, viivat ja ylimääräiset välilyönnit">✨ Siisti teksti</button>
             </div>
@@ -314,11 +319,12 @@ eleventyExcludeFromCollections: true
     </div>
   </div>
 
+<script src="/assets/js/kuvahaku.js?v={{ build.version }}"></script>
 <script>
 const CATEGORIES = {{ site.categories | dump | safe }};
 const LOCAL = "valokeila-kirjoita";
 const $ = (id) => document.getElementById(id);
-const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [] });
+const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageLink: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [] });
 let doc = blank();
 let dirty = false;
 
@@ -494,8 +500,13 @@ function showImage() {
   $("imgbox").hidden = !src; $("drop").hidden = !!src;
   if (src) $("imgPreview").src = src;
 }
-async function takeImage(file) {
+async function takeImage(file, photo) {
   if (!file || !file.type.startsWith("image/")) return;
+  doc.fields.imageLink = photo ? photo.page : "";
+  if (photo) {
+    doc.fields.imageCredit = photo.credit; $("imageCredit").value = photo.credit;
+    if (!doc.fields.imageAlt.trim()) { doc.fields.imageAlt = photo.title.slice(0, 300); $("imageAlt").value = doc.fields.imageAlt; }
+  }
   $("status").textContent = "Käsitellään kuvaa…";
   try {
     const url = URL.createObjectURL(file);
@@ -545,10 +556,28 @@ $("bodyFiles").addEventListener("change", async () => {
   doc.body = t.value; grow(t); changed();
   $("status").textContent = lines.length > 1 ? `${lines.length} kuvaa lisätty – ne näkyvät jutussa kuvagalleriana. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.` : "Kuva lisätty. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.";
 });
+// Free photo search (Kuvahaku): main photo or a photo inside the text, credit filled in.
+function findPhoto(inText) {
+  const query = (doc.fields.aiheet || "").split(",")[0].trim();
+  const atText = $("body").selectionEnd ?? $("body").value.length;
+  window.Kuvahaku.open({ query: inText ? "" : query, actions: [inText
+    ? { label: "Lisää tekstiin", run: async (p) => {
+        const dataUrl = await resized(await p.load(), 1600);
+        const name = `kuva-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}.jpg`;
+        doc.images.push({ name, dataUrl, base64: dataUrl.split(",")[1] });
+        const line = `![${p.title.replace(/[\[\]]/g, "")}](/assets/img/uploads/${name} "Kuva: ${p.credit.replace(/"/g, "'")}")`;
+        const t = $("body"), v = t.value, before = v.slice(0, atText).replace(/\s*$/, ""), after = v.slice(atText).replace(/^\s*/, "");
+        t.value = (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "");
+        doc.body = t.value; grow(t); changed();
+        $("status").textContent = "Kuva lisätty tekstiin. Kuvateksti ja lähde ovat valmiina lainausmerkkien välissä.";
+      } }
+    : { label: "Käytä pääkuvana", run: async (p) => { await takeImage(await p.load(), p); } }] });
+}
+$("imgSearch").addEventListener("click", () => findPhoto(false));
 $("drop").addEventListener("click", () => $("file").click());
 $("drop").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } });
 $("imgChange").addEventListener("click", () => $("file").click());
-$("imgRemove").addEventListener("click", () => { doc.newImage = null; doc.image = ""; showImage(); changed(); });
+$("imgRemove").addEventListener("click", () => { doc.newImage = null; doc.image = ""; doc.fields.imageLink = ""; showImage(); changed(); });
 $("file").addEventListener("change", () => { takeImage($("file").files[0]); $("file").value = ""; });
 ["dragover", "dragenter"].forEach((t) => $("drop").addEventListener(t, (e) => { e.preventDefault(); $("drop").classList.add("over"); }));
 ["dragleave", "drop"].forEach((t) => $("drop").addEventListener(t, () => $("drop").classList.remove("over")));
@@ -584,6 +613,7 @@ $("toolbar").addEventListener("click", (e) => {
     case "quote": prefixLines("> "); break;
     case "list": prefixLines("- "); break;
     case "image": $("bodyFiles").click(); return;
+    case "imgsearch": findPhoto(true); return;
     case "embed": {
       const url = (prompt("Liitä videon tai somepostauksen osoite (YouTube, TikTok, Instagram tai X)", "https://") || "").trim();
       if (!/^https?:\/\/\S+$/.test(url) || url === "https://") return;

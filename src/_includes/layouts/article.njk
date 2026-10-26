@@ -22,7 +22,7 @@ layout: layouts/base.njk
   <figure class="article__media">
     {% if image %}
       <span class="article__img" data-fit><img src="{{ image }}" alt="{{ imageAlt }}"{% if imageFocus %} style="object-position: {{ imageFocus }}"{% endif %}></span>
-      {% if imageCredit %}<figcaption>Kuva: {{ imageCredit }}</figcaption>{% endif %}
+      {% if imageCredit %}<figcaption>Kuva: {% if imageLink %}<a href="{{ imageLink }}" target="_blank" rel="noopener">{{ imageCredit }}</a>{% else %}{{ imageCredit }}{% endif %}</figcaption>{% endif %}
     {% else %}
       <span class="placeholder"></span>
     {% endif %}

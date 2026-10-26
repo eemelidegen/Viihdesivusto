@@ -25,6 +25,7 @@ export async function onRequestPost({ request, data }) {
     image: str(f.image, 300),
     imageAlt: str(f.imageAlt, 300),
     imageCredit: str(f.imageCredit, 120),
+    imageLink: /^https:\/\/[^\s"<>]+$/.test(str(f.imageLink, 400)) ? str(f.imageLink, 400) : "",
     imageFocus: /^\d{1,3}% \d{1,3}%$/.test(String(f.imageFocus || "")) ? f.imageFocus : "",
     lahteet: str(f.lahteet, 1000),
     paivitetty: f.paivitetty && !Number.isNaN(Date.parse(f.paivitetty)) ? new Date(f.paivitetty).toISOString() : "",

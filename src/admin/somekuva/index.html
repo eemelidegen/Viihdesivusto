@@ -382,6 +382,7 @@
   <input type="file" id="file" accept="image/*" hidden>
   <div class="toast" id="toast" role="status"></div>
 
+<script src="/assets/js/kuvahaku.js"></script>
 <script>
 "use strict";
 const $ = (id) => document.getElementById(id);
@@ -912,6 +913,14 @@ function readFile(i, file) {
   if (!file || !file.type.startsWith("image/")) return toast("Valitse kuvatiedosto.");
   const r = new FileReader(); r.onload = () => loadImage(i, r.result); r.readAsDataURL(file);
 }
+// Free photo search (Kuvahaku, shared with the writing tool): fills the photo credit too.
+function findPhoto(i) {
+  window.Kuvahaku.open({ actions: [{ label: "Käytä kuvana", run: async (p) => {
+    const blob = await p.load(), url = await new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(blob); });
+    if (!(await loadImage(i, url))) throw new Error("Kuvaa ei voitu avata.");
+    s.credit = "Kuva: " + p.short; syncForm(); changed();
+  } }] });
+}
 function loadImage(i, src) {
   return new Promise((resolve) => {
     const im = new Image();
@@ -931,7 +940,7 @@ function imageCards() {
       <div class="imgcard__top">
         <button type="button" class="thumb" data-pick="${i}" aria-label="Valitse kuva">${p.img ? "" : "+"}</button>
         <div><b>${n > 1 ? `Kuva ${i + 1}` : "Kuva"}</b>
-          <div class="imgcard__btns"><button class="btn btn--sm" type="button" data-pick="${i}">${p.img ? "Vaihda" : "Valitse kuva"}</button>${p.img ? `<button class="btn btn--ghost btn--sm" type="button" data-remove="${i}">Poista</button>` : ""}</div>
+          <div class="imgcard__btns"><button class="btn btn--sm" type="button" data-pick="${i}">${p.img ? "Vaihda" : "Valitse kuva"}</button><button class="btn btn--ghost btn--sm" type="button" data-find="${i}">Hae kuva</button>${p.img ? `<button class="btn btn--ghost btn--sm" type="button" data-remove="${i}">Poista</button>` : ""}</div>
         </div>
       </div>
       ${p.img ? `<label class="field"><span class="lbl">Zoomaus <small>tai vedä ja nipistä kuvaa</small></span><input type="range" min="100" max="500" value="${Math.round(p.zoom * 100)}" data-zoom="${i}"></label>` : ""}
@@ -939,7 +948,8 @@ function imageCards() {
   box.querySelectorAll(".thumb").forEach((t) => { const p = panels[t.dataset.pick]; if (p.img) t.style.backgroundImage = `url("${p.img.src}")`; });
 }
 $("imgCards").addEventListener("click", (e) => {
-  const b = e.target.closest("[data-pick],[data-remove]"); if (!b) return;
+  const b = e.target.closest("[data-pick],[data-remove],[data-find]"); if (!b) return;
+  if (b.dataset.find) return findPhoto(Number(b.dataset.find));
   if (b.dataset.remove) { Object.assign(panels[b.dataset.remove], newPanel()); syncForm(); refresh(); return; }
   pick(Number(b.dataset.pick));
 });
