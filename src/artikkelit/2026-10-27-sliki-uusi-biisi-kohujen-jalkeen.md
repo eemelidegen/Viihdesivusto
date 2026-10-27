@@ -1,7 +1,8 @@
 ---
-title: "Ketola-kohu, häpeävideo ja dissiriita – nyt Sliki palaa uudella biisillä"
+title: "Ketola-kohu, häpeävideo ja räppiriita – nyt Sliki palaa uudella biisillä"
 excerpt: "Räppärin syksy on ollut yhtä myrskyä. Perjantaina hän julkaisee uutta musiikkia."
 date: "2026-10-27T06:27:52.941Z"
+paivitetty: "2026-10-27T06:32:40.164Z"
 category: "kohut"
 aiheet: "Sliki, Suomiräp, Rekami"
 author: "Toimitus"
