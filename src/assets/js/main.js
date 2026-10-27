@@ -194,48 +194,38 @@ if (document.getElementById("accLoading")) {
   const $a = (id) => document.getElementById(id);
   let stories = {};
   try { stories = JSON.parse($a("accStories").textContent); } catch {}
-  const dateFmt = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "long", year: "numeric" });
-  const ago = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? "juuri nyt" : m < 60 ? `${m} min sitten` : m < 1440 ? `${Math.floor(m / 60)} t sitten` : m < 10080 ? `${Math.floor(m / 1440)} pv sitten` : new Intl.DateTimeFormat("fi-FI").format(new Date(t)); };
+  const day = new Intl.DateTimeFormat("fi-FI");
+  const stamp = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
   const mk = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  const hue = (name) => [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 360, 7);
 
-  const refreshStats = async () => {
-    try {
-      const d = await accApi("kayttaja/mina?tiedot=1");
-      $a("statC").textContent = d.kommentteja ?? 0; $a("statR").textContent = d.vastauksia ?? 0; $a("statW").textContent = d.odottaa ?? 0;
-      if (d.luotu) $a("accSince").textContent = `Jäsen ${dateFmt.format(new Date(d.luotu))} alkaen`;
-    } catch {}
-  };
   const loadComments = async () => {
     const box = $a("myComments");
     try {
       const { kommentit = [] } = await accApi("kayttaja/kommentit");
       box.textContent = "";
-      if (!kommentit.length) {
-        const empty = mk("div", "acc__empty");
-        empty.append(mk("b", "", "Et ole vielä kommentoinut."), mk("span", "", "Kommentoi juttuja niiden alla. Kommenttisi kootaan tähän."));
-        const go = mk("a", "acc__submit acc__submit--ghost", "Lue uusimmat jutut"); go.href = "/";
-        empty.append(go); box.append(empty); return;
-      }
+      $a("accCount").textContent = kommentit.length ? `(${kommentit.length})` : "";
+      if (!kommentit.length) { box.append(mk("p", "acc__muted", "Et ole vielä kommentoinut mitään. Kommentit kirjoitetaan juttujen alle.")); return; }
+      const list = mk("ol", "acc__list");
       for (const c of kommentit) {
-        const item = mk("article", "acc__item");
-        const link = mk("a", "acc__story", stories[c.juttu] || "Juttu"); link.href = `/${c.juttu}/#kommentit`;
-        const meta = mk("div", "acc__meta");
-        meta.append(mk("span", "", ago(c.aika)));
-        if (c.vastaus) meta.append(mk("span", "acc__tag", "Vastaus"));
-        if (c.odottaa) meta.append(mk("span", "acc__tag acc__tag--wait", "Odottaa tarkistusta"));
-        if (c.vastauksia) meta.append(mk("span", "acc__tag acc__tag--hot", `${c.vastauksia} ${c.vastauksia === 1 ? "vastaus" : "vastausta"}`));
-        const del = mk("button", "acc__del", "Poista"); del.type = "button";
+        const li = mk("li");
+        const link = mk("a", "acc__story", stories[c.juttu] || "Poistettu juttu"); link.href = `/${c.juttu}/#kommentit`;
+        const meta = mk("p", "acc__meta");
+        const bits = [stamp.format(new Date(c.aika))];
+        if (c.odottaa) bits.push("odottaa tarkistusta");
+        if (c.vastauksia) bits.push(`${c.vastauksia} ${c.vastauksia === 1 ? "vastaus" : "vastausta"}`);
+        meta.append(bits.join(" · ") + " · ");
+        const del = mk("button", "acc__textbtn", "Poista"); del.type = "button";
         del.addEventListener("click", async () => {
-          if (!confirm("Poistetaanko kommentti? Myös sen vastaukset poistuvat.")) return;
+          if (!confirm("Poistetaanko kommentti? Myös siihen kirjoitetut vastaukset poistuvat.")) return;
           del.disabled = true;
-          try { await accApi("kommentit/poista", { id: c.id }); item.remove(); refreshStats(); if (!box.children.length) loadComments(); }
+          try { await accApi("kommentit/poista", { id: c.id }); loadComments(); }
           catch (x) { alert(x.message); del.disabled = false; }
         });
         meta.append(del);
-        item.append(link, mk("p", "acc__body", c.teksti), meta);
-        box.append(item);
+        li.append(link, mk("p", "acc__body", c.teksti), meta);
+        list.append(li);
       }
+      box.append(list);
     } catch { box.textContent = ""; box.append(mk("p", "acc__muted", "Kommentteja ei saatu ladattua. Päivitä sivu.")); }
   };
 
@@ -246,49 +236,29 @@ if (document.getElementById("accLoading")) {
     $a("accOut").hidden = !u.kaytossa || !!u.nimi;
     if (u.kaytossa && u.nimi) {
       $a("accName").textContent = u.nimi;
-      const av = $a("accAvatar"), h = hue(u.nimi);
-      av.textContent = [...u.nimi][0].toLocaleUpperCase("fi");
-      av.style.background = `linear-gradient(135deg, hsl(${h} 85% 72%), hsl(${(h + 40) % 360} 70% 45%))`;
-      refreshStats(); loadComments();
+      accApi("kayttaja/mina?tiedot=1").then((d) => { if (d.luotu) $a("accSince").textContent = ` (tili luotu ${day.format(new Date(d.luotu))})`; }).catch(() => {});
+      loadComments();
     }
   };
   me.then(show);
   const back = () => { const n = new URLSearchParams(location.search).get("takaisin"); location.href = n && n.startsWith("/") && !n.startsWith("//") ? n : "/tili/"; };
 
   const tab = (t) => {
-    document.querySelectorAll(".acc__switch button").forEach((x) => x.setAttribute("aria-selected", String(x.dataset.t === t)));
+    document.querySelectorAll(".acc__tabs button").forEach((x) => x.setAttribute("aria-selected", String(x.dataset.t === t)));
     $a("loginForm").hidden = t !== "login"; $a("regForm").hidden = t !== "register";
-    const f = $a(t === "login" ? "loginForm" : "regForm").querySelector("input");
-    if (f && matchMedia("(min-width: 700px)").matches) f.focus();
   };
-  document.querySelector(".acc__switch").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) tab(b.dataset.t); });
-  document.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => tab(b.dataset.go)));
+  document.querySelector(".acc__tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) tab(b.dataset.t); });
   if (location.hash === "#luo") tab("register");
 
-  // Show / hide password
   document.querySelectorAll("[data-eye]").forEach((b) => b.addEventListener("click", () => {
     const i = b.previousElementSibling, on = i.type === "password";
-    i.type = on ? "text" : "password"; b.classList.toggle("is-on", on); b.setAttribute("aria-label", on ? "Piilota salasana" : "Näytä salasana");
+    i.type = on ? "text" : "password"; b.textContent = on ? "Piilota" : "Näytä";
   }));
-  // Password strength
-  const PW_HINT = "Pitkä salasana on paras. Sitä ei voi palauttaa sähköpostilla, joten pidä se tallessa.";
-  const LEVELS = ["Liian lyhyt", "Heikko", "Kohtalainen", "Hyvä", "Vahva"];
-  const strength = (p) => { let s = 0; if (p.length >= 8) s++; if (p.length >= 12) s++; if (/[A-ZÅÄÖ]/.test(p) && /[a-zåäö]/.test(p)) s++; if (/\d/.test(p)) s++; if (/[^\p{L}\p{N}]/u.test(p) || p.length >= 16) s++; return Math.min(4, s); };
-  const resetMeter = (m) => { m.dataset.level = ""; m.firstElementChild.style.width = "0"; };
-  document.querySelectorAll(".acc__meter").forEach((m) => {
-    const label = m.closest("label"), input = label.querySelector("input"), hint = label.querySelector("[data-pw-hint]");
-    input.addEventListener("input", () => {
-      const v = input.value, lv = v.length < 8 ? 0 : strength(v);
-      if (!v) resetMeter(m); else { m.dataset.level = lv; m.firstElementChild.style.width = `${Math.max(12, lv * 25)}%`; }
-      if (hint) hint.textContent = v ? `Salasanan vahvuus: ${LEVELS[lv]}` : PW_HINT;
-    });
-  });
-  // Nickname format check while typing (availability is checked when the form is sent)
   const nameIn = $a("regForm").querySelector("input[name=nimi]"), nameHint = $a("regForm").querySelector("[data-name-hint]");
   nameIn.addEventListener("input", () => {
-    const v = nameIn.value.trim(), ok = /^[\p{L}\p{N}_.-]{3,24}$/u.test(v);
-    nameHint.classList.toggle("is-bad", !!v && !ok); nameHint.classList.toggle("is-ok", ok);
-    nameHint.textContent = !v ? "3–24 merkkiä: kirjaimia, numeroita tai _ . -" : ok ? "Nimimerkki kelpaa" : v.length < 3 ? "Vähintään 3 merkkiä" : "Vain kirjaimia, numeroita tai _ . -";
+    const v = nameIn.value.trim(), bad = v && !/^[\p{L}\p{N}_.-]*$/u.test(v);
+    nameHint.classList.toggle("is-bad", !!bad);
+    nameHint.textContent = bad ? "Nimimerkissä voi olla vain kirjaimia, numeroita tai _ . -" : "3–24 merkkiä: kirjaimia, numeroita tai _ . -";
   });
 
   const handle = (form, path, done) => form.addEventListener("submit", async (e) => {
@@ -297,18 +267,17 @@ if (document.getElementById("accLoading")) {
     err.classList.remove("is-ok");
     const bad = [...form.querySelectorAll("input")].find((i) => !i.checkValidity());
     if (bad) {
-      err.textContent = bad.type === "checkbox" ? "Hyväksy säännöt ja tietosuojaseloste." : bad.validity.tooShort ? `${bad.closest("label").firstElementChild.firstChild.textContent.trim()}: liian lyhyt.` : "Täytä kaikki kentät.";
+      err.textContent = bad.type === "checkbox" ? "Hyväksy säännöt ja tietosuojaseloste." : bad.validity.tooShort ? (bad.type === "password" ? "Salasanassa pitää olla vähintään 8 merkkiä." : "Nimimerkissä pitää olla vähintään 3 merkkiä.") : "Täytä kaikki kentät.";
       bad.focus(); return;
     }
     const body = Object.fromEntries(new FormData(form)); if ("hyvaksyn" in body) body.hyvaksyn = true;
-    err.textContent = ""; btn.disabled = true; btn.classList.add("is-busy");
-    try { await accApi(path, body); done(form); } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; btn.classList.remove("is-busy"); }
+    err.textContent = ""; btn.disabled = true;
+    try { await accApi(path, body); done(form); } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; }
   });
   handle($a("loginForm"), "kayttaja/kirjaudu", back);
   handle($a("regForm"), "kayttaja/rekisteroidy", back);
   handle($a("pwForm"), "kayttaja/salasana", (form) => {
-    form.reset(); form.querySelectorAll(".acc__meter").forEach(resetMeter);
-    const ok = form.querySelector(".acc__err"); ok.textContent = "Salasana vaihdettu ✓"; ok.classList.add("is-ok");
+    form.reset(); const ok = form.querySelector(".acc__err"); ok.textContent = "Salasana on vaihdettu."; ok.classList.add("is-ok");
   });
   handle($a("delForm"), "kayttaja/poista", () => { location.href = "/"; });
   $a("logout").addEventListener("click", async () => { await accApi("kayttaja/ulos", {}).catch(() => {}); location.href = "/"; });

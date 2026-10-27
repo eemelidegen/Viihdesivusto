@@ -1,111 +1,80 @@
 ---
 layout: layouts/base.njk
 title: Oma tili
-description: Kirjaudu Hulinaan tai luo tili ja osallistu keskusteluun.
+description: Kirjaudu Hulinaan tai luo tili kommentointia varten.
 permalink: /tili/
 eleventyExcludeFromCollections: true
 ---
 <div class="acc">
-  <div id="accLoading" class="acc__loading" aria-live="polite"><span></span>Ladataan…</div>
-  <div id="accOff" hidden class="acc__off">
+  <p id="accLoading" class="acc__muted">Ladataan…</p>
+  <div id="accOff" hidden>
     <h1>Oma tili</h1>
     <p>Kirjautuminen ja kommentointi otetaan käyttöön pian.</p>
   </div>
 
   {# ---------- Signed out ---------- #}
-  <section id="accOut" class="acc__auth" hidden>
-    <aside class="acc__pitch">
-      <img src="/assets/img/hulina-symboli.svg" alt="" width="56" height="58">
-      <h2>Mukaan keskusteluun</h2>
-      <p>Hulina-tilillä voit kommentoida juttuja ja vastata muille lukijoille.</p>
-      <ul>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"/></svg>Kommentoi ja vastaa muille</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"/></svg>Näet omat kommenttisi yhdessä paikassa</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"/></svg>Ei sähköpostia, ei mainospostia</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"/></svg>Maksuton, poistettavissa milloin vain</li>
-      </ul>
-    </aside>
+  <section id="accOut" hidden>
+    <nav class="acc__tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-t="login">Kirjaudu</button>
+      <button type="button" role="tab" aria-selected="false" data-t="register">Luo tili</button>
+    </nav>
 
-    <div class="acc__card">
-      <div class="acc__switch" role="tablist" aria-label="Kirjaudu tai luo tili">
-        <button type="button" role="tab" aria-selected="true" data-t="login">Kirjaudu</button>
-        <button type="button" role="tab" aria-selected="false" data-t="register">Luo tili</button>
-      </div>
+    <form id="loginForm" class="acc__form" novalidate>
+      <h1>Kirjaudu</h1>
+      <label>Nimimerkki<input name="nimi" autocomplete="username" required maxlength="24" autocapitalize="off" spellcheck="false"></label>
+      <label>Salasana<span class="acc__pw"><input type="password" name="salasana" autocomplete="current-password" required><button type="button" data-eye>Näytä</button></span></label>
+      <p class="acc__err" role="alert"></p>
+      <button type="submit" class="btn-ink">Kirjaudu</button>
+      <p class="acc__small">Salasanaa ei voi palauttaa sähköpostilla. Jos olet unohtanut sen, voit luoda uuden tilin.</p>
+    </form>
 
-      <form id="loginForm" class="acc__form" novalidate>
-        <h1>Tervetuloa takaisin</h1>
-        <label class="acc__field"><span>Nimimerkki</span><input name="nimi" autocomplete="username" required maxlength="24" autocapitalize="off" spellcheck="false"></label>
-        <label class="acc__field"><span>Salasana</span>
-          <span class="acc__pw"><input type="password" name="salasana" autocomplete="current-password" required><button type="button" class="acc__eye" aria-label="Näytä salasana" data-eye></button></span>
-        </label>
-        <p class="acc__err" role="alert"></p>
-        <button type="submit" class="acc__submit">Kirjaudu sisään</button>
-        <p class="acc__alt">Ei vielä tiliä? <button type="button" class="acc__link" data-go="register">Luo tili</button></p>
-      </form>
-
-      <form id="regForm" class="acc__form" novalidate hidden>
-        <h1>Luo Hulina-tili</h1>
-        <label class="acc__field"><span>Nimimerkki <small>näkyy kommenteissasi</small></span><input name="nimi" autocomplete="username" required minlength="3" maxlength="24" autocapitalize="off" spellcheck="false"><em class="acc__hint" data-name-hint>3–24 merkkiä: kirjaimia, numeroita tai _ . -</em></label>
-        <label class="acc__field"><span>Salasana <small>vähintään 8 merkkiä</small></span>
-          <span class="acc__pw"><input type="password" name="salasana" autocomplete="new-password" required minlength="8"><button type="button" class="acc__eye" aria-label="Näytä salasana" data-eye></button></span>
-          <span class="acc__meter" aria-hidden="true"><i></i></span><em class="acc__hint" data-pw-hint>Pitkä salasana on paras. Sitä ei voi palauttaa sähköpostilla, joten pidä se tallessa.</em>
-        </label>
-        <label class="acc__check"><input type="checkbox" name="hyvaksyn" required><span>Olen vähintään 15-vuotias ja hyväksyn <a href="/kommentointi/" target="_blank">kommentointisäännöt</a> ja <a href="/tietosuoja/" target="_blank">tietosuojaselosteen</a>.</span></label>
-        <p class="acc__err" role="alert"></p>
-        <button type="submit" class="acc__submit">Luo tili</button>
-        <p class="acc__alt">Onko sinulla jo tili? <button type="button" class="acc__link" data-go="login">Kirjaudu</button></p>
-      </form>
-    </div>
+    <form id="regForm" class="acc__form" novalidate hidden>
+      <h1>Luo tili</h1>
+      <p>Tilillä voit kommentoida Hulinan juttuja. Sähköpostia ei tarvita, ja kommenteissa näkyy vain nimimerkkisi.</p>
+      <label>Nimimerkki<input name="nimi" autocomplete="username" required minlength="3" maxlength="24" autocapitalize="off" spellcheck="false"><small data-name-hint>3–24 merkkiä: kirjaimia, numeroita tai _ . -</small></label>
+      <label>Salasana<span class="acc__pw"><input type="password" name="salasana" autocomplete="new-password" required minlength="8"><button type="button" data-eye>Näytä</button></span><small>Vähintään 8 merkkiä. Kirjoita salasana muistiin, sillä sitä ei voi palauttaa.</small></label>
+      <label class="acc__check"><input type="checkbox" name="hyvaksyn" required><span>Olen vähintään 15-vuotias ja hyväksyn <a href="/kommentointi/" target="_blank">kommentointisäännöt</a> ja <a href="/tietosuoja/" target="_blank">tietosuojaselosteen</a>.</span></label>
+      <p class="acc__err" role="alert"></p>
+      <button type="submit" class="btn-ink">Luo tili</button>
+    </form>
   </section>
 
   {# ---------- Signed in ---------- #}
-  <section id="accIn" class="acc__home" hidden>
-    <header class="acc__hero">
-      <span class="acc__avatar" id="accAvatar" aria-hidden="true"></span>
-      <div class="acc__who">
-        <p class="acc__kicker">Oma tili</p>
-        <h1 id="accName"></h1>
-        <p class="acc__since" id="accSince"></p>
-      </div>
-      <button type="button" class="acc__out" id="logout">Kirjaudu ulos</button>
-    </header>
+  <section id="accIn" hidden>
+    <h1>Oma tili</h1>
+    <p class="acc__who">Olet kirjautunut nimimerkillä <b id="accName"></b><span id="accSince"></span>. <button type="button" class="acc__textbtn" id="logout">Kirjaudu ulos</button></p>
 
-    <div class="acc__stats">
-      <div><b id="statC">–</b><span>kommenttia</span></div>
-      <div><b id="statR">–</b><span>vastausta sinulle</span></div>
-      <div><b id="statW">–</b><span>odottaa tarkistusta</span></div>
-    </div>
+    <section class="acc__sec">
+      <h2>Kommenttisi <span id="accCount" class="acc__muted"></span></h2>
+      <div id="myComments"><p class="acc__muted">Ladataan…</p></div>
+    </section>
 
-    <div class="acc__grid">
-      <section class="acc__panel acc__panel--wide">
-        <h2>Omat kommentit</h2>
-        <div id="myComments" class="acc__list"><p class="acc__muted">Ladataan…</p></div>
-      </section>
-
-      <section class="acc__panel">
-        <h2>Vaihda salasana</h2>
-        <form id="pwForm" class="acc__form acc__form--tight" novalidate>
-          <label class="acc__field"><span>Nykyinen salasana</span><span class="acc__pw"><input type="password" name="nykyinen" autocomplete="current-password" required><button type="button" class="acc__eye" aria-label="Näytä salasana" data-eye></button></span></label>
-          <label class="acc__field"><span>Uusi salasana <small>vähintään 8 merkkiä</small></span><span class="acc__pw"><input type="password" name="uusi" autocomplete="new-password" required minlength="8"><button type="button" class="acc__eye" aria-label="Näytä salasana" data-eye></button></span><span class="acc__meter" aria-hidden="true"><i></i></span></label>
+    <section class="acc__sec">
+      <h2>Salasana</h2>
+      <details>
+        <summary>Vaihda salasana</summary>
+        <form id="pwForm" class="acc__form" novalidate>
+          <label>Nykyinen salasana<span class="acc__pw"><input type="password" name="nykyinen" autocomplete="current-password" required><button type="button" data-eye>Näytä</button></span></label>
+          <label>Uusi salasana<span class="acc__pw"><input type="password" name="uusi" autocomplete="new-password" required minlength="8"><button type="button" data-eye>Näytä</button></span><small>Vähintään 8 merkkiä.</small></label>
           <p class="acc__err" role="alert"></p>
-          <button type="submit" class="acc__submit acc__submit--ghost">Tallenna uusi salasana</button>
+          <button type="submit" class="btn-ink">Vaihda salasana</button>
         </form>
-      </section>
+      </details>
+    </section>
 
-      <section class="acc__panel">
-        <h2>Tietosi</h2>
-        <p class="acc__muted">Tallennamme vain nimimerkkisi, salatun salasanasi ja kommenttisi. Emme kysy sähköpostiosoitetta. <a href="/tietosuoja/">Tietosuojaseloste</a> · <a href="/kommentointi/">Kommentointisäännöt</a></p>
-        <details class="acc__danger">
-          <summary>Poista tili</summary>
-          <p>Tili ja kaikki kommenttisi poistetaan pysyvästi. Tätä ei voi perua.</p>
-          <form id="delForm" class="acc__form acc__form--tight" novalidate>
-            <label class="acc__field"><span>Vahvista salasanalla</span><input type="password" name="salasana" autocomplete="current-password" required></label>
-            <p class="acc__err" role="alert"></p>
-            <button type="submit" class="acc__submit acc__submit--danger">Poista tili pysyvästi</button>
-          </form>
-        </details>
-      </section>
-    </div>
+    <section class="acc__sec">
+      <h2>Tilin poistaminen</h2>
+      <p>Hulina tallentaa tilistäsi vain nimimerkin, salatun salasanan ja kirjoittamasi kommentit. Lisätietoja on <a href="/tietosuoja/">tietosuojaselosteessa</a>.</p>
+      <details>
+        <summary>Poista tili</summary>
+        <form id="delForm" class="acc__form" novalidate>
+          <p>Tili ja kaikki kommenttisi poistetaan pysyvästi.</p>
+          <label>Salasana<input type="password" name="salasana" autocomplete="current-password" required></label>
+          <p class="acc__err" role="alert"></p>
+          <button type="submit" class="btn-danger">Poista tili</button>
+        </form>
+      </details>
+    </section>
   </section>
 </div>
 <script type="application/json" id="accStories">{ {%- for a in collections.artikkelit %}{{ a.page.fileSlug | dump | safe }}: {{ a.data.title | dump | safe }}{% if not loop.last %},{% endif %}{% endfor -%} }</script>
