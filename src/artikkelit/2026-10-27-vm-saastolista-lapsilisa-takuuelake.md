@@ -1,14 +1,15 @@
 ---
-title: "Lapsilisä, takuueläke ja opintoraha pois? Valtiovarainministeriön säästölista kuohuttaa"
+title: "IS: Lapsilisä, takuueläke ja opintoraha pois? Valtiovarainministeriön säästölista kuohuttaa"
 excerpt: "Ministeriö laski satoja säästövaihtoehtoja seuraavalle hallitukselle. Joukossa on keinoja, jotka osuisivat suoraan lapsiperheisiin, eläkeläisiin ja opiskelijoihin."
 date: "2026-10-27T07:00:00.000Z"
 category: "politiikka"
 aiheet: "Valtiovarainministeriö, Säästöt, Lapsilisä"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
+image: "/assets/img/uploads/vm-saastolista-lapsilisa-takuuelake-878285.jpg"
+imageAlt: "Euro coins and banknotes"
+imageCredit: "Avij (talk · contribs) / Wikimedia Commons"
+imageLink: "https://commons.wikimedia.org/wiki/File:Euro_coins_and_banknotes.jpg"
+lahteet: "Ilta-Sanomat |"
 draft: true
 ---
 
