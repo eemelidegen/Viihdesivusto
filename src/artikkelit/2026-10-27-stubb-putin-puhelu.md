@@ -1,5 +1,5 @@
 ---
-title: "Stubb soitti Putinille – Tanskan pääministeri raivostui: ”Sitä ei ole sovittu meidän muiden kanssa”"
+title: "Stubb soitti Putinille – Tanskan pääministeri tyrmää: ”Sitä ei ole sovittu meidän muiden kanssa”"
 excerpt: "Presidentti Alexander Stubb ja Norjan pääministeri Jonas Gahr Støre puhuivat tiistaina Vladimir Putinin kanssa. Kaikki Pohjoismaat eivät ilahtuneet."
 date: "2026-10-27T13:00:00.000Z"
 category: "politiikka"

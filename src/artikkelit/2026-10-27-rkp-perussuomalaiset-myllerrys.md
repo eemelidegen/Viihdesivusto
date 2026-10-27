@@ -18,7 +18,7 @@ Kipinän sytytti eduskuntaryhmän puheenjohtaja **Otto Andersson**, joka sanoi v
 
 Entinen ministeri Bergqvist ei usko, että perussuomalaisten kanssa voisi enää syntyä yhteistä hallitusohjelmaa.
 
-– Olemme niin erilaisia ja myös heidän työtapansa ovat sellaisia, että en usko, että jaksamme enää sellaista, Bergqvist sanoi.
+– Olemme niin erilaisia ja myös heidän työtavat ovat sellaisia, että en usko, että jaksamme enää sellaista, Bergqvist sanoi.
 
 Hänen mukaansa puolueessa on niitä, jotka haluavat odottaa vaalitulosta, ja niitä, jotka sanovat jo nyt ”ei enää ikinä”.
 
