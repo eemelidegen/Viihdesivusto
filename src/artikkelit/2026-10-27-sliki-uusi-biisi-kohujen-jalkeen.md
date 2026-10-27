@@ -1,15 +1,12 @@
 ---
 title: "Ketola-kohu, häpeävideo ja dissiriita – nyt Sliki palaa uudella biisillä"
 excerpt: "Räppärin syksy on ollut yhtä myrskyä. Perjantaina hän julkaisee uutta musiikkia."
-date: "2026-10-27T06:30:00.000Z"
+date: "2026-10-27T06:27:52.941Z"
 category: "kohut"
 aiheet: "Sliki, Suomiräp, Rekami"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
-draft: true
+image: "/assets/img/uploads/sliki-uusi-biisi-kohujen-jalkeen-5a3ca3.jpg"
+imageCredit: "Instagram @slikidegen"
 ---
 
 Räppäri **Sliki** (oik. Jan Vikman) palaa. Hän ilmoitti Instagramissa, että uutta musiikkia on tulossa jo perjantaina.
