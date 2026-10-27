@@ -1,15 +1,14 @@
 ---
 title: "Ruokajätteitä Purran seurueen pöytään messuilla – välikohtaus jakoi poliitikot kahtia somessa"
 excerpt: "Riikka Purran puoliso kertoi naisesta, joka heitti lautasensa seurueen pöytään. Erityisesti hänen tulkintansa tekijän poliittisesta kannasta herätti keskustelua."
-date: "2026-10-27T08:30:00.000Z"
+date: "2026-10-27T05:32:29.366Z"
 category: "politiikka"
 aiheet: "Riikka Purra, Perussuomalaiset, Kirjamessut"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
-draft: true
+image: "/assets/img/uploads/purra-valimaa-messut-valikohtaus-84208d.jpg"
+imageAlt: "Riikka-Purra-01 (cropped)"
+imageCredit: "Lauri Heikkinen, valtioneuvoston kanslia / Wikimedia Commons, CC BY 4.0"
+imageLink: "https://commons.wikimedia.org/w/index.php?curid=133370046"
 ---
 
 Helsingin kirja-, viini- ja ruokamessuilla sattunut välikohtaus on noussut viikonlopun puhutuimmaksi poliittiseksi kohuksi somessa.
