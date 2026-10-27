@@ -12,7 +12,7 @@ lahteet: ""
 draft: true
 ---
 
-Entinen kansanedustaja **Satu Taiveaho** ja hänen puolisonsa **Ville Rajala** kilpailevat Amazing Race Suomen uudella kaudella. Pari kertoi ohjelman lehdistötilaisuudessa myös vaiheesta, josta ei ole aiemmin juuri puhuttu.
+Entinen kansanedustaja **Satu Taiveaho** ja hänen puolisonsa **Ville Rajala** kilpailevat Amazing Race Suomen uudella kaudella. Ohjelman lehdistötilaisuudessa pari kertoi myös suhteensa alkuajoista.
 
 Pari vuotta sitten, suhteen alkuaikoina, he erosivat hetkeksi.
 

@@ -26,4 +26,4 @@ Kätilö oli kuitenkin sermin takana ja kuuli kaiken. Kun puoliso yritti pyytä�
 
 Sitten tilanne muuttui vakavaksi. Vauvan sykkeet katosivat toistuvasti, ja lapsi syntyi sinisenä ja velttona. Hänet vietiin heti teho-osastolle. Chevakova odotti 20 minuuttia tietämättä, mitä tapahtui, ennen kuin puoliso tuli kertomaan, että vauva hengitti.
 
-Seuraavana päivänä Chevakova pyysi kätilöltä anteeksi.
+Myöhemmin Chevakova pyysi kätilöltä anteeksi.

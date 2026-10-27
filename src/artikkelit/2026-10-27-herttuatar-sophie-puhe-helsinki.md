@@ -18,7 +18,7 @@ Pöytään katettiin paistettua siikaa, tilliperunapyreetä ja piparjuurikastike
 
 Hän puhui seksuaaliväkivallasta sodissa ja niistä naisista, jotka tekevät rauhantyötä oman turvallisuutensa uhalla.
 
-– Joskus kysyn, miksi he tekevät sen? He välittävät perheistään ja ystävistään, mutta myös maistaan. He tekevät sen, koska se on oikein, herttuatar sanoi.
+– Joskus kysyn, miksi he tekevät sen? He välittävät heidän perheistään ja ystävistään, mutta myös heidän maistaan. He tekevät sen, koska se on oikein, herttuatar sanoi.
 
 Hänen mukaansa naiset huomaavat usein ensimmäisinä, kun yhteiskunnan ilmapiiri alkaa kääntyä kohti konfliktia. Herttuatar muistutti myös, että raiskausten uhreiksi joutuu myös miehiä.
 

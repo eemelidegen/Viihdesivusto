@@ -1,6 +1,6 @@
 ---
 title: "Dinosaurock lopettaa – festivaali hakeutuu konkurssiin: ”Kaikki eivät tule kaikkia saataviaan saamaan”"
-excerpt: "Mikkelin rockfestivaali palasi kaksi kesää sitten. Yleisöä ei tullut tarpeeksi."
+excerpt: "Mikkelin rockfestivaali palasi viime vuonna. Yleisöä ei tullut tarpeeksi."
 date: "2026-10-27T17:15:00.000Z"
 category: "julkkikset"
 aiheet: "Dinosaurock, Festivaalit"
@@ -24,4 +24,4 @@ Syy on Jokipiin mukaan yksinkertainen: kävijöitä oli liian vähän.
 
 – Nykyisessä taloudellisessa tilanteessa festivaaleille ei enää lähdetä aatteen tai kannatuksen vuoksi, vaan suosikkiartistien takia.
 
-Dinosaurockia järjestettiin Visulahdessa jo vuosina 1987–1990. Se palasi kaksi kesää sitten, ja tänä kesänä kolmen päivän tapahtumassa kävi noin 6 600 ihmistä. Määrä jäi alle tavoitteen.
+Dinosaurockia järjestettiin Visulahdessa jo vuosina 1987–1990. Se palasi viime vuonna, ja tänä kesänä kolmen päivän tapahtumassa kävi noin 6 600 ihmistä. Määrä jäi alle tavoitteen.
