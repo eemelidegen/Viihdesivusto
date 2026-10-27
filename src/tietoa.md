@@ -1,29 +1,28 @@
 ---
 layout: layouts/base.njk
 title: Tietoa meistä
-description: Hulina on suomalainen viihdemedia. Julkkisuutiset, tv-ohjelmat, kohut ja urheilu.
+description: Hulina on suomalainen viihdemedia. Julkkikset, tv-ohjelmat, kohut, politiikka ja urheilu.
 ---
 <div class="prose page">
 
 # Tietoa meistä
 
-{{ site.name }} on suomalainen viihdemedia. Kirjoitamme julkkiksista, tv-ohjelmista, kohuista, rikoksista ja urheilusta Suomesta ja maailmalta.
+Hulina on suomalainen viihdemedia. Kerromme, mistä Suomi puhuu: julkkiksista, tv-ohjelmista, kohuista, politiikasta ja urheilusta.
 
-Jutut perustuvat haastatteluihin, julkisiin somepäivityksiin, tv-ohjelmiin, tiedotteisiin ja muiden medioiden uutisiin. Kerromme jokaisessa jutussa, mistä tieto on peräisin. Virheet korjataan, ja olennaisesta korjauksesta kerrotaan jutussa. Lue lisää [toimituksen periaatteista](/periaatteet/).
+Teemme juttuja nopeasti, mutta emme oikopolkuja pitkin. Jokainen juttu perustuu lähteisiin, ja virheet korjataan. Työtämme ohjaavat [toimituksen periaatteet](/periaatteet/).
 
-Juttuvinkin voi lähettää [vinkkisivulla](/vinkkaa/).
+Onko sinulla juttuvinkki? [Kerro meille](/vinkkaa/). Kaikki vinkit luetaan.
 
 ## Mainonta ja yhteistyö
 
-{% if site.email %}Mainonnasta ja yhteistyöstä voi kysyä osoitteesta [{{ site.email }}](mailto:{{ site.email }}).{% else %}Mainonnan ja yhteistyön yhteystiedot julkaistaan tällä sivulla.{% endif %} Kaupalliset yhteistyöt merkitään aina selvästi, eikä mainostaja vaikuta juttujen sisältöön.
+{% if site.email %}Mainonnasta ja yhteistyöstä voi kysyä osoitteesta [{{ site.email }}](mailto:{{ site.email }}).{% else %}Mainonnasta ja yhteistyöstä voi kysyä [yhteydenottolomakkeella](/vinkkaa/).{% endif %}
 
 ## Julkaisutiedot
 
 **Julkaisija:** {{ site.publisher }}<br>
 **Verkko-osoite:** {{ site.url | replace("https://", "") }}<br>
-{% if site.email %}**Toimitus:** [{{ site.email }}](mailto:{{ site.email }})<br>
-{% endif %}**Juttuvinkit:** [{{ site.url | replace("https://", "") }}/vinkkaa](/vinkkaa/)<br>
-**Toimituksen periaatteet:** [{{ site.url | replace("https://", "") }}/periaatteet](/periaatteet/)<br>
+{% if site.email %}**Sähköposti:** [{{ site.email }}](mailto:{{ site.email }})<br>
+{% endif %}**Some:** @hulinanet (TikTok ja Instagram)<br>
 **Tietosuoja:** [Tietosuojaseloste](/tietosuoja/)
 
 </div>

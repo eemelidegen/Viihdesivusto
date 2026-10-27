@@ -1,38 +1,34 @@
 ---
 layout: layouts/base.njk
 title: Toimituksen periaatteet
-description: Näin Hulina tekee juttunsa – lähteet, kuvat, korjaukset ja mainonta.
+description: Miten Hulina tekee juttunsa: lähteet, kuvat, yksityisyys ja korjaukset.
 ---
 <div class="prose page">
 
 # Toimituksen periaatteet
 
-{{ site.name }} on suomalainen viihdemedia. Kirjoitamme julkkiksista, tosi-tv:stä, kohuista, urheilusta ja muista puheenaiheista. Tällä sivulla kerromme, miten työskentelemme.
+Hulina kirjoittaa viihteestä, mutta tekee sen tosissaan. Näillä periaatteilla työskentelemme.
 
-## Lähteet
+## Tieto perustuu lähteisiin
 
-Jokainen juttu perustuu tietoon, jonka voi tarkistaa: haastatteluun, julkiseen somepäivitykseen, tv-ohjelmaan, tiedotteeseen tai toisen median julkaisemaan tietoon. Kerromme jutussa aina, mistä tieto on peräisin, ja linkitämme lähteeseen jutun lopussa. Toisen median tietoon perustuva juttu kirjoitetaan omin sanoin, ja alkuperäinen lähde mainitaan.
+Jutut perustuvat tarkistettavaan tietoon: haastatteluihin, julkisiin somepäivityksiin, tv-ohjelmiin, tiedotteisiin ja muiden medioiden uutisiin. Lähteet merkitään jutun loppuun. Toisen median uutisesta kirjoitettu juttu tehdään omin sanoin.
 
-Emme keksi juttuja emmekä esitä huhuja totena. Jos jokin on vasta huhu tai väite, sanomme sen suoraan.
+Emme keksi tapahtumia emmekä esitä huhua totena. Jos kyse on väitteestä, kerromme kenen.
 
-## Rikosuutiset ja yksityisyys
+## Ihminen ennen otsikkoa
 
-Emme julkaise rikoksesta epäillyn nimeä ennen kuin siihen on painava syy, eikä yksityishenkilöiden tietoja julkaista ilman lupaa. Terveyteen, perheeseen ja seksuaalisuuteen liittyvistä asioista kirjoitamme vain, jos henkilö on itse kertonut niistä julkisesti.
+Rikosuutisissa emme nimeä epäiltyjä ilman painavaa syytä. Terveydestä, perhe-elämästä tai seksuaalisuudesta kirjoitamme vain, jos henkilö on itse kertonut asiasta julkisesti. Yksityishenkilöiden tietoja emme julkaise ilman lupaa.
 
 ## Kuvat
 
-Käytämme kuvia, joihin meillä on käyttöoikeus: tiedote- ja pressikuvia, lisensoituja kuvia, vapaasti käytettäviä kuvia ja omia kuviamme. Kuvaaja tai kuvan lähde merkitään kuvan alle.
+Käytämme vain kuvia, joihin meillä on oikeus: tiedotekuvia, lisensoituja ja vapaasti käytettäviä kuvia sekä omia kuviamme. Kuvaaja tai lähde kerrotaan kuvatekstissä.
 
-## Korjaukset
+## Virheet korjataan
 
-Jos jutussa on virhe, korjaamme sen mahdollisimman nopeasti. Olennaisesta korjauksesta kerrotaan jutussa, ja jutun yläosaan merkitään päivitysaika. Virheestä voi ilmoittaa [vinkkilomakkeella](/vinkkaa/).
+Virhe korjataan heti, kun se huomataan, ja olennaisesta korjauksesta kerrotaan jutussa. Virheestä voi ilmoittaa [yhteydenottolomakkeella](/vinkkaa/).
 
-## Mainonta ja kaupallinen yhteistyö
+## Mainonta
 
-Sivulla näkyvät mainokset tulevat Googlen mainosverkosta, eivätkä mainostajat vaikuta juttuihimme. Mahdolliset kaupalliset yhteistyöt merkitään aina selvästi.
-
-## Yhteystiedot
-
-Juttuvinkit ja palaute: [{{ site.url | replace("https://", "") }}/vinkkaa](/vinkkaa/). Julkaisijan tiedot löytyvät [Tietoa meistä](/tietoa/) -sivulta.
+Mainokset eivät vaikuta juttujen sisältöön. Kaupallinen yhteistyö merkitään aina näkyvästi.
 
 </div>
