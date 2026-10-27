@@ -44,9 +44,9 @@
     const free = /^(CC0|Public domain)/i.test(p.license);
     p.author = author;
     p.key = fileKey(p.full);
-    p.credit = cut(p.credit || `${author} / ${p.source}${free ? "" : ", " + p.license}`, 120);
-    p.short = cut(p.short || `${author} / ${free ? p.source : p.license}`, 52);
-    p.load = p.load || (async () => {
+    p.credit = cut(`${author} / ${p.source}${free ? "" : ", " + p.license}`, 120);
+    p.short = cut(`${author} / ${free ? p.source : p.license}`, 52);
+    p.load = async () => {
       let last;
       for (const url of [p.full, ...(p.fallback || [])]) {
         const res = await fetch("/api/toimitus/kuva?url=" + encodeURIComponent(url), { credentials: "same-origin" });
@@ -55,7 +55,7 @@
         last = (await res.json().catch(() => ({}))).virhe;
       }
       throw new Error(last || "Kuvaa ei saatu haettua.");
-    });
+    };
     return p;
   }
 
@@ -175,59 +175,13 @@
     return { items, more: page * PER < (d.resultCount || 0) };
   }
 
-  // ---------- Press-release photos via STT Info (MTV, Nelonen, Yle, kustantamot…) ----------
-  const LOGIN = "Kirjaudu ensin juttutyökaluun (/admin/kirjoita/), niin tätä lähdettä voi käyttää.";
-  async function tiedotteet(q, page) {
-    const res = await fetch(`/api/toimitus/tiedotekuvat?q=${encodeURIComponent(q)}&page=${page}`, { credentials: "same-origin" });
-    if (res.status === 401) throw new Error(LOGIN);
-    const d = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(d.virhe || "Tiedotekuvien haku ei onnistunut.");
-    const items = (d.items || []).map((x) => {
-      const owner = x.copyright && x.copyright.toLowerCase() !== x.publisher.toLowerCase() ? x.copyright : x.publisher;
-      const credit = x.photographer ? `${x.photographer} / ${owner}` : owner;
-      return finish({
-        title: x.title, author: x.photographer || owner, license: "Tiedotekuva", source: `STT Info / ${x.publisher}`,
-        page: x.page, thumb: x.thumb, preview: x.preview, full: x.full, fallback: [x.fallback],
-        credit: credit + " / tiedotekuva", short: credit,
-        note: `Tiedotekuva tiedotteesta ”${x.release}” (${new Date(x.date).toLocaleDateString("fi-FI")}). Tiedotekuvia saa käyttää uutisoinnissa, joka liittyy tiedotteen aiheeseen, esim. ohjelmaan, tapahtumaan tai kirjaan. Ei mainoksiin.`,
-      });
-    });
-    return { items, more: d.more };
-  }
-
-  // ---------- Hulina's own photos from earlier stories ----------
-  let ownList;
-  async function omat(q, page) {
-    if (page > 1) return { items: [], more: false };
-    if (!ownList) {
-      ownList = fetch("/api/toimitus/jutut", { credentials: "same-origin" }).then(async (res) => {
-        if (res.status === 401) throw new Error(LOGIN);
-        if (!res.ok) throw new Error("Aiempia juttuja ei saatu haettua.");
-        return (await res.json()).jutut || [];
-      });
-      ownList.catch(() => (ownList = null));
-    }
-    const words = q.toLowerCase().split(/\s+/).filter((w) => w.length > 1);
-    const items = (await ownList).filter((j) => j.image && j.imageCredit && /^\/assets\/img\/uploads\//.test(j.image))
-      .filter((j) => { const t = `${j.title} ${j.aiheet} ${j.imageCredit}`.toLowerCase(); return words.every((w) => t.includes(w)); })
-      .map((j) => finish({
-        title: j.title, author: j.imageCredit, license: "Hulinan aiempi kuva", source: "Hulina", page: j.url,
-        thumb: j.image, preview: j.image, full: location.origin + j.image, credit: j.imageCredit, short: j.imageCredit,
-        note: "Kuva on jo käytetty Hulinan jutussa. Tarkista, että alkuperäinen käyttöoikeus kattaa myös uuden jutun.",
-        load: async () => { const r = await fetch(j.image); if (!r.ok) throw new Error("Kuvaa ei saatu haettua."); return r.blob(); },
-      }));
-    return { items, more: false };
-  }
-
   const SOURCES = {
-    all: { label: "Kaikki lähteet", parts: ["stt", "wiki", "ov", "finna", "omat"] },
-    stt: { label: "Tiedotekuvat (MTV, Nelonen, Yle ym.)", run: tiedotteet },
+    all: { label: "Kaikki lähteet", parts: ["wiki", "ov", "finna"] },
     wiki: { label: "Henkilö (Wikipedia / Commons)", run: wikiPerson },
     ov: { label: "Flickr, Commons ym. (Openverse)", run: openverse },
     flickr: { label: "Vain Flickr", run: (q, page) => openverse(q, page, "&source=flickr") },
     wc: { label: "Wikimedia Commons -haku", run: commons },
     finna: { label: "Finna (museot ja arkistot)", run: finna },
-    omat: { label: "Hulinan aiemmat kuvat", run: omat },
   };
 
   // One "page" of a source mix: every source that still has more, results interleaved.
@@ -294,13 +248,13 @@
     root.innerHTML = `
       <div class="kh__box">
         <div class="kh__head">
-          <div class="kh__row"><p class="kh__title">Kuvahaku</p><button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button></div>
+          <div class="kh__row"><p class="kh__title">Hae vapaasti käytettäviä kuvia</p><button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button></div>
           <form class="kh__row" data-kh="form">
             <input class="kh__q" type="search" placeholder="Esim. Sanna Marin, Linnan juhlat, Eurovision" aria-label="Hakusana" required>
             <select aria-label="Lähde">${Object.entries(SOURCES).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join("")}</select>
             <button class="kh__btn" type="submit">Hae</button>
           </form>
-          <p class="kh__note">Haku käy läpi tv-kanavien ja yritysten tiedotekuvat (STT Info), Wikipedian henkilökuvat, Wikimedia Commonsin, Flickrin, Finnan museokuvat ja Hulinan aiemmat kuvat. Avoimista kuvapankeista mukana vain kuvat, joiden lisenssi sallii käytön ja muokkauksen. Tekijä ja lisenssi lisätään kuvatekstiin automaattisesti. Henkilökuvia ei saa käyttää mainonnassa ilman kuvatun lupaa.</p>
+          <p class="kh__note">Haku käy läpi Wikipedian henkilökuvat, Wikimedia Commonsin, Flickrin (mm. valtioneuvosto ja EU-parlamentti) ja Finnan museo- ja arkistokuvat. Mukana vain kuvat, joiden lisenssi sallii käytön ja muokkauksen (CC0, CC BY, CC BY-SA, public domain). Tekijä ja lisenssi lisätään kuvatekstiin automaattisesti. Henkilökuvia ei saa käyttää mainonnassa ilman kuvatun lupaa.</p>
         </div>
         <div class="kh__body" data-kh="body"></div>
       </div>`;
@@ -361,7 +315,6 @@
           <div class="kh__acts">${state.actions.map((a, i) => `<button type="button" class="kh__btn" data-kh-act="${i}">${esc(a.label)}</button>`).join("")}
             <button type="button" class="kh__btn kh__btn--ghost" data-kh="back">← Takaisin</button></div>
           <p class="kh__err" data-kh="err"></p>
-          ${p.note ? `<p class="kh__note">${esc(p.note)}</p>` : ""}
           ${p.w && Math.max(p.w, p.h) < 900 ? `<p class="kh__note">Kuva on pieni (${p.w} px), joten se voi näyttää sumealta isona.</p>` : ""}
         </div>
       </div>`;
