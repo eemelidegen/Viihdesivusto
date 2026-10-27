@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: Toimituksen periaatteet
-description: Miten Hulina tekee juttunsa: lähteet, kuvat, yksityisyys ja korjaukset.
+description: "Miten Hulina tekee juttunsa: lähteet, kuvat, yksityisyys ja korjaukset."
 ---
 <div class="prose page">
 
