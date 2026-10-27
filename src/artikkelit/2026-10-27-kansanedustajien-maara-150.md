@@ -5,10 +5,10 @@ date: "2026-10-27T08:00:00.000Z"
 category: "politiikka"
 aiheet: "Eduskunta, Kansanedustajat, Säästöt"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
+image: "/assets/img/uploads/kansanedustajien-maara-150-ee0ec2.jpg"
+imageAlt: "Parliament building Finland"
+imageCredit: "Jyrki Kasvi / Wikimedia Commons, CC BY 2.5"
+imageLink: "https://commons.wikimedia.org/wiki/File:Parliament_building_Finland.jpg"
 draft: true
 ---
 
