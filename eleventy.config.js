@@ -7,6 +7,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/admin");
   // ads.txt: tells ad networks which accounts may sell ads on this site (Google AdSense)
   eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
+  eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
 
   const fiDate = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric" });
   const fiDateTime = new Intl.DateTimeFormat("fi-FI", {
