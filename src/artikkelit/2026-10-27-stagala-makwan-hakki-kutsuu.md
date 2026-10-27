@@ -2,13 +2,10 @@
 title: "Stagala piikitteli Makwan Amirkhania oikeudenkäynnin keskellä: ”Häkki kutsuu”"
 excerpt: "Stagala kommentoi Instagramissa Makwan Amirkhanin seksuaalirikosjuttua. Amirkhani kiistää syytteen."
 date: "2026-10-27T09:30:00.000Z"
-category: "kohut"
+category: "rikos"
 aiheet: "Stagala, Makwan Amirkhani, Mira Luoti"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
+imageFocus: "55% 48%"
 draft: true
 ---
 
