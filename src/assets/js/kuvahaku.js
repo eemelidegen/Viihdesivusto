@@ -175,6 +175,57 @@
     return { items, more: page * PER < (d.resultCount || 0) };
   }
 
+  // ---------- Illustration photos (CC0): StockSnap, WordPress Photo Directory, Nappy ----------
+  // These collections are tagged in English, so common Finnish words are translated first.
+  const FI_EN = {
+    sormus: "ring", kihlasormus: "engagement ring", kihlat: "engagement ring", kihlaus: "engagement", häät: "wedding", hääpari: "wedding couple",
+    hääpuku: "wedding dress", morsian: "bride", sulhanen: "groom", vihkisormus: "wedding ring", ero: "breakup", avioero: "divorce", riita: "argument",
+    rakkaus: "love", pari: "couple", pariskunta: "couple", suudelma: "kiss", pusu: "kiss", treffit: "date", sydän: "heart", sydänsuru: "heartbreak",
+    vauva: "baby", raskaus: "pregnancy", raskaana: "pregnant", lapsi: "child", lapset: "children", perhe: "family", koira: "dog", kissa: "cat",
+    koti: "home", talo: "house", omakotitalo: "house", asunto: "apartment", muutto: "moving boxes", piha: "garden", joulu: "christmas", joulukuusi: "christmas tree",
+    raha: "money", rahat: "money", setelit: "banknotes", velka: "debt", lasku: "bill", luksus: "luxury", auto: "car", urheiluauto: "sports car",
+    juhlat: "party", synttärit: "birthday party", syntymäpäivä: "birthday", kakku: "cake", samppanja: "champagne", kuohuviini: "champagne", drinkki: "cocktail",
+    gaala: "gala", "punainen matto": "red carpet", kamera: "camera", paparazzi: "paparazzi", mikrofoni: "microphone", lava: "stage", keikka: "concert",
+    konsertti: "concert", laulaja: "singer", musiikki: "music", kitara: "guitar", tanssi: "dance", tanssija: "dancer", baletti: "ballet", tv: "television",
+    televisio: "television", studio: "studio", podcast: "podcast", radio: "radio", kirja: "book", kirjat: "books", kirjamessut: "book fair",
+    puhelin: "smartphone", some: "social media", somekohu: "social media", instagram: "social media", tiktok: "smartphone video", kommentit: "comments",
+    nyrkkeily: "boxing", nyrkkeilijä: "boxer", kamppailu: "fighting", kuntosali: "gym", treeni: "workout", juoksu: "running", jalkapallo: "football",
+    jääkiekko: "ice hockey", rakennustyömaa: "construction site", raksa: "construction worker", työmaa: "construction site", maatila: "farm", lehmä: "cow",
+    traktori: "tractor", palju: "hot tub", sauna: "sauna", järvi: "lake", ranta: "beach", loma: "vacation", matka: "travel", lentokone: "airplane",
+    ruoka: "food", kokki: "chef", ravintola: "restaurant", kahvi: "coffee", kahvila: "cafe", vaatteet: "clothes", muoti: "fashion", meikki: "makeup",
+    hiukset: "hair", kampaamo: "hair salon", kauneus: "beauty", kirurgia: "cosmetic surgery", syöpä: "pink ribbon", "roosa nauha": "pink ribbon",
+    politiikka: "politics", vaalit: "election", äänestys: "voting", eduskunta: "parliament", kokous: "meeting", sopimus: "contract", oikeus: "courthouse",
+  };
+  function toEnglish(q) {
+    let t = " " + q.toLowerCase().trim() + " ";
+    for (const [fi, en] of Object.entries(FI_EN).sort((a, b) => b[0].length - a[0].length)) t = t.replace(new RegExp(`(?<=\\s)${fi}(?=\\s)`, "g"), en);
+    return t.trim();
+  }
+  const KUVITUS_NOTE = "Kuvituskuva: sopii jutun tunnelmakuvaksi, kun henkilöstä ei ole kuvaa. Kuvassa ei ole jutun henkilö, joten älä anna kuvatekstissä ymmärtää niin.";
+  async function kuvitus(q, page) {
+    const en = toEnglish(q);
+    const [stock, wiki] = await Promise.allSettled([stockPhotos(en, page), commons(en, page)]);
+    if (stock.status === "rejected" && wiki.status === "rejected") throw stock.reason;
+    const a = stock.value || { items: [], more: false }, b = wiki.value || { items: [], more: false };
+    b.items.forEach((p) => (p.note = KUVITUS_NOTE));
+    return { items: [...a.items, ...b.items], more: a.more || b.more };
+  }
+  async function stockPhotos(en, page) {
+    const d = await getJSON(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(en)}&source=stocksnap,wordpress,nappy&license_type=commercial,modification&page_size=${PER}&page=${page}`);
+    const host = /^https:\/\/(cdn\.stocksnap\.io|images\.rawpixel\.com|pd\.w\.org|images\.nappy\.co)\//;
+    const items = (d.results || []).filter((r) => host.test(r.url || "")).map((r) => finish({
+      title: strip(r.title) || "Kuvituskuva",
+      author: strip(r.creator) || strip(r.source_name || r.source),
+      license: licenseLabel(r.license, r.license_version),
+      source: ({ stocksnap: "StockSnap", rawpixel: "Rawpixel", wordpress: "WordPress Photo Directory", nappy: "Nappy" })[r.source] || strip(r.source),
+      page: r.foreign_landing_url || "",
+      w: r.width, h: r.height,
+      thumb: r.url, full: r.url,
+      note: KUVITUS_NOTE,
+    }));
+    return { items, more: page < (d.page_count || 1) };
+  }
+
   const SOURCES = {
     all: { label: "Kaikki lähteet", parts: ["wiki", "ov", "finna"] },
     wiki: { label: "Henkilö (Wikipedia / Commons)", run: wikiPerson },
@@ -182,6 +233,7 @@
     flickr: { label: "Vain Flickr", run: (q, page) => openverse(q, page, "&source=flickr") },
     wc: { label: "Wikimedia Commons -haku", run: commons },
     finna: { label: "Finna (museot ja arkistot)", run: finna },
+    kuvitus: { label: "Kuvituskuvat (sormus, häät, raha…)", run: kuvitus },
   };
 
   // One "page" of a source mix: every source that still has more, results interleaved.
@@ -315,6 +367,7 @@
           <div class="kh__acts">${state.actions.map((a, i) => `<button type="button" class="kh__btn" data-kh-act="${i}">${esc(a.label)}</button>`).join("")}
             <button type="button" class="kh__btn kh__btn--ghost" data-kh="back">← Takaisin</button></div>
           <p class="kh__err" data-kh="err"></p>
+          ${p.note ? `<p class="kh__note">${esc(p.note)}</p>` : ""}
           ${p.w && Math.max(p.w, p.h) < 900 ? `<p class="kh__note">Kuva on pieni (${p.w} px), joten se voi näyttää sumealta isona.</p>` : ""}
         </div>
       </div>`;
