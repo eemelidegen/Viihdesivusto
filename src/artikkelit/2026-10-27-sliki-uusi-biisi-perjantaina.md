@@ -42,7 +42,7 @@ Hänen mukaansa kaksikko suostui keikkaan lyhyellä varoitusajalla eikä tiennyt
 
 ## Biiffi Rekamin kanssa
 
-Kahden viikon päästä alkoi seuraava näytös. Slikin ja Korelonin yhteiskappaleella *Kaikki Kunnos* Sliki ampui rapper **Rekamia** kohti nimeä mainitsematta, mutta viittaukset olivat selvät: ”miksä menit häpäsee just koko KPC:n”.
+Kahden viikon päästä alkoi seuraava näytös. Slikin ja Korelonin yhteiskappaleella *Kaikki Kunnos* Sliki ampui räppäri **Rekamia** kohti nimeä mainitsematta, mutta viittaukset olivat selvät: ”miksä menit häpäsee just koko KPC:n”.
 
 Rekami vastasi samana päivänä kappaleella *Tajuutsä?*, jossa hän ei jättänyt arvailun varaan, kenelle puhuu. Biisi päättyy riveihin:
 
