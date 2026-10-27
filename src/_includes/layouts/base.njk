@@ -31,6 +31,23 @@
   <link rel="stylesheet" href="/assets/css/style.css?v={{ build.version }}">
   {% if site.adsense %}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense }}" crossorigin="anonymous"></script>{% endif %}
   {% block head %}{% endblock %}
+  {% if page.url == "/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "NewsMediaOrganization", "@id": "{{ site.url }}/#org", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}",
+        "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/icon-512.png' | absUrl(site.url) }}" },
+        "description": {{ site.description | dump | safe }},
+        "publishingPrinciples": "{{ '/periaatteet/' | absUrl(site.url) }}",
+        "correctionsPolicy": "{{ '/periaatteet/' | absUrl(site.url) }}",
+        "sameAs": [{% for s in site.social %}"{{ s.url }}"{% if not loop.last %}, {% endif %}{% endfor %}] },
+      { "@type": "WebSite", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}", "inLanguage": "fi", "publisher": { "@id": "{{ site.url }}/#org" },
+        "potentialAction": { "@type": "SearchAction", "target": "{{ site.url }}/haku/?q={q}", "query-input": "required name=q" } }
+    ]
+  }
+  </script>
+  {% endif %}
 </head>
 <body>
   <a class="skip" href="#main">Siirry sisältöön</a>
@@ -73,6 +90,7 @@
       <div>
         {% set logoClass = "logo--small" %}{% include "partials/logo.njk" %}
         <p>{{ site.description }}</p>
+        {% if site.social.length %}<p class="footer__social">Seuraa Hulinaa: {% for s in site.social %}<a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
         <p class="footer__principles">Hulina noudattaa työssään <a href="/periaatteet/">toimituksen periaatteita</a>. Virheet korjataan, ja korjauksista kerrotaan jutussa.</p>
       </div>
       <div>

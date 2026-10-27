@@ -8,6 +8,11 @@ export default {
   "lang": "fi",
   "email": "",
   "publisher": "Hulina",
+  // Official social media accounts (footer links and structured data)
+  "social": [
+    { "name": "TikTok", "url": "https://www.tiktok.com/@hulinanet" },
+    { "name": "Instagram", "url": "https://www.instagram.com/hulinanet/" }
+  ],
   // Google AdSense publisher ID (public, also listed in ads.txt)
   "adsense": "ca-pub-4612798370547578",
   "categories": [

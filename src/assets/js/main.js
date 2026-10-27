@@ -356,3 +356,20 @@ if (cBox) {
     await load().catch(() => { cBox.hidden = true; });
   });
 }
+
+// Tip / correction form
+const tipForm = document.getElementById("tipForm");
+if (tipForm) {
+  const story = new URLSearchParams(location.search).get("juttu");
+  if (story) { tipForm.juttu.value = story; tipForm.teksti.placeholder = "Mikä jutussa on väärin? Kerro myös, mistä oikea tieto löytyy."; }
+  tipForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = tipForm.querySelector(".tip__err"), btn = tipForm.querySelector("button[type=submit]");
+    if (tipForm.teksti.value.trim().length < 10) { err.textContent = "Kirjoita vinkkiin vähän enemmän."; tipForm.teksti.focus(); return; }
+    err.textContent = ""; btn.disabled = true;
+    try {
+      await accApi("vinkki", Object.fromEntries(new FormData(tipForm)));
+      tipForm.hidden = true; document.getElementById("tipDone").hidden = false;
+    } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; }
+  });
+}

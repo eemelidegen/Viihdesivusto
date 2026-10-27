@@ -23,9 +23,22 @@ layout: layouts/base.njk
   </div>
   <aside class="sidebar" aria-label="Luetuimmat">
     <h2 class="block-title">Luetuimmat</h2>
+    {% set picks = all | nostot | alku(6) %}
     <ol class="side-list side-list--num">
-      {% for item in all | nostot | alku(6) %}{% include "partials/side-item.njk" %}{% endfor %}
+      {% for item in picks %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
+    <section class="side-box side-box--tip">
+      <h2>Tiedätkö jotain, mitä me emme?</h2>
+      <p>Lähetä juttuvinkki toimitukselle. Kaikki vinkit luetaan, ja voit vinkata myös nimettömänä.</p>
+      <a class="side-box__btn" href="/vinkkaa/">Vinkkaa juttuaihe</a>
+    </section>
+    {% if site.social.length %}
+    <section class="side-box">
+      <h2>Seuraa Hulinaa</h2>
+      <p>Uusimmat kohut ja puheenaiheet myös somessa.</p>
+      <ul class="side-box__social">{% for s in site.social %}<li><a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }} <span>@hulinanet</span></a></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
   </aside>
 </div>
 

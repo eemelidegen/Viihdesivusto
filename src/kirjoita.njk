@@ -162,6 +162,7 @@ eleventyExcludeFromCollections: true
         <button type="button" role="tab" aria-selected="true" data-view="editor">Kirjoita</button>
         <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>
         <button type="button" role="tab" aria-selected="false" data-view="mod">Kommentit</button>
+        <button type="button" role="tab" aria-selected="false" data-view="tips">Vinkit</button>
       </div>
       <div class="right">
         <a class="link" href="/admin/somekuva/">Somekuva</a>
@@ -294,6 +295,11 @@ eleventyExcludeFromCollections: true
           </article>
         </aside>
       </div>
+    </section>
+
+    <section id="view-tips" hidden>
+      <p class="stats" id="tipStats"></p>
+      <div class="list" id="tipList"></div>
     </section>
 
     <section id="view-mod" hidden>
@@ -862,12 +868,38 @@ $("modList").addEventListener("click", async (e) => {
   try { await api("kommentit", { id: Number(b.dataset.id), toiminto: act }); loadMod(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
 });
 
+// ---------- Readers' tips ----------
+async function loadTips() {
+  const box = $("tipList"); box.innerHTML = '<div class="empty2">Ladataan vinkkejä…</div>';
+  try {
+    const r = await api("vinkit");
+    if (!r.kaytossa) { $("tipStats").textContent = ""; box.innerHTML = '<div class="empty2">Vinkit tarvitsevat D1-tietokannan (sama kuin kommenteilla).</div>'; return; }
+    const fresh = r.vinkit.filter((t) => t.status === "new").length;
+    $("tipStats").textContent = `${r.vinkit.length} vinkkiä · ${fresh} lukematta`;
+    if (!r.vinkit.length) { box.innerHTML = '<div class="empty2">Ei vielä vinkkejä. Lukijat lähettävät niitä sivulta hulina.net/vinkkaa.</div>'; return; }
+    box.innerHTML = r.vinkit.map((t) => `<div class="mod${t.status === "new" ? " mod--review" : ""}">
+      <div class="mod__head"><b>${t.status === "new" ? "Uusi vinkki" : "Luettu"}</b><span>${fiDateTime.format(new Date(t.created))}</span>${t.story ? `<span>Koskee: ${esc(t.story)}</span>` : ""}${t.contact ? `<span>Yhteystieto: ${esc(t.contact)}</span>` : "<span>Nimetön</span>"}</div>
+      <p class="mod__body">${esc(t.body)}</p>
+      <div class="item__actions">
+        <button type="button"${t.status === "new" ? ' class="primary"' : ""} data-tip="${t.status === "new" ? "luettu" : "uusi"}" data-id="${t.id}">${t.status === "new" ? "Merkitse luetuksi" : "Merkitse lukemattomaksi"}</button>
+        <button type="button" class="danger" data-tip="poista" data-id="${t.id}">Poista</button>
+      </div></div>`).join("");
+  } catch (e) { if (e.message !== "login") box.innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+}
+$("tipList").addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-tip]"); if (!b) return;
+  if (b.dataset.tip === "poista" && !confirm("Poistetaanko vinkki pysyvästi?")) return;
+  b.disabled = true;
+  try { await api("vinkit", { id: Number(b.dataset.id), toiminto: b.dataset.tip }); loadTips(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
+});
+
 // ---------- Views ----------
 function switchView(v) {
   document.querySelectorAll(".tabs2 button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === v)));
-  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("view-mod").hidden = v !== "mod"; $("bar").hidden = v !== "editor";
+  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("view-mod").hidden = v !== "mod"; $("view-tips").hidden = v !== "tips"; $("bar").hidden = v !== "editor";
   if (v === "list") loadList();
   if (v === "mod") loadMod();
+  if (v === "tips") loadTips();
 }
 document.querySelector(".tabs2").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) switchView(b.dataset.view); });
 addEventListener("beforeunload", (e) => { if (dirty) { persist(); } });

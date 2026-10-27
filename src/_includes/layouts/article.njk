@@ -55,11 +55,18 @@ layout: layouts/base.njk
     <div class="comments__form"></div>
     <ol class="comments__list"></ol>
   </section>
-  <p class="article__foot">Huomasitko virheen? <a href="/vinkkaa/">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
+  <p class="article__foot">Huomasitko virheen? <a href="/vinkkaa/?juttu={{ title | urlencode }}">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
   {% set topics = aiheet | aiheLista %}
   {% if topics.length %}
   <p class="topics" aria-label="Aiheet">{% for a in topics %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}</p>
   {% endif %}
+  <aside class="newsroom" aria-label="Tietoa toimituksesta">
+    <img src="/assets/img/icon-192.png" alt="" width="48" height="48" loading="lazy">
+    <div>
+      <p class="newsroom__name">Hulinan toimitus</p>
+      <p>Hulina on suomalainen viihdemedia. Juttumme perustuvat lähteisiin, ja virheet korjataan avoimesti. <a href="/periaatteet/">Näin työskentelemme</a> · <a href="/vinkkaa/">Lähetä juttuvinkki</a></p>
+    </div>
+  </aside>
   {% set shareUrl = page.url | absUrl(site.url) %}
   <footer class="share" aria-label="Jaa juttu">
     <span class="share__label">Jaa juttu</span>
@@ -100,8 +107,8 @@ layout: layouts/base.njk
   "mainEntityOfPage": "{{ page.url | absUrl(site.url) }}",
   "articleSection": {{ cat.name | dump | safe }},
   "keywords": {{ (aiheet or "") | dump | safe }},
-  "author": { "@type": "Person", "name": {{ (author or "Toimitus") | dump | safe }} },
-  "publisher": { "@type": "Organization", "name": {{ site.name | dump | safe }}, "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/icon-512.png' | absUrl(site.url) }}" } },
+  {% if author and author != "Toimitus" %}"author": { "@type": "Person", "name": {{ author | dump | safe }} },{% else %}"author": { "@type": "Organization", "name": "Hulinan toimitus", "url": "{{ '/tietoa/' | absUrl(site.url) }}" },{% endif %}
+  "publisher": { "@type": "NewsMediaOrganization", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}", "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/icon-512.png' | absUrl(site.url) }}" } },
   "image": [{% if image %}"{{ image | absUrl(site.url) }}", {% endif %}"{{ ('/og/' + page.fileSlug + '.png') | absUrl(site.url) }}"]
 }
 </script>
