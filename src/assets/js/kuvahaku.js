@@ -105,7 +105,8 @@
     const pages = Object.values(d.query?.pages || {}).sort((a, b) => a.index - b.index);
     return { items: commonsItems(pages), more: !!d.continue };
   }
-  const commons = (q, page) => commonsSearch(q + " filetype:bitmap", page);
+  const phrase = (q) => (/\s/.test(q.trim()) && !/"/.test(q) ? `"${q.trim()}"` : q.trim());
+  const commons = (q, page) => commonsSearch(phrase(q) + " filetype:bitmap", page);
 
   // ---------- Person: Wikidata finds the person, their Commons category holds the photos ----------
   const people = new Map();
@@ -122,15 +123,8 @@
         const val = (k) => (c[k] || []).map((x) => x.mainsnak?.datavalue?.value).filter(Boolean);
         const cat = val("P373")[0], img = val("P18");
         if (!cat && !img.length) continue;
-        let cats = [];
-        if (cat) {
-          // Photos are often sorted into sub-categories ("Sanna Marin in 2022"); include one level.
-          const sub = await wmFetch({ list: "categorymembers", cmtitle: "Category:" + cat, cmtype: "subcat", cmlimit: "40" }).catch(() => ({}));
-          cats = [cat, ...(sub.query?.categorymembers || []).map((x) => x.title.replace(/^Category:/, ""))
-            .filter((t) => !/\b(signatures?|logos?|maps?|graves?|videos?|audio|drawings?|caricatures?)\b/i.test(t))].slice(0, 25);
-        }
         const name = ent.entities[id].labels?.fi?.value || ent.entities[id].labels?.en?.value || q;
-        return { name, cats, img };
+        return { name, cat, img };
       }
       return null;
     })();
@@ -142,21 +136,28 @@
     const who = await person(q);
     if (!who) return { items: [], more: false };
     const tasks = [];
-    if (page === 1 && who.img.length) tasks.push(wmFetch({ titles: who.img.slice(0, 5).map((f) => "File:" + f).join("|"), ...II }).then((d) => ({ items: commonsItems(Object.values(d.query?.pages || {})), more: false })));
-    if (who.cats.length) tasks.push(commonsSearch("filetype:bitmap incategory:" + who.cats.map((c) => c.replace(/[\s"]+/g, "_")).join("|"), page));
+    if (page === 1 && who.img.length) tasks.push(wmFetch({ titles: who.img.slice(0, 5).map((f) => "File:" + f).join("|"), ...II }).then((d) => ({ items: commonsItems(Object.values(d.query?.pages || {})), more: false })).catch(() => ({ items: [], more: false })));
+    // deepcat covers the person's category and its sub-categories (by year, portraits, events…)
+    if (who.cat) {
+      const cat = who.cat.replace(/"/g, "");
+      tasks.push(commonsSearch(`filetype:bitmap deepcat:"${cat}"`, page).catch(() => commonsSearch(`filetype:bitmap incategory:"${cat}"`, page)));
+    }
     const res = await Promise.all(tasks);
     return { items: res.flatMap((r) => r.items), more: res.some((r) => r.more), who: who.name };
   }
 
   // ---------- Finna: Finnish museums and archives (Museovirasto, kaupunginmuseot…) ----------
   async function finna(q, page) {
-    const params = new URLSearchParams({ lookfor: q, type: "AllFields", limit: String(PER), page: String(page) });
+    const params = new URLSearchParams({ lookfor: phrase(q), type: "AllFields", limit: String(PER), page: String(page) });
+    const words = q.toLowerCase().split(/\s+/).filter((w) => w.length > 1);
     ["~usage_rights_str_mv:\"usage_A\"", "~usage_rights_str_mv:\"usage_B\"", "format:\"0/Image/\""].forEach((f) => params.append("filter[]", f));
     ["id", "title", "year", "images", "imageRights", "nonPresenterAuthors", "buildings"].forEach((f) => params.append("field[]", f));
     const d = await getJSON("https://api.finna.fi/v1/search?" + params);
     const items = (d.records || []).map((r) => {
       const rights = String(r.imageRights?.copyright || "");
       if (!r.images?.length || /\b(nc|nd)\b/i.test(rights) || !/cc|public|pdm|vapaa/i.test(rights)) return null;
+      const title = String(r.title || "").toLowerCase();
+      if (!words.every((w) => title.includes(w.slice(0, Math.max(3, w.length - 2))))) return null;
       const img = "https://api.finna.fi" + r.images[0];
       const org = r.buildings?.[0]?.translated || "Finna";
       const who = (r.nonPresenterAuthors || []).map((a) => String(a.name || "").replace(/^([^,]+),\s*(.+)$/, "$2 $1")).filter(Boolean)[0];
@@ -227,7 +228,7 @@
   }
 
   const SOURCES = {
-    all: { label: "Kaikki lähteet", parts: ["wiki", "ov", "finna"] },
+    all: { label: "Kaikki lähteet", parts: ["wiki", "wc", "finna"] },
     wiki: { label: "Henkilö (Wikipedia / Commons)", run: wikiPerson },
     ov: { label: "Flickr, Commons ym. (Openverse)", run: openverse },
     flickr: { label: "Vain Flickr", run: (q, page) => openverse(q, page, "&source=flickr") },
@@ -238,13 +239,13 @@
 
   const SHORT = { all: "Kaikki", wiki: "Henkilö", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
   const NAME = { wiki: "Wikipedia", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
-  const TIMEOUT = 12000;
+  const TIMEOUT = 12000, SLOW = { ov: 25000, flickr: 25000, kuvitus: 25000 };
   const cache = new Map();
   // Each source page is fetched once per session; slow sources give up after TIMEOUT.
   function runSource(k, q, page) {
     const key = `${k}|${q.toLowerCase()}|${page}`;
     if (!cache.has(key)) {
-      const job = Promise.race([SOURCES[k].run(q, page), new Promise((_, no) => setTimeout(() => no(new Error("ei vastannut ajoissa")), TIMEOUT))]);
+      const job = Promise.race([SOURCES[k].run(q, page), new Promise((_, no) => setTimeout(() => no(new Error("ei vastannut ajoissa")), SLOW[k] || TIMEOUT))]);
       cache.set(key, job); job.catch(() => cache.delete(key));
     }
     return cache.get(key);
