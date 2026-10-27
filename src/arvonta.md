@@ -1,13 +1,13 @@
 ---
 layout: layouts/base.njk
 title: Arvonnan säännöt
-description: Hulinan TikTok-arvonnan säännöt – palkintona Apple AirPods -kuulokkeet.
+description: Hulinan TikTok-arvonnan säännöt – palkintona Apple AirPods 5 -kuulokkeet.
 ---
 <div class="prose page">
 
 # Arvonnan säännöt
 
-Hulina arpoo TikTokissa ja Instagramissa yhdet Apple AirPods -langattomat kuulokkeet. Osallistuminen on maksutonta, eikä se edellytä ostoksia.
+Hulina arpoo TikTokissa ja Instagramissa yhdet Apple AirPods 5 -langattomat kuulokkeet. Osallistuminen on maksutonta, eikä se edellytä ostoksia.
 
 ## Järjestäjä
 
@@ -30,7 +30,7 @@ Arvontaan voivat osallistua Suomessa asuvat, 18 vuotta täyttäneet henkilöt.
 
 ## Palkinto ja arvonta
 
-Palkintona on yhdet Apple AirPods -langattomat kuulokkeet latauskotelolla. Palkintoa ei voi vaihtaa rahaksi tai muuksi tuotteeksi.
+Palkintona on yhdet Apple AirPods 5 -langattomat kuulokkeet latauskotelolla. Palkintoa ei voi vaihtaa rahaksi tai muuksi tuotteeksi.
 
 Voittaja arvotaan satunnaisesti kaikkien sääntöjen mukaisesti osallistuneiden kesken 9.11.2026. Voittajalle ilmoitetaan TikTokissa tai Instagramissa vastaamalla hänen kommenttiinsa tai yksityisviestillä Hulinan virallisilta tileiltä (@hulinanet). Hulina ei koskaan pyydä voittajalta maksua, pankkitunnuksia tai korttitietoja.
 
