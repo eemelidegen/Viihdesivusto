@@ -19,9 +19,10 @@ Arvontaan voi osallistua 27.10.2026–8.11.2026 klo 23.59 (Suomen aikaa).
 
 ## Näin osallistut
 
-Kommentoi Hulinan TikTok-tilin arvontavideoon vastauksesi kysymykseen: *Mikä on syksyn kovin kohu?*
+1. Seuraa Hulinan TikTok-tiliä.
+2. Kommentoi Hulinan TikTok-tilin arvontavideoon.
 
-Jokainen henkilö voi osallistua kerran. Useammat kommentit tai useammalla tilillä osallistuminen eivät lisää voittomahdollisuutta, ja järjestäjä voi hylätä tällaiset osallistumiset. Asiattomat tai loukkaavat kommentit eivät osallistu arvontaan.
+Molemmat ehdot on täytettävä arvonnan päättymiseen mennessä. Jokainen henkilö voi osallistua kerran. Useammat kommentit tai useammalla tilillä osallistuminen eivät lisää voittomahdollisuutta, ja järjestäjä voi hylätä tällaiset osallistumiset. Asiattomat tai loukkaavat kommentit eivät osallistu arvontaan.
 
 ## Kuka voi osallistua
 
@@ -29,7 +30,7 @@ Arvontaan voivat osallistua Suomessa asuvat, 18 vuotta täyttäneet henkilöt.
 
 ## Palkinto ja arvonta
 
-Palkintona on yhdet Apple AirPods -langattomat kuulokkeet. Palkintoa ei voi vaihtaa rahaksi tai muuksi tuotteeksi.
+Palkintona on yhdet Apple AirPods -langattomat kuulokkeet latauskotelolla. Palkintoa ei voi vaihtaa rahaksi tai muuksi tuotteeksi.
 
 Voittaja arvotaan satunnaisesti kaikkien sääntöjen mukaisesti osallistuneiden kesken 9.11.2026. Voittajalle ilmoitetaan TikTokissa vastaamalla hänen kommenttiinsa tai yksityisviestillä. Hulina ei koskaan pyydä voittajalta maksua, pankkitunnuksia tai korttitietoja.
 
