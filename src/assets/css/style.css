@@ -2,6 +2,12 @@
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 600; font-display: swap; src: url("/assets/fonts/league-spartan-600.woff2") format("woff2"); }
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/league-spartan-700.woff2") format("woff2"); }
 @font-face { font-family: "League Spartan"; font-style: normal; font-weight: 800; font-display: swap; src: url("/assets/fonts/league-spartan-800.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("/assets/fonts/open-sans-italic-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("/assets/fonts/open-sans-italic-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("/assets/fonts/open-sans-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("/assets/fonts/open-sans-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Roboto Condensed"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("/assets/fonts/roboto-condensed-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Roboto Condensed"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("/assets/fonts/roboto-condensed-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
   color-scheme: light;
@@ -21,9 +27,9 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, .12);
   --radius: 14px;
   --max: 1180px;
-  --headline: "League Spartan", "Arial Black", system-ui, sans-serif;
-  --display: "League Spartan", Arial, system-ui, sans-serif;
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headline: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  --display: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  --font: "Open Sans", Arial, system-ui, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
 }
 /* Dark theme, chosen from the menu (stored in the browser) */
@@ -160,7 +166,7 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .article__media .placeholder { aspect-ratio: 16 / 9; }
 .article__media figcaption { color: var(--muted); font-size: 13px; margin-top: 6px; }
 .article__media figcaption a { color: inherit; }
-.prose { font: 19px/1.7 var(--serif); }
+.prose { font: 18px/1.7 var(--font); }
 .prose h1, .prose h2, .prose h3 { font-family: var(--headline); font-weight: 800; line-height: 1.15; }
 .prose blockquote { margin: 24px 0; padding-left: 18px; border-left: 5px solid var(--pink); font-style: italic; }
 .prose a { color: var(--link); }
@@ -275,7 +281,7 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
   .card--lead .card__figure .pill { font-size: 15px; left: 10px; bottom: 10px; }
   .side-item { grid-template-columns: 96px 1fr; }
   .side-item__title { font-size: 17px; }
-  .prose { font-size: 18px; }
+  .prose { font-size: 17px; }
   .next-story { grid-template-columns: 100px 1fr; gap: 12px; padding: 12px; }
   .next-story__title { font-size: 17px; }
 }
@@ -515,3 +521,8 @@ main.wrap { padding-top: 20px; }
 .nav .nav__list { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 @media (max-width: 640px) { .nav .nav__list { padding: 0 16px; } }
 @media (min-width: 641px) { .page-head + .hero .hero__media { aspect-ratio: 21 / 9; } }
+
+/* Condensed news headlines (Roboto Condensed) read best a little lighter and without tightening */
+.card__title, .hero__title, .article__head h1, .page-head h1, .empty h1, .block-title, .section__title, .side-item__title,
+.read-also__title, .next-story__title, .box__title, .comments__title, .account h1, .prose h1, .prose h2, .prose h3 { font-weight: 700; letter-spacing: 0; }
+.side-list--num .side-item::before { font-weight: 700; }
