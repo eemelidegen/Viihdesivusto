@@ -200,7 +200,7 @@ eleventyExcludeFromCollections: true
               <b>Lisää kuva</b>
               <span>Napauta, vedä kuva tähän tai liitä (Ctrl+V)</span>
             </div>
-            <button type="button" class="find2" id="imgSearch">Hae vapaasti käytettävä kuva <small>Wikimedia Commons, Flickr ym. – lähde merkitään automaattisesti</small></button>
+            <button type="button" class="find2" id="imgSearch">Hae kuva <small>Tiedotekuvat (MTV, Nelonen, Yle ym.), Wikipedia, Commons, Flickr, Finna – lähde merkitään automaattisesti</small></button>
             <div id="imgbox" class="imgbox focus-wrap" hidden title="Napauta kohtaa, joka ei saa rajautua pois (esim. kasvot)">
               <img id="imgPreview" alt="">
               <span class="focus-dot" id="focusDot"></span>
@@ -209,7 +209,12 @@ eleventyExcludeFromCollections: true
             <input id="file" type="file" accept="image/*" hidden>
             <p class="hint2" id="focusHint" hidden>Napauta kuvasta kohtaa, joka on tärkein (esim. kasvot). Etusivun rajaukset keskittyvät siihen.</p>
             <label class="f">Kuvaaja / lähde <small>Esim. MTV / Tiedotekuva tai oma nimesi</small>
-              <input id="imageCredit" type="text" maxlength="120">
+              <input id="imageCredit" type="text" maxlength="120" list="creditList">
+              <datalist id="creditList">
+                <option value="MTV / tiedotekuva"><option value="Nelonen Media / tiedotekuva"><option value="Yle / tiedotekuva">
+                <option value="Sub / tiedotekuva"><option value="Netflix / tiedotekuva"><option value="HBO Max / tiedotekuva">
+                <option value="Hulina"><option value="Hulinan grafiikka">
+              </datalist>
             </label>
             <label class="f">Mitä kuvassa on? <small>Lyhyt kuvaus näkövammaisille ja Googlelle</small>
               <input id="imageAlt" type="text" maxlength="300">
