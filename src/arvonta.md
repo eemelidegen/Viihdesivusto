@@ -46,6 +46,6 @@ Voittajalta pyydetään nimi ja postiosoite ainoastaan palkinnon toimittamista v
 
 ## Kysymykset
 
-Arvontaan liittyvät kysymykset voi lähettää [yhteydenottolomakkeella](/vinkkaa/).
+Arvontaan liittyvät kysymykset voi lähettää [yhteydenottolomakkeella](/ota-yhteytta/).
 
 </div>

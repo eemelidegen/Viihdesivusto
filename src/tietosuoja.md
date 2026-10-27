@@ -18,7 +18,7 @@ description: Miten Hulina käsittelee henkilötietoja.
 
 **Sivuston käyttö.** Kun luet sivustoa, palvelimelle tallentuu teknisiä tietoja, kuten IP-osoite, selain ja avattu sivu. Niitä käytetään vain sivuston toiminnan ja tietoturvan varmistamiseen. Peruste: oikeutettu etu.
 
-**Vinkit ja yhteydenotot.** Jos lähetät meille vinkin tai viestin, käsittelemme yhteystietojasi ja viestisi sisältöä asian hoitamiseksi. Peruste: oikeutettu etu ja journalistinen tarkoitus.
+**Yhteydenotot.** Jos lähetät meille viestin, käsittelemme yhteystietojasi ja viestisi sisältöä asian hoitamiseksi. Peruste: oikeutettu etu ja journalistinen tarkoitus.
 
 **Käyttäjätili ja kommentit.** Jos luot tilin, tallennamme nimimerkkisi, salasanastasi tehdyn tiivisteen (itse salasanaa ei tallenneta), tilin luontiajan sekä kirjoittamasi kommentit ja niiden ajat. Kirjautuminen tallentaa selaimeesi välttämättömän evästeen, joka pitää sinut kirjautuneena enintään 60 päivää. Kommentit ja nimimerkkisi näkyvät kaikille sivuston lukijoille. Tietoja käytetään kommentoinnin mahdollistamiseen, kommenttien valvontaan ja väärinkäytösten estämiseen. Peruste: sopimus (käyttöehdot) ja oikeutettu etu. Voit poistaa tilisi ja kaikki kommenttisi milloin tahansa [Oma tili](/tili/) -sivulla.
 
@@ -34,7 +34,7 @@ Emme myy tai luovuta tietoja eteenpäin. Sivuston palvelimista vastaa Cloudflare
 
 ## Säilytys
 
-Tekniset tiedot säilyvät enintään muutamia viikkoja. Mainosevästeiden säilytysajat kerrotaan suostumusikkunassa, ja voit poistaa evästeet myös selaimesi asetuksista. Vinkit ja viestit säilytetään niin kauan kuin asian käsittely vaatii. Tilin ja kommenttien tiedot säilyvät, kunnes poistat tilisi tai poistamme sen sääntörikkomuksen vuoksi.
+Tekniset tiedot säilyvät enintään muutamia viikkoja. Mainosevästeiden säilytysajat kerrotaan suostumusikkunassa, ja voit poistaa evästeet myös selaimesi asetuksista. Viestit säilytetään niin kauan kuin asian käsittely vaatii. Tilin ja kommenttien tiedot säilyvät, kunnes poistat tilisi tai poistamme sen sääntörikkomuksen vuoksi.
 
 ## Oikeutesi
 
@@ -42,6 +42,6 @@ Voit pyytää nähdä tietosi, korjata tai poistaa ne, rajoittaa niiden käsitte
 
 ## Journalistinen toiminta
 
-{{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan kaikkia tietosuojasääntöjä ei sovelleta journalistiseen työhön, joten esimerkiksi julkaistuja juttuja ei välttämättä poisteta pyynnöstä. Virheet korjataan aina. Emme kerro vinkkaajan henkilöllisyyttä ilman lupaa.
+{{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan kaikkia tietosuojasääntöjä ei sovelleta journalistiseen työhön, joten esimerkiksi julkaistuja juttuja ei välttämättä poisteta pyynnöstä. Virheet korjataan aina. Emme kerro yhteydenottajan henkilöllisyyttä ilman lupaa.
 
 </div>

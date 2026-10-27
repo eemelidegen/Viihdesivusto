@@ -55,7 +55,7 @@ layout: layouts/base.njk
     <div class="comments__form"></div>
     <ol class="comments__list"></ol>
   </section>
-  <p class="article__foot">Huomasitko virheen? <a href="/vinkkaa/?juttu={{ title | urlencode }}">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
+  <p class="article__foot">Huomasitko virheen? <a href="/ota-yhteytta/?juttu={{ title | urlencode }}">Ilmoita siitä toimitukselle</a> · <a href="/periaatteet/">Toimituksen periaatteet</a></p>
   {% set topics = aiheet | aiheLista %}
   {% if topics.length %}
   <p class="topics" aria-label="Aiheet">{% for a in topics %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}</p>
@@ -64,7 +64,7 @@ layout: layouts/base.njk
     <img src="/assets/img/icon-192.png" alt="" width="48" height="48" loading="lazy">
     <div>
       <p class="newsroom__name">Hulinan toimitus</p>
-      <p>Hulina on suomalainen viihdemedia. Juttumme perustuvat lähteisiin, ja virheet korjataan avoimesti. <a href="/periaatteet/">Näin työskentelemme</a> · <a href="/vinkkaa/">Lähetä juttuvinkki</a></p>
+      <p>Hulina on suomalainen viihdemedia. Juttumme perustuvat lähteisiin, ja virheet korjataan avoimesti. <a href="/periaatteet/">Näin työskentelemme</a></p>
     </div>
   </aside>
   {% set shareUrl = page.url | absUrl(site.url) %}

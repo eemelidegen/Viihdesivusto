@@ -25,7 +25,7 @@ Käytämme vain kuvia, joihin meillä on oikeus: tiedotekuvia, lisensoituja ja v
 
 ## Virheet korjataan
 
-Virhe korjataan heti, kun se huomataan, ja olennaisesta korjauksesta kerrotaan jutussa. Virheestä voi ilmoittaa [yhteydenottolomakkeella](/vinkkaa/).
+Virhe korjataan heti, kun se huomataan, ja olennaisesta korjauksesta kerrotaan jutussa. Virheestä voi ilmoittaa [yhteydenottolomakkeella](/ota-yhteytta/).
 
 ## Mainonta
 

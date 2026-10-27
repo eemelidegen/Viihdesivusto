@@ -162,7 +162,7 @@ eleventyExcludeFromCollections: true
         <button type="button" role="tab" aria-selected="true" data-view="editor">Kirjoita</button>
         <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>
         <button type="button" role="tab" aria-selected="false" data-view="mod">Kommentit</button>
-        <button type="button" role="tab" aria-selected="false" data-view="tips">Vinkit</button>
+        <button type="button" role="tab" aria-selected="false" data-view="tips">Viestit</button>
       </div>
       <div class="right">
         <a class="link" href="/admin/somekuva/">Somekuva</a>
@@ -870,15 +870,15 @@ $("modList").addEventListener("click", async (e) => {
 
 // ---------- Readers' tips ----------
 async function loadTips() {
-  const box = $("tipList"); box.innerHTML = '<div class="empty2">Ladataan vinkkejä…</div>';
+  const box = $("tipList"); box.innerHTML = '<div class="empty2">Ladataan viestejä…</div>';
   try {
     const r = await api("vinkit");
-    if (!r.kaytossa) { $("tipStats").textContent = ""; box.innerHTML = '<div class="empty2">Vinkit tarvitsevat D1-tietokannan (sama kuin kommenteilla).</div>'; return; }
+    if (!r.kaytossa) { $("tipStats").textContent = ""; box.innerHTML = '<div class="empty2">Viestit tarvitsevat D1-tietokannan (sama kuin kommenteilla).</div>'; return; }
     const fresh = r.vinkit.filter((t) => t.status === "new").length;
-    $("tipStats").textContent = `${r.vinkit.length} vinkkiä · ${fresh} lukematta`;
-    if (!r.vinkit.length) { box.innerHTML = '<div class="empty2">Ei vielä vinkkejä. Lukijat lähettävät niitä sivulta hulina.net/vinkkaa.</div>'; return; }
+    $("tipStats").textContent = `${r.vinkit.length} viestiä · ${fresh} lukematta`;
+    if (!r.vinkit.length) { box.innerHTML = '<div class="empty2">Ei vielä viestejä. Lukijat lähettävät niitä sivulta hulina.net/ota-yhteytta.</div>'; return; }
     box.innerHTML = r.vinkit.map((t) => `<div class="mod${t.status === "new" ? " mod--review" : ""}">
-      <div class="mod__head"><b>${t.status === "new" ? "Uusi vinkki" : "Luettu"}</b><span>${fiDateTime.format(new Date(t.created))}</span>${t.story ? `<span>Koskee: ${esc(t.story)}</span>` : ""}${t.contact ? `<span>Yhteystieto: ${esc(t.contact)}</span>` : "<span>Nimetön</span>"}</div>
+      <div class="mod__head"><b>${t.status === "new" ? "Uusi viesti" : "Luettu"}</b><span>${fiDateTime.format(new Date(t.created))}</span>${t.story ? `<span>Koskee: ${esc(t.story)}</span>` : ""}${t.contact ? `<span>Yhteystieto: ${esc(t.contact)}</span>` : "<span>Nimetön</span>"}</div>
       <p class="mod__body">${esc(t.body)}</p>
       <div class="item__actions">
         <button type="button"${t.status === "new" ? ' class="primary"' : ""} data-tip="${t.status === "new" ? "luettu" : "uusi"}" data-id="${t.id}">${t.status === "new" ? "Merkitse luetuksi" : "Merkitse lukemattomaksi"}</button>
@@ -888,7 +888,7 @@ async function loadTips() {
 }
 $("tipList").addEventListener("click", async (e) => {
   const b = e.target.closest("[data-tip]"); if (!b) return;
-  if (b.dataset.tip === "poista" && !confirm("Poistetaanko vinkki pysyvästi?")) return;
+  if (b.dataset.tip === "poista" && !confirm("Poistetaanko viesti pysyvästi?")) return;
   b.disabled = true;
   try { await api("vinkit", { id: Number(b.dataset.id), toiminto: b.dataset.tip }); loadTips(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
 });

@@ -11,11 +11,9 @@ Hulina on suomalainen viihdemedia. Kerromme, mistä Suomi puhuu: julkkiksista, t
 
 Teemme juttuja nopeasti, mutta emme oikopolkuja pitkin. Jokainen juttu perustuu lähteisiin, ja virheet korjataan. Työtämme ohjaavat [toimituksen periaatteet](/periaatteet/).
 
-Onko sinulla juttuvinkki? [Kerro meille](/vinkkaa/). Kaikki vinkit luetaan.
-
 ## Mainonta ja yhteistyö
 
-{% if site.email %}Mainonnasta ja yhteistyöstä voi kysyä osoitteesta [{{ site.email }}](mailto:{{ site.email }}).{% else %}Mainonnasta ja yhteistyöstä voi kysyä [yhteydenottolomakkeella](/vinkkaa/).{% endif %}
+{% if site.email %}Mainonnasta ja yhteistyöstä voi kysyä osoitteesta [{{ site.email }}](mailto:{{ site.email }}).{% else %}Mainonnasta ja yhteistyöstä voi kysyä [yhteydenottolomakkeella](/ota-yhteytta/).{% endif %}
 
 ## Julkaisutiedot
 

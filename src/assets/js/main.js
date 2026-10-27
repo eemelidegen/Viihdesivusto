@@ -365,7 +365,7 @@ if (tipForm) {
   tipForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const err = tipForm.querySelector(".tip__err"), btn = tipForm.querySelector("button[type=submit]");
-    if (tipForm.teksti.value.trim().length < 10) { err.textContent = "Kirjoita vinkkiin vähän enemmän."; tipForm.teksti.focus(); return; }
+    if (tipForm.teksti.value.trim().length < 10) { err.textContent = "Kirjoita viestiin vähän enemmän."; tipForm.teksti.focus(); return; }
     err.textContent = ""; btn.disabled = true;
     try {
       await accApi("vinkki", Object.fromEntries(new FormData(tipForm)));
