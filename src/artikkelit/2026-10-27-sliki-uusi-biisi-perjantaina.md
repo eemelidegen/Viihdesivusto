@@ -12,7 +12,7 @@ lahteet: ""
 draft: true
 ---
 
-Kuukauden hiljaiselon jälkeen Sliki on taas äänessä. Ja tällä kertaa hän puhuu musiikilla.
+Anteeksipyyntö, dissiriita ja kuukausien otsikot. Nyt Sliki aikoo puhua musiikillaan.
 
 Räppäri **Sliki** (oik. Jan Vikman) julkaisi maanantai-iltana Instagramissa lyhyen teaserin, jonka saateteksti on niukka mutta selvä:
 
@@ -24,7 +24,7 @@ Kappaleen nimeä tai mitään muutakaan yksityiskohtaa Sliki ei kerro. Uutta mus
 
 Sliki tunnetaan Memphis-vaikutteisesta räpistä ja kovista, rahan ja menestyksen ympärillä pyörivistä punchlineistä. Läpimurto tuli kappaleella *Hodari*, jolla vierailevat **Melo** ja **Skii6**. Biisistä tuli suosittu jo ennen kuin Sliki solmi sopimuksen Epic Recordsin kanssa.
 
-Rahasta hän on räpännyt avoimesti myös omalla kohdallaan. Nopea vaurastuminen tuli hänen mukaansa yllätyksenä, johon hän ei ollut valmistautunut.
+Rahasta hän on puhunut avoimesti myös omalla kohdallaan. Nopea vaurastuminen tuli hänen mukaansa yllätyksenä, johon hän ei ollut valmistautunut.
 
 Tämä syksy on kuitenkin tuonut otsikoihin aivan muuta kuin musiikkia.
 
