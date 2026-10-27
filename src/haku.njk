@@ -34,7 +34,7 @@ description: Hae Hulinan juttuja.
     const words = norm(q).split(/\s+/).filter(Boolean);
     const hits = (await load()).filter((a) => words.every((w) => a.hay.includes(w)));
     info.textContent = hits.length ? `${hits.length} ${hits.length === 1 ? "juttu" : "juttua"}` : "Ei tuloksia. Kokeile toista hakusanaa.";
-    out.innerHTML = hits.slice(0, 60).map((a) => `<article class="card"><div class="card__figure"><a class="card__media" href="${a.u}" tabindex="-1" aria-hidden="true">${a.i ? `<img src="${esc(a.i)}" alt="" loading="lazy">` : '<span class="placeholder"></span>'}</a><span class="pill">${esc(a.c)}</span></div><h3 class="card__title"><a href="${a.u}">${esc(a.t)}</a></h3><p class="meta"><time datetime="${a.d}">${fmt.format(new Date(a.d))}</time></p></article>`).join("");
+    out.innerHTML = hits.slice(0, 60).map((a) => `<article class="card"><div class="card__figure"><a class="card__media" href="${a.u}" tabindex="-1" aria-hidden="true">${a.i ? `<img src="${esc(a.i)}" alt="" loading="lazy">` : '<span class="placeholder"></span>'}</a></div><div class="card__body"><span class="pill">${esc(a.c)}</span><h3 class="card__title"><a href="${a.u}">${esc(a.t)}</a></h3><p class="meta"><time datetime="${a.d}">${fmt.format(new Date(a.d))}</time></p></div></article>`).join("");
   }
   let t = 0;
   input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 150); });

@@ -1,0 +1,13 @@
+{% set cat = item.data.category | kategoria(site.categories) %}
+<article class="hero" data-date="{{ item.date | iso }}">
+  <a class="hero__link" href="{{ item.url }}">
+    <span class="hero__media card__media">
+      {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.imageAlt }}"{% if item.data.imageFocus %} style="object-position: {{ item.data.imageFocus }}"{% endif %}>{% else %}<span class="placeholder"></span>{% endif %}
+    </span>
+    <span class="hero__text">
+      <span class="hero__kicker">{{ cat.name }}</span>
+      <span class="hero__title">{{ item.data.title }}</span>
+      {% if item.data.excerpt %}<span class="hero__lead">{{ item.data.excerpt }}</span>{% endif %}
+    </span>
+  </a>
+</article>

@@ -6,40 +6,45 @@ layout: layouts/base.njk
 {% if trending.length %}
 <nav class="trending" aria-label="Nyt puhutaan">
   <span class="trending__label">Nyt puhutaan</span>
-  {% for a in trending %}<a class="topic" href="/aihe/{{ a.slug }}/">#{{ a.name }}</a>{% endfor %}
+  {% for a in trending %}<a class="topic" href="/aihe/{{ a.slug }}/">{{ a.name }}</a>{% endfor %}
 </nav>
 {% endif %}
+{% if all.length %}
 <div class="front">
   <div class="front__main">
-    {% if all.length %}
-      {% set item = all[0] %}{% set cardClass = "card--lead" %}{% set showExcerpt = false %}
-      {% include "partials/card.njk" %}
-    {% else %}
-      <div class="empty">
-        <h1>Jutut julkaistaan pian</h1>
-        <p>Hulina kirjoittaa julkkiksista, tv-ohjelmista, kohuista ja urheilusta.</p>
-      </div>
-    {% endif %}
-    {# Feed repeats: two stories side by side, then one full-width story. #}
-    <div class="feed">
-      {% set cardClass = "" %}
-      {% for item in all | ohita(1) | alku(30) %}{% include "partials/card.njk" %}{% endfor %}
+    {% set item = all[0] %}{% include "partials/hero.njk" %}
+    {% set top = all | ohita(1) | alku(6) %}
+    {% if top.length %}
+    <div class="top-grid">
+      {% set cardClass = "" %}{% set showExcerpt = false %}
+      {% for item in top %}{% include "partials/card.njk" %}{% endfor %}
     </div>
+    {% endif %}
   </div>
-
-  <aside class="sidebar">
-    {% if all.length %}
-    <div class="tabs" role="tablist">
-      <button class="tabs__btn" role="tab" aria-selected="true" aria-controls="tab-suosittua" id="t-suosittua">Luetuimmat</button>
-      <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-tuoreimmat" id="t-tuoreimmat">Tuoreimmat</button>
-    </div>
-    <ol class="side-list side-list--num" role="tabpanel" id="tab-suosittua" aria-labelledby="t-suosittua">
-      {% for item in all | nostot | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
+  <aside class="sidebar" aria-label="Luetuimmat">
+    <h2 class="block-title">Luetuimmat</h2>
+    <ol class="side-list side-list--num">
+      {% for item in all | nostot | alku(6) %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
-    <ol class="side-list" role="tabpanel" id="tab-tuoreimmat" aria-labelledby="t-tuoreimmat" hidden>
-      {% for item in all | alku(8) %}{% include "partials/side-item.njk" %}{% endfor %}
-    </ol>
-    {% endif %}
-
   </aside>
 </div>
+
+{% set rest = all | ohita(7) %}
+{% for c in site.categories %}
+  {% set inCat = rest | kategoriassa(c.slug) | alku(4) %}
+  {% if inCat.length %}
+  <section class="section">
+    <h2 class="block-title"><a href="/kategoria/{{ c.slug }}/">{{ c.name }}</a> <a class="block-title__more" href="/kategoria/{{ c.slug }}/">Kaikki</a></h2>
+    <div class="grid grid--4">
+      {% set cardClass = "" %}{% set showExcerpt = false %}
+      {% for item in inCat %}{% include "partials/card.njk" %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+{% endfor %}
+{% else %}
+<div class="empty">
+  <h1>Jutut julkaistaan pian</h1>
+  <p>Hulina kirjoittaa julkkiksista, tv-ohjelmista, kohuista ja urheilusta.</p>
+</div>
+{% endif %}

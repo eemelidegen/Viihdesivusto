@@ -62,6 +62,12 @@ if (progress && body) {
   if (nav) atEnd();
 }
 
+// Today's date in the header, e.g. "Tiistai 27.10.2026".
+document.querySelectorAll("[data-today]").forEach((el) => {
+  const t = new Intl.DateTimeFormat("fi-FI", { weekday: "long", day: "numeric", month: "numeric", year: "numeric", timeZone: "Europe/Helsinki" }).format(new Date());
+  el.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+});
+
 // Menu (three lines): opens a panel with the theme switch and page links.
 {
   const btn = document.querySelector(".menu-btn");

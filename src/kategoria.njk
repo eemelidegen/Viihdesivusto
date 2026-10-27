@@ -13,9 +13,10 @@ eleventyComputed:
 </header>
 {% set inCat = collections.artikkelit | kategoriassa(cat.slug) %}
 {% if inCat.length %}
-<div class="grid grid--3">
+{% set item = inCat[0] %}{% include "partials/hero.njk" %}
+<div class="grid grid--3 cat-grid">
   {% set cardClass = "" %}{% set showExcerpt = false %}
-  {% for item in inCat %}{% include "partials/card.njk" %}{% endfor %}
+  {% for item in inCat | ohita(1) %}{% include "partials/card.njk" %}{% endfor %}
 </div>
 {% else %}
 <p>Tässä kategoriassa ei ole vielä juttuja.</p>
