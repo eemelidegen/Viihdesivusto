@@ -34,6 +34,6 @@ Käräjäoikeus ei ole vielä antanut ratkaisuaan.
 
 Stagalan ja Amirkhanin välit ulottuvat kehään asti. Kaksikko kohtasi Ice Cagen nyrkkeilyottelussa Tampereen Nokia Areenalla lähes 15 000 katsojan edessä, ja Stagala kesti UFC-veteraania vastaan täydet kuusi erää.
 
-Vielä eilen Stagala kertoi tekevänsä rakennustöitä ja tähtäävänsä seuraavaksi otteluun **Theo ”Ei leiki” Kolehmaista** vastaan. Hän vihjasi myös yhdestä kamppailijasta, jonka kohtaaminen ”voisi räjäyttää pankin”.
+Vielä alkuviikosta Stagala kertoi Instagramissa tekevänsä rakennustöitä ja tähtäävänsä seuraavaksi otteluun **Theo ”Ei leiki” Kolehmaista** vastaan. Nyt hän nosti tähtäimeen Amirkhanin.
 
-Nyt hän sanoi nimen ääneen. Amirkhani ei ole kommentoinut Stagalan videota.
+Amirkhanin vastausta Stagalan haasteeseen ei ole tiedossa.
