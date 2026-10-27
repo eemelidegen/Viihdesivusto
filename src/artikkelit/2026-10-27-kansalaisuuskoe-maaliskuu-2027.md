@@ -5,10 +5,6 @@ date: "2026-10-27T09:00:00.000Z"
 category: "politiikka"
 aiheet: "Maahanmuutto, Kansalaisuus, Maahanmuuttovirasto"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
 draft: true
 ---
 
