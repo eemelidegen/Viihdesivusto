@@ -16,7 +16,7 @@ Kamppailija **Alexander ”Stagala” Krigsman** on kommentoinut vapaaottelija *
 
 – Makwan Amirkhani, häkki kutsuu, ja nyt ei puhuta mistään Ice Cagesta. Sä et voi uhriutuu, jos sun omat tyhmät valinnat on johtanu sut tohon tilanteeseen, Stagala sanoo videolla.
 
-Video julkaistiin päivä sen jälkeen, kun Amirkhanin seksuaalirikosjutun käsittely alkoi Länsi-Uudenmaan käräjäoikeudessa Espoossa.
+Amirkhanin seksuaalirikosjutun käsittely alkoi maanantaina Länsi-Uudenmaan käräjäoikeudessa Espoossa.
 
 Amirkhania syytetään pakottamisesta seksuaaliseen tekoon. Syyte koskee laulaja **Mira Luotia**, ja teon väitetään tapahtuneen Julkkisselviytyjät-ohjelman kuvauksissa Espoon Nuuksiossa elokuussa 2016. Amirkhani ja Luoti olivat ohjelmassa parina.
 
