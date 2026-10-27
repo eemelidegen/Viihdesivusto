@@ -47,7 +47,7 @@
     .fmt[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
     .fmt[aria-pressed="true"] small { color: #bbb; }
     .cv-wrap { width: 100%; display: grid; place-items: center; }
-    #cv { display: block; max-width: 100%; max-height: calc(100vh - 200px); width: auto; height: auto; border-radius: 8px; box-shadow: 0 14px 44px rgba(0,0,0,.18); touch-action: none; cursor: grab; background: #ddd; }
+    #cv { display: block; max-width: 100%; max-height: calc(100vh - 280px); width: auto; height: auto; border-radius: 8px; box-shadow: 0 14px 44px rgba(0,0,0,.18); touch-action: none; cursor: grab; background: #ddd; }
     #cv.drag { cursor: grabbing; }
     .cv-wrap.over #cv { outline: 4px dashed var(--pink); outline-offset: 5px; }
     .hint { margin: 0; color: var(--muted); font-size: 12.5px; text-align: center; }
@@ -55,7 +55,7 @@
     .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
     .tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; overflow-x: auto; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
-    .tabs button { flex: 1 0 auto; min-width: 66px; padding: 12px 8px 10px; border: 0; background: none; font: 800 11.5px/1 var(--ui); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 3px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .tabs button { flex: 1 1 0; min-width: 52px; padding: 12px 2px 10px; border: 0; background: none; font: 800 11.5px/1 var(--ui); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 3px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .tabs svg { width: 21px; height: 21px; }
     .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--pink); }
     .tab { padding: 18px; display: grid; gap: 18px; }
@@ -144,6 +144,39 @@
       /* While typing, shrink the preview so the keyboard leaves room for the form */
       .app:has(.panel textarea:focus, .panel input[type=text]:focus) #cv { max-height: 22vh; }
     }
+    /* Quick mode */
+    .step { display: grid; gap: 10px; }
+    .stepn { display: flex; align-items: center; gap: 10px; font: 800 13px/1 var(--ui); text-transform: uppercase; letter-spacing: .06em; }
+    .stepn i { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 13px; padding-top: 2px; }
+    .stepn small { margin-left: auto; text-transform: none; letter-spacing: 0; font: 500 12px/1.2 var(--font); color: var(--muted); }
+    .qbtns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .qbtn { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 14px 6px 12px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; font-weight: 700; font-size: 13px; text-align: center; }
+    .qbtn svg { width: 24px; height: 24px; }
+    .qbtn:hover { border-color: var(--ink); }
+    .tpls--row { display: flex; gap: 10px; overflow-x: auto; padding: 2px 2px 6px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+    .tpls--row .tpl { flex: 0 0 116px; scroll-snap-align: start; padding: 6px; }
+    .tpls--row .tpl b { font-size: 10.5px; line-height: 1.15; }
+    /* Carousel strip */
+    .slides { display: flex; gap: 8px; align-items: center; max-width: 100%; overflow-x: auto; padding: 3px 2px; scrollbar-width: none; }
+    .slides::-webkit-scrollbar { display: none; }
+    .slide { position: relative; flex: 0 0 auto; border: 2.5px solid transparent; border-radius: 9px; padding: 0; background: none; }
+    .slide canvas { display: block; height: 64px; width: auto; border-radius: 6px; background: #ddd; }
+    .slide[aria-pressed="true"] { border-color: var(--pink); }
+    .slide span { position: absolute; left: 4px; top: 4px; background: rgba(0,0,0,.72); color: #fff; font: 800 10px/1 var(--ui); padding: 4px 5px 2px; border-radius: 4px; }
+    .slide-add { flex: 0 0 auto; height: 69px; padding: 0 14px; border: 1.5px dashed #c5c5cc; border-radius: 9px; background: #fff; font: 800 11.5px/1.1 var(--ui); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; }
+    .slide-add b { font-size: 22px; line-height: 1; color: var(--ink); }
+    .slide-add:hover { border-color: var(--ink); color: var(--ink); }
+    .slide-tools { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    /* All sizes */
+    .sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; }
+    .size { border: 1.5px solid var(--line); border-radius: 10px; background: #fff; padding: 6px; display: grid; gap: 6px; font-weight: 700; font-size: 11.5px; text-align: center; }
+    .size canvas { width: 100%; height: auto; border-radius: 5px; display: block; }
+    .size small { color: var(--muted); font-weight: 500; }
+    .size:hover { border-color: var(--ink); }
+    @media (max-width: 1000px) {
+      .slide canvas { height: 44px; }
+      .slide-add { height: 49px; padding: 0 10px; flex-direction: row; gap: 6px; }
+    }
     .cap-out { width: 100%; font: 15px/1.5 system-ui, sans-serif; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; resize: vertical; }
 </style>
 </head>
@@ -162,12 +195,20 @@
     <section class="stage" aria-label="Esikatselu">
       <div class="formats" id="formats"></div>
       <div class="cv-wrap" id="cvWrap"><canvas id="cv" width="1080" height="1350" aria-label="Somekuvan esikatselu"></canvas></div>
-      <p class="hint">Vedä kuvaa siirtääksesi · nipistä tai rullaa zoomataksesi · tuplaklikkaus palauttaa · voit myös pudottaa tai liittää kuvan</p>
+      <div class="slides" id="slides"></div>
+      <div class="slide-tools" id="slideTools" hidden>
+        <button class="btn btn--ghost btn--sm" type="button" data-slide-act="left" aria-label="Siirrä sivua vasemmalle">←</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-slide-act="dup">Monista sivu</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-slide-act="del">Poista sivu</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-slide-act="right" aria-label="Siirrä sivua oikealle">→</button>
+      </div>
+      <p class="hint">Vedä tekstiä tai kuvaa siirtääksesi · nipistä tai rullaa zoomataksesi · tuplaklikkaa tekstiä muokataksesi · voit myös pudottaa tai liittää kuvan</p>
     </section>
 
     <section class="panel">
       <nav class="tabs" role="tablist">
-        <button type="button" role="tab" data-tab="mallit" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Mallit</button>
+        <button type="button" role="tab" data-tab="pika" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Pika</button>
+        <button type="button" role="tab" data-tab="mallit" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Mallit</button>
         <button type="button" role="tab" data-tab="kuva" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>Kuva</button>
         <button type="button" role="tab" data-tab="teksti" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>Teksti</button>
         <button type="button" role="tab" data-tab="tyyli" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.6-1 1.1-2-.7-1.4.3-2.8 1.8-2.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.3" fill="currentColor"/><circle cx="10.5" cy="7" r="1.3" fill="currentColor"/><circle cx="15.5" cy="7.5" r="1.3" fill="currentColor"/></svg>Tyyli</button>
@@ -175,8 +216,35 @@
         <button type="button" role="tab" data-tab="valmis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Lataa</button>
       </nav>
 
+      <!-- Quick mode -->
+      <div class="tab" data-panel="pika">
+        <div class="step">
+          <div class="stepn"><i>1</i>Kuva</div>
+          <div class="qbtns">
+            <button type="button" class="qbtn" id="qImport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Hulinan juttu</button>
+            <button type="button" class="qbtn" id="qPick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m-5 5 5-5 5 5M5 14v5h14v-5"/></svg>Oma kuva</button>
+            <button type="button" class="qbtn" id="qFind"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Hae kuva</button>
+          </div>
+          <div class="import__list" id="qImportList" hidden></div>
+        </div>
+        <div class="step">
+          <div class="stepn"><i>2</i>Otsikko<small>*tähdet* korostavat</small></div>
+          <textarea data-k="title" rows="3" aria-label="Otsikko"></textarea>
+        </div>
+        <div class="step">
+          <div class="stepn"><i>3</i>Tyyli<small>vieritä sivulle</small></div>
+          <div class="tpls tpls--row" id="qTpls"></div>
+        </div>
+        <div class="step">
+          <div class="stepn"><i>4</i>Valmis</div>
+          <button class="btn btn--pink btn--big" type="button" data-act="download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Lataa kuva</button>
+          <button class="btn btn--big deck-btn" type="button" data-act="deck" hidden>Lataa karuselli</button>
+          <p class="note">Tekstiä voi vetää esikatselussa. Hienosäädöt löytyvät muilta välilehdiltä, ja työ tallentuu automaattisesti.</p>
+        </div>
+      </div>
+
       <!-- Templates -->
-      <div class="tab" data-panel="mallit">
+      <div class="tab" data-panel="mallit" hidden>
         <p class="note">Valitse valmis malli. Kuva ja otsikko säilyvät, ulkoasu vaihtuu. Kaikkea voi muokata vapaasti.</p>
         <div class="tpls" id="tpls"></div>
         <div class="h" id="ownHead" hidden>Omat mallit</div>
@@ -208,6 +276,8 @@
             <button type="button" data-v="black" style="background:#111" aria-label="Musta"></button>
             <button type="button" data-v="white" style="background:#fff" aria-label="Valkoinen"></button>
             <button type="button" data-v="pink" style="background:#ff8fb1" aria-label="Pinkki"></button>
+            <button type="button" data-v="yellow" style="background:#ffd23f" aria-label="Keltainen"></button>
+            <button type="button" data-v="red" style="background:#e5102f" aria-label="Punainen"></button>
             <button type="button" data-v="accent" style="background:conic-gradient(#ff3b4e,#ffd23f,#2ee59d,#3d8bff,#a970ff,#ff3b4e)" aria-label="Sama kuin korostusväri"></button>
           </div>
         </div>
@@ -258,8 +328,13 @@
           <label class="field"><span class="lbl">Tarra otsikon yllä <small>valinnainen</small></span><input type="text" data-k="badge" maxlength="30" placeholder="esim. KOHU"></label>
           <div class="chips" data-chips="badge"></div>
           <div class="seg" data-seg="badgeStyle" data-show="badge">
-            <button type="button" data-v="pill">Pyöreä</button><button type="button" data-v="rect">Kulmikas</button><button type="button" data-v="tilted">Vino</button><button type="button" data-v="outline">Reunus</button>
+            <button type="button" data-v="pill">Pyöreä</button><button type="button" data-v="rect">Kulmikas</button><button type="button" data-v="tilted">Vino</button><button type="button" data-v="outline">Reunus</button><button type="button" data-v="live">● Live</button>
           </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Äänestys kommenteissa <small>valinnainen</small></span>
+          <div class="row"><input type="text" id="poll0" maxlength="24" placeholder="esim. 👍 KYLLÄ"><input type="text" id="poll1" maxlength="24" placeholder="esim. 👎 EI"></div>
+          <p class="note">Kaksi vastausvaihtoehtoa kuvaan. Lukijat vastaavat kommenteissa, mikä nostaa näkyvyyttä.</p>
         </div>
         <div class="field" data-show="layout=split-h|split-v">
           <span class="lbl">Tekstit kuvien päällä</span>
@@ -311,7 +386,11 @@
         <div class="field">
           <span class="lbl">Tekstin paikka</span>
           <div class="seg" data-seg="textPos"><button type="button" data-v="top">Ylhäällä</button><button type="button" data-v="middle">Keskellä</button><button type="button" data-v="bottom">Alhaalla</button></div>
-          <label class="field"><span class="lbl">Hienosäätö <output data-out="offsetY"></output></span><input type="range" min="-25" max="25" data-k="offsetY"></label>
+          <div class="row">
+            <label class="field"><span class="lbl">Pysty <output data-out="offsetY"></output></span><input type="range" min="-40" max="40" step="0.1" data-k="offsetY"></label>
+            <label class="field"><span class="lbl">Vaaka <output data-out="offsetX"></output></span><input type="range" min="-40" max="40" step="0.1" data-k="offsetX"></label>
+          </div>
+          <p class="note">Voit myös vetää tekstiä suoraan esikatselussa.</p>
         </div>
         <div class="field">
           <span class="lbl">Tasaus</span>
@@ -346,6 +425,7 @@
           <div class="seg" data-seg="logoPos"><button type="button" data-v="bl">Vasen ala</button><button type="button" data-v="bc">Keski ala</button><button type="button" data-v="br">Oikea ala</button></div>
           <label class="field"><span class="lbl">Koko <output data-out="logoSize"></output></span><input type="range" min="50" max="180" data-k="logoSize"></label>
         </div>
+        <label class="switch">Näytä HULINA.NET kuvan kulmassa <input type="checkbox" data-k="site"></label>
       </div>
 
       <!-- Export -->
@@ -355,12 +435,16 @@
           <div class="seg" data-seg="type"><button type="button" data-v="image/jpeg">JPG <small>pienempi tiedosto</small></button><button type="button" data-v="image/png">PNG <small>tarkin laatu</small></button></div>
         </div>
         <button class="btn btn--pink btn--big" type="button" data-act="download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Lataa kuva</button>
+        <button class="btn btn--big deck-btn" type="button" data-act="deck" hidden>Lataa karuselli</button>
         <div class="btns">
           <button class="btn btn--ghost" type="button" data-act="share" id="shareBtn" hidden>Jaa / tallenna kuviin</button>
           <button class="btn btn--ghost" type="button" data-act="copy">Kopioi</button>
           <button class="btn btn--ghost" type="button" data-act="all">Lataa kaikki koot</button>
         </div>
-        <p class="note">"Lataa kaikki koot" tekee samasta kuvasta version Instagramiin, Storyyn ja TikTokiin, neliönä sekä linkkikuvaksi.</p>
+        <div class="h">Kaikki koot</div>
+        <div class="sizes" id="sizes"></div>
+        <p class="note">Napauta kokoa, niin saat siitä oman kuvan. "Lataa kaikki koot" lataa neljä yleisintä kerralla.</p>
+        <label class="switch">Sivunumerot ja pyyhkäisynuoli karusellissa <input type="checkbox" data-k="counter"></label>
         <label class="switch">Näytä Storyn turva-alue esikatselussa <input type="checkbox" data-k="safe"></label>
         <label class="switch">Näytä apuviivat (kolmanneksen sääntö) <input type="checkbox" data-k="grid"></label>
         <div class="h">Kuvateksti-apuri</div>
@@ -377,7 +461,7 @@
 
   <div class="mbar">
     <button class="btn btn--ghost" type="button" data-act="share" id="mShare" hidden>Jaa</button>
-    <button class="btn btn--pink" type="button" data-act="download">Lataa kuva</button>
+    <button class="btn btn--pink" type="button" data-act="auto" id="mDl">Lataa kuva</button>
   </div>
   <input type="file" id="file" accept="image/*" hidden>
   <div class="toast" id="toast" role="status"></div>
@@ -413,15 +497,15 @@ const DEFAULTS = {
   format: "ig", layout: "single", template: "uutinen",
   title: "*Kohu* roihahti somessa – näin julkkis vastaa nyt", sub: "", badge: "", badgeStyle: "pill", quoteBy: "", labels: ["", ""],
   cta: "", credit: "",
-  font: "spartan", upper: false, textSize: 100, align: "center", textPos: "bottom", offsetY: 0,
+  font: "spartan", upper: false, textSize: 100, align: "center", textPos: "bottom", offsetY: 0, offsetX: 0, poll: ["", ""],
   textStyle: "shadow", hlStyle: "color", accent: PINK,
   shadeStyle: "gradient", shade: 60, tint: "black", bg: "plum", frame: "none",
   brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false, flip: false,
   logo: "stacked", logoPos: "above", logoSize: 100,
-  type: "image/jpeg", safe: true, fit: "cover", grid: false,
+  type: "image/jpeg", safe: true, fit: "cover", grid: false, site: false, counter: true,
 };
 // A template changes the look, not the content.
-const CONTENT = ["title", "sub", "quoteBy", "credit", "format", "type", "safe", "grid", "fit", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
+const CONTENT = ["title", "sub", "quoteBy", "poll", "credit", "format", "type", "safe", "grid", "fit", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
 const TEMPLATES = [
   { id: "uutinen", name: "Uutinen", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 62, tint: "black", logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
   { id: "kohu", name: "Kohu", set: { layout: "single", font: "spartan", upper: false, textStyle: "boxes", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 40, tint: "black", logo: "wide", logoPos: "tl", logoSize: 100, badge: "KOHU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
@@ -430,12 +514,17 @@ const TEMPLATES = [
   { id: "vertailu", name: "Ennen ja nyt", set: { layout: "split-h", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 65, tint: "black", logo: "stacked", logoPos: "above", logoSize: 90, badge: "", labels: ["ENNEN", "NYT"], frame: "none", cta: "", accent: PINK } },
   { id: "paneeli", name: "Kuva + laatikko", set: { layout: "panel", bg: "white", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "marker", align: "left", textPos: "top", offsetY: 0, logo: "wide", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
   { id: "teksti", name: "Pelkkä teksti", set: { layout: "text", bg: "pinkplum", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "box", align: "center", textPos: "middle", offsetY: 0, logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: "#ffffff" } },
+  { id: "tuore", name: "Tuore uutinen", set: { layout: "single", font: "roboto", upper: true, textStyle: "shadow", hlStyle: "color", align: "left", textPos: "bottom", offsetY: 0, offsetX: 0, shadeStyle: "gradient", shade: 72, tint: "black", logo: "wide", logoPos: "tl", logoSize: 100, badge: "TUORE UUTINEN", badgeStyle: "live", frame: "none", cta: "", accent: "#ffd23f" } },
+  { id: "loppi", name: "Lööppi", set: { layout: "text", bg: "yellow", font: "anton", upper: true, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "middle", offsetY: 0, offsetX: 0, logo: "wide", logoPos: "above", logoSize: 110, badge: "", frame: "none", cta: "", accent: "#e5102f" } },
+  { id: "kysymys", name: "Kysymys lukijoille", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "box", align: "center", textPos: "middle", offsetY: 0, offsetX: 0, shadeStyle: "full", shade: 62, tint: "plum", logo: "wide", logoPos: "tc", logoSize: 90, badge: "MITÄ MIELTÄ?", badgeStyle: "pill", poll: ["👍 KYLLÄ", "👎 EI"], frame: "none", cta: "Kommentoi vastauksesi", accent: PINK } },
+  { id: "juoru", name: "Juoru", set: { layout: "single", font: "barlow", upper: true, textStyle: "boxesAccent", hlStyle: "box", align: "center", textPos: "bottom", offsetY: 0, offsetX: 0, shadeStyle: "gradient", shade: 45, tint: "black", logo: "symbol", logoPos: "tr", logoSize: 100, badge: "JUORU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
+  { id: "tyylikas", name: "Tyylikäs", set: { layout: "panel", bg: "black", font: "roboto", upper: false, textStyle: "shadow", hlStyle: "underline", align: "left", textPos: "top", offsetY: 0, offsetX: 0, logo: "wide", logoPos: "above", logoSize: 90, badge: "", frame: "none", cta: "", accent: PINK } },
   { id: "urheilu", name: "Urheilu", set: { layout: "single", font: "barlow", upper: true, textStyle: "shadow", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 65, tint: "black", logo: "wide", logoPos: "tr", logoSize: 100, badge: "URHEILU", badgeStyle: "rect", frame: "none", cta: "Lue lisää: hulina.net", accent: "#ffd23f" } },
 ];
 
 let s = clone(DEFAULTS);
 const panels = [newPanel(), newPanel()];
-function newPanel() { return { img: null, src: "", zoom: 1, panX: 0.5, panY: 0.35, cache: null, key: "", soft: null }; }
+function newPanel() { return { img: null, src: "", zoom: 1, panX: 0.5, panY: 0.35 }; }
 function clone(o) { return JSON.parse(JSON.stringify(o)); }
 
 // ---------- Logos: pink for dark backgrounds, plum for light ones ----------
@@ -452,7 +541,7 @@ for (const L of Object.values(LOGOS)) {
 const lum = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
 const onAccent = (hex) => (lum(hex) > 0.55 ? "#111111" : "#ffffff");
 const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
-function bgBase(st) { return { plum: PLUM, pinkplum: "#8a4f7d", black: "#111111", white: "#ffffff", pink: PINK, accent: st.accent }[st.bg] || PLUM; }
+function bgBase(st) { return { plum: PLUM, pinkplum: "#8a4f7d", black: "#111111", white: "#ffffff", pink: PINK, yellow: "#ffd23f", red: "#e5102f", accent: st.accent }[st.bg] || PLUM; }
 function paintBg(c, r, st) {
   if (st.bg === "plum") { const g = c.createLinearGradient(r.x, r.y, r.x + r.w, r.y + r.h); g.addColorStop(0, "#3b2766"); g.addColorStop(1, PLUM); c.fillStyle = g; }
   else if (st.bg === "pinkplum") { const g = c.createLinearGradient(r.x, r.y, r.x + r.w * 0.6, r.y + r.h); g.addColorStop(0, PINK); g.addColorStop(1, PLUM); c.fillStyle = g; }
@@ -463,9 +552,12 @@ const frameColor = (st) => ({ accent: st.accent, white: "#ffffff", plum: PLUM, b
 const tintColor = (st) => ({ black: "#000000", plum: "#1c1033", accent: st.accent }[st.tint] || "#000000");
 
 // ---------- Image processing (pixel by pixel, so it also works in Safari) ----------
+// Cached per photo, so carousel slides and thumbnails share the work.
+const PROC = new WeakMap();
 function processed(p, st) {
   const key = [st.brightness, st.contrast, st.saturation, st.warmth, st.gray].join();
-  if (p.cache && p.key === key) return p.cache;
+  const hit = PROC.get(p.img);
+  if (hit && hit.key === key) return hit.c;
   const max = 2400, im = p.img;
   const k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
   const c = document.createElement("canvas");
@@ -484,19 +576,19 @@ function processed(p, st) {
     }
     x.putImageData(d, 0, 0);
   }
-  p.cache = c; p.key = key; p.soft = null;
+  PROC.set(p.img, { key, c, soft: null });
   return c;
 }
 // Soft (blurred) copy for the quote background: shrink and scale back up.
 function softened(p, st) {
-  const src = processed(p, st);
-  if (p.soft) return p.soft;
+  const src = processed(p, st), e = PROC.get(p.img);
+  if (e.soft) return e.soft;
   const small = document.createElement("canvas");
   small.width = Math.max(1, Math.round(src.width / 14)); small.height = Math.max(1, Math.round(src.height / 14));
   const sx = small.getContext("2d"); sx.imageSmoothingQuality = "high"; sx.drawImage(src, 0, 0, small.width, small.height);
   const big = document.createElement("canvas"); big.width = src.width; big.height = src.height;
   const bx = big.getContext("2d"); bx.imageSmoothingQuality = "high"; bx.drawImage(small, 0, 0, big.width, big.height);
-  p.soft = big;
+  e.soft = big;
   return big;
 }
 function drawCover(c, src, r, p, flip, soft) {
@@ -559,7 +651,7 @@ function setLS(c, px) { if ("letterSpacing" in c) c.letterSpacing = `${px}px`; }
 
 // ---------- Rendering ----------
 let geo = null; // geometry of the last preview render, used for dragging
-function draw(c, st, { preview = false, main = false } = {}) {
+function draw(c, st, { preview = false, main = false, panels: P = panels, page = null } = {}) {
   const F = FORMATS[st.format], W = F.w, H = F.h;
   const U = Math.min(W / 1080, H / 864);
   const fr = st.frame === "none" ? 0 : Math.round(Math.min(W, H) * 0.028);
@@ -584,7 +676,7 @@ function draw(c, st, { preview = false, main = false } = {}) {
   // Photos
   if (L.startsWith("split")) { c.fillStyle = st.frame === "none" ? "#ffffff" : frameColor(st); c.fillRect(area.x, area.y, area.w, area.h); }
   rects.forEach((r, i) => {
-    const p = panels[i];
+    const p = P[i];
     if (p.img) drawCover(c, L === "quote" ? softened(p, st) : processed(p, st), r, p, st.flip, L !== "quote" && st.fit === "blur" ? softened(p, st) : null);
     else {
       paintBg(c, r, st);
@@ -638,7 +730,9 @@ function draw(c, st, { preview = false, main = false } = {}) {
 
   let y = st.textPos === "top" ? box.y : st.textPos === "middle" ? box.y + (box.h - lay.h) / 2 : box.y + box.h - lay.h;
   y += st.offsetY / 100 * H;
-  const ax = st.align === "center" ? box.x + box.w / 2 : st.align === "right" ? box.x + box.w : box.x;
+  const offX = (st.offsetX || 0) / 100 * W;
+  const ax = offX + (st.align === "center" ? box.x + box.w / 2 : st.align === "right" ? box.x + box.w : box.x);
+  if (main) geo.text = { x: box.x + offX, y, w: box.w, h: lay.h };
   const accentOn = (bgLight) => (bgLight && lum(st.accent) > 0.72 ? PLUM : st.accent);
   for (const it of lay.items) {
     if (it.type === "logo") drawLogo(c, logo, ax, y, it.h, st.align, light);
@@ -647,6 +741,7 @@ function draw(c, st, { preview = false, main = false } = {}) {
     if (it.type === "title") drawTitle(c, st, it, ax, y, ink, overImage);
     if (it.type === "sub") drawPlain(c, it, ax, y, st.align, rgba(ink, 0.9), overImage);
     if (it.type === "by") drawPlain(c, it, ax, y, st.align, accentOn(light), overImage);
+    if (it.type === "poll") drawPoll(c, st, it, ax, y, st.align);
     y += it.h + it.gap;
   }
 
@@ -666,6 +761,34 @@ function draw(c, st, { preview = false, main = false } = {}) {
     c.fillStyle = onAccent(st.accent); c.font = `800 ${Math.round(34 * U)}px "League Spartan"`; c.textAlign = "center"; c.textBaseline = "alphabetic"; setLS(c, 1.5 * U);
     const capH = c.measureText("H").actualBoundingBoxAscent || 34 * U * 0.7;
     c.fillText(st.cta.trim().toLocaleUpperCase("fi"), inner.x + inner.w / 2, by + ctaH / 2 + capH / 2);
+    c.restore();
+  }
+
+  // Site address in a corner, for reposts
+  if (st.site) {
+    const fs = Math.round(22 * U), m = Math.round(28 * U), top = corner && corner[0] === "b";
+    c.save(); c.font = `800 ${fs}px "League Spartan"`; setLS(c, fs * 0.08); c.textAlign = "left"; c.textBaseline = "alphabetic";
+    const onLight = L === "text" ? light : L === "panel" && portrait && !top ? light : false;
+    c.fillStyle = onLight ? "rgba(17,17,17,.6)" : "rgba(255,255,255,.88)";
+    if (!onLight) { c.shadowColor = "rgba(0,0,0,.55)"; c.shadowBlur = 6 * U; }
+    c.fillText("HULINA.NET", area.x + m, top ? area.y + m + fs * 0.75 : area.y + area.h - m);
+    c.restore();
+  }
+
+  // Carousel: page number and a swipe arrow on all but the last page
+  if (page && page.n > 1 && st.counter) {
+    const fs = Math.round(24 * U), m = Math.round(30 * U), t = `${page.i + 1}/${page.n}`;
+    c.save(); c.font = `800 ${fs}px "League Spartan"`; setLS(c, fs * 0.04);
+    const h = Math.round(fs * 1.65), w = c.measureText(t).width + fs * 1.3;
+    const x = corner === "tr" ? inner.x + m : inner.x + inner.w - m - w, yy = inner.y + m;
+    rr(c, x, yy, w, h, h / 2); c.fillStyle = "rgba(0,0,0,.6)"; c.fill();
+    c.fillStyle = "#fff"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(t, x + w / 2, yy + h / 2 + fs * 0.08);
+    if (page.i < page.n - 1) {
+      const r = Math.round(34 * U), cx = inner.x + inner.w - Math.round(22 * U) - r, cy = area.y + area.h / 2;
+      c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.fillStyle = "rgba(255,255,255,.92)"; c.shadowColor = "rgba(0,0,0,.3)"; c.shadowBlur = 14 * U; c.fill(); c.shadowColor = "transparent";
+      c.beginPath(); c.moveTo(cx - r * 0.18, cy - r * 0.38); c.lineTo(cx + r * 0.22, cy); c.lineTo(cx - r * 0.18, cy + r * 0.38);
+      c.strokeStyle = "#111"; c.lineWidth = Math.max(3, r * 0.16); c.lineCap = "round"; c.lineJoin = "round"; c.stroke();
+    }
     c.restore();
   }
 
@@ -715,6 +838,14 @@ function layout(c, st, size, maxW, U, aboveLogo) {
   }
   const by = st.layout === "quote" ? st.quoteBy.trim() : "";
   if (by) { const bs = Math.max(size * 0.4, 24 * U); items.push({ type: "by", lines: ["– " + by.toLocaleUpperCase("fi")], font: `800 ${bs}px "League Spartan"`, size: bs, lh: bs * 1.2, h: bs * 1.2, gap: 0, ls: bs * 0.05 }); }
+  const opts = (st.poll || []).map((o) => String(o).trim()).filter(Boolean).map((o) => o.toLocaleUpperCase("fi"));
+  if (opts.length) {
+    let ps = Math.max(size * 0.42, 28 * U);
+    const fit = () => { c.font = `800 ${ps}px "League Spartan"`; const w = Math.max(...opts.map((o) => c.measureText(o).width)) + ps * 1.8; return w * opts.length + ps * 0.6 * (opts.length - 1); };
+    for (let k = 0; k < 20 && fit() > maxW; k++) ps *= 0.92;
+    items[items.length - 1].gap = size * 0.45;
+    items.push({ type: "poll", opts, font: c.font, size: ps, h: ps * 2.1, gapX: ps * 0.6, gap: 0 });
+  }
   items[items.length - 1].gap = 0;
   return { items, h: items.reduce((a, it) => a + it.h + it.gap, 0) };
 }
@@ -729,15 +860,39 @@ function drawLogo(c, logo, ax, y, h, align, onLight) {
 function drawBadge(c, st, text, ax, y, bs, align, style) {
   c.save();
   c.font = `800 ${bs}px "League Spartan"`; setLS(c, bs * 0.05);
-  const tw = c.measureText(text).width, ph = bs * 0.62, h = bs * 1.6, w = tw + ph * 2;
+  const live = style === "live", dot = live ? bs * 0.42 : 0, dg = live ? bs * 0.38 : 0;
+  const tw = c.measureText(text).width, ph = bs * 0.62, h = bs * 1.6, w = tw + ph * 2 + dot + dg;
   const x = align === "center" ? ax - w / 2 : align === "right" ? ax - w : ax;
   if (style === "tilted") { c.translate(x + w / 2, y + h / 2); c.rotate(-0.07); c.translate(-(x + w / 2), -(y + h / 2)); }
   rr(c, x, y, w, h, style === "pill" || style === "outline" ? h / 2 : bs * 0.18);
-  if (style === "outline") { c.lineWidth = Math.max(3, bs * 0.12); c.strokeStyle = st.accent; c.stroke(); c.fillStyle = st.accent; }
+  if (live) {
+    c.shadowColor = "rgba(0,0,0,.25)"; c.shadowBlur = bs * 0.4; c.fillStyle = "#e5102f"; c.fill(); c.shadowColor = "transparent";
+    c.fillStyle = "rgba(255,255,255,.35)"; c.beginPath(); c.arc(x + ph + dot / 2, y + h / 2, dot * 0.85, 0, Math.PI * 2); c.fill();
+    c.fillStyle = "#fff"; c.beginPath(); c.arc(x + ph + dot / 2, y + h / 2, dot / 2, 0, Math.PI * 2); c.fill();
+  }
+  else if (style === "outline") { c.lineWidth = Math.max(3, bs * 0.12); c.strokeStyle = st.accent; c.stroke(); c.fillStyle = st.accent; }
   else { c.shadowColor = "rgba(0,0,0,.25)"; c.shadowBlur = bs * 0.4; c.fillStyle = st.accent; c.fill(); c.shadowColor = "transparent"; c.fillStyle = onAccent(st.accent); }
   const capH = c.measureText("H").actualBoundingBoxAscent || bs * 0.7;
   c.textAlign = "left"; c.textBaseline = "alphabetic";
-  c.fillText(text, x + ph, y + h / 2 + capH / 2);
+  c.fillText(text, x + ph + dot + dg, y + h / 2 + capH / 2);
+  c.restore();
+}
+// Two answer boxes ("comment YES or NO")
+function drawPoll(c, st, it, ax, y, align) {
+  c.save(); c.font = it.font; setLS(c, it.size * 0.04);
+  const w = Math.max(...it.opts.map((o) => c.measureText(o).width)) + it.size * 1.8;
+  const total = w * it.opts.length + it.gapX * (it.opts.length - 1);
+  let x = align === "center" ? ax - total / 2 : align === "right" ? ax - total : ax;
+  const capH = c.measureText("H").actualBoundingBoxAscent || it.size * 0.7;
+  it.opts.forEach((o, k) => {
+    const bg = k === 0 ? st.accent : "#ffffff";
+    rr(c, x, y, w, it.h, it.h * 0.24);
+    c.shadowColor = "rgba(0,0,0,.28)"; c.shadowBlur = it.size * 0.6; c.shadowOffsetY = it.size * 0.08; c.fillStyle = bg; c.fill();
+    c.shadowColor = "transparent"; c.lineWidth = 2; c.strokeStyle = "rgba(0,0,0,.1)"; c.stroke();
+    c.fillStyle = onAccent(bg); c.textAlign = "center"; c.textBaseline = "alphabetic";
+    c.fillText(o, x + w / 2, y + it.h / 2 + capH / 2);
+    x += w + it.gapX;
+  });
   c.restore();
 }
 function drawTitle(c, st, it, ax, y, ink, overImage) {
@@ -802,6 +957,7 @@ function load() {
   if (!FORMATS[s.format]) s.format = "ig";
   if (!FONTS[s.font]) s.font = "spartan";
   if (!Array.isArray(s.labels)) s.labels = ["", ""];
+  if (!Array.isArray(s.poll)) s.poll = ["", ""];
 }
 function save() { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch {} }
 
@@ -847,7 +1003,7 @@ function syncForm() {
     if (el.type === "checkbox") el.checked = !!s[k];
     else if (document.activeElement !== el && el.value !== String(s[k])) el.value = s[k];
   });
-  document.querySelectorAll("[data-out]").forEach((o) => { const k = o.dataset.out; o.textContent = k === "warmth" || k === "offsetY" ? (s[k] > 0 ? "+" : "") + s[k] : s[k] + (UNIT[k] || ""); });
+  document.querySelectorAll("[data-out]").forEach((o) => { const k = o.dataset.out; o.textContent = k === "warmth" || k === "offsetY" || k === "offsetX" ? (s[k] > 0 ? "+" : "") + Math.round(s[k]) : s[k] + (UNIT[k] || ""); });
   document.querySelectorAll("[data-seg]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === String(s[g.dataset.seg])))));
   document.querySelectorAll("[data-swatch]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === s[g.dataset.swatch]))));
   document.querySelectorAll("[data-chips]").forEach((g) => g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v.toLowerCase() === (s[g.dataset.chips] || "").trim().toLowerCase()))));
@@ -855,6 +1011,7 @@ function syncForm() {
   document.querySelectorAll("[data-show]").forEach((el) => { el.hidden = !showIf(el.dataset.show); });
   if (document.activeElement !== $("customAccent")) $("customAccent").value = s.accent;
   ["label0", "label1"].forEach((id, i) => { if (document.activeElement !== $(id)) $(id).value = s.labels[i] || ""; });
+  ["poll0", "poll1"].forEach((id, i) => { if (document.activeElement !== $(id)) $(id).value = s.poll[i] || ""; });
   imageCards();
 }
 function changed(soon) {
@@ -875,6 +1032,7 @@ document.querySelectorAll("[data-seg]").forEach((g) => g.addEventListener("click
 document.querySelectorAll("[data-swatch]").forEach((g) => g.addEventListener("click", (e) => { const b = e.target.closest("button[data-v]"); if (b) pickStyle(g.dataset.swatch, b.dataset.v); }));
 $("customAccent").addEventListener("input", (e) => { s.accent = e.target.value; s.template = ""; changed(true); });
 ["label0", "label1"].forEach((id, i) => $(id).addEventListener("input", (e) => { s.labels[i] = e.target.value; changed(true); }));
+["poll0", "poll1"].forEach((id, i) => $(id).addEventListener("input", (e) => { s.poll[i] = e.target.value; changed(true); }));
 function fillChips(key, list) {
   const g = document.querySelector(`[data-chips="${key}"]`);
   g.innerHTML = list.map((t) => `<button type="button" data-v="${t}">${t}</button>`).join("");
@@ -899,11 +1057,12 @@ $("formats").innerHTML = Object.entries(FORMATS).map(([k, F]) => { const sc = 16
 $("formats").addEventListener("click", (e) => { const b = e.target.closest(".fmt"); if (b) { s.format = b.dataset.v; changed(); } });
 
 // Tabs
-document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
-  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-  document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== b.dataset.tab; });
-  if (b.dataset.tab === "mallit") thumbsSoon();
-}));
+function showTab(name) {
+  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", String(x.dataset.tab === name)));
+  document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== name; });
+  thumbsSoon();
+}
+document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
 
 // ---------- Photos ----------
 let pickTarget = 0;
@@ -961,8 +1120,15 @@ const pts = new Map(); let drag = null;
 function toCanvas(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * cv.width / r.width, y: (e.clientY - r.top) * cv.height / r.height }; }
 function panelAt(pt) { if (!geo) return -1; return geo.rects.findIndex((r) => pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h); }
 const pdist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+const onText = (pt) => { const r = geo && geo.text; return !!r && r.h > 0 && pt.x >= r.x - 20 && pt.x <= r.x + r.w + 20 && pt.y >= r.y - 20 && pt.y <= r.y + r.h + 20; };
 cv.addEventListener("pointerdown", (e) => {
   pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (drag && drag.text) return;
+  if (!drag && pts.size === 1 && onText(toCanvas(e))) {
+    cv.setPointerCapture(e.pointerId); cv.classList.add("drag");
+    drag = { text: true, x: e.clientX, y: e.clientY, ox: s.offsetX || 0, oy: s.offsetY, moved: false };
+    return;
+  }
   const i = drag ? drag.i : panelAt(toCanvas(e));
   if (i < 0) return;
   cv.setPointerCapture(e.pointerId);
@@ -971,8 +1137,17 @@ cv.addEventListener("pointerdown", (e) => {
   if (p.img) cv.classList.add("drag");
 });
 cv.addEventListener("pointermove", (e) => {
+  if (!drag) cv.style.cursor = onText(toCanvas(e)) ? "move" : "";
   if (!pts.has(e.pointerId) || !drag) return;
   pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (drag.text) {
+    const k = cv.width / cv.getBoundingClientRect().width;
+    const dx = (e.clientX - drag.x) * k, dy = (e.clientY - drag.y) * k;
+    if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
+    const lim = (v) => Math.round(Math.min(40, Math.max(-40, v)) * 10) / 10;
+    s.offsetX = lim(drag.ox + dx / cv.width * 100); s.offsetY = lim(drag.oy + dy / cv.height * 100);
+    render(); return;
+  }
   const p = panels[drag.i], r = geo && geo.rects[drag.i];
   if (!p.img || !r) return;
   if (pts.size > 1) {
@@ -992,6 +1167,13 @@ cv.addEventListener("pointermove", (e) => {
 function endPointer(e) {
   if (!pts.has(e.pointerId)) return;
   pts.delete(e.pointerId);
+  if (drag && drag.text) {
+    if (pts.size) return;
+    cv.classList.remove("drag");
+    const moved = drag.moved; drag = null;
+    if (moved) changed();
+    return;
+  }
   if (pts.size === 1 && drag) { const [v] = pts.values(); const p = panels[drag.i]; Object.assign(drag, { x: v.x, y: v.y, panX: p.panX, panY: p.panY, dist: 0 }); return; }
   if (pts.size) return;
   cv.classList.remove("drag");
@@ -1008,7 +1190,13 @@ cv.addEventListener("wheel", (e) => {
   panels[i].zoom = Math.min(5, Math.max(1, panels[i].zoom * Math.exp(-e.deltaY * 0.0015)));
   render(); clearTimeout(wheelT); wheelT = setTimeout(() => { syncForm(); thumbsSoon(); }, 300);
 }, { passive: false });
-cv.addEventListener("dblclick", (e) => { const i = panelAt(toCanvas(e)); if (i >= 0 && panels[i].img) { Object.assign(panels[i], { zoom: 1, panX: 0.5, panY: 0.35 }); syncForm(); refresh(); } });
+cv.addEventListener("dblclick", (e) => {
+  if (onText(toCanvas(e))) {
+    let ta = [...document.querySelectorAll('textarea[data-k="title"]')].find((x) => x.offsetParent);
+    if (!ta) { showTab("teksti"); ta = $("title"); }
+    ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); return;
+  }
+  const i = panelAt(toCanvas(e)); if (i >= 0 && panels[i].img) { Object.assign(panels[i], { zoom: 1, panX: 0.5, panY: 0.35 }); syncForm(); refresh(); } });
 const wrapEl = $("cvWrap");
 wrapEl.addEventListener("dragover", (e) => { e.preventDefault(); wrapEl.classList.add("over"); });
 wrapEl.addEventListener("dragleave", () => wrapEl.classList.remove("over"));
@@ -1032,7 +1220,7 @@ function render() {
   raf = requestAnimationFrame(() => {
     const F = FORMATS[s.format];
     if (cv.width !== F.w || cv.height !== F.h) { cv.width = F.w; cv.height = F.h; }
-    draw(ctx, s, { preview: true, main: true });
+    draw(ctx, s, { preview: true, main: true, page: { i: cur, n: deck.length } });
   });
 }
 function refresh() { render(); thumbsSoon(); }
@@ -1047,6 +1235,7 @@ function tplCard(t, own) {
 }
 function buildTemplates() {
   $("tpls").innerHTML = TEMPLATES.map((t) => tplCard(t)).join("");
+  $("qTpls").innerHTML = TEMPLATES.map((t) => tplCard(t)).join("");
   $("ownTpls").innerHTML = ownTpls.map((t) => tplCard(t, true)).join("");
   $("ownHead").hidden = !ownTpls.length;
   thumbsSoon();
@@ -1055,9 +1244,11 @@ let tTimer = 0;
 function thumbsSoon() { clearTimeout(tTimer); tTimer = setTimeout(thumbs, 250); }
 function thumbs() {
   document.querySelectorAll(".tpl").forEach((card) => card.setAttribute("aria-pressed", String(s.template === card.dataset.tpl)));
-  if (document.querySelector('[data-panel="mallit"]').hidden) return;
+  drawStrip(); persistSoon();
+  if (!document.querySelector('[data-panel="valmis"]').hidden) drawSizes();
   const all = [...TEMPLATES, ...ownTpls];
   document.querySelectorAll(".tpl").forEach((card) => {
+    if (!card.offsetParent) return;
     const t = all.find((x) => x.id === card.dataset.tpl); if (!t) return;
     const st = { ...s, ...clone(t.set), safe: false };
     const F = FORMATS[st.format], c = card.querySelector("canvas"), w = 320;
@@ -1066,7 +1257,7 @@ function thumbs() {
     draw(x, st, { preview: false });
   });
 }
-document.querySelector('[data-panel="mallit"]').addEventListener("click", (e) => {
+function onTemplateClick(e) {
   const del = e.target.closest("[data-del]");
   if (del) {
     e.stopPropagation();
@@ -1075,8 +1266,11 @@ document.querySelector('[data-panel="mallit"]').addEventListener("click", (e) =>
   }
   const card = e.target.closest("[data-tpl]"); if (!card) return;
   const t = [...TEMPLATES, ...ownTpls].find((x) => x.id === card.dataset.tpl); if (!t) return;
+  if (s.template === "kysymys") s.poll = ["", ""];
   Object.assign(s, clone(t.set), { template: t.id }); changed(); toast(`Malli: ${t.name}`);
-});
+}
+document.querySelector('[data-panel="mallit"]').addEventListener("click", onTemplateClick);
+$("qTpls").addEventListener("click", onTemplateClick);
 $("saveTpl").addEventListener("click", () => {
   const name = (prompt("Anna mallille nimi", "Oma malli") || "").trim(); if (!name) return;
   const id = "oma-" + Date.now();
@@ -1086,8 +1280,9 @@ $("saveTpl").addEventListener("click", () => {
 });
 
 // ---------- Import from an article ----------
-$("importBtn").addEventListener("click", async () => {
-  const list = $("importList");
+$("importBtn").addEventListener("click", () => importInto($("importList")));
+$("qImport").addEventListener("click", () => importInto($("qImportList")));
+async function importInto(list) {
   if (!list.hidden) { list.hidden = true; return; }
   list.hidden = false; list.innerHTML = '<p class="note">Haetaan juttuja…</p>';
   try {
@@ -1104,24 +1299,29 @@ $("importBtn").addEventListener("click", async () => {
     list.onclick = async (e) => {
       const b = e.target.closest("button"); if (!b) return;
       const j = jutut[b.dataset.i];
-      s.title = j.title; if (j.imageCredit) s.credit = "Kuva: " + j.imageCredit;
+      s.title = j.title; s.credit = j.imageCredit ? "Kuva: " + j.imageCredit : s.credit;
+      if (j.image) needPhotoLayout();
       capInfo = { excerpt: j.excerpt || "", link: j.draft ? "" : j.url || "", tags: j.aiheet || "" };
       $("capLink").value = capInfo.link; $("capTags").value = capInfo.tags; list.hidden = true; changed(); makeCaption();
       if (j.image && !(await loadImage(0, j.image))) toast("Jutun kuvaa ei saatu ladattua.");
       else toast("Juttu tuotu");
     };
   } catch { list.innerHTML = '<p class="note">Juttuja ei saatu haettua. Tarkista verkkoyhteys.</p>'; }
-});
+}
+const needPhotoLayout = () => { if (s.layout === "text") { s.layout = "single"; changed(); } };
+$("qPick").addEventListener("click", () => { needPhotoLayout(); pick(0); });
+$("qFind").addEventListener("click", () => { needPhotoLayout(); findPhoto(0); });
 
 // ---------- Export ----------
 function slug() {
   return s.title.replace(/\*/g, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "somekuva";
 }
-function exportBlob(fmt = s.format, type = s.type) {
+function slideBlob(st, P, page, fmt, type) {
   const F = FORMATS[fmt], c = document.createElement("canvas"); c.width = F.w; c.height = F.h;
-  draw(c.getContext("2d"), { ...s, format: fmt }, { preview: false });
+  draw(c.getContext("2d"), { ...st, format: fmt }, { panels: P, page });
   return new Promise((ok) => c.toBlob(ok, type, 0.92));
 }
+const exportBlob = (fmt = s.format, type = s.type) => slideBlob(s, panels, { i: cur, n: deck.length }, fmt, type);
 const ext = (type) => (type === "image/png" ? "png" : "jpg");
 function saveFile(blob, name) {
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
@@ -1133,6 +1333,9 @@ document.addEventListener("click", async (e) => {
   const b = e.target.closest("[data-act]"); if (!b) return;
   const act = b.dataset.act; b.disabled = true;
   try {
+    if (act === "auto" && deck.length > 1) await exportDeck();
+    else if (act === "auto") { saveFile(await exportBlob(), `hulina-${slug()}.${ext(s.type)}`); toast("Kuva ladattu"); }
+    if (act === "deck") await exportDeck();
     if (act === "download") { saveFile(await exportBlob(), `hulina-${slug()}.${ext(s.type)}`); toast("Kuva ladattu"); }
     if (act === "share") { const blob = await exportBlob(); await navigator.share({ files: [new File([blob], `hulina-${slug()}.${ext(s.type)}`, { type: s.type })] }).catch(() => {}); }
     if (act === "copy") {
@@ -1146,9 +1349,141 @@ document.addEventListener("click", async (e) => {
   } finally { b.disabled = false; }
 });
 $("resetAll").addEventListener("click", () => {
-  if (!confirm("Aloitetaanko alusta? Kuvat ja tekstit tyhjennetään.")) return;
-  s = clone(DEFAULTS); panels.forEach((p) => Object.assign(p, newPanel())); changed();
+  if (!confirm("Aloitetaanko alusta? Kuvat, tekstit ja karusellin sivut tyhjennetään.")) return;
+  s = clone(DEFAULTS); panels.forEach((p) => Object.assign(p, newPanel())); cur = 0; deck = [snapshot()]; changed();
 });
+
+// ---------- Carousel ----------
+let deck = [], cur = 0;
+const snapshot = () => ({ s: clone(s), panels: panels.map((p) => ({ img: p.img, src: p.src, zoom: p.zoom, panX: p.panX, panY: p.panY })) });
+const syncDeck = () => { deck[cur] = snapshot(); };
+function loadSlide(i) {
+  const fmt = s.format, d = deck[i];
+  cur = i; s = { ...clone(DEFAULTS), ...clone(d.s), format: fmt };
+  d.panels.forEach((p, k) => Object.assign(panels[k], newPanel(), p));
+  hist = []; hIdx = -1; commit(); save(); syncForm(); refresh();
+}
+function openSlide(i) { syncDeck(); loadSlide(i); }
+function addSlide(copy) {
+  syncDeck();
+  const d = snapshot();
+  if (!copy) {
+    Object.assign(d.s, { title: "", sub: "", badge: "", quoteBy: "", poll: ["", ""], labels: ["", ""] });
+    d.panels = [newPanel(), newPanel()];
+  }
+  deck.splice(cur + 1, 0, d); loadSlide(cur + 1);
+  toast(copy ? "Sivu monistettu" : `Sivu ${cur + 1} lisätty – lisää kuva ja teksti`);
+}
+function drawStrip() {
+  if (!deck.length) return;
+  syncDeck();
+  const box = $("slides"), F = FORMATS[s.format], sig = `${deck.length}:${cur}:${s.format}`;
+  if (box.dataset.sig !== sig) {
+    box.dataset.sig = sig;
+    box.innerHTML = (deck.length > 1 ? deck.map((_, i) => `<button type="button" class="slide" data-slide="${i}" aria-pressed="${i === cur}" aria-label="Sivu ${i + 1}"><canvas></canvas><span>${i + 1}</span></button>`).join("") : "")
+      + `<button type="button" class="slide-add" data-slide-act="add"><b>+</b>${deck.length > 1 ? "Uusi sivu" : "Tee karuselli"}</button>`;
+    $("slideTools").hidden = deck.length < 2;
+    const canDeckShare = canShare;
+    document.querySelectorAll(".deck-btn").forEach((b) => { b.hidden = deck.length < 2; b.textContent = `${canDeckShare ? "Jaa" : "Lataa"} karuselli (${deck.length} kuvaa)`; });
+    $("mDl").textContent = deck.length > 1 ? `Lataa karuselli (${deck.length})` : "Lataa kuva";
+    box.querySelectorAll(".slide canvas").forEach((cnv, i) => thumbSlide(cnv, i, F));
+  } else if (deck.length > 1) {
+    const cnv = box.querySelector(`[data-slide="${cur}"] canvas`); if (cnv) thumbSlide(cnv, cur, F);
+  }
+}
+function thumbSlide(cnv, i, F) {
+  const h = 128, w = Math.round(h * F.w / F.h), d = deck[i];
+  cnv.width = w; cnv.height = h;
+  const x = cnv.getContext("2d"); x.setTransform(w / F.w, 0, 0, w / F.w, 0, 0);
+  draw(x, { ...d.s, format: s.format }, { panels: d.panels, page: { i, n: deck.length } });
+}
+$("slides").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-slide],[data-slide-act]"); if (!b) return;
+  if (b.dataset.slideAct === "add") return addSlide(false);
+  const i = Number(b.dataset.slide); if (i !== cur) openSlide(i);
+});
+$("slideTools").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-slide-act]"); if (!b) return;
+  const a = b.dataset.slideAct;
+  if (a === "dup") return addSlide(true);
+  if (a === "del") {
+    if (deck.length < 2 || !confirm(`Poistetaanko sivu ${cur + 1}?`)) return;
+    deck.splice(cur, 1); loadSlide(Math.min(cur, deck.length - 1)); toast("Sivu poistettu"); return;
+  }
+  const j = cur + (a === "left" ? -1 : 1); if (j < 0 || j >= deck.length) return;
+  syncDeck(); [deck[cur], deck[j]] = [deck[j], deck[cur]]; cur = j; refresh();
+});
+async function exportDeck() {
+  syncDeck();
+  const n = deck.length, files = [];
+  for (let i = 0; i < n; i++) {
+    const blob = await slideBlob(deck[i].s, deck[i].panels, { i, n }, s.format, s.type);
+    files.push(new File([blob], `hulina-${slug()}-${i + 1}.${ext(s.type)}`, { type: s.type }));
+  }
+  if (canShare && navigator.canShare({ files })) { await navigator.share({ files }).catch(() => {}); return; }
+  for (const f of files) { saveFile(f, f.name); await new Promise((r) => setTimeout(r, 450)); }
+  toast(`Karuselli ladattu (${n} kuvaa)`);
+}
+
+// ---------- All sizes ----------
+function drawSizes() {
+  const box = $("sizes");
+  if (!box.children.length) box.innerHTML = Object.entries(FORMATS).map(([k, F]) => `<button type="button" class="size" data-size="${k}"><canvas></canvas><span>${F.label} <small>${F.sub}</small></span></button>`).join("");
+  box.querySelectorAll(".size").forEach((b) => {
+    const F = FORMATS[b.dataset.size], c = b.querySelector("canvas"), w = 240;
+    c.width = w; c.height = Math.round(w * F.h / F.w);
+    const x = c.getContext("2d"); x.setTransform(w / F.w, 0, 0, w / F.w, 0, 0);
+    draw(x, { ...s, format: b.dataset.size }, { page: { i: cur, n: deck.length } });
+  });
+}
+$("sizes").addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-size]"); if (!b) return;
+  saveFile(await exportBlob(b.dataset.size), `hulina-${slug()}-${b.dataset.size}.${ext(s.type)}`); toast(`${FORMATS[b.dataset.size].label} ladattu`);
+});
+
+// ---------- Work survives a reload (photos too) ----------
+const IDB = {
+  db: null,
+  open() { return (this.db ||= new Promise((ok, no) => { const r = indexedDB.open("hulina-somekuva", 1); r.onupgradeneeded = () => r.result.createObjectStore("work"); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
+  async get(k) { const db = await this.open(); return new Promise((ok, no) => { const q = db.transaction("work").objectStore("work").get(k); q.onsuccess = () => ok(q.result); q.onerror = () => no(q.error); }); },
+  async set(k, v) { const db = await this.open(); return new Promise((ok, no) => { const t = db.transaction("work", "readwrite"); t.objectStore("work").put(v, k); t.oncomplete = ok; t.onerror = () => no(t.error); }); },
+};
+let pTimer = 0, restoring = true;
+function persistSoon() {
+  if (restoring) return;
+  clearTimeout(pTimer);
+  pTimer = setTimeout(persistNow, 600);
+}
+function persistNow() {
+  if (restoring) return;
+  clearTimeout(pTimer);
+  try {
+    syncDeck();
+    IDB.set("deck", { cur, deck: deck.map((d) => ({ s: d.s, panels: d.panels.map(({ src, zoom, panX, panY }) => ({ src, zoom, panX, panY })) })) }).catch(() => {});
+  } catch {}
+}
+document.addEventListener("visibilitychange", () => { if (document.hidden) persistNow(); });
+addEventListener("pagehide", persistNow);
+async function restore() {
+  try {
+    const w = await IDB.get("deck");
+    if (!w || !Array.isArray(w.deck) || !w.deck.length) return;
+    const imgs = new Map();
+    const getImg = (src) => {
+      if (!imgs.has(src)) imgs.set(src, new Promise((ok) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = src; }));
+      return imgs.get(src);
+    };
+    deck = await Promise.all(w.deck.map(async (d) => ({
+      s: { ...clone(DEFAULTS), ...d.s },
+      panels: await Promise.all([0, 1].map(async (k) => {
+        const p = (d.panels || [])[k], img = p && p.src ? await getImg(p.src) : null;
+        return img ? { ...p, img } : newPanel();
+      })),
+    })));
+    s.format = deck[Math.min(w.cur || 0, deck.length - 1)].s.format || s.format;
+    loadSlide(Math.min(w.cur || 0, deck.length - 1));
+  } catch {}
+}
 
 // ---------- Quick filters ----------
 const PRESETS = {
@@ -1174,9 +1509,11 @@ function makeCaption() {
   const hash = (t) => "#" + t.toLowerCase().normalize("NFC").replace(/[^a-z0-9åäö]+/g, "");
   const hashtags = [...new Set([...tags.map(hash), "#hulina"])];
   if (!title) { $("capOut").value = "Kirjoita ensin otsikko Teksti-välilehdellä."; return; }
-  const ask = capPick(["Mitä mieltä? 💬", "Kerro kommenteissa 👇", "Yllättikö? 👀", "Mitä tästä ajattelet? 💭"]);
+  const opts = s.poll.map((o) => o.trim()).filter(Boolean);
+  const ask = opts.length > 1 ? `Kommentoi ${opts.join(" vai ")} 👇` : capPick(["Mitä mieltä? 💬", "Kerro kommenteissa 👇", "Yllättikö? 👀", "Mitä tästä ajattelet? 💭"]);
+  const swipe = deck.length > 1 ? "\nPyyhkäise ➡️" : "";
   let out;
-  if (capPlat === "ig") out = `${title} ${capPick(["👀", "😳", "🔥", "💬"])}\n\n${sub || lead}\n\n${ask}\nKoko juttu: linkki biossa 🔗\n\n${hashtags.join(" ")}`;
+  if (capPlat === "ig") out = `${title} ${capPick(["👀", "😳", "🔥", "💬"])}${swipe}\n\n${sub || lead}\n\n${ask}\nKoko juttu: linkki biossa 🔗\n\n${hashtags.join(" ")}`;
   if (capPlat === "tiktok") out = `${title} ${capPick(["👀", "😳", "🔥"])} ${ask}\n${hashtags.concat(["#fyp", "#suomi"]).join(" ")}`;
   if (capPlat === "fb") out = `${title}\n\n${lead || sub}\n\n${capPick(["Lue koko juttu 👇", "Koko juttu Hulinassa 👇", "Lue lisää 👇"])}\n${link || "https://hulina.net"}`;
   if (capPlat === "x") out = `${title} ${capPick(["👀", "🔥", ""])}\n${link || "hulina.net"} ${hashtags.slice(0, 2).join(" ")}`;
@@ -1196,22 +1533,28 @@ function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add
 
 // ---------- Start ----------
 load();
+deck = [snapshot()];
 buildTemplates();
 syncForm();
 commit();
 render();
-// A story handed over from the writing tool ("Tee somekuva")
-try {
-  const h = JSON.parse(localStorage.getItem(HANDOFF) || "null");
-  localStorage.removeItem(HANDOFF);
-  if (h && Date.now() - (h.t || 0) < 3 * 3600e3) {
-    if (h.title) s.title = h.title;
-    s.credit = h.credit ? "Kuva: " + h.credit : "";
-    changed();
-    if (h.image) loadImage(0, h.image);
-    toast("Juttu tuotu kirjoitustyökalusta");
-  }
-} catch {}
+(async () => {
+  await restore();
+  restoring = false;
+  // A story handed over from the writing tool ("Tee somekuva") starts a fresh single image
+  try {
+    const h = JSON.parse(localStorage.getItem(HANDOFF) || "null");
+    localStorage.removeItem(HANDOFF);
+    if (h && Date.now() - (h.t || 0) < 3 * 3600e3) {
+      panels.forEach((p) => Object.assign(p, newPanel()));
+      Object.assign(s, { title: h.title || s.title, sub: "", poll: ["", ""], credit: h.credit ? "Kuva: " + h.credit : "" });
+      cur = 0; deck = [snapshot()];
+      if (h.image) { needPhotoLayout(); await loadImage(0, h.image); }
+      changed(); toast("Juttu tuotu kirjoitustyökalusta");
+    }
+  } catch {}
+  refresh();
+})();
 Promise.all(Object.values(FONTS).map((f) => document.fonts.load(`${f.weight} 60px ${f.family}`)).concat([document.fonts.load('600 30px "League Spartan"')])).then(refresh, refresh);
 </script>
 </body>
