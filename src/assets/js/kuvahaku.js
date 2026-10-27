@@ -236,63 +236,73 @@
     kuvitus: { label: "Kuvituskuvat (sormus, häät, raha…)", run: kuvitus },
   };
 
-  // One "page" of a source mix: every source that still has more, results interleaved.
-  async function fetchPage(src, q, cursor) {
-    const parts = SOURCES[src].parts || [src];
-    const live = parts.filter((k) => cursor[k] !== false);
-    const res = await Promise.allSettled(live.map((k) => SOURCES[k].run(q, (cursor[k] || 0) + 1)));
-    const lists = [], errors = [];
-    let who = "";
-    res.forEach((r, i) => {
-      const k = live[i];
-      if (r.status === "rejected") { errors.push(r.reason?.message || "Haku ei onnistunut."); return; }
-      cursor[k] = r.value.more && r.value.items.length ? (cursor[k] || 0) + 1 : false;
-      if (r.value.who) who = r.value.who;
-      lists.push(r.value.items);
-    });
-    const items = [];
-    for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => l[i] && items.push(l[i]));
-    if (!lists.length && errors.length) throw new Error(errors[0]);
-    return { items, more: live.some((k) => cursor[k] !== false), who, error: errors.length ? (errors.includes(busyMsg) ? "Osa lähteistä ei vastannut juuri nyt. " + busyMsg : "Osa lähteistä ei vastannut.") : "" };
+  const SHORT = { all: "Kaikki", wiki: "Henkilö", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
+  const NAME = { wiki: "Wikipedia", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
+  const TIMEOUT = 12000;
+  const cache = new Map();
+  // Each source page is fetched once per session; slow sources give up after TIMEOUT.
+  function runSource(k, q, page) {
+    const key = `${k}|${q.toLowerCase()}|${page}`;
+    if (!cache.has(key)) {
+      const job = Promise.race([SOURCES[k].run(q, page), new Promise((_, no) => setTimeout(() => no(new Error("ei vastannut ajoissa")), TIMEOUT))]);
+      cache.set(key, job); job.catch(() => cache.delete(key));
+    }
+    return cache.get(key);
   }
 
   const CSS = `
   .kh{position:fixed;inset:0;z-index:1000;background:rgba(10,8,14,.6);display:grid;place-items:center;padding:16px;font:15px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:#1a1720}
-  .kh__box{background:#fff;border-radius:12px;width:min(980px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-  .kh__head{padding:16px 18px 12px;border-bottom:1px solid #e6e3ea;display:grid;gap:10px}
-  .kh__row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .kh__title{margin:0;font-weight:800;font-size:18px;flex:1}
-  .kh__x{border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:#6b6575;padding:4px 8px}
-  .kh__q{flex:1 1 220px;font:16px/1.4 inherit;padding:10px 12px;border:1px solid #cfcad6;border-radius:8px;min-width:0}
-  .kh select{font:15px inherit;padding:9px 8px;border:1px solid #cfcad6;border-radius:8px;background:#fff}
-  .kh__btn{border:0;border-radius:8px;padding:10px 16px;font-weight:700;font-size:15px;cursor:pointer;background:#1a1720;color:#fff}
-  .kh__btn--ghost{background:#fff;color:#1a1720;border:1px solid #cfcad6}
+  .kh__box{background:#fff;border-radius:14px;width:min(1000px,100%);height:min(860px,calc(100vh - 32px));display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  .kh__head{padding:14px 16px 10px;border-bottom:1px solid #ece9f0;display:grid;gap:10px}
+  .kh__top{display:flex;gap:8px;align-items:center}
+  .kh__qwrap{flex:1;position:relative}
+  .kh__q{width:100%;font:17px/1.3 inherit;padding:12px 40px 12px 14px;border:1.5px solid #d6d1dd;border-radius:10px;background:#faf9fb;outline:none;-webkit-appearance:none}
+  .kh__q:focus{border-color:#1a1720;background:#fff}
+  .kh__clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:20px;color:#8a8494;cursor:pointer;padding:6px 8px}
+  .kh__x{border:0;background:#f2f0f5;border-radius:10px;font-size:22px;line-height:1;cursor:pointer;color:#4a4552;width:46px;height:46px;flex-shrink:0}
+  .kh__chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .kh__chips::-webkit-scrollbar{display:none}
+  .kh__chip{flex-shrink:0;border:1.5px solid #e1dde6;background:#fff;border-radius:999px;padding:7px 13px;font:600 14px/1 inherit;color:#4a4552;cursor:pointer;white-space:nowrap}
+  .kh__chip[aria-pressed=true]{background:#1a1720;border-color:#1a1720;color:#fff}
+  .kh__chip--recent{background:#f6f4f8;border-color:transparent;font-weight:500}
+  .kh__status{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:#7b7584;min-height:17px}
+  .kh__status b{font-weight:600;color:#4a4552}
+  .kh__status .ok{color:#1d7a4a}.kh__status .err{color:#b0003a}
+  .kh__body{overflow:auto;padding:12px 16px 20px;flex:1;-webkit-overflow-scrolling:touch}
+  .kh__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+  .kh__item{position:relative;background:#f2f0f5;border-radius:10px;overflow:hidden}
+  .kh__item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#e7e4ea;cursor:zoom-in}
+  .kh__cap{padding:6px 8px 7px;font-size:12px;line-height:1.3;color:#4a4552;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .kh__cap i{display:block;font-style:normal;font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#8a8494}
+  .kh__use{position:absolute;right:6px;top:6px;border:0;border-radius:999px;padding:7px 12px;background:rgba(26,23,32,.88);color:#fff;font:700 13px/1 inherit;cursor:pointer}
+  .kh__use:hover{background:#d93a72}
+  .kh__sk{background:linear-gradient(90deg,#efedf2 0%,#f8f7fa 50%,#efedf2 100%);background-size:200% 100%;animation:khs 1.1s infinite linear;border-radius:10px;aspect-ratio:4/3.6}
+  @keyframes khs{to{background-position:-200% 0}}
+  .kh__msg{padding:34px 10px;text-align:center;color:#6b6575}
+  .kh__msg b{display:block;color:#1a1720;font-size:16px;margin-bottom:6px}
+  .kh__btn{border:0;border-radius:10px;padding:12px 18px;font-weight:700;font-size:15px;cursor:pointer;background:#1a1720;color:#fff}
+  .kh__btn--ghost{background:#fff;color:#1a1720;border:1.5px solid #d6d1dd}
   .kh__btn:disabled{opacity:.5;cursor:wait}
   .kh__note{margin:0;font-size:13px;color:#6b6575}
-  .kh__body{overflow:auto;padding:14px 18px 18px;flex:1}
-  .kh__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-  .kh__item{border:0;padding:0;background:#f2f0f5;border-radius:8px;overflow:hidden;cursor:pointer;text-align:left;display:flex;flex-direction:column;color:inherit;font:inherit}
-  .kh__item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
-  .kh__item span{padding:6px 8px;font-size:12px;line-height:1.3;color:#4a4552;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-  .kh__item i{display:block;font-style:normal;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a8494;overflow:hidden;text-overflow:ellipsis}
-  .kh__who{margin:0 0 10px}
-  .kh__item:hover,.kh__item:focus-visible{outline:3px solid #ff5fa2;outline-offset:-3px}
-  .kh__msg{padding:30px 10px;text-align:center;color:#6b6575}
-  .kh__more{display:flex;justify-content:center;margin-top:14px}
   .kh__detail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:start}
-  .kh__detail img{width:100%;max-height:60vh;object-fit:contain;background:#111;border-radius:8px}
+  .kh__detail img{width:100%;max-height:62vh;object-fit:contain;background:#111;border-radius:10px}
   .kh__meta{display:grid;gap:10px}
   .kh__meta h3{margin:0;font-size:17px;line-height:1.3}
   .kh__meta dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
-  .kh__meta dt{color:#6b6575}
-  .kh__meta dd{margin:0;overflow-wrap:anywhere}
-  .kh__credit{background:#f2f0f5;border-radius:8px;padding:10px 12px;font-size:14px}
+  .kh__meta dt{color:#6b6575}.kh__meta dd{margin:0;overflow-wrap:anywhere}
+  .kh__credit{background:#f2f0f5;border-radius:10px;padding:10px 12px;font-size:14px}
   .kh__credit b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#6b6575;margin-bottom:4px}
   .kh__acts{display:flex;gap:8px;flex-wrap:wrap}
   .kh__err{color:#b0003a;font-size:14px;margin:0}
-  @media (max-width:640px){.kh{padding:0}.kh__box{max-height:100vh;height:100%;border-radius:0}.kh__detail{grid-template-columns:1fr}.kh__detail img{max-height:42vh}.kh__grid{grid-template-columns:repeat(2,1fr)}}`;
+  .kh__end{height:1px}
+  .kh__busy{text-align:center;color:#8a8494;font-size:13px;padding:14px}
+  @media (max-width:640px){.kh{padding:0}.kh__box{height:100%;max-height:none;border-radius:0}.kh__detail{grid-template-columns:1fr}.kh__detail img{max-height:46vh}.kh__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kh__body{padding:10px 10px 24px}}`;
 
-  let root, state;
+  let root, state, typing, io;
+  const $ = (sel) => root.querySelector(sel);
+  function recent() { try { return JSON.parse(localStorage.getItem("hulina-kuvahaku-recent") || "[]"); } catch { return []; } }
+  function remember(q) { try { localStorage.setItem("hulina-kuvahaku-recent", JSON.stringify([q, ...recent().filter((x) => x.toLowerCase() !== q.toLowerCase())].slice(0, 8))); } catch {} }
+
   function build() {
     const st = document.createElement("style"); st.textContent = CSS; document.head.append(st);
     root = document.createElement("div"); root.className = "kh"; root.hidden = true;
@@ -300,59 +310,93 @@
     root.innerHTML = `
       <div class="kh__box">
         <div class="kh__head">
-          <div class="kh__row"><p class="kh__title">Hae vapaasti käytettäviä kuvia</p><button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button></div>
-          <form class="kh__row" data-kh="form">
-            <input class="kh__q" type="search" placeholder="Esim. Sanna Marin, Linnan juhlat, Eurovision" aria-label="Hakusana" required>
-            <select aria-label="Lähde">${Object.entries(SOURCES).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join("")}</select>
-            <button class="kh__btn" type="submit">Hae</button>
+          <form class="kh__top" data-kh="form">
+            <div class="kh__qwrap"><input class="kh__q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Hae nimellä tai aiheella, esim. Sanna Marin" aria-label="Hakusana"><button type="button" class="kh__clr" data-kh="clear" aria-label="Tyhjennä">×</button></div>
+            <button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button>
           </form>
-          <p class="kh__note">Haku käy läpi Wikipedian henkilökuvat, Wikimedia Commonsin, Flickrin (mm. valtioneuvosto ja EU-parlamentti) ja Finnan museo- ja arkistokuvat. Mukana vain kuvat, joiden lisenssi sallii käytön ja muokkauksen (CC0, CC BY, CC BY-SA, public domain). Tekijä ja lisenssi lisätään kuvatekstiin automaattisesti. Henkilökuvia ei saa käyttää mainonnassa ilman kuvatun lupaa.</p>
+          <div class="kh__chips" data-kh="src">${Object.keys(SOURCES).map((k) => `<button type="button" class="kh__chip" data-src="${k}" aria-pressed="false">${SHORT[k]}</button>`).join("")}</div>
+          <div class="kh__status" data-kh="status"></div>
         </div>
         <div class="kh__body" data-kh="body"></div>
       </div>`;
     document.body.append(root);
     root.addEventListener("click", onClick);
     root.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); state.detail ? showGrid() : close(); } });
-    root.querySelector("[data-kh=form]").addEventListener("submit", (e) => { e.preventDefault(); search(true); });
-  }
-  const $b = () => root.querySelector("[data-kh=body]");
-
-  async function search(fresh) {
-    const q = root.querySelector(".kh__q").value.trim(); if (!q) return;
-    const src = root.querySelector("select").value;
-    try { localStorage.setItem("hulina-kuvahaku", JSON.stringify({ q, src })); } catch {}
-    if (fresh) Object.assign(state, { q, src, cursor: {}, items: [], more: false, detail: null, who: "", run: (state.run || 0) + 1 });
-    const run = state.run;
-    state.busy = true; render(fresh ? "Haetaan…" : "");
-    try {
-      const r = await fetchPage(src, q, state.cursor);
-      if (run !== state.run) return;
-      const seen = new Set(state.items.map((x) => x.key));
-      state.items.push(...r.items.filter((x) => !seen.has(x.key) && seen.add(x.key)));
-      state.more = r.more; state.error = r.error; state.who = r.who || state.who;
-    } catch (e) { if (run !== state.run) return; state.error = e.message; }
-    state.busy = false; render();
+    $("[data-kh=form]").addEventListener("submit", (e) => { e.preventDefault(); clearTimeout(typing); search(true); $(".kh__q").blur(); });
+    $(".kh__q").addEventListener("input", () => { clearTimeout(typing); const q = $(".kh__q").value.trim(); if (q.length >= 3) typing = setTimeout(() => search(true), 650); else if (!q) { Object.assign(state, { q: "", items: [], status: {} }); render(); } });
+    io = new IntersectionObserver((en) => { if (en.some((x) => x.isIntersecting) && state.more && !state.busy && !state.detail) search(false); }, { root: $(".kh__body"), rootMargin: "600px" });
   }
 
-  function render(msg) {
-    if (state.detail) return showDetail(state.detail);
-    const b = $b();
-    if (msg) { b.innerHTML = `<p class="kh__msg">${esc(msg)}</p>`; return; }
-    if (state.error && !state.items.length) { b.innerHTML = `<p class="kh__msg">${esc(state.error)}</p>`; return; }
-    if (!state.q) { b.innerHTML = `<p class="kh__msg">Kirjoita hakusana. Julkkiksia ja poliitikkoja kannattaa hakea koko nimellä.</p>`; return; }
-    if (!state.items.length) { b.innerHTML = `<p class="kh__msg">Ei vapaasti käytettäviä kuvia haulla ”${esc(state.q)}”. Kokeile toista lähdettä tai hakusanaa.</p>`; return; }
-    b.innerHTML = `${state.who ? `<p class="kh__note kh__who">Henkilö: <b>${esc(state.who)}</b> · ${state.items.length}${state.more ? "+" : ""} kuvaa</p>` : `<p class="kh__note kh__who">${state.items.length}${state.more ? "+" : ""} kuvaa</p>`}<div class="kh__grid">${state.items.map((p, i) => `
-      <button type="button" class="kh__item" data-kh-i="${i}" title="${esc(p.title)}">
-        <img src="${esc(p.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.kh__item').remove()">
-        <span><i>${esc(p.source)}</i>${esc(p.author)} · ${esc(p.license)}</span>
-      </button>`).join("")}</div>
-      ${state.error ? `<p class="kh__err">${esc(state.error)}</p>` : ""}
-      ${state.more ? `<div class="kh__more"><button type="button" class="kh__btn kh__btn--ghost" data-kh="more" ${state.busy ? "disabled" : ""}>${state.busy ? "Haetaan…" : "Näytä lisää"}</button></div>` : ""}`;
+  function search(fresh) {
+    const q = $(".kh__q").value.trim(); if (!q) return;
+    if (fresh && q === state.q && state.src === state.lastSrc && state.items.length) return;
+    try { localStorage.setItem("hulina-kuvahaku", JSON.stringify({ q, src: state.src })); } catch {}
+    if (fresh) { remember(q); Object.assign(state, { q, lastSrc: state.src, cursor: {}, items: [], seen: new Set(), more: false, detail: null, who: "", status: {}, run: (state.run || 0) + 1 }); }
+    const run = state.run, parts = SOURCES[state.src].parts || [state.src];
+    const live = parts.filter((k) => state.cursor[k] !== false);
+    if (!live.length) return;
+    state.busy = live.length; render();
+    const lists = {};
+    live.forEach((k) => {
+      state.status[k] = "…";
+      runSource(k, q, (state.cursor[k] || 0) + 1).then((r) => {
+        if (run !== state.run) return;
+        state.cursor[k] = r.more && r.items.length ? (state.cursor[k] || 0) + 1 : false;
+        if (r.who) state.who = r.who;
+        const fresh = r.items.filter((x) => !state.seen.has(x.key) && state.seen.add(x.key));
+        lists[k] = fresh; state.items.push(...fresh);
+        state.status[k] = state.cursor[k] === false && !fresh.length ? "0" : String((Number(state.status[k + "#"]) || 0) + fresh.length);
+        state.status[k + "#"] = state.status[k];
+      }).catch((e) => {
+        if (run !== state.run) return;
+        state.cursor[k] = false; state.status[k] = e.message === busyMsg ? "ruuhka" : "ei vastannut";
+      }).finally(() => {
+        if (run !== state.run) return;
+        state.busy--; state.more = parts.some((k) => state.cursor[k] !== false);
+        render();
+      });
+    });
+  }
+
+  function statusLine() {
+    const parts = SOURCES[state.src].parts || [state.src];
+    if (!state.q) return "";
+    return (state.who ? `<span>Henkilö: <b>${esc(state.who)}</b></span>` : "") + parts.map((k) => {
+      const v = state.status[k];
+      if (v == null) return "";
+      const cls = v === "…" ? "" : /^\d+$/.test(v) ? "ok" : "err";
+      return `<span class="${cls}">${NAME[k]} ${v === "…" ? "…" : /^\d+$/.test(v) ? v : v}</span>`;
+    }).join("");
+  }
+
+  function tiles(n) { return Array.from({ length: n }, () => '<div class="kh__sk"></div>').join(""); }
+  function render() {
+    root.querySelectorAll("[data-src]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.src === state.src)));
+    $("[data-kh=status]").innerHTML = statusLine();
+    if (state.detail) return;
+    const b = $("[data-kh=body]");
+    if (!state.q) {
+      const r = recent();
+      b.innerHTML = `<p class="kh__msg"><b>Hae kuvia nimellä tai aiheella</b>Julkkiksia ja poliitikkoja kannattaa hakea koko nimellä. Kuvituskuviin sopivat sanat kuten sormus, häät tai raha.</p>
+        ${r.length ? `<p class="kh__note" style="margin:4px 0 8px">Viimeisimmät haut</p><div class="kh__chips" style="flex-wrap:wrap">${r.map((x) => `<button type="button" class="kh__chip kh__chip--recent" data-recent="${esc(x)}">${esc(x)}</button>`).join("")}</div>` : ""}`;
+      return;
+    }
+    const single = state.actions.length === 1;
+    const grid = state.items.map((p, i) => `
+      <div class="kh__item">
+        <img src="${esc(p.thumb)}" alt="${esc(p.title)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-kh-i="${i}" onerror="this.closest('.kh__item').remove()">
+        ${single ? `<button type="button" class="kh__use" data-kh-quick="${i}">Käytä</button>` : ""}
+        <div class="kh__cap"><i>${esc(p.source)}</i>${esc(p.author)} · ${esc(p.license)}</div>
+      </div>`).join("");
+    if (!state.items.length && state.busy) { b.innerHTML = `<div class="kh__grid">${tiles(8)}</div>`; return; }
+    if (!state.items.length) { b.innerHTML = `<p class="kh__msg"><b>Ei vapaasti käytettäviä kuvia haulla ”${esc(state.q)}”</b>Kokeile toista lähdettä tai hakusanaa. Kohu- ja somejulkkiksista vapaita kuvia on harvoin, silloin sopii kuvituskuva.</p>`; return; }
+    b.innerHTML = `<div class="kh__grid">${grid}${state.busy ? tiles(4) : ""}</div>${state.more || state.busy ? `<div class="kh__busy">${state.busy ? "Haetaan lisää…" : ""}</div>` : ""}<div class="kh__end" data-kh="end"></div>`;
+    io.disconnect(); const end = $("[data-kh=end]"); if (end) io.observe(end);
   }
 
   function showDetail(p) {
     state.detail = p;
-    $b().innerHTML = `
+    $("[data-kh=body]").innerHTML = `
       <div class="kh__detail">
         <img src="${esc(p.preview || p.thumb.replace(/\/330px-/, "/960px-").replace(/_n\.jpg$/, "_c.jpg"))}" alt="" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=${esc(JSON.stringify(p.thumb))}}">
         <div class="kh__meta">
@@ -371,23 +415,28 @@
           ${p.w && Math.max(p.w, p.h) < 900 ? `<p class="kh__note">Kuva on pieni (${p.w} px), joten se voi näyttää sumealta isona.</p>` : ""}
         </div>
       </div>`;
+    $("[data-kh=body]").scrollTop = 0;
     root.querySelector("[data-kh-act]")?.focus();
   }
   function showGrid() { state.detail = null; render(); }
 
+  async function use(p, action, btn, errEl) {
+    btn.disabled = true; const old = btn.textContent; btn.textContent = "Haetaan…"; if (errEl) errEl.textContent = "";
+    try { await action.run(p); close(); }
+    catch (x) { btn.disabled = false; btn.textContent = old; if (errEl) errEl.textContent = x.message || "Kuvaa ei saatu käyttöön."; else alert(x.message || "Kuvaa ei saatu käyttöön."); }
+  }
+
   async function onClick(e) {
     if (e.target === root) return close();
-    const t = e.target.closest("[data-kh],[data-kh-i],[data-kh-act]"); if (!t) return;
+    const t = e.target.closest("[data-kh],[data-kh-i],[data-kh-act],[data-kh-quick],[data-src],[data-recent]"); if (!t) return;
     if (t.dataset.kh === "close") return close();
-    if (t.dataset.kh === "more") return search(false);
+    if (t.dataset.kh === "clear") { $(".kh__q").value = ""; $(".kh__q").focus(); Object.assign(state, { q: "", items: [], status: {} }); return render(); }
     if (t.dataset.kh === "back") return showGrid();
+    if (t.dataset.src) { state.src = t.dataset.src; state.lastSrc = null; return $(".kh__q").value.trim() ? search(true) : render(); }
+    if (t.dataset.recent) { $(".kh__q").value = t.dataset.recent; return search(true); }
     if (t.dataset.khI) return showDetail(state.items[t.dataset.khI]);
-    if (t.dataset.khAct) {
-      const a = state.actions[t.dataset.khAct], err = root.querySelector("[data-kh=err]");
-      root.querySelectorAll("[data-kh-act]").forEach((x) => (x.disabled = true)); err.textContent = "Haetaan kuvaa…";
-      try { await a.run(state.detail); close(); }
-      catch (x) { err.textContent = x.message || "Kuvaa ei saatu käyttöön."; root.querySelectorAll("[data-kh-act]").forEach((y) => (y.disabled = false)); }
-    }
+    if (t.dataset.khQuick) return use(state.items[t.dataset.khQuick], state.actions[0], t);
+    if (t.dataset.khAct) return use(state.detail, state.actions[t.dataset.khAct], t, $("[data-kh=err]"));
   }
 
   let lastFocus;
@@ -396,16 +445,14 @@
     lastFocus = document.activeElement;
     let saved = {}; try { saved = JSON.parse(localStorage.getItem("hulina-kuvahaku") || "{}"); } catch {}
     const keep = state && state.items.length && (!query || query === state.q);
-    if (!keep) state = { q: "", src: SOURCES[saved.src] ? saved.src : "all", cursor: {}, items: [], more: false, detail: null, error: "", who: "", run: 0 };
+    if (!keep) state = { q: "", src: SOURCES[saved.src] ? saved.src : "all", cursor: {}, items: [], seen: new Set(), more: false, detail: null, who: "", status: {}, run: 0, busy: 0 };
     state.actions = actions || []; state.detail = null;
-    root.querySelector(".kh__q").value = keep ? state.q : (query || "");
-    root.querySelector("select").value = state.src;
+    $(".kh__q").value = keep ? state.q : (query || "");
     root.hidden = false; document.documentElement.style.overflow = "hidden";
     render();
-    root.querySelector(".kh__q").focus();
-    if (!keep && query) search(true);
+    if (!keep && query) search(true); else if (!keep) setTimeout(() => $(".kh__q").focus(), 50);
   }
-  function close() { root.hidden = true; document.documentElement.style.overflow = ""; lastFocus?.focus?.(); }
+  function close() { root.hidden = true; document.documentElement.style.overflow = ""; clearTimeout(typing); lastFocus?.focus?.(); }
 
   window.Kuvahaku = { open };
 })();
