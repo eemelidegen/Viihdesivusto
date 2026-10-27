@@ -1,5 +1,5 @@
 ---
-title: "Kohujen syksyn jälkeen Sliki vihjaa uudesta biisistä – arvoituksellinen video, kommenttikenttä täyttyi liekeistä"
+title: "Kohujen syksyn jälkeen Sliki vihjaa uudesta biisistä – julkaisu jo perjantaina"
 excerpt: "Ketolan keikka, julkinen anteeksipyyntö ja dissiriita Rekamin kanssa. Nyt räppäri lupaa jotain uutta jo perjantaina."
 date: "2026-10-27T06:30:00.000Z"
 category: "kohut"
@@ -12,7 +12,7 @@ lahteet: ""
 draft: true
 ---
 
-Levysoitin pyörii hämärässä huoneessa, neula laskeutuu vinyylille. Muuta 14 sekunnin video ei paljasta.
+Kuukauden hiljaiselon jälkeen Sliki on taas äänessä. Ja tällä kertaa hän puhuu musiikilla.
 
 Räppäri **Sliki** (oik. Jan Vikman) julkaisi maanantai-iltana Instagramissa lyhyen teaserin, jonka saateteksti on niukka mutta selvä:
 
@@ -20,13 +20,13 @@ Räppäri **Sliki** (oik. Jan Vikman) julkaisi maanantai-iltana Instagramissa ly
 
 Kappaleen nimeä tai mitään muutakaan yksityiskohtaa Sliki ei kerro. Uutta musiikkia on siis luvassa perjantaina 30. lokakuuta.
 
-## Liekkejä ja timantteja
+## Punchlinejen mies
 
-Fanit eivät jääneet odottelemaan. Julkaisu keräsi alle vuorokaudessa yli tuhat tykkäystä, ja kommenttikenttä täyttyi liekki- ja timanttiemojeista. Mukana tulessa oli myös muutamia sinisellä merkillä varmennettuja somenimiä.
+Sliki tunnetaan Memphis-vaikutteisesta räpistä ja kovista, rahan ja menestyksen ympärillä pyörivistä punchlineistä. Läpimurto tuli kappaleella *Hodari*, jolla vierailevat **Melo** ja **Skii6**. Biisistä tuli suosittu jo ennen kuin Sliki solmi sopimuksen Epic Recordsin kanssa.
 
-– OMG, yksi kommentoija kirjoitti.
+Rahasta hän on räpännyt avoimesti myös omalla kohdallaan. Nopea vaurastuminen tuli hänen mukaansa yllätyksenä, johon hän ei ollut valmistautunut.
 
-Lämmin vastaanotto on tervetullut, sillä Slikin syksy on ollut kaikkea muuta kuin rauhallinen.
+Tämä syksy on kuitenkin tuonut otsikoihin aivan muuta kuin musiikkia.
 
 ## Keikka, joka kaduttaa
 
