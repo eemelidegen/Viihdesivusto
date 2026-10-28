@@ -1,5 +1,5 @@
 ---
-title: "Chiara, 20, on sammunut kesken livelähetyksen: ”Hävettää niin paljon”"
+title: "Chiara, 21, on sammunut kesken livelähetyksen: ”Hävettää niin paljon”"
 excerpt: "Nuori striimaaja myöntää, että juominen kameran edessä on hänen ainoa tulonlähteensä."
 date: "2026-10-28T05:43:39.201Z"
 category: "julkkikset"
@@ -11,7 +11,7 @@ lahteet: "MTV | https://www.mtv.fi/ohjelma/9eaa5e8a26a349ebbb74/asian-ytimessa-d
 nosto: true
 ---
 
-Kun 20-vuotias **Chiara Eklund** juo suorassa lähetyksessä, katsojia tulee lisää. Välillä ilta on päättynyt siihen, että hän on sammunut ja lähetys on jäänyt pyörimään.
+Kun 21-vuotias **Chiara Eklund** juo suorassa lähetyksessä, katsojia tulee lisää. Välillä ilta on päättynyt siihen, että hän on sammunut ja lähetys on jäänyt pyörimään.
 
 – Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, Eklund sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
 
