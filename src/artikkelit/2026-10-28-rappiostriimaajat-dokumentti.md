@@ -24,7 +24,7 @@ Eklund myöntää juovansa lähetysten takia enemmän kuin muuten joisi. Toimitt
 
 – Se on hyvä kysymys. Ehkä koska se on ainoa tulonlähteeni.
 
-## Kolme viikkoa laitoksessa
+## ”Meni aika yli ja lujaa”
 
 Dokumentissa puhuu myös **Juulia Valikainen**, 22, jonka kanssa Eklund on tehnyt lähetyksiä yhdessä. Kaksikon mukaan yhteiset illat ovat joskus päättyneet tappeluun, ja baareista heidät on poistettu.
 
