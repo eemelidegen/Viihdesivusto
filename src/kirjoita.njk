@@ -773,13 +773,15 @@ async function loadList() {
   const box = $("list");
   box.innerHTML = '<div class="empty2">Ladataan juttuja…</div>';
   try {
-    allJutut = (await api("jutut")).jutut;
+    const [j, v] = await Promise.all([api("jutut"), api("luvut").catch(() => ({ luvut: {} }))]);
+    allJutut = j.jutut; views = v.luvut || {};
     drawList();
   } catch (e) {
     if (e.message !== "login") box.innerHTML = `<div class="error">${esc(e.message)}</div>`;
   }
 }
-let allJutut = [], listFilter = "all";
+let allJutut = [], listFilter = "all", views = {};
+const fiNum = new Intl.NumberFormat("fi-FI");
 function drawList() {
   const box = $("list"), q = $("q").value.trim().toLowerCase();
   const jutut = allJutut.filter((j) => (!q || j.title.toLowerCase().includes(q))
@@ -794,7 +796,7 @@ function drawList() {
       return `<div class="item">
         <div class="item__thumb">${j.image ? `<img src="${esc(j.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div>
         <div><p class="item__title">${esc(j.title)}</p>
-          <div class="item__meta">${j.draft ? '<span class="tag2">Luonnos</span>' : ""}<span>${cat ? esc(cat.name) : ""}</span><span>${j.date ? fiDateTime.format(new Date(j.date)) : ""}</span></div></div>
+          <div class="item__meta">${j.draft ? '<span class="tag2">Luonnos</span>' : ""}<span>${cat ? esc(cat.name) : ""}</span><span>${j.date ? fiDateTime.format(new Date(j.date)) : ""}</span>${!j.draft && views[slug] ? `<span title="Lukukerrat: yhteensä, viimeiset 7 päivää ja tänään">👁 ${fiNum.format(views[slug].yht)} lukukertaa · 7 pv ${fiNum.format(views[slug].viikko)} · tänään ${fiNum.format(views[slug].tanaan)}</span>` : ""}</div></div>
         <div class="item__actions">
           <button type="button" class="primary" data-edit="${esc(j.file)}">Muokkaa</button>
           ${j.draft ? "" : `<a href="/${slug}/" target="_blank" rel="noopener">Avaa</a><button type="button" data-copy="https://hulina.net/${slug}/">Kopioi linkki</button>`}

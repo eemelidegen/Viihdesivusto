@@ -373,3 +373,15 @@ if (tipForm) {
     } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; }
   });
 }
+
+// Read counter: one count per story per browser session, sent after the page has been open a moment
+const readBox = document.getElementById("kommentit");
+if (readBox && readBox.dataset.story) {
+  const key = "hulina-luettu-" + readBox.dataset.story;
+  let seen = false;
+  try { seen = !!sessionStorage.getItem(key); } catch {}
+  if (!seen) setTimeout(() => {
+    try { sessionStorage.setItem(key, "1"); } catch {}
+    fetch("/api/luettu", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ juttu: readBox.dataset.story }), keepalive: true }).catch(() => {});
+  }, 3000);
+}
