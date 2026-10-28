@@ -1,6 +1,6 @@
 ---
-title: "Chiara Eklund, 20, on sammunut kesken suoran lähetyksen – ”Aika usein ei pysty katsomaan omia klippejä”"
-excerpt: "Kaksi nuorta rappiostriimaajaa kertoo dokumentissa, miksi he juovat kameran edessä."
+title: "Striimaaja, 20: ”Olen sammunut live päällä”"
+excerpt: "Chiara Eklund kertoo suoraan, miksi juo kameran edessä: ”Ehkä koska se on ainoa tulonlähteeni.”"
 date: "2026-10-28T05:00:00.000Z"
 category: "kohut"
 aiheet: "Rappiostriimaus"
@@ -12,36 +12,28 @@ lahteet: ""
 draft: true
 ---
 
-**Chiara Eklund**, 20, tekee suoria lähetyksiä, joissa hän on usein humalassa. Hän myöntää, että illat ovat päättyneet niin, että hän on sammunut kamera päällä.
+Välillä juominen suorissa lähetyksissä on mennyt niin pitkälle, että **Chiara Eklund**, 20, on sammunut kamera päällä.
 
-– Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, Eklund sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
+– Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, hän sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
 
-Dokumentissa toimittaja **Iriz Silander** haastattelee Eklundia ja **Juulia Valikaista**, 22. Molemmat tekevät rappiostriimaukseksi kutsuttua sisältöä.
-
-Eklund kertoo, miten hänen kohdallaan kaikki alkoi.
-
-– Se alkoi niin, että ensin otettiin vähän viiniä ja se meni vähän överiksi.
-
-Pian hän huomasi, että humalaiset lähetykset keräsivät enemmän katsojia ja kommentteja kuin muu sisältö. Eklund pitää sitä surullisena ja myöntää, että se on saanut hänet juomaan enemmän kuin hän muuten joisi.
+Humalaiset lähetykset keräävät Eklundin mukaan enemmän katsojia ja kommentteja kuin muu sisältö. Se on saanut hänet juomaan enemmän kuin hän muuten joisi.
 
 – Siihen jäi itsekin vähän koukkuun, että pitäisikö taas juoda.
 
-Silander kysyy, miksi hän sitten tekee tällaista sisältöä.
+Miksi hän jatkaa?
 
-– Se on hyvä kysymys. Ehkä koska se on ainoa tulonlähteeni.
+– Ehkä koska se on ainoa tulonlähteeni.
 
-## Huoli-ilmoituksia ja tappeluita
+## ”Haluavat nähdä, miten jollakin menee paskemmin”
 
-Katsojat ovat tehneet molemmista striimaajista huoli-ilmoituksia. Valikaisen mukaan niitä tuli jossain vaiheessa paljon.
+Dokumentissa esiintyy myös **Juulia Valikainen**, 22. Kaksikon yhteiset lähetykset ovat heidän mukaansa päättyneet joskus tappeluun, ja baareista heidät on poistettu. Katsojat ovat tehneet heistä huoli-ilmoituksia.
 
-– Kävin myös sellaisessa laitoksen kaltaisessa jutussa. Olin siellä kolmisen viikkoa rauhoittumassa. Meni aika yli ja lujaa silloin, hän kertoo.
+– Kävin myös sellaisessa laitoksen kaltaisessa jutussa. Olin siellä kolmisen viikkoa rauhoittumassa, Valikainen kertoo.
 
-Kaksikko kertoo, että heidän yhteiset lähetyksensä ovat joskus päättyneet tappeluun ja että heidät on poistettu baareista.
+Hänellä on selitys sille, miksi lähetyksiä katsotaan.
 
-Valikaisella on oma näkemyksensä siitä, miksi lähetyksiä katsotaan.
+– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin.
 
-– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin. Siitä tulee heille hyvä olo.
+Rappiostriimaus on puhuttanut syksyllä. Lokakuussa kotkalainen striimaaja kuoli vahingoitettuaan itseään suorassa lähetyksessä.
 
-Rappiostriimauksessa ihmiset kuvaavat itseään päihtyneinä suorissa lähetyksissä, ja katsojat voivat lahjoittaa heille rahaa kesken lähetyksen. Ilmiö on viime viikkoina puhuttanut lähetyksissä nähdyn vahingollisen sisällön vuoksi. Kotkalainen striimaaja kuvasi 15. lokakuuta suorassa lähetyksessä itsetuhoista materiaalia, ja Digi- ja väestötietovirasto vahvisti 21. lokakuuta hänen kuolleen. Aiemmin lokakuussa toinen striimaaja loukkaantui Kirkkonummella livelähetyksen aikana.
-
-*Jos sinulla on itsetuhoisia ajatuksia, voit soittaa MIELI ry:n Kriisipuhelimeen numeroon 09 2525 0111. Se päivystää ympäri vuorokauden.*
+*Jos sinulla on itsetuhoisia ajatuksia, soita MIELI ry:n Kriisipuhelimeen 09 2525 0111. Se päivystää ympäri vuorokauden.*
