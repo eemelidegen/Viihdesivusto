@@ -1,15 +1,14 @@
 ---
 title: "Chiara, 20, on sammunut kesken livelähetyksen: ”Hävettää niin paljon”"
 excerpt: "Nuori striimaaja myöntää, että juominen kameran edessä on hänen ainoa tulonlähteensä."
-date: "2026-10-28T05:00:00.000Z"
-category: "kohut"
+date: "2026-10-28T05:43:39.201Z"
+category: "julkkikset"
 aiheet: "Rappiostriimaus"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
-lahteet: ""
-draft: true
+image: "/assets/img/uploads/rappiostriimaajat-dokumentti-0715a2.jpg"
+imageCredit: "Kick @bundachiara"
+lahteet: "MTV | https://www.mtv.fi/ohjelma/9eaa5e8a26a349ebbb74/asian-ytimessa-doc-kohujulkkikset"
+nosto: true
 ---
 
 Kun 20-vuotias **Chiara Eklund** juo suorassa lähetyksessä, katsojia tulee lisää. Välillä ilta on päättynyt siihen, että hän on sammunut ja lähetys on jäänyt pyörimään.
