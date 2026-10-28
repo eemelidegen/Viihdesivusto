@@ -29,7 +29,12 @@
   <script>try { if (localStorage.getItem("hulina-teema") === "dark") document.documentElement.dataset.theme = "dark"; } catch {}</script>
   <link rel="preload" href="/assets/fonts/roboto-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css?v={{ build.version }}">
-  {% if site.adsense %}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense }}" crossorigin="anonymous"></script>{% endif %}
+  {% if site.adsense %}
+  {# Google's consent message (Privacy & messaging in AdSense); loaded on its own so it shows even before ads are served #}
+  <script async src="https://fundingchoicesmessages.google.com/i/{{ site.adsense | replace('ca-', '') }}?ers=1"></script>
+  <script>(function(){function s(){if(!window.frames.googlefcPresent){if(document.body){var i=document.createElement("iframe");i.style.cssText="width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;display:none";i.name="googlefcPresent";document.body.appendChild(i)}else{setTimeout(s,0)}}}s()})();</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense }}" crossorigin="anonymous"></script>
+  {% endif %}
   {% block head %}{% endblock %}
   {% if page.url == "/" %}
   <script type="application/ld+json">
