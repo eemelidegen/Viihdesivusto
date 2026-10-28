@@ -1,9 +1,9 @@
 ---
-title: "Nuori striimaaja myöntää: ”Olen sammunut live päällä” – kännäämisestä tuli ainoa tulonlähde"
-excerpt: "Chiara Eklund, 20, ja Juulia Valikainen, 22, kertovat, miksi juominen kameran edessä kannattaa – ja mitä se maksaa."
+title: "Chiara Eklund, 20, on sammunut kesken suoran lähetyksen – ”Aika usein ei pysty katsomaan omia klippejä”"
+excerpt: "Kaksi nuorta rappiostriimaajaa kertoo dokumentissa, miksi he juovat kameran edessä."
 date: "2026-10-28T05:00:00.000Z"
 category: "kohut"
-aiheet: "Rappiostriimaus, Kick"
+aiheet: "Rappiostriimaus"
 author: "Toimitus"
 image: ""
 imageAlt: ""
@@ -12,36 +12,36 @@ lahteet: ""
 draft: true
 ---
 
-Alku oli viaton. Muutama lasi viiniä, joka meni vähän överiksi.
+**Chiara Eklund**, 20, tekee suoria lähetyksiä, joissa hän on usein humalassa. Hän myöntää, että illat ovat päättyneet niin, että hän on sammunut kamera päällä.
 
-– Se alkoi niin, että ensin otettiin vähän viiniä ja se meni vähän överiksi, **Chiara Eklund**, 20, kertoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
+– Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, Eklund sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
 
-Hän huomasi nopeasti, että humalaiset lähetykset keräsivät enemmän katsojia kuin mikään muu. Kommentteja tuli enemmän ja lahjoituksia myös.
+Dokumentissa toimittaja **Iriz Silander** haastattelee Eklundia ja **Juulia Valikaista**, 22. Molemmat tekevät rappiostriimaukseksi kutsuttua sisältöä.
+
+Eklundin mukaan kaikki alkoi muutamasta lasillisesta.
+
+– Se alkoi niin, että ensin otettiin vähän viiniä ja se meni vähän överiksi.
+
+Pian hän huomasi, että humalaiset lähetykset keräsivät enemmän katsojia ja kommentteja kuin muu sisältö. Eklund pitää sitä surullisena ja myöntää, että se on saanut hänet juomaan enemmän kuin hän muuten joisi.
 
 – Siihen jäi itsekin vähän koukkuun, että pitäisikö taas juoda.
 
-Eklund ei kaunistele lopputulosta.
-
-– Välillä se on mennyt siihen, että olen sammunut live päällä. Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon.
-
-Miksi sitten jatkaa?
+Silander kysyy, miksi hän sitten tekee tällaista sisältöä.
 
 – Se on hyvä kysymys. Ehkä koska se on ainoa tulonlähteeni.
 
-## Kolme viikkoa laitoksessa
+## Huoli-ilmoituksia ja tappeluita
 
-Dokumentissa esiintyy myös **Juulia Valikainen**, 22. Kaksikon yhteiset lähetykset ovat joskus päättyneet tappeluun, ja heidät on poistettu baareista. Katsojat ovat tehneet heistä huoli-ilmoituksia.
+Katsojat ovat tehneet molemmista striimaajista huoli-ilmoituksia. Valikaisen mukaan niitä tuli jossain vaiheessa paljon.
 
-– Yhdessä välissä minusta ainakin tehtiin tosi paljon niitä. Kävin myös sellaisessa laitoksen kaltaisessa jutussa. Olin siellä kolmisen viikkoa rauhoittumassa, Valikainen kertoo.
+– Kävin myös sellaisessa laitoksen kaltaisessa jutussa. Olin siellä kolmisen viikkoa rauhoittumassa. Meni aika yli ja lujaa silloin, hän kertoo.
 
-Hänellä on oma teoriansa siitä, miksi ihmiset katsovat.
+Kaksikko kertoo, että heidän yhteiset lähetyksensä ovat joskus päättyneet tappeluun ja että heidät on poistettu baareista.
 
-– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin.
+Valikaisella on oma näkemyksensä siitä, miksi lähetyksiä katsotaan.
 
-## Raha tulee katsojilta – ja alustalta
+– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin. Siitä tulee heille hyvä olo.
 
-Rappiostriimauksessa päihtyneet ihmiset kuvaavat itseään suorissa lähetyksissä esimerkiksi Kickissä ja TikTokissa, ja katsojat voivat lähettää rahaa kesken lähetyksen. Kick maksaa lisäksi kumppaniohjelmaansa hyväksytyille striimaajille tuntipalkkaa. Mitä isompi yleisö, sitä enemmän rahaa. Pelkkä katsominenkin siis kasvattaa tuloja.
-
-Ilmiö on ollut syksyllä esillä synkissä merkeissä. Lokakuussa 23-vuotias kotkalainen striimaaja kuoli vahingoitettuaan itseään vakavasti suorassa lähetyksessä. Kirkkonummella toinen striimaaja loukkaantui kesken lähetyksen.
+Rappiostriimauksessa ihmiset kuvaavat itseään päihtyneinä suorissa lähetyksissä, ja katsojat voivat lahjoittaa heille rahaa kesken lähetyksen. Ilmiö on viime viikkoina puhuttanut lähetyksissä nähdyn vahingollisen sisällön vuoksi. Kotkalainen striimaaja kuvasi 15. lokakuuta suorassa lähetyksessä itsetuhoista materiaalia, ja Digi- ja väestötietovirasto vahvisti 21. lokakuuta hänen kuolleen. Aiemmin lokakuussa toinen striimaaja loukkaantui Kirkkonummella livelähetyksen aikana.
 
 *Jos sinulla on itsetuhoisia ajatuksia, voit soittaa MIELI ry:n Kriisipuhelimeen numeroon 09 2525 0111. Se päivystää ympäri vuorokauden.*
