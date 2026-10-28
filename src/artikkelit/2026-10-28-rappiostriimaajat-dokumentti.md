@@ -18,7 +18,7 @@ draft: true
 
 Dokumentissa toimittaja **Iriz Silander** haastattelee Eklundia ja **Juulia Valikaista**, 22. Molemmat tekevät rappiostriimaukseksi kutsuttua sisältöä.
 
-Eklundin mukaan kaikki alkoi muutamasta lasillisesta.
+Eklund kertoo, miten hänen kohdallaan kaikki alkoi.
 
 – Se alkoi niin, että ensin otettiin vähän viiniä ja se meni vähän överiksi.
 
