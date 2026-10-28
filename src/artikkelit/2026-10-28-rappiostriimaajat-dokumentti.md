@@ -1,6 +1,6 @@
 ---
-title: "Striimaaja, 20: ”Olen sammunut live päällä”"
-excerpt: "Chiara Eklund kertoo suoraan, miksi juo kameran edessä: ”Ehkä koska se on ainoa tulonlähteeni.”"
+title: "Chiara, 20, on sammunut kesken livelähetyksen: ”Hävettää niin paljon”"
+excerpt: "Nuori striimaaja myöntää, että juominen kameran edessä on hänen ainoa tulonlähteensä."
 date: "2026-10-28T05:00:00.000Z"
 category: "kohut"
 aiheet: "Rappiostriimaus"
@@ -12,28 +12,30 @@ lahteet: ""
 draft: true
 ---
 
-Välillä juominen suorissa lähetyksissä on mennyt niin pitkälle, että **Chiara Eklund**, 20, on sammunut kamera päällä.
+Kun 20-vuotias **Chiara Eklund** juo suorassa lähetyksessä, katsojia tulee lisää. Välillä ilta on päättynyt siihen, että hän on sammunut ja lähetys on jäänyt pyörimään.
 
-– Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, hän sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
+– Aika usein ei pysty katsomaan omia klippejä, kun hävettää niin paljon, Eklund sanoo MTV:n Asian ytimessä.doc: Kohujulkkikset -dokumentissa.
 
-Humalaiset lähetykset keräävät Eklundin mukaan enemmän katsojia ja kommentteja kuin muu sisältö. Se on saanut hänet juomaan enemmän kuin hän muuten joisi.
+Hänen mukaansa kaikki alkoi viinistä, joka ”meni vähän överiksi”. Juomista sisältävät lähetykset keräsivät selvästi enemmän katsojia ja kommentteja kuin muut, ja se jäi päälle.
 
 – Siihen jäi itsekin vähän koukkuun, että pitäisikö taas juoda.
 
-Miksi hän jatkaa?
+Eklund myöntää juovansa lähetysten takia enemmän kuin muuten joisi. Toimittaja **Iriz Silander** kysyy, miksi hän sitten tekee tällaista sisältöä.
 
-– Ehkä koska se on ainoa tulonlähteeni.
+– Se on hyvä kysymys. Ehkä koska se on ainoa tulonlähteeni.
 
-## ”Haluavat nähdä, miten jollakin menee paskemmin”
+## Kolme viikkoa laitoksessa
 
-Dokumentissa esiintyy myös **Juulia Valikainen**, 22. Kaksikon yhteiset lähetykset ovat heidän mukaansa päättyneet joskus tappeluun, ja baareista heidät on poistettu. Katsojat ovat tehneet heistä huoli-ilmoituksia.
+Dokumentissa puhuu myös **Juulia Valikainen**, 22, jonka kanssa Eklund on tehnyt lähetyksiä yhdessä. Kaksikon mukaan yhteiset illat ovat joskus päättyneet tappeluun, ja baareista heidät on poistettu.
 
-– Kävin myös sellaisessa laitoksen kaltaisessa jutussa. Olin siellä kolmisen viikkoa rauhoittumassa, Valikainen kertoo.
+Katsojat ovat tehneet heistä huoli-ilmoituksia, Valikaisesta jossain vaiheessa ”tosi paljon”. Hän kertoo olleensa myös noin kolme viikkoa rauhoittumassa, hänen sanojensa mukaan ”sellaisessa laitoksen kaltaisessa jutussa”.
 
-Hänellä on selitys sille, miksi lähetyksiä katsotaan.
+– Meni aika yli ja lujaa silloin, hän sanoo.
 
-– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin.
+Sen, miksi ihmiset katsovat, Valikainen uskoo tietävänsä.
 
-Rappiostriimaus on puhuttanut syksyllä. Lokakuussa kotkalainen striimaaja kuoli vahingoitettuaan itseään suorassa lähetyksessä.
+– Veikkaan, että niillä itsellään on niin huono olo, että haluavat nähdä, miten jollakin menee niin sanotusti paskemmin. Siitä tulee heille hyvä olo.
+
+Rappiostriimaus on ollut syksyllä esillä myös synkemmistä syistä. Lokakuussa kotkalainen striimaaja kuoli vahingoitettuaan itseään suorassa lähetyksessä.
 
 *Jos sinulla on itsetuhoisia ajatuksia, soita MIELI ry:n Kriisipuhelimeen 09 2525 0111. Se päivystää ympäri vuorokauden.*
