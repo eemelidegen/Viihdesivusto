@@ -91,7 +91,7 @@ eleventyExcludeFromCollections: true
     <p class="sub">Osallistuminen <a href="/arvonta/" target="_blank" rel="noopener">hulina.net/arvonta</a> · 27.10.–8.11.2026 klo 23.59 · Voittaja arvotaan 9.11.</p>
 
     <div class="stats">
-      <div class="stat"><b id="sAll">–</b><span>Osallistujia</span></div>
+      <div class="stat"><b id="sAll">–</b><span id="sAllLbl">Arpoja</span></div>
       <div class="stat"><b id="sToday">–</b><span>Tänään</span></div>
       <div class="stat"><b id="sDay">–</b><span>Viimeisen 24 tunnin aikana</span></div>
       <div class="stat"><b id="sLeft">–</b><span id="sLeftLbl">Aikaa jäljellä</span></div>
@@ -99,7 +99,7 @@ eleventyExcludeFromCollections: true
 
     <section class="card">
       <h2>Arvo voittaja</h2>
-      <p>Kone valitsee voittajan satunnaisesti kaikkien osallistujien joukosta. Tarkista ennen palkinnon lähettämistä, että voittaja seuraa @hulinanet-tiliä.</p>
+      <p>Kone valitsee voittajan satunnaisesti kaikkien arpojen joukosta. Jokainen tili on oma arpansa, joten TikTokin ja Instagramin kautta osallistunut on mukana kahdesti. Tarkista ennen palkinnon lähettämistä, että voittaja seuraa @hulinanet-tiliä.</p>
       <div class="row">
         <button type="button" class="b b--main" id="draw">Arvo voittaja</button>
       </div>
@@ -141,14 +141,22 @@ const accts = (h) => {
   const m = {}; for (const p of h.split(" ")) { const i = p.indexOf(":"); if (i > 0) m[p.slice(0, i)] = p.slice(i + 1); }
   return m.tt || m.ig ? m : { tt: h, ig: h, old: true };
 };
-const label = (h) => { const a = accts(h); return a.old ? "@" + h : [a.tt && "@" + a.tt, a.ig && "@" + a.ig].filter(Boolean).join(" / "); };
 const ttUrl = (n) => `https://www.tiktok.com/@${encodeURIComponent(n)}`, igUrl = (n) => `https://www.instagram.com/${encodeURIComponent(n)}/`;
-const who = (h) => {
-  const a = accts(h);
-  if (a.old) return `<b>@${esc(h)}</b><br><small><a href="${ttUrl(h)}" target="_blank" rel="noopener">TikTok</a> · <a href="${igUrl(h)}" target="_blank" rel="noopener">Instagram</a> (alusta ei tiedossa)</small>`;
-  return [a.tt && `<small>TikTok</small> <a href="${ttUrl(a.tt)}" target="_blank" rel="noopener"><b>@${esc(a.tt)}</b></a>`, a.ig && `<small>Instagram</small> <a href="${igUrl(a.ig)}" target="_blank" rel="noopener"><b>@${esc(a.ig)}</b></a>`].filter(Boolean).join("<br>");
-};
-let all = [];
+const PLAT = { tt: "TikTok", ig: "Instagram" };
+// One ticket per account, so someone who entered with both is listed (and drawn) twice.
+const toTickets = (list) => list.flatMap((o) => {
+  const a = accts(o.handle);
+  if (a.old) return [{ ...o, alusta: null, nimi: o.handle }];
+  return ["tt", "ig"].filter((k) => a[k]).map((k) => ({ ...o, alusta: k, nimi: a[k] }));
+});
+const label = (t) => "@" + t.nimi + (t.alusta ? ` (${PLAT[t.alusta]})` : "");
+const who = (t) => t.alusta
+  ? `<small>${PLAT[t.alusta]}</small><br><a href="${t.alusta === "tt" ? ttUrl(t.nimi) : igUrl(t.nimi)}" target="_blank" rel="noopener"><b>@${esc(t.nimi)}</b></a>`
+  : `<b>@${esc(t.nimi)}</b><br><small><a href="${ttUrl(t.nimi)}" target="_blank" rel="noopener">TikTok</a> · <a href="${igUrl(t.nimi)}" target="_blank" rel="noopener">Instagram</a> (alusta ei tiedossa)</small>`;
+const checks = (t) => t.alusta
+  ? `<a class="b" href="${t.alusta === "tt" ? ttUrl(t.nimi) : igUrl(t.nimi)}" target="_blank" rel="noopener">Tarkista ${PLAT[t.alusta]}</a>`
+  : `<a class="b" href="${ttUrl(t.nimi)}" target="_blank" rel="noopener">Tarkista TikTok</a><a class="b" href="${igUrl(t.nimi)}" target="_blank" rel="noopener">Tarkista Instagram</a>`;
+let all = [], people = 0; // all = tickets (one per account), people = form entries
 
 async function api(body) {
   const res = await fetch("/api/toimitus/arvonta", body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
@@ -160,7 +168,7 @@ async function api(body) {
 
 function stats() {
   const now = Date.now(), midnight = new Date(); midnight.setHours(0, 0, 0, 0);
-  $("sAll").textContent = all.length;
+  $("sAll").textContent = all.length; $("sAllLbl").textContent = `Arpoja · ${people} osallistujaa`;
   $("sToday").textContent = all.filter((o) => o.created >= midnight.getTime()).length;
   $("sDay").textContent = all.filter((o) => o.created >= now - 864e5).length;
   const left = ENDS - now;
@@ -171,10 +179,10 @@ function stats() {
 
 function draw_list() {
   const q = $("q").value.trim().toLowerCase().replace(/^@/, "");
-  const rows = all.filter((o) => !q || o.handle.toLowerCase().includes(q) || o.email.includes(q));
+  const rows = all.filter((o) => !q || o.nimi.toLowerCase().includes(q) || o.email.includes(q));
   $("rows").innerHTML = rows.length ? rows.map((o, i) => `<tr>
     <td class="num">${all.length - all.indexOf(o)}</td>
-    <td>${who(o.handle)}</td>
+    <td>${who(o)}</td>
     <td>${esc(o.email)}<button type="button" class="copy" data-copy="${esc(o.email)}">Kopioi</button></td>
     <td>${fmt.format(new Date(o.created))}</td></tr>`).join("")
     : `<tr><td colspan="4" class="empty">${all.length ? "Haulla ei löytynyt osallistujia." : "Ei vielä osallistujia."}</td></tr>`;
@@ -185,41 +193,40 @@ async function load() {
   try {
     const r = await api();
     if (!r.kaytossa) { $("msg").textContent = "Arvonta tarvitsee D1-tietokannan."; $("msg").hidden = false; return; }
-    all = r.osallistujat; stats(); draw_list();
+    people = r.osallistujat.length; all = toTickets(r.osallistujat); stats(); draw_list();
   } catch (e) { if (e.message !== "login") { $("msg").textContent = e.message; $("msg").hidden = false; } }
 }
 
 function history() {
   let h = []; try { h = JSON.parse(localStorage.getItem(HIST) || "[]"); } catch {}
-  $("hist").innerHTML = h.map((x) => `<li>${fmt.format(new Date(x.t))}: ${esc(label(x.handle))} (${x.n} osallistujaa)</li>`).join("");
+  $("hist").innerHTML = h.map((x) => `<li>${fmt.format(new Date(x.t))}: ${esc(x.who || "@" + x.handle)} (${x.n} arpaa)</li>`).join("");
   return h;
 }
 function remember(w, n) {
-  const h = history(); h.unshift({ t: Date.now(), handle: w.handle, n });
+  const h = history(); h.unshift({ t: Date.now(), who: label(w), n });
   try { localStorage.setItem(HIST, JSON.stringify(h.slice(0, 20))); } catch {}
   history();
 }
 
 $("draw").addEventListener("click", async () => {
   if (!all.length) return alert("Ei osallistujia.");
-  if (!confirm(`Arvotaanko voittaja ${all.length} osallistujan joukosta?`)) return;
+  if (!confirm(`Arvotaanko voittaja ${all.length} arvan joukosta?`)) return;
   const btn = $("draw"); btn.disabled = true; $("winner").innerHTML = "";
   const roll = $("roll"); roll.classList.add("is-rolling");
-  const spin = setInterval(() => { roll.textContent = label(all[Math.floor(Math.random() * all.length)].handle); }, 70);
+  const spin = setInterval(() => { roll.textContent = label(all[Math.floor(Math.random() * all.length)]); }, 70);
   try {
     const [r] = await Promise.all([api({ toiminto: "arvo" }), new Promise((ok) => setTimeout(ok, 2200))]);
     clearInterval(spin); roll.classList.remove("is-rolling");
-    const w = r.voittaja, wa = accts(w.handle); roll.textContent = label(w.handle);
-    const mail = `mailto:${encodeURIComponent(w.email)}?subject=${encodeURIComponent("Voitit Hulinan arvonnan!")}&body=${encodeURIComponent(`Hei ${label(w.handle)}!\n\nOnneksi olkoon, voitit Hulinan arvonnassa Apple AirPods 5 -kuulokkeet.\n\nLähetä meille nimesi ja postiosoitteesi, niin postitamme palkinnon. Vastaathan seitsemän päivän kuluessa.\n\nTerveisin\nHulinan toimitus`)}`;
+    const w = r.voittaja; roll.textContent = label(w);
+    const mail = `mailto:${encodeURIComponent(w.email)}?subject=${encodeURIComponent("Voitit Hulinan arvonnan!")}&body=${encodeURIComponent(`Hei @${w.nimi}!\n\nOnneksi olkoon, voitit Hulinan arvonnassa Apple AirPods 5 -kuulokkeet.\n\nLähetä meille nimesi ja postiosoitteesi, niin postitamme palkinnon. Vastaathan seitsemän päivän kuluessa.\n\nTerveisin\nHulinan toimitus`)}`;
     $("winner").innerHTML = `<div class="winner">
-      <p><b>Voittaja: ${esc(label(w.handle))}</b> · ${esc(w.email)}</p>
-      <p>Arvottu ${r.osallistujia} osallistujan joukosta ${fmt.format(new Date())}. Ota tästä kuvakaappaus.</p>
+      <p><b>Voittaja: ${esc(label(w))}</b> · ${esc(w.email)}</p>
+      <p>Arvottu ${r.arpoja} arvan joukosta (${r.osallistujia} osallistujaa) ${fmt.format(new Date())}. Ota tästä kuvakaappaus.</p>
       <div class="row">
-        ${wa.tt ? `<a class="b" href="${ttUrl(wa.tt)}" target="_blank" rel="noopener">Tarkista TikTok</a>` : ""}
-        ${wa.ig ? `<a class="b" href="${igUrl(wa.ig)}" target="_blank" rel="noopener">Tarkista Instagram</a>` : ""}
+        ${checks(w)}
         <a class="b b--main" href="${mail}">Lähetä sähköposti</a>
       </div></div>`;
-    remember(w, r.osallistujia);
+    remember(w, r.arpoja);
   } catch (e) { clearInterval(spin); roll.textContent = ""; if (e.message !== "login") alert(e.message); }
   finally { btn.disabled = false; btn.textContent = "Arvo uudelleen"; }
 });
@@ -231,7 +238,7 @@ $("rows").addEventListener("click", async (e) => {
 $("q").addEventListener("input", draw_list);
 $("reload").addEventListener("click", load);
 $("csv").addEventListener("click", () => {
-  const lines = [["tiktok", "instagram", "sahkoposti", "osallistui"], ...all.map((o) => { const a = accts(o.handle); return [a.tt || "", a.ig || "", o.email, new Date(o.created).toISOString()]; })];
+  const lines = [["alusta", "kayttajanimi", "sahkoposti", "osallistui"], ...all.map((o) => [o.alusta ? PLAT[o.alusta] : "", o.nimi, o.email, new Date(o.created).toISOString()])];
   const csv = "﻿" + lines.map((l) => l.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(";")).join("\n");
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "hulina-arvonta-osallistujat.csv"; a.click();
 });
