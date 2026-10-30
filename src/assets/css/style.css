@@ -48,6 +48,7 @@
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+html:has(body > .footer) { background: var(--plum); }
 body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 var(--font); }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
