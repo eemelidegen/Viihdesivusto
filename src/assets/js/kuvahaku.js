@@ -235,11 +235,15 @@
     wc: { label: "Wikimedia Commons -haku", run: commons },
     finna: { label: "Finna (museot ja arkistot)", run: finna },
     kuvitus: { label: "Kuvituskuvat (sormus, häät, raha…)", run: kuvitus },
+    // NHL and other hockey: the player's own Commons category plus hockey-only Commons and Flickr searches.
+    nhl: { label: "NHL ja jääkiekko", parts: ["wiki", "nhlc", "nhlf"] },
+    nhlc: { hidden: true, run: (q, page) => commonsSearch(`${phrase(q)} hockey filetype:bitmap`, page) },
+    nhlf: { hidden: true, run: (q, page) => openverse(`${q} hockey`, page, "&source=flickr") },
   };
 
-  const SHORT = { all: "Kaikki", wiki: "Henkilö", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
-  const NAME = { wiki: "Wikipedia", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
-  const TIMEOUT = 12000, SLOW = { ov: 25000, flickr: 25000, kuvitus: 25000 };
+  const SHORT = { all: "Kaikki", nhl: "NHL", wiki: "Henkilö", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
+  const NAME = { nhlc: "Commons", nhlf: "Flickr", wiki: "Wikipedia", ov: "Openverse", flickr: "Flickr", wc: "Commons", finna: "Finna", kuvitus: "Kuvitus" };
+  const TIMEOUT = 12000, SLOW = { ov: 25000, flickr: 25000, kuvitus: 25000, nhlf: 25000 };
   const cache = new Map();
   // Each source page is fetched once per session; slow sources give up after TIMEOUT.
   function runSource(k, q, page) {
@@ -315,7 +319,7 @@
             <div class="kh__qwrap"><input class="kh__q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Hae nimellä tai aiheella, esim. Sanna Marin" aria-label="Hakusana"><button type="button" class="kh__clr" data-kh="clear" aria-label="Tyhjennä">×</button></div>
             <button type="button" class="kh__x" data-kh="close" aria-label="Sulje">×</button>
           </form>
-          <div class="kh__chips" data-kh="src">${Object.keys(SOURCES).map((k) => `<button type="button" class="kh__chip" data-src="${k}" aria-pressed="false">${SHORT[k]}</button>`).join("")}</div>
+          <div class="kh__chips" data-kh="src">${Object.keys(SOURCES).filter((k) => !SOURCES[k].hidden).map((k) => `<button type="button" class="kh__chip" data-src="${k}" aria-pressed="false">${SHORT[k]}</button>`).join("")}</div>
           <div class="kh__status" data-kh="status"></div>
         </div>
         <div class="kh__body" data-kh="body"></div>
