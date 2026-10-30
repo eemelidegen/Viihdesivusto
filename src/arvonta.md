@@ -22,9 +22,9 @@ description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. A
   </form>
 
   <div class="raffle__done" id="raffleDone" hidden>
-    <p class="raffle__big">Kiitos, olet mukana arvonnassa.</p>
-    <p>Voittaja arvotaan 9. marraskuuta, ja hänelle ilmoitetaan sähköpostilla. Voit jakaa arvonnan myös kaverillesi <a href="https://wa.me/?text=Voita%20Apple%20AirPods%205%20Hulinan%20arvonnassa%3A%20https%3A%2F%2Fhulina.net%2Farvonta%2F" target="_blank" rel="noopener">WhatsAppissa</a>.</p>
-    <p><a href="/">Siirry etusivulle</a></p>
+    <p class="raffle__big">Nyt olet mukana!</p>
+    <p>Voittaja arvotaan 9.11., ja hänelle laitetaan viestiä sähköpostiin. Peukut pystyyn! Kerro arvonnasta kaverillekin <a href="https://wa.me/?text=Voita%20Apple%20AirPods%205%20Hulinan%20arvonnassa%3A%20https%3A%2F%2Fhulina.net%2Farvonta%2F" target="_blank" rel="noopener">WhatsAppissa</a>.</p>
+    <p><a href="/">Takaisin etusivulle</a></p>
   </div>
 
   <details class="raffle__rules">
