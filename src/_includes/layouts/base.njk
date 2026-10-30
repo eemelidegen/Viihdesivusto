@@ -94,9 +94,9 @@
     <div class="wrap footer__grid">
       <div>
         {% set logoClass = "logo--small" %}{% include "partials/logo.njk" %}
-        <p>Kohut, julkkikset ja tosi-tv. Täältä luet, mistä Suomi puhuu tänään.</p>
-        {% if site.social.length %}<p class="footer__social">{% for s in site.social %}<a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %} @hulinanet</p>{% endif %}
-        <p class="footer__principles">Löysitkö virheen? <a href="/ota-yhteytta/">Kerro meille</a>, niin korjaamme sen.</p>
+        <p>Päivän kuumimmat kohut, julkkisuutiset ja tosi-tv:n draamat yhdestä paikasta.</p>
+        {% if site.social.length %}<p class="footer__social">Seuraa meitä somessa: {% for s in site.social %}<a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+        <p class="footer__principles">Huomasitko virheen? <a href="/ota-yhteytta/">Ilmoita siitä toimitukselle</a>. Lue myös <a href="/periaatteet/">toimituksen periaatteet</a>.</p>
       </div>
       <div>
         <h2>Kategoriat</h2>
