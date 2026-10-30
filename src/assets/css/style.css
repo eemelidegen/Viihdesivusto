@@ -562,13 +562,6 @@ main.wrap { padding-top: 20px; }
 .newsroom .newsroom__name { font: 700 16px/1.2 var(--headline); color: var(--text); margin-bottom: 4px; }
 .newsroom a { color: var(--link); }
 .footer__social a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-.side-box { margin-top: 26px; padding: 18px 20px 20px; border: 1px solid var(--line); font-family: var(--font); }
-.side-box h2 { margin: 0 0 6px; font: 700 20px/1.15 var(--headline); }
-.side-box p { margin: 0 0 14px; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.side-box__social { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.side-box__social a { display: flex; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--text); text-decoration: none; font: 700 15px/1.2 var(--headline); }
-.side-box__social a:hover { border-color: var(--text); }
-.side-box__social span { font: 400 13px/1.2 var(--font); color: var(--muted); }
 /* Tip form */
 .tip { display: grid; gap: 16px; margin: 24px 0; padding: 20px; background: var(--soft); font-family: var(--font); }
 .tip label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }

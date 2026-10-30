@@ -30,13 +30,6 @@ layout: layouts/base.njk
     {% if build.now < 1794175199000 %}
     <a class="side-promo" href="/arvonta/"><img src="/assets/img/arvonta-airpods-5.jpg" alt="" width="74" height="74" loading="lazy"><div><b>Voita Apple AirPods 5</b><span>Osallistu arvontaan →</span></div></a>
     {% endif %}
-    {% if site.social.length %}
-    <section class="side-box">
-      <h2>Seuraa Hulinaa</h2>
-      <p>Uusimmat kohut ja puheenaiheet myös somessa.</p>
-      <ul class="side-box__social">{% for s in site.social %}<li><a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }} <span>@hulinanet</span></a></li>{% endfor %}</ul>
-    </section>
-    {% endif %}
   </aside>
 </div>
 
