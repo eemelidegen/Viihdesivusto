@@ -27,6 +27,9 @@ layout: layouts/base.njk
     <ol class="side-list side-list--num">
       {% for item in picks %}{% include "partials/side-item.njk" %}{% endfor %}
     </ol>
+    {% if build.now < 1794175199000 %}
+    <a class="side-promo" href="/arvonta/"><img src="/assets/img/arvonta-airpods-5.jpg" alt="" width="74" height="74" loading="lazy"><div><b>Voita Apple AirPods 5</b><span>Osallistu arvontaan →</span></div></a>
+    {% endif %}
     {% if site.social.length %}
     <section class="side-box">
       <h2>Seuraa Hulinaa</h2>

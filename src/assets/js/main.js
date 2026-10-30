@@ -385,3 +385,25 @@ if (readBox && readBox.dataset.story) {
     fetch("/api/luettu", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ juttu: readBox.dataset.story }), keepalive: true }).catch(() => {});
   }, 3000);
 }
+
+// Giveaway entry form
+const raffleForm = document.getElementById("raffleForm");
+if (raffleForm) {
+  raffleForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = raffleForm.querySelector(".raffle__err"), btn = raffleForm.querySelector("button[type=submit]");
+    const f = raffleForm.elements;
+    const fail = (msg, el) => { err.textContent = msg; if (el) el.focus(); };
+    if (f.kayttaja.value.trim().replace(/^@/, "").length < 2) return fail("Kirjoita TikTok- tai Instagram-käyttäjänimesi.", f.kayttaja);
+    if (!f.email.checkValidity() || !f.email.value.trim()) return fail("Tarkista sähköpostiosoite.", f.email);
+    if (!f.ika.checked || !f.saannot.checked) return fail("Vahvista ikäsi ja hyväksy säännöt.");
+    err.textContent = ""; btn.disabled = true; btn.textContent = "Lähetetään…";
+    try {
+      const r = await accApi("arvonta", { kayttaja: f.kayttaja.value, email: f.email.value, ika: true, saannot: true, sivusto: f.sivusto.value });
+      raffleForm.hidden = true;
+      const done = document.getElementById("raffleDone");
+      if (r.jo) done.querySelector(".raffle__big").textContent = "Olet jo mukana arvonnassa! 🎉";
+      done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (x) { fail(x.message); } finally { btn.disabled = false; btn.textContent = "Osallistu arvontaan"; }
+  });
+}

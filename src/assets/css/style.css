@@ -580,3 +580,38 @@ main.wrap { padding-top: 20px; }
 .tip__err { margin: 0; color: #b3132f; font-weight: 600; font-size: 14px; }
 .tip__err:empty { display: none; }
 .tip__done { margin: 24px 0; padding: 18px 20px; background: var(--soft); border-left: 4px solid #19803d; }
+/* Giveaway page */
+.raffle { max-width: 520px; margin: 8px auto 48px; text-align: center; font-family: var(--font); }
+.raffle [hidden] { display: none !important; }
+.raffle__img { display: block; width: min(320px, 80%); height: auto; margin: 0 auto 6px; border-radius: 12px; }
+:root[data-theme="dark"] .raffle__img { background: #fff; padding: 8px; }
+.raffle__kicker { margin: 0; color: var(--hot); font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: .08em; }
+.raffle h1 { margin: 8px 0 14px; font: 700 clamp(32px, 7vw, 46px)/1.05 var(--headline); }
+.raffle__steps { display: inline-grid; gap: 6px; margin: 0 0 22px; padding-left: 22px; text-align: left; font-size: 16px; }
+.raffle__form { display: grid; gap: 14px; text-align: left; padding: 20px; background: var(--soft); border-radius: 12px; }
+.raffle__form label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }
+.raffle__form small { font-weight: 400; color: var(--muted); }
+.raffle__form input:not([type=checkbox]) { width: 100%; padding: 12px; font: 16px/1.3 var(--font); color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 6px; }
+.raffle__check { display: flex !important; gap: 10px !important; align-items: flex-start; font-weight: 400 !important; font-size: 15px !important; }
+.raffle__check input { width: 19px; height: 19px; margin: 1px 0 0; flex-shrink: 0; accent-color: var(--plum); }
+.raffle__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.raffle__err { margin: 0; color: #b3132f; font-weight: 600; font-size: 14px; }
+.raffle__err:empty { display: none; }
+.raffle__btn { padding: 17px 20px 15px; border: 0; border-radius: 999px; background: var(--pink); color: #111; font: 700 18px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; cursor: pointer; }
+.raffle__btn:hover { filter: brightness(.95); }
+.raffle__btn:disabled { opacity: .6; cursor: wait; }
+.raffle__done { padding: 24px 20px; background: var(--soft); border-radius: 12px; }
+.raffle__done p { margin: 0 0 12px; }
+.raffle__big { font: 700 28px/1.1 var(--headline); }
+.raffle__share { display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; }
+.raffle__share a, .raffle__share button { padding: 10px 16px 9px; border-radius: 999px; border: 1.5px solid var(--line-strong); background: var(--surface); color: var(--text); font: 700 14px/1 var(--display); text-decoration: none; cursor: pointer; }
+.raffle__done > p a { color: var(--link); }
+.raffle__rules { margin-top: 26px; text-align: left; font-size: 14px; }
+.raffle__rules summary { cursor: pointer; text-align: center; color: var(--muted); font-weight: 600; }
+.raffle__rules .prose { font-size: 14px; margin-top: 12px; }
+.raffle__rules .prose p { margin: 0 0 10px; }
+/* Giveaway promo in the front page sidebar */
+.side-promo { display: flex; gap: 14px; align-items: center; margin-top: 26px; padding: 14px 16px; border-radius: 12px; background: var(--plum); color: #fff; text-decoration: none; font-family: var(--font); }
+.side-promo img { width: 74px; height: 74px; object-fit: contain; background: #fff; border-radius: 10px; flex-shrink: 0; }
+.side-promo b { display: block; font: 700 19px/1.15 var(--headline); }
+.side-promo span { display: block; margin-top: 4px; color: var(--pink); font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: .05em; }

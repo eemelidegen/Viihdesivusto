@@ -163,6 +163,7 @@ eleventyExcludeFromCollections: true
         <button type="button" role="tab" aria-selected="false" data-view="list">Jutut</button>
         <button type="button" role="tab" aria-selected="false" data-view="mod">Kommentit</button>
         <button type="button" role="tab" aria-selected="false" data-view="tips">Viestit</button>
+        <button type="button" role="tab" aria-selected="false" data-view="raffle">Arvonta</button>
       </div>
       <div class="right">
         <a class="link" href="/admin/somekuva/">Somekuva</a>
@@ -295,6 +296,16 @@ eleventyExcludeFromCollections: true
           </article>
         </aside>
       </div>
+    </section>
+
+    <section id="view-raffle" hidden>
+      <p class="stats" id="raffleStats"></p>
+      <div class="item__actions" style="margin:0 0 14px">
+        <button type="button" class="primary" id="raffleDraw">Arvo voittaja</button>
+        <button type="button" class="danger" id="raffleClear">Poista kaikki osallistujat</button>
+      </div>
+      <div id="raffleWinner"></div>
+      <div class="list" id="raffleList"></div>
     </section>
 
     <section id="view-tips" hidden>
@@ -870,6 +881,29 @@ $("modList").addEventListener("click", async (e) => {
   try { await api("kommentit", { id: Number(b.dataset.id), toiminto: act }); loadMod(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
 });
 
+// ---------- Giveaway ----------
+async function loadRaffle() {
+  const box = $("raffleList"); box.innerHTML = '<div class="empty2">Ladataan osallistujia…</div>';
+  try {
+    const r = await api("arvonta");
+    if (!r.kaytossa) { $("raffleStats").textContent = ""; box.innerHTML = '<div class="empty2">Arvonta tarvitsee D1-tietokannan (sama kuin kommenteilla).</div>'; return; }
+    $("raffleStats").textContent = `${r.osallistujat.length} osallistujaa · arvontasivu hulina.net/arvonta`;
+    box.innerHTML = r.osallistujat.length ? r.osallistujat.map((o) => `<div class="mod"><div class="mod__head"><b>@${esc(o.handle)}</b><span>${esc(o.email)}</span><span>${fiDateTime.format(new Date(o.created))}</span></div></div>`).join("") : '<div class="empty2">Ei vielä osallistujia.</div>';
+  } catch (e) { if (e.message !== "login") box.innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+}
+$("raffleDraw").addEventListener("click", async (e) => {
+  if (!confirm("Arvotaanko voittaja nyt?")) return;
+  e.target.disabled = true;
+  try {
+    const r = await api("arvonta", { toiminto: "arvo" });
+    $("raffleWinner").innerHTML = `<div class="mod mod--review"><div class="mod__head"><b>🎉 Voittaja: @${esc(r.voittaja.handle)}</b><span>${esc(r.voittaja.email)}</span><span>${r.osallistujia} osallistujan joukosta · ${fiDateTime.format(new Date())}</span></div><p class="mod__body">Tarkista, että @${esc(r.voittaja.handle)} seuraa Hulinaa TikTokissa tai Instagramissa, ja lähetä sähköposti. Ota kuvakaappaus tästä arvonnan tuloksesta.</p></div>`;
+  } catch (err) { if (err.message !== "login") alert(err.message); } finally { e.target.disabled = false; }
+});
+$("raffleClear").addEventListener("click", async () => {
+  if (!confirm("Poistetaanko kaikkien osallistujien tiedot pysyvästi? Tee tämä vasta, kun palkinto on toimitettu.")) return;
+  try { await api("arvonta", { toiminto: "tyhjenna" }); $("raffleWinner").innerHTML = ""; loadRaffle(); } catch (err) { if (err.message !== "login") alert(err.message); }
+});
+
 // ---------- Readers' tips ----------
 async function loadTips() {
   const box = $("tipList"); box.innerHTML = '<div class="empty2">Ladataan viestejä…</div>';
@@ -898,10 +932,11 @@ $("tipList").addEventListener("click", async (e) => {
 // ---------- Views ----------
 function switchView(v) {
   document.querySelectorAll(".tabs2 button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === v)));
-  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("view-mod").hidden = v !== "mod"; $("view-tips").hidden = v !== "tips"; $("bar").hidden = v !== "editor";
+  $("view-editor").hidden = v !== "editor"; $("view-list").hidden = v !== "list"; $("view-mod").hidden = v !== "mod"; $("view-tips").hidden = v !== "tips"; $("view-raffle").hidden = v !== "raffle"; $("bar").hidden = v !== "editor";
   if (v === "list") loadList();
   if (v === "mod") loadMod();
   if (v === "tips") loadTips();
+  if (v === "raffle") loadRaffle();
 }
 document.querySelector(".tabs2").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) switchView(b.dataset.view); });
 addEventListener("beforeunload", (e) => { if (dirty) { persist(); } });
