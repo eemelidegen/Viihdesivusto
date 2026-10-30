@@ -233,7 +233,7 @@ eleventyExcludeFromCollections: true
               <button type="button" data-cmd="fact" title="Faktalaatikko">ⓘ Faktalaatikko</button>
               <button type="button" data-cmd="readalso" title="Lue myös -linkki toiseen juttuun">↗ Lue myös</button>
               <button type="button" data-cmd="link" title="Linkki">Linkki</button>
-              <button type="button" data-cmd="image" title="Lisää kuvia tekstiin">📷 Kuvia</button>
+              <button type="button" data-cmd="image" title="Lisää kuvia tekstiin">📷 Kuvia</button><button type="button" data-cmd="video" title="Lisää oma video tekstiin">🎬 Video</button>
               <button type="button" data-cmd="imgsearch" title="Hae vapaasti käytettävä kuva tekstiin">🔎 Kuvahaku</button>
               <button type="button" data-cmd="embed" title="Upota video tai somepostaus">▶ Video / some</button>
               <button type="button" data-cmd="tidy" title="Korjaa lainausmerkit, viivat ja ylimääräiset välilyönnit">✨ Siisti teksti</button>
@@ -250,7 +250,8 @@ eleventyExcludeFromCollections: true
               <span class="hint2" style="margin:0">Pikanäppäimet: Ctrl+B lihavoi, Ctrl+I kursivoi, Ctrl+K linkki, Ctrl+S tallentaa luonnoksen</span>
             </div>
             <input id="bodyFiles" type="file" accept="image/*" multiple hidden>
-            <p class="hint2">Useampi kuva peräkkäin muuttuu pyyhkäistäväksi kuvagalleriaksi. Video: liitä YouTube-, TikTok-, Instagram- tai X-linkki omalle rivilleen.</p>
+            <input id="bodyVideo" type="file" accept="video/mp4,video/quicktime,.mp4,.mov" hidden>
+            <p class="hint2">Useampi kuva peräkkäin muuttuu pyyhkäistäväksi kuvagalleriaksi. Oman videon (MP4 tai MOV, enintään 25 Mt) saat Video-napista. Somevideon voit upottaa liittämällä YouTube-, TikTok-, Instagram- tai X-linkin omalle rivilleen.</p>
             <label class="f"><span class="sr-only">Teksti</span>
               <textarea id="body" placeholder="Kirjoita juttu tähän. Tyhjä rivi aloittaa uuden kappaleen." spellcheck="true" lang="fi"></textarea>
             </label>
@@ -333,12 +334,13 @@ eleventyExcludeFromCollections: true
 const CATEGORIES = {{ site.categories | dump | safe }};
 const LOCAL = "valokeila-kirjoita";
 const $ = (id) => document.getElementById(id);
-const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageLink: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [] });
+const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageLink: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [], videos: [] });
 let doc = blank();
 let dirty = false;
 
 // ---------- Local autosave ----------
-function persist() { try { localStorage.setItem(LOCAL, JSON.stringify(doc)); } catch { try { localStorage.setItem(LOCAL, JSON.stringify({ ...doc, newImage: null, images: [] })); } catch {} } }
+// Videos are too big for localStorage, so they live only in this tab until the story is saved.
+function persist() { const keep = { ...doc, videos: [] }; try { localStorage.setItem(LOCAL, JSON.stringify(keep)); } catch { try { localStorage.setItem(LOCAL, JSON.stringify({ ...keep, newImage: null, images: [] })); } catch {} } }
 function restore() { try { const d = JSON.parse(localStorage.getItem(LOCAL) || "null"); if (d && d.fields) doc = { ...blank(), ...d, fields: { ...blank().fields, ...d.fields } }; } catch {} }
 
 // ---------- Form <-> doc ----------
@@ -552,6 +554,42 @@ async function resized(file, max) {
     return c.toDataURL("image/jpeg", 0.85);
   } finally { URL.revokeObjectURL(url); }
 }
+// Own video inside the text: uploaded as is (no re-encoding), with a poster frame grabbed here.
+const MAX_VIDEO = 25 * 1024 * 1024;
+const readBase64 = (file) => new Promise((ok, fail) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(",")[1]); r.onerror = fail; r.readAsDataURL(file); });
+function posterFrame(url) {
+  return new Promise((ok) => {
+    const v = document.createElement("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = url;
+    const done = (b64) => { v.removeAttribute("src"); v.load(); ok(b64); };
+    v.onloadeddata = () => { v.currentTime = Math.min(0.5, (v.duration || 1) / 2); };
+    v.onseeked = () => {
+      const scale = Math.min(1, 900 / Math.max(v.videoWidth, v.videoHeight));
+      const c = document.createElement("canvas"); c.width = Math.round(v.videoWidth * scale); c.height = Math.round(v.videoHeight * scale);
+      try { c.getContext("2d").drawImage(v, 0, 0, c.width, c.height); done(c.toDataURL("image/jpeg", 0.82).split(",")[1]); } catch { done(""); }
+    };
+    v.onerror = () => done("");
+    setTimeout(() => done(""), 8000);
+  });
+}
+$("bodyVideo").addEventListener("change", async () => {
+  const file = $("bodyVideo").files[0]; $("bodyVideo").value = "";
+  if (!file) return;
+  if (!/^video\/(mp4|quicktime)$/.test(file.type) && !/\.(mp4|mov)$/i.test(file.name)) { $("status").textContent = "Video pitää olla MP4- tai MOV-muodossa."; return; }
+  if (file.size > MAX_VIDEO) { $("status").textContent = `Video on liian suuri (${Math.round(file.size / 1048576)} Mt, enintään 25 Mt). Lyhennä videota tai pienennä sen laatua.`; return; }
+  $("status").textContent = "Käsitellään videota…";
+  try {
+    const url = URL.createObjectURL(file);
+    const [base64, poster] = await Promise.all([readBase64(file), posterFrame(url)]);
+    const name = `video-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}.mp4`;
+    (doc.videos ||= []).push({ name, base64, poster, url });
+    const t = $("body"), at = t.selectionEnd ?? t.value.length, v = t.value;
+    const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
+    const line = `![](/assets/video/${name} "")`;
+    t.value = (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "");
+    doc.body = t.value; grow(t); changed();
+    $("status").textContent = "Video lisätty. Kuvatekstin voit kirjoittaa lainausmerkkien väliin. Video tallentuu, kun tallennat tai julkaiset jutun.";
+  } catch { $("status").textContent = "Videota ei voitu avata."; }
+});
 $("bodyFiles").addEventListener("change", async () => {
   const files = [...$("bodyFiles").files].filter((f) => f.type.startsWith("image/")); $("bodyFiles").value = "";
   if (!files.length) return;
@@ -629,6 +667,7 @@ $("toolbar").addEventListener("click", (e) => {
     case "quote": prefixLines("> "); break;
     case "list": prefixLines("- "); break;
     case "image": $("bodyFiles").click(); return;
+    case "video": $("bodyVideo").click(); return;
     case "imgsearch": findPhoto(true); return;
     case "embed": {
       const url = (prompt("Liitä videon tai somepostauksen osoite (YouTube, TikTok, Instagram tai X)", "https://") || "").trim();
@@ -659,6 +698,10 @@ function markdown(md) {
     const b = block.trim(); if (!b) return "";
     const lines = b.split("\n");
     const imgs = lines.map((l) => l.match(/^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/));
+    if (imgs.every(Boolean) && imgs.length === 1 && /\.(mp4|mov)$/i.test(imgs[0][2])) {
+      const m = imgs[0], own = (doc.videos || []).find((v) => m[2].endsWith("/" + v.name));
+      return `<figure class="inline-video"><video src="${esc(own ? own.url : m[2])}" controls playsinline preload="metadata"></video>${m[3] ? `<figcaption>${esc(m[3])}</figcaption>` : ""}</figure>`;
+    }
     if (imgs.every(Boolean)) return imgs.map((m) => { const own = doc.images.find((i) => m[2].endsWith("/" + i.name)); return `<figure class="inline-img"><img src="${esc(own ? own.dataUrl : m[2])}" alt="${esc(m[1])}">${m[3] ? `<figcaption>${esc(m[3])}</figcaption>` : ""}</figure>`; }).join("");
     if (/^https?:\/\/\S+$/.test(b) && /youtu|tiktok|instagram|twitter\.com|x\.com/.test(b)) return `<div class="embed"><span class="embed__btn">▶ Upotettu sisältö</span><p class="embed__note">${esc(b)}</p></div>`;
     if (b.startsWith("### ")) return `<h3>${inline(b.slice(4))}</h3>`;
@@ -725,8 +768,9 @@ async function save(asDraft) {
       body: doc.body,
       image: doc.newImage ? { base64: doc.newImage.base64 } : null,
       images: doc.images.filter((i) => doc.body.includes(i.name)).map(({ name, base64 }) => ({ name, base64 })),
+      videos: (doc.videos || []).filter((v) => doc.body.includes(v.name)).map(({ name, base64, poster }) => ({ name, base64, poster })),
     });
-    Object.assign(doc, { file: res.file, date, wasDraft: asDraft, image: res.image || "", newImage: null, images: [] });
+    Object.assign(doc, { file: res.file, date, wasDraft: asDraft, image: res.image || "", newImage: null, images: [], videos: [] });
     dirty = false; persist(); showImage();
     showDone(asDraft, res.url);
     $("status").textContent = asDraft ? "Luonnos tallennettu." : "Julkaistu!";

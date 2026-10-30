@@ -4,6 +4,9 @@ import { ARTICLE_DIR, UPLOAD_DIR, commit, slugify, toMarkdown, validFile } from 
 
 const MAX_IMAGE_BASE64 = 8 * 1024 * 1024;
 const MAX_BODY_IMAGES = 30;
+const MAX_VIDEOS = 3;
+const MAX_VIDEO_BASE64 = 34 * 1024 * 1024; // about 25 MB, Cloudflare Pages' per-file limit
+const VIDEO_DIR = "src/assets/video";
 const helsinkiDay = (d) => new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Helsinki" }).format(d);
 const str = (v, max) => String(v ?? "").trim().slice(0, max);
 
@@ -59,6 +62,15 @@ export async function onRequestPost({ request, data }) {
     if (!/^kuva-[a-z0-9-]{4,40}\.jpg$/.test(name) || !body.includes(`/assets/img/uploads/${name}`)) continue;
     if (typeof img.base64 !== "string" || img.base64.length > MAX_IMAGE_BASE64) return Response.json({ virhe: "Jokin tekstin kuvista on liian suuri." }, { status: 413 });
     changes.push({ path: `${UPLOAD_DIR}/${name}`, base64: img.base64 });
+  }
+  // Own videos inside the text, each with the poster frame the editor grabbed.
+  const videos = Array.isArray(input.videos) ? input.videos.slice(0, MAX_VIDEOS) : [];
+  for (const v of videos) {
+    const name = String(v?.name || "");
+    if (!/^video-[a-z0-9-]{4,40}\.mp4$/.test(name) || !body.includes(`/assets/video/${name}`)) continue;
+    if (typeof v.base64 !== "string" || v.base64.length > MAX_VIDEO_BASE64) return Response.json({ virhe: "Video on liian suuri (enintään 25 Mt)." }, { status: 413 });
+    changes.push({ path: `${VIDEO_DIR}/${name}`, base64: v.base64 });
+    if (typeof v.poster === "string" && v.poster && v.poster.length < MAX_IMAGE_BASE64) changes.push({ path: `${VIDEO_DIR}/${name.replace(/\.mp4$/, ".jpg")}`, base64: v.poster });
   }
   changes.push({ path: `${ARTICLE_DIR}/${file}`, content: toMarkdown(fields, body) });
 
