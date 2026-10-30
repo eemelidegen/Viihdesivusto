@@ -94,9 +94,9 @@
     <div class="wrap footer__grid">
       <div>
         {% set logoClass = "logo--small" %}{% include "partials/logo.njk" %}
-        <p>{{ site.description }}</p>
-        {% if site.social.length %}<p class="footer__social">Seuraa Hulinaa: {% for s in site.social %}<a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
-        <p class="footer__principles">Hulina noudattaa työssään <a href="/periaatteet/">toimituksen periaatteita</a>. Virheet korjataan, ja korjauksista kerrotaan jutussa.</p>
+        <p>Kohut, julkkikset ja tosi-tv. Täältä luet, mistä Suomi puhuu tänään.</p>
+        {% if site.social.length %}<p class="footer__social">{% for s in site.social %}<a href="{{ s.url }}" target="_blank" rel="noopener me">{{ s.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %} @hulinanet</p>{% endif %}
+        <p class="footer__principles">Löysitkö virheen? <a href="/ota-yhteytta/">Kerro meille</a>, niin korjaamme sen.</p>
       </div>
       <div>
         <h2>Kategoriat</h2>
