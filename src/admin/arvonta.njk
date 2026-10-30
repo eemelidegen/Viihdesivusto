@@ -1,0 +1,234 @@
+---
+permalink: /admin/arvonta/
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Arvonta – {{ site.name }}</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css?v={{ build.version }}">
+  <style>
+    [hidden] { display: none !important; }
+    body { background: var(--soft); }
+    .top { background: var(--plum); color: #fff; position: sticky; top: 0; z-index: 10; }
+    .top__bar { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .top .logo { margin-right: 0; color: #fff; }
+    .top .logo svg { height: 40px; }
+    .top nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .top nav a { color: #cfcdd4; font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; padding: 8px 10px; text-decoration: none; border-bottom: 3px solid transparent; }
+    .top nav a:hover { color: #fff; }
+    .top nav a[aria-current="page"] { color: var(--pink); border-bottom-color: var(--pink); }
+    .top nav.out { margin-left: auto; }
+    .wrap2 { max-width: 1100px; margin: 0 auto; padding: 22px 16px 80px; font-family: var(--font); }
+    h1 { margin: 0 0 4px; font: 700 34px/1.1 var(--headline); }
+    .sub { margin: 0 0 20px; color: var(--muted); }
+    .sub a { color: var(--link); }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stat { background: #fff; border-radius: 10px; padding: 16px 18px; }
+    .stat b { display: block; font: 700 32px/1 var(--headline); }
+    .stat span { display: block; margin-top: 6px; color: var(--muted); font-size: 14px; }
+    .card { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 18px; }
+    .card h2 { margin: 0 0 12px; font: 700 22px/1.2 var(--headline); }
+    .card p { margin: 0 0 12px; line-height: 1.55; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .b { padding: 11px 16px 9px; border: 1.5px solid var(--line-strong); border-radius: 6px; background: #fff; color: var(--text); font: 700 16px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; cursor: pointer; text-decoration: none; display: inline-block; }
+    .b:hover { border-color: var(--text); }
+    .b--main { background: var(--plum); border-color: var(--plum); color: #fff; }
+    .b--main:hover { background: #3b2766; }
+    .b--danger { color: #b3132f; }
+    .b:disabled { opacity: .5; cursor: wait; }
+    button.b { width: auto; }
+    .roll { margin: 16px 0 4px; min-height: 52px; font: 700 40px/1.2 var(--headline); overflow-wrap: anywhere; }
+    .roll.is-rolling { color: var(--muted); }
+    .winner { border-left: 4px solid #19803d; padding: 14px 16px; background: var(--soft); border-radius: 0 8px 8px 0; margin-top: 10px; }
+    .winner p { margin: 0 0 8px; }
+    .winner .row { margin-top: 10px; }
+    .hist { margin: 14px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+    .hist li { padding: 6px 0; border-top: 1px solid var(--line); }
+    .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tools input { flex: 1 1 220px; padding: 10px 12px; font: 16px/1.3 var(--font); border: 1px solid var(--line-strong); border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { text-align: left; font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 8px 8px 10px; border-bottom: 2px solid var(--text); }
+    td { padding: 11px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    td a { color: var(--link); }
+    td small { color: var(--muted); }
+    .num { width: 44px; color: var(--muted); }
+    .copy { border: 0; background: none; color: var(--muted); cursor: pointer; font: 600 13px var(--font); padding: 0 0 0 6px; }
+    .copy:hover { color: var(--text); }
+    .empty { padding: 26px 8px; color: var(--muted); text-align: center; }
+    .msg { color: #b3132f; font-weight: 600; }
+    @media (max-width: 760px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .top nav a { font-size: 14px; padding: 8px 6px; }
+      .roll { font-size: 30px; }
+      table, tbody, tr, td { display: block; }
+      thead { display: none; }
+      tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      td { border: 0; padding: 2px 0; }
+      .num { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top__bar">
+      {% set logoClass = "" %}{% include "partials/logo.njk" %}
+      <nav>
+        <a href="/admin/kirjoita/">Kirjoita</a>
+        <a href="/admin/somekuva/">Somekuva</a>
+        <a href="/admin/arvonta/" aria-current="page">Arvonta</a>
+      </nav>
+      <nav class="out"><a href="/api/ulos">Ulos</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap2">
+    <h1>Arvonta: Apple AirPods 5</h1>
+    <p class="sub">Osallistuminen <a href="/arvonta/" target="_blank" rel="noopener">hulina.net/arvonta</a> · 27.10.–8.11.2026 klo 23.59 · Voittaja arvotaan 9.11.</p>
+
+    <div class="stats">
+      <div class="stat"><b id="sAll">–</b><span>Osallistujia</span></div>
+      <div class="stat"><b id="sToday">–</b><span>Tänään</span></div>
+      <div class="stat"><b id="sDay">–</b><span>Viimeisen 24 tunnin aikana</span></div>
+      <div class="stat"><b id="sLeft">–</b><span id="sLeftLbl">Aikaa jäljellä</span></div>
+    </div>
+
+    <section class="card">
+      <h2>Arvo voittaja</h2>
+      <p>Kone valitsee voittajan satunnaisesti kaikkien osallistujien joukosta. Tarkista ennen palkinnon lähettämistä, että voittaja seuraa @hulinanet-tiliä.</p>
+      <div class="row">
+        <button type="button" class="b b--main" id="draw">Arvo voittaja</button>
+      </div>
+      <p class="roll" id="roll" aria-live="polite"></p>
+      <div id="winner"></div>
+      <ul class="hist" id="hist"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Osallistujat</h2>
+      <div class="tools">
+        <input type="search" id="q" placeholder="Hae käyttäjänimellä tai sähköpostilla">
+        <button type="button" class="b" id="csv">Lataa CSV</button>
+        <button type="button" class="b" id="reload">Päivitä</button>
+      </div>
+      <p class="msg" id="msg" hidden></p>
+      <table>
+        <thead><tr><th class="num">#</th><th>Käyttäjänimi</th><th>Sähköposti</th><th>Osallistui</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="4" class="empty">Ladataan…</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Tietojen poistaminen</h2>
+      <p>Kun palkinto on toimitettu, poista kaikkien osallistujien tiedot. Näin tietosuojaselosteessa luvataan.</p>
+      <button type="button" class="b b--danger" id="clear">Poista kaikki osallistujat</button>
+    </section>
+  </main>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const ENDS = Date.parse("2026-11-08T23:59:59+02:00");
+const HIST = "hulina-arvonta-historia";
+const fmt = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let all = [];
+
+async function api(body) {
+  const res = await fetch("/api/toimitus/arvonta", body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 401 && data.kirjaudu) { location.href = "/api/kirjaudu?next=" + encodeURIComponent("/admin/arvonta/"); throw new Error("login"); }
+  if (!res.ok) throw new Error(data.virhe || "Jokin meni pieleen. Yritä uudelleen.");
+  return data;
+}
+
+function stats() {
+  const now = Date.now(), midnight = new Date(); midnight.setHours(0, 0, 0, 0);
+  $("sAll").textContent = all.length;
+  $("sToday").textContent = all.filter((o) => o.created >= midnight.getTime()).length;
+  $("sDay").textContent = all.filter((o) => o.created >= now - 864e5).length;
+  const left = ENDS - now;
+  if (left <= 0) { $("sLeft").textContent = "Päättynyt"; $("sLeftLbl").textContent = "Osallistuminen suljettu"; return; }
+  const d = Math.floor(left / 864e5), h = Math.floor(left % 864e5 / 36e5);
+  $("sLeft").textContent = d ? `${d} pv ${h} h` : `${h} h ${Math.floor(left % 36e5 / 6e4)} min`;
+}
+
+function draw_list() {
+  const q = $("q").value.trim().toLowerCase().replace(/^@/, "");
+  const rows = all.filter((o) => !q || o.handle.toLowerCase().includes(q) || o.email.includes(q));
+  $("rows").innerHTML = rows.length ? rows.map((o, i) => `<tr>
+    <td class="num">${all.length - all.indexOf(o)}</td>
+    <td><b>@${esc(o.handle)}</b><br><small><a href="https://www.tiktok.com/@${encodeURIComponent(o.handle)}" target="_blank" rel="noopener">TikTok</a> · <a href="https://www.instagram.com/${encodeURIComponent(o.handle)}/" target="_blank" rel="noopener">Instagram</a></small></td>
+    <td>${esc(o.email)}<button type="button" class="copy" data-copy="${esc(o.email)}">Kopioi</button></td>
+    <td>${fmt.format(new Date(o.created))}</td></tr>`).join("")
+    : `<tr><td colspan="4" class="empty">${all.length ? "Haulla ei löytynyt osallistujia." : "Ei vielä osallistujia."}</td></tr>`;
+}
+
+async function load() {
+  $("msg").hidden = true;
+  try {
+    const r = await api();
+    if (!r.kaytossa) { $("msg").textContent = "Arvonta tarvitsee D1-tietokannan."; $("msg").hidden = false; return; }
+    all = r.osallistujat; stats(); draw_list();
+  } catch (e) { if (e.message !== "login") { $("msg").textContent = e.message; $("msg").hidden = false; } }
+}
+
+function history() {
+  let h = []; try { h = JSON.parse(localStorage.getItem(HIST) || "[]"); } catch {}
+  $("hist").innerHTML = h.map((x) => `<li>${fmt.format(new Date(x.t))}: @${esc(x.handle)} (${x.n} osallistujaa)</li>`).join("");
+  return h;
+}
+function remember(w, n) {
+  const h = history(); h.unshift({ t: Date.now(), handle: w.handle, n });
+  try { localStorage.setItem(HIST, JSON.stringify(h.slice(0, 20))); } catch {}
+  history();
+}
+
+$("draw").addEventListener("click", async () => {
+  if (!all.length) return alert("Ei osallistujia.");
+  if (!confirm(`Arvotaanko voittaja ${all.length} osallistujan joukosta?`)) return;
+  const btn = $("draw"); btn.disabled = true; $("winner").innerHTML = "";
+  const roll = $("roll"); roll.classList.add("is-rolling");
+  const spin = setInterval(() => { roll.textContent = "@" + all[Math.floor(Math.random() * all.length)].handle; }, 70);
+  try {
+    const [r] = await Promise.all([api({ toiminto: "arvo" }), new Promise((ok) => setTimeout(ok, 2200))]);
+    clearInterval(spin); roll.classList.remove("is-rolling");
+    const w = r.voittaja; roll.textContent = "@" + w.handle;
+    const mail = `mailto:${encodeURIComponent(w.email)}?subject=${encodeURIComponent("Voitit Hulinan arvonnan!")}&body=${encodeURIComponent(`Hei @${w.handle}!\n\nOnneksi olkoon, voitit Hulinan arvonnassa Apple AirPods 5 -kuulokkeet.\n\nLähetä meille nimesi ja postiosoitteesi, niin postitamme palkinnon. Vastaathan seitsemän päivän kuluessa.\n\nTerveisin\nHulinan toimitus`)}`;
+    $("winner").innerHTML = `<div class="winner">
+      <p><b>Voittaja: @${esc(w.handle)}</b> · ${esc(w.email)}</p>
+      <p>Arvottu ${r.osallistujia} osallistujan joukosta ${fmt.format(new Date())}. Ota tästä kuvakaappaus.</p>
+      <div class="row">
+        <a class="b" href="https://www.tiktok.com/@${encodeURIComponent(w.handle)}" target="_blank" rel="noopener">Tarkista TikTok</a>
+        <a class="b" href="https://www.instagram.com/${encodeURIComponent(w.handle)}/" target="_blank" rel="noopener">Tarkista Instagram</a>
+        <a class="b b--main" href="${mail}">Lähetä sähköposti</a>
+      </div></div>`;
+    remember(w, r.osallistujia);
+  } catch (e) { clearInterval(spin); roll.textContent = ""; if (e.message !== "login") alert(e.message); }
+  finally { btn.disabled = false; btn.textContent = "Arvo uudelleen"; }
+});
+
+$("rows").addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-copy]"); if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Kopioitu"; setTimeout(() => { b.textContent = "Kopioi"; }, 1500); } catch {}
+});
+$("q").addEventListener("input", draw_list);
+$("reload").addEventListener("click", load);
+$("csv").addEventListener("click", () => {
+  const lines = [["kayttajanimi", "sahkoposti", "osallistui"], ...all.map((o) => [o.handle, o.email, new Date(o.created).toISOString()])];
+  const csv = "﻿" + lines.map((l) => l.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(";")).join("\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "hulina-arvonta-osallistujat.csv"; a.click();
+});
+$("clear").addEventListener("click", async () => {
+  if (!confirm("Poistetaanko kaikkien osallistujien tiedot pysyvästi? Tee tämä vasta, kun palkinto on toimitettu.")) return;
+  try { await api({ toiminto: "tyhjenna" }); $("roll").textContent = ""; $("winner").innerHTML = ""; load(); } catch (e) { if (e.message !== "login") alert(e.message); }
+});
+
+history(); load(); setInterval(stats, 60000);
+</script>
+</body>
+</html>
