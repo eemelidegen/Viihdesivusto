@@ -25,7 +25,6 @@ Toimitus voi poistaa kommentin perustelematta. Kommentit ovat kirjoittajiensa mi
 
 ## Tili
 
-- Tilin voi luoda vähintään 15-vuotias.
 - Yksi tili per henkilö.
 - Vastaat itse kirjoittamistasi kommenteista.
 - Voit poistaa omat kommenttisi ja koko tilisi [Oma tili](/tili/) -sivulla.
