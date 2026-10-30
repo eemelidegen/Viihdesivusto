@@ -17,6 +17,8 @@ Viimeksi heidät nähtiin Oulussa viime viikon perjantain ja lauantain välisen�
 
 Kuusi jäi kiinni. Heidät vapautettiin aamuun mennessä.
 
+![Poliisi saattaa Paavo Pesusieneksi pukeutunutta poliisiautoon](/assets/video/oulu-pesusienet.mp4 "Poliisi saattaa Paavo Pesusieneksi pukeutunutta poliisiautoon Oulussa.")
+
 – Tilanteesta ei aiheutunut vahinkoa ja tällä hetkellä ketään ei epäillä rikoksesta, kertoi päivystävä tutkinnanjohtaja **Minna Vuori**.
 
 Poliisin mukaan kyse on Slikiin liittyvästä ilmiöstä: Paavo Pesusieneksi pukeutuneet nuoret yrittävät häiritä hänen keikkojaan.

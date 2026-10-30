@@ -233,6 +233,9 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .gallery__count { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,.65); color: #fff; font: 700 13px/1 var(--display); padding: 6px 10px 4px; border-radius: 999px; }
 .inline-img { margin: 28px 0; }
 .inline-img img { width: 100%; border-radius: 10px; }
+.inline-video { margin: 22px 0; }
+.inline-video video { display: block; width: 100%; max-width: 400px; max-height: 80vh; margin: 0 auto; background: #000; border-radius: 2px; }
+.inline-video figcaption { color: var(--muted); font: 13px/1.4 var(--font); margin-top: 6px; text-align: center; }
 .inline-img figcaption { color: var(--muted); font: 13px/1.4 var(--font); margin-top: 6px; }
 .embed { margin: 28px auto; display: grid; place-items: center; gap: 10px; padding: 30px 18px; border-radius: 12px; background: var(--soft); text-align: center; font-family: var(--font); }
 .embed--tall { max-width: 360px; }

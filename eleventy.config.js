@@ -118,6 +118,11 @@ export function rikasta(html = "") {
       + `<button class="gallery__nav gallery__nav--prev" type="button" aria-label="Edellinen kuva">‹</button><button class="gallery__nav gallery__nav--next" type="button" aria-label="Seuraava kuva">›</button>`
       + `<span class="gallery__count"><b>1</b> / ${imgs.length}</span></div>`;
   });
+  // A lone Markdown "image" pointing at our own .mp4 becomes a playable video with the same caption rules.
+  html = html.replace(/<p>(<img [^>]*src="(\/assets\/[^"]+\.mp4)"[^>]*>)<\/p>/g, (m, img, src) => {
+    const cap = attr(img, "title");
+    return `<figure class="inline-video"><video src="${src}" poster="${src.replace(/\.mp4$/, ".jpg")}" controls playsinline preload="metadata" aria-label="${attr(img, "alt")}"></video>${cap ? `<figcaption>${cap}</figcaption>` : ""}</figure>`;
+  });
   html = html.replace(/<p>(<img [^>]*>)<\/p>/g, (m, img) => figure(img, "inline-img"));
   return html.replace(/<p>(https?:\/\/[^\s<]+)<\/p>/g, (m, raw) => {
     const url = raw.replace(/&amp;/g, "&");
