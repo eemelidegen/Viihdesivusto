@@ -1,6 +1,6 @@
 ---
 title: "Mitä ihmettä? Paavo Pesusienet ryntäävät Slikin keikoille kaupungista toiseen"
-excerpt: "Räppärin keikoille ilmestyy yhä uudelleen naamioitunut joukko. Kotkassa keikka keskeytettiin, Järvenpäässä se peruttiin."
+excerpt: "Yksi keikka keskeytettiin, toinen peruttiin kokonaan. Nyt Pesusienistä on tullut poliisiasia."
 date: "2026-10-30T05:10:00.000Z"
 category: "kohut"
 aiheet: "Sliki, Suomiräp"
