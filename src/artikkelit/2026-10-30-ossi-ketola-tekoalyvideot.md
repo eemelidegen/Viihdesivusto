@@ -1,6 +1,6 @@
 ---
 title: "Oletko nähnyt nämä Ossi Ketola -videot? Kaikki ei ole sitä, miltä näyttää"
-excerpt: "Kohumiljonääri pyörii TikTokissa tekoälyn tekemissä pätkissä. Osa niistä on tehty uutislähetysten näköisiksi."
+excerpt: "Kohumiljonääri pyörii TikTokissa tekoälyn tekemissä pätkissä. Osa on tehty uutisten näköisiksi – ja näkyvyydestä maksetaan."
 date: "2026-10-30T07:25:00.000Z"
 category: "kohut"
 aiheet: "Ossi Ketola, TikTok"
@@ -8,7 +8,7 @@ author: "Toimitus"
 image: ""
 imageAlt: ""
 imageCredit: ""
-lahteet: "Gekkonen | https://gekkonen.net/ossi-ketolan-tekoalyvideot-valtasivat-tiktokin-osa-nayttaa-jo-oikeilta-uutisilta/ ; Ossi Clippers | https://ossiclippers.com/"
+lahteet: "Gekkonen | https://gekkonen.net/ossi-ketolan-tekoalyvideot-valtasivat-tiktokin-osa-nayttaa-jo-oikeilta-uutisilta/"
 draft: true
 ---
 
@@ -20,9 +20,11 @@ Tili ei ole ainoa. 29-vuotiaasta Ketolasta tehdään nyt tekoälyvideoita tahtii
 
 Huumoriksi ne on tarkoitettu. Kun video näyttää uutisilta, kaikki eivät kuitenkaan välttämättä tunnista vitsiä.
 
-## Näyttökerroista maksetaan
+## Näkyvyydestä maksetaan
 
-Ketolalla on myös oma Ossi Clippers -ohjelma, joka maksaa ihmisille hänestä tehdyistä lyhyistä videoista. Ohjelman sivujen mukaan palkkio on 4 dollaria tuhatta hyväksyttyä näyttökertaa kohden.
+Kaikki Ketola-videot eivät synny pelkästä huvista. Ketola maksaa ihmisille siitä, että nämä tekevät hänestä lyhyitä videoita ja levittävät niitä TikTokissa, Instagramissa ja YouTubessa. Palkkio määräytyy sen mukaan, kuinka moni videon näkee.
+
+Käytännössä kyse on markkinoinnista. Kuluttajansuojalain mukaan mainonnan on oltava tunnistettavissa mainonnaksi myös somessa. Katsojalle se ei aina ole selvää, kun video näyttää vitsiltä tai uutiselta.
 
 Onko tekoälyvideoita tehty rahan takia, ei tiedetä.
 
