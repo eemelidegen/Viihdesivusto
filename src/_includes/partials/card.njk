@@ -9,6 +9,6 @@
   <a class="pill" href="/kategoria/{{ cat.slug }}/">{{ cat.name }}</a>
   <h3 class="card__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
   {% if showExcerpt %}<p class="card__excerpt">{{ item.data.excerpt }}</p>{% endif %}
-  <p class="meta"><time datetime="{{ item.date | iso }}">{{ item.date | pvmAika }}</time></p>
+  <p class="meta" data-nosnippet><time datetime="{{ item.date | iso }}">{{ item.date | pvmAika }}</time></p>
   </div>
 </article>

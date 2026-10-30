@@ -2,9 +2,11 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
+{#- Public pages only. Stories use their own date; other pages the newest story's date, since their content changes with it. -#}
+{%- set newest = collections.artikkelit[0].date if collections.artikkelit.length else null -%}
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for p in collections.all %}{% if p.url and not p.url.endsWith(".html") %}
-  <url><loc>{{ p.url | absUrl(site.url) }}</loc><lastmod>{{ p.date | iso }}</lastmod></url>
+{% for p in collections.all %}{% if p.url and not p.url.endsWith(".html") and not p.url.startsWith("/admin/") and not p.url.startsWith("/assets/") and not p.url.startsWith("/tili/") and not p.url.startsWith("/og/") and p.url != "/404/" %}
+  <url><loc>{{ p.url | absUrl(site.url) }}</loc><lastmod>{{ (p.date if p.data.category else (newest or p.date)) | iso }}</lastmod></url>
 {% endif %}{% endfor %}
 </urlset>
