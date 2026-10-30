@@ -1,6 +1,6 @@
 ---
-title: "Ossi Ketolasta tuli TikTokin tekoälyvitsi – ja hän maksaa klippien tekijöille"
-excerpt: "Osa videoista näyttää jo oikeilta uutisilta. Kohumiljonäärin oma ohjelma maksaa näyttökerroista."
+title: "Oletko nähnyt nämä Ossi Ketola -videot? Kaikki ei ole sitä, miltä näyttää"
+excerpt: "Tekoälyllä tehdyt pätkät kohumiljonääristä näyttävät osin oikeilta uutisilta. Samaan aikaan Ketolan oma ohjelma maksaa klippien tekijöille näyttökerroista."
 date: "2026-10-30T07:25:00.000Z"
 category: "kohut"
 aiheet: "Ossi Ketola, TikTok"
@@ -12,18 +12,24 @@ lahteet: "Gekkonen | https://gekkonen.net/ossi-ketolan-tekoalyvideot-valtasivat-
 draft: true
 ---
 
-Kohumiljonääri **Ossi Ketola**, 29, vilisee nyt TikTokissa – tosin enimmäkseen tekoälyn tekemänä.
+Jos olet selannut TikTokia viime päivinä, olet todennäköisesti törmännyt **Ossi Ketolaan**. Kohumiljonääri, 29, esiintyy videoissa, joissa hän päätyy toinen toistaan oudompiin tilanteisiin.
 
-Tekoälyllä tehdyissä huumorivideoissa Ketola päätyy toinen toistaan oudompiin tilanteisiin. Osa videoista on tehty uutislähetysten ja iltapäivälehtien näköisiksi niin taitavasti, että ohimennen niitä voi luulla oikeiksi uutisiksi.
+Moni pätkistä on kuitenkin tehty tekoälyllä, ja osa on rakennettu niin taitavasti, että ohimennen selaten niitä voi luulla aidoiksi uutisiksi.
 
-Yksi tili kysyy, ovatko yli neljän tunnin koulupäivät pian historiaa. Toinen, Vammalan Sanomiksi nimetty tili, julkaisee keksittyjä uutisia Ketolasta, kuten sen, että Havis Amanda saa uuden ilmeen.
+## Uutislähetykseltä näyttävää huumoria
+
+Videot jäljittelevät tv-uutisia ja iltapäivälehtien lööppejä. Yksi tili kysyy uutisankkurin tyyliin, ovatko yli neljän tunnin koulupäivät pian historiaa. Toinen, Vammalan Sanomiksi nimetty tili, julkaisee keksittyjä uutisia Ketolasta. Niissä kerrotaan esimerkiksi, että Havis Amanda saa uuden ilmeen ja että Helsinki-Vantaalle suunnitellaan uudenlaista loungea.
+
+Kyse on huumorista, mutta raja on ohut. Kun video näyttää uutislähetykseltä, kaikki katsojat eivät välttämättä huomaa, että sisältö on keksittyä.
 
 ## Neljä dollaria tuhannesta katselusta
 
-Ilmiön takana ei välttämättä ole pelkkä huumori. Ketolalla on oma klippiohjelma, Ossi Clippers. Ohjelman sivujen mukaan se maksaa tekijöille 4 dollaria jokaisesta tuhannesta hyväksytystä näyttökerrasta, kun he tekevät Ketolasta lyhyitä videoita TikTokiin, Instagramiin ja YouTubeen.
+Ketolan näkyvyyden takana ei välttämättä ole pelkkä sattuma. Hänellä on oma klippiohjelma, Ossi Clippers, joka maksaa ihmisille Ketolasta tehdyistä lyhyistä videoista.
 
-Miljoona katselukertaa tarkoittaa siis 4 000 dollaria.
+Ohjelman verkkosivujen mukaan tekijä saa 4 dollaria jokaisesta tuhannesta hyväksytystä näyttökerrasta. Videoita voi tehdä TikTokiin, Instagramiin ja YouTubeen. Miljoona katselukertaa tarkoittaisi siis 4 000 dollaria.
 
 Sitä, kuinka moni tekoälyvideoista on tehty ohjelman kautta, ei tiedetä.
 
-Syyskuussa Ketola oli otsikoissa, kun räppärit **Sliki** ja **Korelon** esiintyivät hänen tapahtumassaan Sastamalassa. Ketolaa on arvosteltu rasistisista näkemyksistä, ja Sliki pyysi keikkaa myöhemmin anteeksi.
+## Syksyn kohujen keskipisteessä
+
+Ketola on ollut otsikoissa koko syksyn. Syyskuussa räppärit **Sliki** ja **Korelon** esiintyivät hänen tapahtumassaan Sastamalassa. Ketolaa on arvosteltu rasistisista näkemyksistä, ja keikka nosti somessa kohun. Sliki pyysi myöhemmin anteeksi ja kertoi, ettei tiennyt järjestäjän taustoista.
