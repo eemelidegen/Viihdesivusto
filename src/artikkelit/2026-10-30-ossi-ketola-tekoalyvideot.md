@@ -12,20 +12,18 @@ imageCredit: "PavlosCs / Wikimedia Commons, CC BY-SA 4.0"
 imageLink: "https://commons.wikimedia.org/wiki/File:Ossi_Ketola.jpg"
 ---
 
-Bugatin raju kolari. 2,8 miljoonan euron sakot kuvottavasta tempusta. Ja pääosassa on – tietenkin – **Ossi Ketola**.
+Bugatin raju kolari. 2,8 miljoonan euron sakot kuvottavasta tempusta. Molemmissa uutisissa pääosassa on **Ossi Ketola**, eikä kumpikaan ole totta.
 
-Uutiset ovat keksittyjä. Ne ovat peräisin TikTok-tililtä, joka kutsuu itseään Vammalan Sanomiksi ja tekee kohumiljonääristä parodiaa tekoälyn avulla.
+Ne ovat Vammalan Sanomiksi itseään kutsuvan TikTok-tilin tekemiä. Tili tekee kohumiljonääristä parodiaa tekoälyllä, ja jälki on paikoin niin uskottavaa, että ohi selatessa sen luulee oikeaksi uutiseksi.
 
-Tili ei ole ainoa. 29-vuotiaasta Ketolasta tehdään nyt tekoälyvideoita tahtiin, jota on vaikea olla huomaamatta. Videoissa kohumiljonääri ajautuu mitä kummallisimpiin käänteisiin, ja osa niistä on tehty uutisen näköisiksi niin taitavasti, että ensisilmäyksellä ne voi luulla aidoiksi.
+Samanlaisia pätkiä tulee nyt muualtakin. 29-vuotias Ketola sekoilee niissä mitä erikoisimmissa tilanteissa. Osa on selviä vitsejä, osa taas on puettu uutislähetyksen tai lööpin muotoon.
 
-Huumoriksi ne on tarkoitettu. Kun video näyttää uutisilta, kaikki eivät kuitenkaan välttämättä tunnista vitsiä.
+## Videoista maksetaan
 
-## Näkyvyydestä maksetaan
+Ilmiöllä on myös rahallinen puoli. Ketola maksaa ihmisille siitä, että nämä tekevät hänestä lyhyitä videoita TikTokiin, Instagramiin ja YouTubeen. Mitä useampi videon näkee, sitä enemmän tekijä saa.
 
-Kaikki Ketola-videot eivät synny pelkästä huvista. Ketola maksaa ihmisille siitä, että nämä tekevät hänestä lyhyitä videoita ja levittävät niitä TikTokissa, Instagramissa ja YouTubessa. Palkkio määräytyy sen mukaan, kuinka monta kertaa videota katsotaan.
+Vitsiltä näyttävä pätkä voi siis olla maksettua mainontaa. Laki vaatii, että somessakin mainoksen tunnistaa mainokseksi. Uutista matkivasta videosta sitä ei välttämättä huomaa.
 
-Hauskalta näyttävä video voi siis olla maksettua näkyvyyttä. Laki vaatii, että mainonnan erottaa muusta sisällöstä myös TikTokissa. Kun pätkä muistuttaa uutista, se ei ole itsestään selvää.
+Sitä, onko juuri tekoälyvideoista maksettu, ei tiedetä.
 
-Onko tekoälyvideoita tehty rahan takia, sitä ei tiedetä.
-
-Syyskuussa Ketola oli kohun keskellä, kun räppärit **Sliki** ja **Korelon** esiintyivät hänen tapahtumassaan Sastamalassa. Ketolaa on arvosteltu rasistisista näkemyksistä.
+Syyskuussa Ketola oli otsikoissa, kun räppärit **Sliki** ja **Korelon** esiintyivät hänen tapahtumassaan Sastamalassa. Ketolaa on arvosteltu rasistisista näkemyksistä, ja Sliki pyysi keikkaa myöhemmin anteeksi.
