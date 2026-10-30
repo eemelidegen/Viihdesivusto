@@ -9,4 +9,11 @@ eleventyExcludeFromCollections: true
 {% for p in collections.all %}{% if p.url and not p.url.endsWith(".html") and not p.url.startsWith("/admin/") and not p.url.startsWith("/assets/") and not p.url.startsWith("/tili/") and not p.url.startsWith("/og/") and p.url != "/404/" %}
   <url><loc>{{ p.url | absUrl(site.url) }}</loc><lastmod>{{ (p.date if p.data.category else (newest or p.date)) | iso }}</lastmod></url>
 {% endif %}{% endfor %}
+{#- Paginated pages: only the first page of each template is in collections.all -#}
+{% for c in site.categories %}{% if c.slug != "julkkikset" %}
+  <url><loc>{{ ("/kategoria/" + c.slug + "/") | absUrl(site.url) }}</loc><lastmod>{{ newest | iso }}</lastmod></url>
+{% endif %}{% endfor %}
+{% for a in collections.aiheet %}{% if not loop.first %}
+  <url><loc>{{ ("/aihe/" + a.slug + "/") | absUrl(site.url) }}</loc><lastmod>{{ newest | iso }}</lastmod></url>
+{% endif %}{% endfor %}
 </urlset>
