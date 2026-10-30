@@ -2,6 +2,7 @@
 title: "Ossi Ketola on nyt kaikkialla TikTokissa - tämä selittää osan"
 excerpt: "Kohumiljonääri pyörii TikTokissa tekoälyn tekemissä pätkissä. Osa on tehty uutisten näköisiksi – ja näkyvyydestä maksetaan."
 date: "2026-10-30T09:35:08.911Z"
+paivitetty: "2026-10-30T09:47:29.905Z"
 category: "kohut"
 aiheet: "Ossi Ketola, TikTok"
 author: "Toimitus"
@@ -15,7 +16,7 @@ Bugatin raju kolari. 2,8 miljoonan euron sakot kuvottavasta tempusta. Ja pääos
 
 Uutiset ovat keksittyjä. Ne ovat peräisin TikTok-tililtä, joka kutsuu itseään Vammalan Sanomiksi ja tekee kohumiljonääristä parodiaa tekoälyn avulla.
 
-Tili ei ole ainoa. 29-vuotiaasta Ketolasta tehdään nyt tekoälyvideoita tahtiin, jota on vaikea olla huomaamatta. Niissä hän päätyy mitä kummallisimpiin tilanteisiin, ja osa pätkistä on viimeistelty uutislähetysten ja lööppien näköisiksi.
+Tili ei ole ainoa. 29-vuotiaasta Ketolasta tehdään nyt tekoälyvideoita tahtiin, jota on vaikea olla huomaamatta. Videoissa kohumiljonääri ajautuu mitä kummallisimpiin käänteisiin, ja osa niistä on tehty uutisen näköisiksi niin taitavasti, että ensisilmäyksellä ne voi luulla aidoiksi.
 
 Huumoriksi ne on tarkoitettu. Kun video näyttää uutisilta, kaikki eivät kuitenkaan välttämättä tunnista vitsiä.
 
