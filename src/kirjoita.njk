@@ -32,7 +32,8 @@ eleventyExcludeFromCollections: true
     .f small { font-weight: 400; color: var(--muted); }
     .f input[type=text], .f textarea { font: 16px/1.5 var(--font); padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; width: 100%; resize: vertical; background: #fff; color: var(--text); }
     .f textarea { overflow: hidden; }
-    #title { font: 800 28px/1.15 var(--headline); padding: 12px 14px; resize: none; }
+    #title { font: 800 28px/1.15 var(--headline); padding: 12px 14px; resize: none; min-height: 84px; }
+    #excerpt { min-height: 72px; }
     #body { min-height: 320px; font: 18px/1.65 var(--serif); }
     .seg2 { display: flex; gap: 8px; flex-wrap: wrap; }
     .seg2 button { flex: 1 1 0; min-width: 120px; padding: 12px; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; font: 800 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; color: var(--text); }
@@ -151,6 +152,7 @@ eleventyExcludeFromCollections: true
       .item__actions { grid-column: 1 / -1; justify-content: flex-start; }
       .bar__status { display: none; }
       .bar__in .btn2 { flex: 1; padding: 14px 10px; }
+      #title { font-size: 22px; min-height: 74px; }
     }
   </style>
 </head>
@@ -497,8 +499,15 @@ $("aiheChips").addEventListener("click", (e) => {
 });
 $("aiheet").addEventListener("input", topicChips);
 $("category").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; doc.fields.category = b.dataset.value; fill(); changed(); });
-function grow(t) { if (t.id === "body" || t.id === "title" || t.id === "excerpt") { t.style.height = "auto"; t.style.height = Math.max(t.id === "body" ? 320 : 0, t.scrollHeight + 2) + "px"; } }
+// Auto-height for the main fields. A hidden textarea measures 0, so skip it and re-measure once it shows up or the width changes.
+function grow(t) {
+  if (!(t.id === "body" || t.id === "title" || t.id === "excerpt") || !t.offsetWidth) return;
+  t.style.height = "auto"; t.style.height = Math.max(t.id === "body" ? 320 : 0, t.scrollHeight + 2) + "px";
+}
+const growing = ["title", "excerpt", "body"].map((id) => $(id));
 document.querySelectorAll("textarea").forEach((t) => t.addEventListener("input", () => grow(t)));
+if ("IntersectionObserver" in window) { const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && grow(e.target))); growing.forEach((t) => io.observe(t)); }
+let growW = innerWidth; addEventListener("resize", () => { if (innerWidth !== growW) { growW = innerWidth; growing.forEach(grow); } });
 $("title").addEventListener("keydown", (e) => { if (e.key === "Enter") e.preventDefault(); });
 
 // ---------- Images: resized in the browser to a light JPG ----------
