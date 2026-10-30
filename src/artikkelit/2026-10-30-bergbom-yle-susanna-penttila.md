@@ -1,5 +1,5 @@
 ---
-title: "Oho! Perussuomalaisten Bergbom tylyttää Yleä Penttilästä: ”Kaksoisstandardit”"
+title: "Oho! Bergbom tylyttää Yleä: ”Markkinoi epäsuorasti Penttilän Onlyfans-toimintaa”"
 excerpt: "Bergbomin mukaan Yle markkinoi TikTokissa epäsuorasti Penttilän Onlyfans-toimintaa – ja juuri nuorille."
 date: "2026-10-30T03:00:00.000Z"
 category: "politiikka"
