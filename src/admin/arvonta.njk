@@ -117,7 +117,7 @@ eleventyExcludeFromCollections: true
       </div>
       <p class="msg" id="msg" hidden></p>
       <table>
-        <thead><tr><th class="num">#</th><th>Käyttäjänimi</th><th>Sähköposti</th><th>Osallistui</th></tr></thead>
+        <thead><tr><th class="num">#</th><th>Tili</th><th>Sähköposti</th><th>Osallistui</th></tr></thead>
         <tbody id="rows"><tr><td colspan="4" class="empty">Ladataan…</td></tr></tbody>
       </table>
     </section>
@@ -136,6 +136,18 @@ const ENDS = Date.parse("2026-11-08T23:59:59+02:00");
 const HIST = "hulina-arvonta-historia";
 const fmt = new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// handle is "tt:name ig:name"; entries from before the split form hold a bare name of unknown platform.
+const accts = (h) => {
+  const m = {}; for (const p of h.split(" ")) { const i = p.indexOf(":"); if (i > 0) m[p.slice(0, i)] = p.slice(i + 1); }
+  return m.tt || m.ig ? m : { tt: h, ig: h, old: true };
+};
+const label = (h) => { const a = accts(h); return a.old ? "@" + h : [a.tt && "@" + a.tt, a.ig && "@" + a.ig].filter(Boolean).join(" / "); };
+const ttUrl = (n) => `https://www.tiktok.com/@${encodeURIComponent(n)}`, igUrl = (n) => `https://www.instagram.com/${encodeURIComponent(n)}/`;
+const who = (h) => {
+  const a = accts(h);
+  if (a.old) return `<b>@${esc(h)}</b><br><small><a href="${ttUrl(h)}" target="_blank" rel="noopener">TikTok</a> · <a href="${igUrl(h)}" target="_blank" rel="noopener">Instagram</a> (alusta ei tiedossa)</small>`;
+  return [a.tt && `<small>TikTok</small> <a href="${ttUrl(a.tt)}" target="_blank" rel="noopener"><b>@${esc(a.tt)}</b></a>`, a.ig && `<small>Instagram</small> <a href="${igUrl(a.ig)}" target="_blank" rel="noopener"><b>@${esc(a.ig)}</b></a>`].filter(Boolean).join("<br>");
+};
 let all = [];
 
 async function api(body) {
@@ -162,7 +174,7 @@ function draw_list() {
   const rows = all.filter((o) => !q || o.handle.toLowerCase().includes(q) || o.email.includes(q));
   $("rows").innerHTML = rows.length ? rows.map((o, i) => `<tr>
     <td class="num">${all.length - all.indexOf(o)}</td>
-    <td><b>@${esc(o.handle)}</b><br><small><a href="https://www.tiktok.com/@${encodeURIComponent(o.handle)}" target="_blank" rel="noopener">TikTok</a> · <a href="https://www.instagram.com/${encodeURIComponent(o.handle)}/" target="_blank" rel="noopener">Instagram</a></small></td>
+    <td>${who(o.handle)}</td>
     <td>${esc(o.email)}<button type="button" class="copy" data-copy="${esc(o.email)}">Kopioi</button></td>
     <td>${fmt.format(new Date(o.created))}</td></tr>`).join("")
     : `<tr><td colspan="4" class="empty">${all.length ? "Haulla ei löytynyt osallistujia." : "Ei vielä osallistujia."}</td></tr>`;
@@ -179,7 +191,7 @@ async function load() {
 
 function history() {
   let h = []; try { h = JSON.parse(localStorage.getItem(HIST) || "[]"); } catch {}
-  $("hist").innerHTML = h.map((x) => `<li>${fmt.format(new Date(x.t))}: @${esc(x.handle)} (${x.n} osallistujaa)</li>`).join("");
+  $("hist").innerHTML = h.map((x) => `<li>${fmt.format(new Date(x.t))}: ${esc(label(x.handle))} (${x.n} osallistujaa)</li>`).join("");
   return h;
 }
 function remember(w, n) {
@@ -193,18 +205,18 @@ $("draw").addEventListener("click", async () => {
   if (!confirm(`Arvotaanko voittaja ${all.length} osallistujan joukosta?`)) return;
   const btn = $("draw"); btn.disabled = true; $("winner").innerHTML = "";
   const roll = $("roll"); roll.classList.add("is-rolling");
-  const spin = setInterval(() => { roll.textContent = "@" + all[Math.floor(Math.random() * all.length)].handle; }, 70);
+  const spin = setInterval(() => { roll.textContent = label(all[Math.floor(Math.random() * all.length)].handle); }, 70);
   try {
     const [r] = await Promise.all([api({ toiminto: "arvo" }), new Promise((ok) => setTimeout(ok, 2200))]);
     clearInterval(spin); roll.classList.remove("is-rolling");
-    const w = r.voittaja; roll.textContent = "@" + w.handle;
-    const mail = `mailto:${encodeURIComponent(w.email)}?subject=${encodeURIComponent("Voitit Hulinan arvonnan!")}&body=${encodeURIComponent(`Hei @${w.handle}!\n\nOnneksi olkoon, voitit Hulinan arvonnassa Apple AirPods 5 -kuulokkeet.\n\nLähetä meille nimesi ja postiosoitteesi, niin postitamme palkinnon. Vastaathan seitsemän päivän kuluessa.\n\nTerveisin\nHulinan toimitus`)}`;
+    const w = r.voittaja, wa = accts(w.handle); roll.textContent = label(w.handle);
+    const mail = `mailto:${encodeURIComponent(w.email)}?subject=${encodeURIComponent("Voitit Hulinan arvonnan!")}&body=${encodeURIComponent(`Hei ${label(w.handle)}!\n\nOnneksi olkoon, voitit Hulinan arvonnassa Apple AirPods 5 -kuulokkeet.\n\nLähetä meille nimesi ja postiosoitteesi, niin postitamme palkinnon. Vastaathan seitsemän päivän kuluessa.\n\nTerveisin\nHulinan toimitus`)}`;
     $("winner").innerHTML = `<div class="winner">
-      <p><b>Voittaja: @${esc(w.handle)}</b> · ${esc(w.email)}</p>
+      <p><b>Voittaja: ${esc(label(w.handle))}</b> · ${esc(w.email)}</p>
       <p>Arvottu ${r.osallistujia} osallistujan joukosta ${fmt.format(new Date())}. Ota tästä kuvakaappaus.</p>
       <div class="row">
-        <a class="b" href="https://www.tiktok.com/@${encodeURIComponent(w.handle)}" target="_blank" rel="noopener">Tarkista TikTok</a>
-        <a class="b" href="https://www.instagram.com/${encodeURIComponent(w.handle)}/" target="_blank" rel="noopener">Tarkista Instagram</a>
+        ${wa.tt ? `<a class="b" href="${ttUrl(wa.tt)}" target="_blank" rel="noopener">Tarkista TikTok</a>` : ""}
+        ${wa.ig ? `<a class="b" href="${igUrl(wa.ig)}" target="_blank" rel="noopener">Tarkista Instagram</a>` : ""}
         <a class="b b--main" href="${mail}">Lähetä sähköposti</a>
       </div></div>`;
     remember(w, r.osallistujia);
@@ -219,7 +231,7 @@ $("rows").addEventListener("click", async (e) => {
 $("q").addEventListener("input", draw_list);
 $("reload").addEventListener("click", load);
 $("csv").addEventListener("click", () => {
-  const lines = [["kayttajanimi", "sahkoposti", "osallistui"], ...all.map((o) => [o.handle, o.email, new Date(o.created).toISOString()])];
+  const lines = [["tiktok", "instagram", "sahkoposti", "osallistui"], ...all.map((o) => { const a = accts(o.handle); return [a.tt || "", a.ig || "", o.email, new Date(o.created).toISOString()]; })];
   const csv = "﻿" + lines.map((l) => l.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(";")).join("\n");
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "hulina-arvonta-osallistujat.csv"; a.click();
 });

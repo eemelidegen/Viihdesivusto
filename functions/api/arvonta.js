@@ -1,4 +1,4 @@
-// POST /api/arvonta {kayttaja, email, saannot} -> enters the AirPods giveaway (one entry per e-mail address).
+// POST /api/arvonta {tiktok, instagram, email, saannot} -> enters the AirPods giveaway (one entry per e-mail address).
 import { db, fail, json, sameOrigin } from "../../lib/users.js";
 
 const ENDS = Date.parse("2026-11-08T23:59:59+02:00");
@@ -9,10 +9,16 @@ export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request)) return fail("Kielletty.", 403);
   if (Date.now() > ENDS) return fail("Arvonta on päättynyt. Kiitos kaikille osallistujille!", 410);
   const D = await db(env); if (!D) return fail("Osallistuminen ei ole juuri nyt mahdollista. Yritä hetken päästä uudelleen.", 503);
-  const { kayttaja = "", email = "", saannot, sivusto = "" } = await request.json().catch(() => ({}));
+  const { tiktok = "", instagram = "", email = "", saannot, sivusto = "" } = await request.json().catch(() => ({}));
   if (sivusto) return json({ ok: true }); // honeypot field filled in by bots
-  const handle = String(kayttaja).trim().replace(/^@/, ""), mail = String(email).trim().toLowerCase();
-  if (!/^[\p{L}\p{N}_.]{2,40}$/u.test(handle)) return fail("Tarkista TikTok- tai Instagram-käyttäjänimesi.");
+  const nick = (v) => String(v).trim().replace(/^@/, "");
+  const tt = nick(tiktok), ig = nick(instagram), mail = String(email).trim().toLowerCase();
+  if (!tt && !ig) return fail("Kirjoita TikTok- tai Instagram-käyttäjänimesi.");
+  const ok = /^[\p{L}\p{N}_.]{2,40}$/u;
+  if (tt && !ok.test(tt)) return fail("Tarkista TikTok-käyttäjänimesi.");
+  if (ig && !ok.test(ig)) return fail("Tarkista Instagram-käyttäjänimesi.");
+  // Stored as "tt:name ig:name" in the existing handle column.
+  const handle = [tt && `tt:${tt}`, ig && `ig:${ig}`].filter(Boolean).join(" ");
   if (mail.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return fail("Tarkista sähköpostiosoite.");
   if (saannot !== true) return fail("Hyväksy arvonnan säännöt.");
 
