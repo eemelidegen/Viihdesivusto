@@ -5,9 +5,8 @@ date: "2026-10-30T05:10:00.000Z"
 category: "kohut"
 aiheet: "Sliki, Suomiräp"
 author: "Toimitus"
-image: "/assets/img/uploads/sliki-paavo-pesusienet.jpg"
-imageAlt: "Paavo Pesusieneksi pukeutuneita ihmisiä kadulla yöllä"
-imageCredit: "Kick"
+image: "/assets/img/uploads/sliki-paavo-pesusienet-keikat-bd8cf9.jpg"
+imageCredit: "Kick: @niparii"
 lahteet: "Yle | https://yle.fi/a/74-20253131 ; Kaleva | https://www.kaleva.fi/paavo-pesusienet-hairikoivat-keskustassa-ja-juoksi/13722723 ; Savon Sanomat | https://www.savonsanomat.fi/paikalliset/9912197 ; Klangi | https://www.klangi.fi/uutiset/jarjestyshairiot-jatkuvat-slikin-keikoilla/"
 draft: true
 ---
