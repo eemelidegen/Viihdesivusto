@@ -1,14 +1,13 @@
 ---
 title: "Mitä ihmettä? Paavo Pesusienet ryntäävät Slikin keikoille kaupungista toiseen"
 excerpt: "Yksi keikka keskeytettiin, toinen peruttiin kokonaan. Nyt Pesusienistä on tullut poliisiasia."
-date: "2026-10-30T05:10:00.000Z"
+date: "2026-10-30T05:35:10.889Z"
 category: "kohut"
 aiheet: "Sliki, Suomiräp"
 author: "Toimitus"
 image: "/assets/img/uploads/sliki-paavo-pesusienet-keikat-bd8cf9.jpg"
 imageCredit: "Kick: @niparii"
 lahteet: "Yle | https://yle.fi/a/74-20253131 ; Kaleva | https://www.kaleva.fi/paavo-pesusienet-hairikoivat-keskustassa-ja-juoksi/13722723 ; Savon Sanomat | https://www.savonsanomat.fi/paikalliset/9912197 ; Klangi | https://www.klangi.fi/uutiset/jarjestyshairiot-jatkuvat-slikin-keikoilla/"
-draft: true
 ---
 
 Kun räppäri **Sliki** (oik. Jan Vikman) nousee lavalle, paikalle saattaa ilmestyä myös joukko Paavo Pesusieniä. Naamioituneet häiriköt ovat seuranneet häntä läpi syksyn, ja nyt asiaan on puuttunut poliisi.
