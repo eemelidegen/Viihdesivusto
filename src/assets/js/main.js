@@ -361,14 +361,16 @@ if (cBox) {
 const tipForm = document.getElementById("tipForm");
 if (tipForm) {
   const story = new URLSearchParams(location.search).get("juttu");
-  if (story) { tipForm.juttu.value = story; tipForm.teksti.placeholder = "Mikä jutussa on väärin? Kerro myös, mistä oikea tieto löytyy."; }
+  if (story) { tipForm.juttu.value = story; if (tipForm.aihe) tipForm.aihe.value = "Virhe jutussa"; tipForm.teksti.placeholder = "Mikä jutussa on väärin? Kerro myös, mistä oikea tieto löytyy."; }
   tipForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const err = tipForm.querySelector(".tip__err"), btn = tipForm.querySelector("button[type=submit]");
     if (tipForm.teksti.value.trim().length < 10) { err.textContent = "Kirjoita viestiin vähän enemmän."; tipForm.teksti.focus(); return; }
     err.textContent = ""; btn.disabled = true;
     try {
-      await accApi("vinkki", Object.fromEntries(new FormData(tipForm)));
+      const data = Object.fromEntries(new FormData(tipForm));
+      if (data.aihe) { data.teksti = `[${data.aihe}] ${data.teksti}`; delete data.aihe; }
+      await accApi("vinkki", data);
       tipForm.hidden = true; document.getElementById("tipDone").hidden = false;
     } catch (x) { err.textContent = x.message; } finally { btn.disabled = false; }
   });
