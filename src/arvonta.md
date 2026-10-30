@@ -15,7 +15,7 @@ description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. A
 
   <form class="raffle__form" id="raffleForm" novalidate>
     <label>TikTok-käyttäjänimi<input name="tiktok" maxlength="41" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="@"></label>
-    <label>Instagram-käyttäjänimi<input name="instagram" maxlength="41" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="@"><small>Yksi riittää. Kun täytät molemmat, olet arvonnassa mukana kahdesti.</small></label>
+    <label>Instagram-käyttäjänimi<input name="instagram" maxlength="41" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="@"><small>Seuraatko meitä kummassakin? Täytä molemmat, niin saat kaksi arpaa.</small></label>
     <label>Sähköposti<input type="email" name="email" required maxlength="120" autocomplete="email"><small>Käytämme osoitetta vain, jos voitat.</small></label>
     <label class="raffle__check"><input type="checkbox" name="saannot" required><span>Hyväksyn arvonnan säännöt.</span></label>
     <label class="raffle__hp" aria-hidden="true">Sivusto<input name="sivusto" tabindex="-1" autocomplete="off"></label>
