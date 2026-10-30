@@ -397,13 +397,13 @@ if (raffleForm) {
     if (f.kayttaja.value.trim().replace(/^@/, "").length < 2) return fail("Kirjoita TikTok- tai Instagram-käyttäjänimesi.", f.kayttaja);
     if (!f.email.checkValidity() || !f.email.value.trim()) return fail("Tarkista sähköpostiosoite.", f.email);
     if (!f.ika.checked || !f.saannot.checked) return fail("Vahvista ikäsi ja hyväksy säännöt.");
-    err.textContent = ""; btn.disabled = true; btn.textContent = "Lähetetään…";
+    err.textContent = ""; btn.disabled = true; btn.textContent = "Lähetetään";
     try {
       const r = await accApi("arvonta", { kayttaja: f.kayttaja.value, email: f.email.value, ika: true, saannot: true, sivusto: f.sivusto.value });
       raffleForm.hidden = true;
       const done = document.getElementById("raffleDone");
-      if (r.jo) done.querySelector(".raffle__big").textContent = "Olet jo mukana arvonnassa! 🎉";
+      if (r.jo) done.querySelector(".raffle__big").textContent = "Olet jo mukana arvonnassa.";
       done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "center" });
-    } catch (x) { fail(x.message); } finally { btn.disabled = false; btn.textContent = "Osallistu arvontaan"; }
+    } catch (x) { fail(x.message); } finally { btn.disabled = false; btn.textContent = "Osallistu"; }
   });
 }

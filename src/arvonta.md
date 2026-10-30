@@ -4,32 +4,28 @@ title: Voita Apple AirPods 5
 description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. Arvonta päättyy 8.11.2026.
 ---
 <div class="raffle">
+  <p class="raffle__kicker">Arvonta</p>
+  <h1>Voita Apple AirPods&nbsp;5&nbsp;-kuulokkeet</h1>
+  <p class="raffle__lead">Hulina arpoo lukijoidensa kesken yhdet Apple AirPods&nbsp;5&nbsp;-kuulokkeet. Osallistua voi 8. marraskuuta asti.</p>
   <img class="raffle__img" src="/assets/img/arvonta-airpods-5.jpg" alt="Apple AirPods 5 -kuulokkeet latauskotelossa" width="760" height="643">
-  <p class="raffle__kicker">Arvonta · päättyy 8.11.</p>
-  <h1>Voita Apple AirPods 5</h1>
-  <ol class="raffle__steps">
-    <li>Seuraa Hulinaa TikTokissa tai Instagramissa <b>@hulinanet</b></li>
-    <li>Täytä alla oleva lomake</li>
-  </ol>
+
+  <h2>Näin osallistut</h2>
+  <p>Seuraa Hulinaa TikTokissa tai Instagramissa (@hulinanet) ja täytä alla oleva lomake. Voittaja arvotaan 9. marraskuuta.</p>
 
   <form class="raffle__form" id="raffleForm" novalidate>
-    <label>TikTok- tai Instagram-käyttäjänimi<input name="kayttaja" required maxlength="41" autocapitalize="off" spellcheck="false" placeholder="@kayttajanimi"></label>
-    <label>Sähköposti <small>vain voittajan tavoittamiseen</small><input type="email" name="email" required maxlength="120" autocomplete="email"></label>
-    <label class="raffle__check"><input type="checkbox" name="ika" required><span>Olen 18 vuotta täyttänyt ja asun Suomessa</span></label>
-    <label class="raffle__check"><input type="checkbox" name="saannot" required><span>Hyväksyn arvonnan säännöt</span></label>
+    <label>Käyttäjänimi TikTokissa tai Instagramissa<input name="kayttaja" required maxlength="41" autocapitalize="off" spellcheck="false" placeholder="Esim. @hulinanet"></label>
+    <label>Sähköposti<input type="email" name="email" required maxlength="120" autocomplete="email"><small>Käytämme osoitetta vain, jos voitat.</small></label>
+    <label class="raffle__check"><input type="checkbox" name="ika" required><span>Olen täyttänyt 18 vuotta ja asun Suomessa.</span></label>
+    <label class="raffle__check"><input type="checkbox" name="saannot" required><span>Hyväksyn arvonnan säännöt.</span></label>
     <label class="raffle__hp" aria-hidden="true">Sivusto<input name="sivusto" tabindex="-1" autocomplete="off"></label>
     <p class="raffle__err" role="alert"></p>
-    <button type="submit" class="raffle__btn">Osallistu arvontaan</button>
+    <button type="submit" class="btn-ink raffle__btn">Osallistu</button>
   </form>
 
   <div class="raffle__done" id="raffleDone" hidden>
-    <p class="raffle__big">Olet mukana! 🎉</p>
-    <p>Voittaja arvotaan 9.11. ja hänelle ilmoitetaan sähköpostilla. Jaa arvonta kaverille:</p>
-    <div class="raffle__share">
-      <a href="https://wa.me/?text=Voita%20Apple%20AirPods%205%20Hulinan%20arvonnassa%3A%20https%3A%2F%2Fhulina.net%2Farvonta%2F" target="_blank" rel="noopener">WhatsApp</a>
-      <button type="button" class="copy-link" data-url="https://hulina.net/arvonta/">Kopioi linkki</button>
-    </div>
-    <p><a href="/">Lue päivän kuumimmat jutut →</a></p>
+    <p class="raffle__big">Kiitos, olet mukana arvonnassa.</p>
+    <p>Voittaja arvotaan 9. marraskuuta, ja hänelle ilmoitetaan sähköpostilla. Voit jakaa arvonnan myös kaverillesi <a href="https://wa.me/?text=Voita%20Apple%20AirPods%205%20Hulinan%20arvonnassa%3A%20https%3A%2F%2Fhulina.net%2Farvonta%2F" target="_blank" rel="noopener">WhatsAppissa</a>.</p>
+    <p><a href="/">Siirry etusivulle</a></p>
   </div>
 
   <details class="raffle__rules">
