@@ -5,8 +5,8 @@ description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. A
 ---
 <div class="raffle">
   <p class="raffle__kicker">Arvonta</p>
-  <h1>Voita Apple AirPods&nbsp;5&nbsp;-kuulokkeet</h1>
-  <p class="raffle__lead">Hulina arpoo lukijoidensa kesken yhdet Apple AirPods&nbsp;5&nbsp;-kuulokkeet. Osallistua voi 8. marraskuuta asti.</p>
+  <h1>Voita Apple <span class="nowrap">AirPods 5 -kuulokkeet</span></h1>
+  <p class="raffle__lead">Hulina arpoo lukijoidensa kesken yhdet Apple <span class="nowrap">AirPods 5 -kuulokkeet</span>. Osallistua voi 8. marraskuuta asti.</p>
   <img class="raffle__img" src="/assets/img/arvonta-airpods-5.jpg" alt="Apple AirPods 5 -kuulokkeet latauskotelossa" width="760" height="643">
 
   <h2>Näin osallistut</h2>
@@ -15,7 +15,6 @@ description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. A
   <form class="raffle__form" id="raffleForm" novalidate>
     <label>Käyttäjänimi TikTokissa tai Instagramissa<input name="kayttaja" required maxlength="41" autocapitalize="off" spellcheck="false" placeholder="Esim. @hulinanet"></label>
     <label>Sähköposti<input type="email" name="email" required maxlength="120" autocomplete="email"><small>Käytämme osoitetta vain, jos voitat.</small></label>
-    <label class="raffle__check"><input type="checkbox" name="ika" required><span>Olen täyttänyt 18 vuotta ja asun Suomessa.</span></label>
     <label class="raffle__check"><input type="checkbox" name="saannot" required><span>Hyväksyn arvonnan säännöt.</span></label>
     <label class="raffle__hp" aria-hidden="true">Sivusto<input name="sivusto" tabindex="-1" autocomplete="off"></label>
     <p class="raffle__err" role="alert"></p>
@@ -32,23 +31,17 @@ description: Osallistu Hulinan arvontaan ja voita Apple AirPods 5 -kuulokkeet. A
     <summary>Arvonnan säännöt</summary>
     <div class="prose">
 
-**Järjestäjä:** {{ site.name }} ({{ site.url | replace("https://", "") }}). Apple, TikTok ja Instagram (Meta) eivät ole arvonnan järjestäjiä tai sponsoreita, eivätkä ne liity arvontaan.
+**Järjestäjä:** Hulina. Apple, TikTok ja Instagram eivät liity arvontaan.
 
-**Aika:** 27.10.2026–8.11.2026 klo 23.59 (Suomen aikaa).
+**Aika:** 27.10.–8.11.2026 klo 23.59.
 
-**Osallistuminen:** Seuraa Hulinaa TikTokissa tai Instagramissa (@hulinanet) ja täytä lomake tällä sivulla. Osallistuminen on maksutonta eikä edellytä ostoksia. Jokainen voi osallistua kerran. Useammat osallistumiset eivät lisää voittomahdollisuutta, ja järjestäjä voi hylätä ne.
+**Osallistuminen:** Seuraa @hulinanet TikTokissa tai Instagramissa ja täytä lomake. Yksi osallistuminen per henkilö. Osallistuminen on maksutonta.
 
-**Kuka voi osallistua:** Suomessa asuvat, 18 vuotta täyttäneet henkilöt.
+**Palkinto:** Apple AirPods 5 -kuulokkeet. Palkintoa ei voi vaihtaa rahaksi.
 
-**Palkinto:** Yhdet Apple AirPods 5 -kuulokkeet latauskotelolla. Palkintoa ei voi vaihtaa rahaksi tai muuksi tuotteeksi.
+**Arvonta:** Voittaja arvotaan 9.11.2026, ja hänelle ilmoitetaan sähköpostilla. Jos voittaja ei vastaa seitsemässä päivässä, palkinto arvotaan uudelleen. Palkinto lähetetään Suomeen ilman kuluja, ja Hulina maksaa mahdollisen arpajaisveron.
 
-**Arvonta:** Voittaja arvotaan satunnaisesti kaikkien sääntöjen mukaisesti osallistuneiden kesken 9.11.2026. Voittajalle ilmoitetaan sähköpostilla, ja seuraaminen tarkistetaan ennen palkinnon lähettämistä. Hulina ei koskaan pyydä voittajalta maksua, pankkitunnuksia tai korttitietoja. Jos voittaja ei vastaa seitsemän päivän kuluessa, palkinto arvotaan uudelleen.
-
-**Toimitus ja verot:** Palkinto lähetetään postitse Suomeen ilman kuluja. Järjestäjä maksaa mahdollisen arpajaisveron.
-
-**Henkilötiedot:** Lomakkeella annettuja tietoja käytetään vain arvonnan toteuttamiseen ja voittajan tavoittamiseen. Voittajalta pyydetään lisäksi nimi ja postiosoite palkinnon lähettämistä varten. Kaikki osallistujatiedot poistetaan, kun palkinto on toimitettu. Voittajan käyttäjänimi voidaan julkaista Hulinan somessa. Lisätietoja [tietosuojaselosteessa](/tietosuoja/).
-
-**Kysymykset:** [Ota yhteyttä](/ota-yhteytta/).
+**Henkilötiedot:** Tietoja käytetään vain arvontaan, ja ne poistetaan, kun palkinto on toimitettu. [Tietosuojaseloste](/tietosuoja/)
 
 </div>
   </details>

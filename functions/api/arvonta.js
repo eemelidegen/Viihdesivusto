@@ -1,4 +1,4 @@
-// POST /api/arvonta {kayttaja, email, ika, saannot} -> enters the AirPods giveaway (one entry per e-mail address).
+// POST /api/arvonta {kayttaja, email, saannot} -> enters the AirPods giveaway (one entry per e-mail address).
 import { db, fail, json, sameOrigin } from "../../lib/users.js";
 
 const ENDS = Date.parse("2026-11-08T23:59:59+02:00");
@@ -9,12 +9,12 @@ export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request)) return fail("Kielletty.", 403);
   if (Date.now() > ENDS) return fail("Arvonta on päättynyt. Kiitos kaikille osallistujille!", 410);
   const D = await db(env); if (!D) return fail("Osallistuminen ei ole juuri nyt mahdollista. Yritä hetken päästä uudelleen.", 503);
-  const { kayttaja = "", email = "", ika, saannot, sivusto = "" } = await request.json().catch(() => ({}));
+  const { kayttaja = "", email = "", saannot, sivusto = "" } = await request.json().catch(() => ({}));
   if (sivusto) return json({ ok: true }); // honeypot field filled in by bots
   const handle = String(kayttaja).trim().replace(/^@/, ""), mail = String(email).trim().toLowerCase();
   if (!/^[\p{L}\p{N}_.]{2,40}$/u.test(handle)) return fail("Tarkista TikTok- tai Instagram-käyttäjänimesi.");
   if (mail.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return fail("Tarkista sähköpostiosoite.");
-  if (ika !== true || saannot !== true) return fail("Vahvista, että olet täysi-ikäinen ja hyväksyt säännöt.");
+  if (saannot !== true) return fail("Hyväksy arvonnan säännöt.");
 
   // Rate limit by a daily-salted hash of the address; the address itself is never stored.
   const ip = request.headers.get("CF-Connecting-IP") || "";

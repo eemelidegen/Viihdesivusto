@@ -615,3 +615,4 @@ main.wrap { padding-top: 20px; }
 .side-promo img { width: 74px; height: 74px; object-fit: contain; background: #fff; border-radius: 10px; flex-shrink: 0; }
 .side-promo b { display: block; font: 700 19px/1.15 var(--headline); }
 .side-promo span { display: block; margin-top: 4px; color: var(--pink); font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: .05em; }
+.nowrap { white-space: nowrap; }
