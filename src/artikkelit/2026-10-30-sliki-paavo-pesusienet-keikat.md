@@ -1,5 +1,5 @@
 ---
-title: "Paavo Pesusienet seuraavat Slikiä kaupungista toiseen – poliisi on ottanut kiinni jo yhdeksän"
+title: "Paavo Pesusienet piinaavat Slikiä – poliisi otti kiinni jo yhdeksän"
 excerpt: "Räppärin keikoille ilmestyy yhä uudelleen naamioitunut joukko. Kotkassa keikka keskeytettiin, Järvenpäässä se peruttiin."
 date: "2026-10-30T05:10:00.000Z"
 category: "kohut"
