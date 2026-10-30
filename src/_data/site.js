@@ -2,7 +2,9 @@
 // Used by the templates (as `site`), the share-image generator and the writing tool API.
 export default {
   "name": "Hulina",
-  "tagline": "Viihdeuutiset, julkkikset ja puheenaiheet",
+  "tagline": "Kohut, julkkisjuorut ja viihdeuutiset",
+  // Shown in search results for the front page
+  "homeDescription": "Hulina tuo päivän puhutuimmat kohut, julkkisjuorut ja viihdeuutiset. Tosi-tv:n draamat, someilmiöt ja tähtien elämä – nopeasti ja suoraan.",
   "description": "Hulina on suomalainen viihdemedia. Kirjoitamme julkkiksista, tv-ohjelmista, kohuista ja urheilusta Suomesta ja maailmalta.",
   "url": "https://hulina.net",
   "lang": "fi",

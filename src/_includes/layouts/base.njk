@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% set pageTitle = (title + " | " + site.name) if title else (site.name + " – " + site.tagline) %}
-  {% set pageDesc = excerpt or description or site.description %}
+  {% set pageDesc = excerpt or description or (site.homeDescription if page.url == "/" else site.description) %}
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDesc }}">
   <link rel="canonical" href="{{ page.url | absUrl(site.url) }}">
@@ -41,13 +41,13 @@
   {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "NewsMediaOrganization", "@id": "{{ site.url }}/#org", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}",
+      { "@type": "NewsMediaOrganization", "@id": "{{ site.url }}/#org", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}/",
         "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/icon-512.png' | absUrl(site.url) }}" },
         "description": {{ site.description | dump | safe }},
         "publishingPrinciples": "{{ '/periaatteet/' | absUrl(site.url) }}",
         "correctionsPolicy": "{{ '/periaatteet/' | absUrl(site.url) }}",
         "sameAs": [{% for s in site.social %}"{{ s.url }}"{% if not loop.last %}, {% endif %}{% endfor %}] },
-      { "@type": "WebSite", "name": {{ site.name | dump | safe }}, "url": "{{ site.url }}", "inLanguage": "fi", "publisher": { "@id": "{{ site.url }}/#org" },
+      { "@type": "WebSite", "@id": "{{ site.url }}/#website", "name": {{ site.name | dump | safe }}, "alternateName": ["Hulina.net", "hulina.net"], "url": "{{ site.url }}/", "inLanguage": "fi", "publisher": { "@id": "{{ site.url }}/#org" },
         "potentialAction": { "@type": "SearchAction", "target": "{{ site.url }}/haku/?q={q}", "query-input": "required name=q" } }
     ]
   }
