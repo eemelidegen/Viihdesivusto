@@ -207,10 +207,7 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .footer__legal { color: var(--muted); margin-top: 24px; font-size: 13px; }
 
 
-/* Topics and "Nyt puhutaan" */
-.trending { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 18px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
-.trending::-webkit-scrollbar { display: none; }
-.trending__label { flex-shrink: 0; margin-right: 4px; font: 800 13px/1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--link); }
+/* Topics */
 .topic { flex-shrink: 0; display: inline-block; padding: 8px 13px 6px; border-radius: 999px; background: var(--soft); text-decoration: none; font: 700 14px/1 var(--display); white-space: nowrap; }
 .topic:hover { background: var(--pink); color: var(--on-pink); }
 .topics { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; }
@@ -333,8 +330,6 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .nav__list a { padding-left: 11px; padding-right: 11px; font-size: 16px; letter-spacing: .03em; }
 .nav__list a::after { left: 11px; right: 11px; background: var(--hot); }
 /* Topics as plain links */
-.trending { gap: 4px 14px; }
-.trending__label { color: var(--hot); }
 .topic { background: none; padding: 6px 0; border-radius: 0; font-weight: 700; }
 .topic:hover { background: none; color: var(--hot); text-decoration: underline; }
 /* Sidebar tabs and numbered most-read list */
@@ -462,8 +457,6 @@ main.wrap { background: var(--surface); padding-top: 24px; padding-bottom: 56px;
 .nav__list a:hover { color: var(--pink); }
 
 main.wrap { padding-top: 20px; }
-.trending { gap: 8px; padding: 0 0 16px; margin-bottom: 20px; }
-.trending__label { margin-right: 6px; color: var(--text); }
 .topic { padding: 7px 12px 5px; border: 1px solid var(--line); border-radius: 999px; font-weight: 700; }
 .topic:hover { border-color: var(--text); color: var(--text); text-decoration: none; }
 

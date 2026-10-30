@@ -54,12 +54,6 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addFilter("ohita", (arr, n) => arr.slice(n));
   eleventyConfig.addFilter("aiheLista", aiheLista);
-  // "Nyt puhutaan": the most used topics of the last two weeks (or of all time if quiet).
-  eleventyConfig.addFilter("nytPuhutaan", (aiheet, n = 6) => {
-    const since = Date.now() - 14 * 86400e3;
-    const recent = aiheet.filter((a) => a.latest >= since);
-    return (recent.length ? recent : aiheet).slice(0, n);
-  });
   // Newest story flagged as breaking news ("kiire").
   eleventyConfig.addFilter("kiireinen", (articles) => articles.find((a) => a.data.kiire) || null);
   // The next (older) story, wrapping around to the newest.
