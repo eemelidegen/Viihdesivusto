@@ -1,5 +1,5 @@
 ---
-title: "Outo ilmiö jatkuu Slikin keikoilla – poliisi otti kiinni kuusi Paavo Pesusientä"
+title: "Mitä ihmettä? Paavo Pesusienet ryntäävät Slikin keikoille kaupungista toiseen"
 excerpt: "Räppärin keikoille ilmestyy yhä uudelleen naamioitunut joukko. Kotkassa keikka keskeytettiin, Järvenpäässä se peruttiin."
 date: "2026-10-30T05:10:00.000Z"
 category: "kohut"
