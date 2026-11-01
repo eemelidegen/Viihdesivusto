@@ -51,6 +51,14 @@
     #cv.drag { cursor: grabbing; }
     .cv-wrap.over #cv { outline: 4px dashed var(--pink); outline-offset: 5px; }
     .hint { margin: 0; color: var(--muted); font-size: 12.5px; text-align: center; }
+    .qa { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .qa li { background: #fff4dc; color: #8a5300; border-radius: 999px; padding: 6px 12px; font: 600 12.5px/1.3 system-ui, sans-serif; }
+    .qa li.ok { background: #e3f6ea; color: #1f7a45; }
+    .vidprog { height: 8px; border-radius: 99px; background: rgba(0,0,0,.1); overflow: hidden; }
+    .vidprog i { display: block; height: 100%; width: 0; background: #ff8fb1; }
+    .blurbar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .blurbar .on { background: #e5102f !important; color: #fff !important; border-color: #e5102f !important; }
+    #cvWrap.blurring canvas { cursor: crosshair !important; }
 
     .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
     .tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; overflow-x: auto; scrollbar-width: none; }
@@ -202,6 +210,7 @@
         <button class="btn btn--ghost btn--sm" type="button" data-slide-act="del">Poista sivu</button>
         <button class="btn btn--ghost btn--sm" type="button" data-slide-act="right" aria-label="Siirrä sivua oikealle">→</button>
       </div>
+      <ul class="qa" id="qa" aria-live="polite"></ul>
       <p class="hint">Vedä tekstiä tai kuvaa siirtääksesi · nipistä tai rullaa zoomataksesi · tuplaklikkaa tekstiä muokataksesi · voit myös pudottaa tai liittää kuvan</p>
     </section>
 
@@ -265,6 +274,7 @@
             <button type="button" data-v="panel"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="14" rx="3" fill="currentColor" opacity=".35"/><rect x="6" y="18" width="22" height="3" rx="1.5" fill="currentColor"/></svg>Kuva + laatikko</button>
             <button type="button" data-v="quote"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="currentColor" opacity=".2"/><text x="5" y="19" font-size="18" font-weight="900" fill="currentColor">“</text><rect x="14" y="9" width="14" height="3" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="10" height="3" rx="1.5" fill="currentColor"/></svg>Sitaatti</button>
             <button type="button" data-v="text"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="7" y="9" width="20" height="3" rx="1.5" fill="currentColor"/><rect x="10" y="14" width="14" height="3" rx="1.5" fill="currentColor"/></svg>Pelkkä teksti</button>
+            <button type="button" data-v="post"><svg viewBox="0 0 34 26"><rect x="1" y="1" width="32" height="24" rx="3" fill="currentColor" opacity=".3"/><rect x="5" y="5" width="24" height="16" rx="3" fill="#fff" stroke="currentColor" stroke-width="1"/><circle cx="9" cy="9" r="2" fill="currentColor"/><rect x="8" y="14" width="16" height="2" rx="1" fill="currentColor"/></svg>Somepostaus</button>
           </div>
         </div>
         <div id="imgCards" class="field"></div>
@@ -321,6 +331,12 @@
           <span class="lbl">Alaotsikko <small>valinnainen</small></span>
           <input type="text" data-k="sub" maxlength="140" placeholder="esim. Katso kuvat!">
         </label>
+        <div class="field" data-show="layout=post">
+          <span class="lbl">Kenen julkaisu? <small>otsikkokentän teksti näkyy julkaisuna</small></span>
+          <div class="row"><input type="text" data-k="postName" maxlength="40" placeholder="Nimi, esim. Martina Aitolehti"><input type="text" data-k="postHandle" maxlength="32" placeholder="@käyttäjänimi"></div>
+          <div class="seg" data-seg="postPlatform"><button type="button" data-v="Instagram">Instagram</button><button type="button" data-v="TikTok">TikTok</button><button type="button" data-v="X">X</button><button type="button" data-v="Facebook">Facebook</button></div>
+          <p class="note">Kirjoita teksti sanatarkasti julkaisusta. Älä keksi tai muokkaa sitä.</p>
+        </div>
         <label class="field" data-show="layout=quote">
           <span class="lbl">Kuka sanoi?</span><input type="text" data-k="quoteBy" maxlength="60" placeholder="esim. Laulaja Matti Meikäläinen">
         </label>
@@ -339,6 +355,11 @@
         <div class="field" data-show="layout=split-h|split-v">
           <span class="lbl">Tekstit kuvien päällä</span>
           <div class="row"><input type="text" id="label0" maxlength="20" placeholder="Kuva 1, esim. ENNEN"><input type="text" id="label1" maxlength="20" placeholder="Kuva 2, esim. NYT"></div>
+        </div>
+        <div class="field">
+          <label class="field"><span class="lbl">Uutisruutu <small>tv-uutisten tyylinen palkki alareunaan</small></span><input type="text" data-k="ticker" maxlength="80" placeholder="esim. POLIISI OTTI KIINNI KUUSI OULUSSA"></label>
+          <div class="row" data-show="ticker!="><label class="field"><span class="lbl">Palkin tarra</span><input type="text" data-k="tickerLabel" maxlength="14" placeholder="TUORE"></label></div>
+          <div class="chips" data-chips="tickerLabel"></div>
         </div>
         <div class="field">
           <label class="field"><span class="lbl">Palkki alareunassa <small>valinnainen</small></span><input type="text" data-k="cta" maxlength="40" placeholder="esim. Lue lisää: hulina.net"></label>
@@ -441,6 +462,12 @@
           <button class="btn btn--ghost" type="button" data-act="copy">Kopioi</button>
           <button class="btn btn--ghost" type="button" data-act="all">Lataa kaikki koot</button>
         </div>
+        <div class="h">Video TikTokiin ja Reelsiin</div>
+        <p class="note">Kuvasta tehdään liikkuva video: kuva zoomautuu hitaasti ja otsikko liukuu esiin. Video tehdään selaimessa reaaliajassa, joten tekeminen kestää videon pituuden verran.</p>
+        <div class="seg" data-seg="vidFx"><button type="button" data-v="in">Zoomaus sisään</button><button type="button" data-v="out">Zoomaus ulos</button><button type="button" data-v="pan">Panorointi</button></div>
+        <div class="seg" data-seg="vidLen"><button type="button" data-v="5">5 s</button><button type="button" data-v="8">8 s</button><button type="button" data-v="12">12 s</button></div>
+        <button class="btn btn--big" type="button" id="vidBtn">🎬 Tee video</button>
+        <div class="vidprog" id="vidProg" hidden><i></i></div>
         <div class="h">Kaikki koot</div>
         <div class="sizes" id="sizes"></div>
         <p class="note">Napauta kokoa, niin saat siitä oman kuvan. "Lataa kaikki koot" lataa neljä yleisintä kerralla.</p>
@@ -503,9 +530,11 @@ const DEFAULTS = {
   brightness: 100, contrast: 100, saturation: 100, warmth: 0, vignette: 0, gray: false, flip: false,
   logo: "stacked", logoPos: "above", logoSize: 100,
   type: "image/jpeg", safe: true, fit: "cover", grid: false, site: false, counter: true,
+  ticker: "", tickerLabel: "TUORE", postName: "", postHandle: "", postPlatform: "Instagram",
+  vidLen: 8, vidFx: "in",
 };
 // A template changes the look, not the content.
-const CONTENT = ["title", "sub", "quoteBy", "poll", "credit", "format", "type", "safe", "grid", "fit", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip"];
+const CONTENT = ["title", "sub", "quoteBy", "poll", "credit", "format", "type", "safe", "grid", "fit", "template", "brightness", "contrast", "saturation", "warmth", "vignette", "gray", "flip", "postName", "postHandle", "postPlatform", "vidLen", "vidFx"];
 const TEMPLATES = [
   { id: "uutinen", name: "Uutinen", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "center", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 62, tint: "black", logo: "stacked", logoPos: "above", logoSize: 100, badge: "", frame: "none", cta: "", accent: PINK } },
   { id: "kohu", name: "Kohu", set: { layout: "single", font: "spartan", upper: false, textStyle: "boxes", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 40, tint: "black", logo: "wide", logoPos: "tl", logoSize: 100, badge: "KOHU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
@@ -519,12 +548,15 @@ const TEMPLATES = [
   { id: "kysymys", name: "Kysymys lukijoille", set: { layout: "single", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "box", align: "center", textPos: "middle", offsetY: 0, offsetX: 0, shadeStyle: "full", shade: 62, tint: "plum", logo: "wide", logoPos: "tc", logoSize: 90, badge: "MITÄ MIELTÄ?", badgeStyle: "pill", poll: ["👍 KYLLÄ", "👎 EI"], frame: "none", cta: "Kommentoi vastauksesi", accent: PINK } },
   { id: "juoru", name: "Juoru", set: { layout: "single", font: "barlow", upper: true, textStyle: "boxesAccent", hlStyle: "box", align: "center", textPos: "bottom", offsetY: 0, offsetX: 0, shadeStyle: "gradient", shade: 45, tint: "black", logo: "symbol", logoPos: "tr", logoSize: 100, badge: "JUORU", badgeStyle: "tilted", frame: "none", cta: "", accent: PINK } },
   { id: "tyylikas", name: "Tyylikäs", set: { layout: "panel", bg: "black", font: "roboto", upper: false, textStyle: "shadow", hlStyle: "underline", align: "left", textPos: "top", offsetY: 0, offsetX: 0, logo: "wide", logoPos: "above", logoSize: 90, badge: "", frame: "none", cta: "", accent: PINK } },
+  { id: "someposti", name: "Somepostaus", set: { layout: "post", font: "spartan", upper: false, textStyle: "shadow", hlStyle: "color", align: "left", textPos: "middle", offsetY: 0, offsetX: 0, shadeStyle: "full", shade: 55, tint: "black", bg: "plum", logo: "wide", logoPos: "bc", logoSize: 90, badge: "", frame: "none", cta: "", accent: PINK } },
+  { id: "uutisruutu", name: "Uutisruutu", set: { layout: "single", font: "roboto", upper: true, textStyle: "shadow", hlStyle: "color", align: "left", textPos: "bottom", offsetY: 0, offsetX: 0, shadeStyle: "gradient", shade: 70, tint: "black", logo: "wide", logoPos: "tl", logoSize: 95, badge: "", frame: "none", cta: "", accent: "#ffd23f", ticker: "LUE KOKO JUTTU HULINA.NET", tickerLabel: "TUORE" } },
   { id: "urheilu", name: "Urheilu", set: { layout: "single", font: "barlow", upper: true, textStyle: "shadow", hlStyle: "box", align: "left", textPos: "bottom", offsetY: 0, shadeStyle: "gradient", shade: 65, tint: "black", logo: "wide", logoPos: "tr", logoSize: 100, badge: "URHEILU", badgeStyle: "rect", frame: "none", cta: "Lue lisää: hulina.net", accent: "#ffd23f" } },
 ];
 
 let s = clone(DEFAULTS);
 const panels = [newPanel(), newPanel()];
-function newPanel() { return { img: null, src: "", zoom: 1, panX: 0.5, panY: 0.35 }; }
+function newPanel() { return { img: null, src: "", zoom: 1, panX: 0.5, panY: 0.35, blurs: [] }; }
+let ANIM = null; // set while recording a video: { text: 0–1 opacity, rise: px offset }
 function clone(o) { return JSON.parse(JSON.stringify(o)); }
 
 // ---------- Logos: pink for dark backgrounds, plum for light ones ----------
@@ -601,7 +633,7 @@ function drawCover(c, src, r, p, flip, soft) {
     const dx = r.x + (r.w - dw) * p.panX, dy = r.y + (r.h - dh) * (dh > r.h ? p.panY : 0.5);
     c.save(); c.beginPath(); c.rect(r.x, r.y, r.w, r.h); c.clip();
     if (flip) { c.translate(r.x * 2 + r.w, 0); c.scale(-1, 1); }
-    c.drawImage(src, dx, dy, dw, dh); c.restore();
+    c.drawImage(src, dx, dy, dw, dh); pixelate(c, src, p.blurs, dx, dy, dw, dh); c.restore();
     return;
   }
   const sc = Math.max(r.w / src.width, r.h / src.height) * p.zoom;
@@ -611,7 +643,30 @@ function drawCover(c, src, r, p, flip, soft) {
   c.beginPath(); c.rect(r.x, r.y, r.w, r.h); c.clip();
   if (flip) { c.translate(r.x * 2 + r.w, 0); c.scale(-1, 1); }
   c.drawImage(src, dx, dy, dw, dh);
+  pixelate(c, src, p.blurs, dx, dy, dw, dh);
   c.restore();
+}
+// Where the photo lands inside its frame (same maths as drawCover), for mapping clicks back to the photo.
+function photoGeom(r, p, src, st) {
+  if (st.fit === "blur" && st.layout !== "quote") {
+    const sc = Math.min(r.w / src.width, r.h / src.height) * p.zoom, dw = src.width * sc, dh = src.height * sc;
+    return { dx: r.x + (r.w - dw) * p.panX, dy: r.y + (r.h - dh) * (dh > r.h ? p.panY : 0.5), dw, dh };
+  }
+  const sc = Math.max(r.w / src.width, r.h / src.height) * p.zoom, dw = src.width * sc, dh = src.height * sc;
+  return { dx: r.x + (r.w - dw) * p.panX, dy: r.y + (r.h - dh) * p.panY, dw, dh };
+}
+// Face / area censoring: chunky pixels that follow the photo when it is zoomed or moved.
+const PIX = document.createElement("canvas");
+function pixelate(c, src, blurs, dx, dy, dw, dh) {
+  if (!blurs || !blurs.length) return;
+  for (const b of blurs) {
+    const sw = Math.max(1, b.w * src.width), sh = Math.max(1, b.h * src.height);
+    const n = Math.max(4, Math.round(9 * Math.max(1, sw / sh)));
+    PIX.width = n; PIX.height = Math.max(3, Math.round(n * sh / sw));
+    const px = PIX.getContext("2d"); px.imageSmoothingEnabled = true; px.drawImage(src, b.x * src.width, b.y * src.height, sw, sh, 0, 0, PIX.width, PIX.height);
+    c.save(); c.imageSmoothingEnabled = false;
+    c.drawImage(PIX, dx + b.x * dw, dy + b.y * dh, b.w * dw, b.h * dh); c.restore();
+  }
 }
 
 // ---------- Text helpers ----------
@@ -660,7 +715,8 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
   c.fillRect(0, 0, W, H);
   const inner = { x: fr, y: fr, w: W - fr * 2, h: H - fr * 2 };
   const ctaH = st.cta.trim() ? Math.round(86 * U) : 0;
-  const area = { x: inner.x, y: inner.y, w: inner.w, h: inner.h - ctaH };
+  const tickH = (st.ticker || "").trim() ? Math.round(80 * U) : 0;
+  const area = { x: inner.x, y: inner.y, w: inner.w, h: inner.h - ctaH - tickH };
   const portrait = H >= W, L = st.layout, gap = Math.max(4, Math.round(8 * U));
   let rects = [], bgRect = null;
   if (L === "split-h") { const w2 = (area.w - gap) / 2; rects = [{ ...area, w: w2 }, { ...area, x: area.x + w2 + gap, w: w2 }]; }
@@ -677,7 +733,7 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
   if (L.startsWith("split")) { c.fillStyle = st.frame === "none" ? "#ffffff" : frameColor(st); c.fillRect(area.x, area.y, area.w, area.h); }
   rects.forEach((r, i) => {
     const p = P[i];
-    if (p.img) drawCover(c, L === "quote" ? softened(p, st) : processed(p, st), r, p, st.flip, L !== "quote" && st.fit === "blur" ? softened(p, st) : null);
+    if (p.img) drawCover(c, L === "quote" || L === "post" ? softened(p, st) : processed(p, st), r, p, st.flip, L !== "quote" && L !== "post" && st.fit === "blur" ? softened(p, st) : null);
     else {
       paintBg(c, r, st);
       if (preview) {
@@ -696,7 +752,7 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
   // Shade over photos so the text stays readable
   if (overImage) {
     const t = tintColor(st), a = L === "quote" ? Math.max(st.shade, 55) / 100 : st.shade / 100;
-    if (L === "quote" || st.shadeStyle === "full") { c.fillStyle = rgba(t, a * 0.85); c.fillRect(area.x, area.y, area.w, area.h); }
+    if (L === "quote" || L === "post" || st.shadeStyle === "full") { c.fillStyle = rgba(t, a * 0.85); c.fillRect(area.x, area.y, area.w, area.h); }
     else if (st.shadeStyle === "gradient") {
       let g;
       if (st.textPos === "top") { g = c.createLinearGradient(0, area.y, 0, area.y + area.h * 0.7); g.addColorStop(0, rgba(t, a)); g.addColorStop(0.55, rgba(t, a * 0.45)); g.addColorStop(1, rgba(t, 0)); }
@@ -722,7 +778,7 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
   if (corner && sameZone && corner[0] === "b" && st.textPos !== "top") box.h -= logoH + 18 * U;
 
   const f = FONTS[st.font];
-  const base = { single: 100, "split-h": 84, "split-v": 84, panel: 84, quote: 84, text: 110 }[L] * (st.format === "story" ? 1.08 : 1);
+  const base = { single: 100, "split-h": 84, "split-v": 84, panel: 84, quote: 84, text: 110, post: 84 }[L] * (st.format === "story" ? 1.08 : 1);
   let size = base * U * f.scale * st.textSize / 100;
   const maxH = box.h * (overImage && L !== "quote" ? 0.72 : 1);
   let lay;
@@ -734,7 +790,10 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
   const ax = offX + (st.align === "center" ? box.x + box.w / 2 : st.align === "right" ? box.x + box.w : box.x);
   if (main) geo.text = { x: box.x + offX, y, w: box.w, h: lay.h };
   const accentOn = (bgLight) => (bgLight && lum(st.accent) > 0.72 ? PLUM : st.accent);
-  for (const it of lay.items) {
+  if (main) geo.scale = size / (base * U * f.scale * st.textSize / 100);
+  if (ANIM) { c.save(); c.globalAlpha = ANIM.text; c.translate(0, ANIM.rise * U); }
+  if (L === "post") { const card = drawPost(c, st, area, U, offX, st.offsetY / 100 * H); if (main) geo.text = card; }
+  else for (const it of lay.items) {
     if (it.type === "logo") drawLogo(c, logo, ax, y, it.h, st.align, light);
     if (it.type === "badge") drawBadge(c, st, it.text, ax, y, it.size, st.align, st.badgeStyle);
     if (it.type === "quote") { c.save(); c.fillStyle = accentOn(light); c.font = `900 ${it.size}px Georgia, serif`; c.textAlign = st.align; c.textBaseline = "top"; c.fillText("“", ax, y - it.size * 0.08); c.restore(); }
@@ -743,6 +802,22 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
     if (it.type === "by") drawPlain(c, it, ax, y, st.align, accentOn(light), overImage);
     if (it.type === "poll") drawPoll(c, st, it, ax, y, st.align);
     y += it.h + it.gap;
+  }
+  if (ANIM) c.restore();
+
+  // News ticker band ("uutisruutu")
+  if (tickH) {
+    const ty = area.y + area.h, lab = (st.tickerLabel || "TUORE").trim().toLocaleUpperCase("fi"), fs = Math.round(34 * U);
+    c.save(); c.font = `800 ${fs}px "Roboto Condensed", "League Spartan"`; setLS(c, 1 * U);
+    const lw = lab ? c.measureText(lab).width + fs * 1.2 : 0;
+    c.fillStyle = "#ffffff"; c.fillRect(inner.x, ty, inner.w, tickH);
+    if (lw) { c.fillStyle = "#e5102f"; c.fillRect(inner.x, ty, lw, tickH); c.fillStyle = "#fff"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(lab, inner.x + lw / 2, ty + tickH / 2 + fs * 0.06); }
+    c.fillStyle = "#111"; c.textAlign = "left"; c.textBaseline = "middle";
+    let tt = st.ticker.trim().toLocaleUpperCase("fi"); const maxW = inner.w - lw - fs * 1.2;
+    while (tt.length > 3 && c.measureText(tt).width > maxW) tt = tt.slice(0, -2).trimEnd() + "…";
+    c.fillText(tt, inner.x + lw + fs * 0.6, ty + tickH / 2 + fs * 0.06);
+    c.fillStyle = st.accent; c.fillRect(inner.x, ty, inner.w, Math.max(3, 5 * U));
+    c.restore();
   }
 
   // Logo in a corner (over the photo in the panel layout)
@@ -816,6 +891,53 @@ function draw(c, st, { preview = false, main = false, panels: P = panels, page =
     c.restore();
   }
   c.restore();
+}
+
+// "Somepostaus": the title as a social media post card on top of the blurred photo.
+function drawPost(c, st, area, U, offX, offY) {
+  const w = Math.min(area.w * 0.86, 900 * U), pad = 40 * U, x = area.x + (area.w - w) / 2 + offX;
+  const name = (st.postName || "").trim() || "Nimi Sukunimi", handle = (st.postHandle || "").trim().replace(/^@?/, "@") || "@kayttaja";
+  const plat = st.postPlatform || "Instagram";
+  let fs = 46 * U * st.textSize / 100; const body = st.title.trim() || "Kirjoita julkaisun teksti otsikkokenttään.";
+  let lines, lh;
+  for (let k = 0; k < 30; k++) {
+    c.font = `500 ${fs}px system-ui, -apple-system, "Segoe UI", sans-serif`; lh = fs * 1.32;
+    // Punctuation after a highlighted word stays on the same line, in normal colour.
+    const toks = tokens(body, false).reduce((out, t) => { const prev = out[out.length - 1]; if (prev && !prev.br && !t.br && /^[.,!?:;…)”]/.test(t.text)) { if (prev.hl && prev.cut === undefined) prev.cut = prev.text.length; prev.text += t.text; } else out.push({ ...t }); return out; }, []);
+    lines = wrap(c, toks, w - pad * 2);
+    if (lines.length * lh < area.h * 0.5 || fs < 24 * U) break; fs *= 0.94;
+  }
+  const head = 96 * U, foot = 64 * U, h = pad + head + lines.length * lh + foot + pad * 0.4;
+  const y = area.y + (area.h - h) / 2 + offY;
+  c.save();
+  c.shadowColor = "rgba(0,0,0,.35)"; c.shadowBlur = 50 * U; c.shadowOffsetY = 14 * U;
+  rr(c, x, y, w, h, 34 * U); c.fillStyle = "#ffffff"; c.fill(); c.shadowColor = "transparent";
+  const av = 72 * U, ax = x + pad, ay = y + pad;
+  c.beginPath(); c.arc(ax + av / 2, ay + av / 2, av / 2, 0, Math.PI * 2); c.fillStyle = st.accent; c.fill();
+  c.fillStyle = onAccent(st.accent); c.font = `800 ${av * 0.46}px "League Spartan"`; c.textAlign = "center"; c.textBaseline = "middle";
+  c.fillText(name.trim()[0].toLocaleUpperCase("fi"), ax + av / 2, ay + av / 2 + av * 0.04);
+  c.textAlign = "left"; c.textBaseline = "alphabetic"; c.fillStyle = "#111";
+  c.font = `700 ${32 * U}px system-ui, -apple-system, "Segoe UI", sans-serif`; c.fillText(name, ax + av + 20 * U, ay + av * 0.45);
+  c.fillStyle = "#6b6b76"; c.font = `500 ${26 * U}px system-ui, -apple-system, "Segoe UI", sans-serif`; c.fillText(handle, ax + av + 20 * U, ay + av * 0.9);
+  c.textAlign = "right"; c.fillStyle = "#9a9aa5"; c.font = `600 ${24 * U}px system-ui, sans-serif`; c.fillText(plat, x + w - pad, ay + av * 0.45);
+  c.textAlign = "left";
+  let ly = ay + head + fs;
+  for (const line of lines) {
+    let lx = ax;
+    for (const t of line) {
+      c.font = `${t.hl ? 700 : 500} ${fs}px system-ui, -apple-system, "Segoe UI", sans-serif`;
+      const hlText = t.hl ? t.text.slice(0, t.cut ?? t.text.length) : "", rest = t.text.slice(hlText.length);
+      if (hlText) { c.fillStyle = lum(st.accent) > 0.72 ? PLUM : st.accent; c.fillText(hlText, lx, ly); }
+      if (rest) { c.fillStyle = "#111"; c.font = `500 ${fs}px system-ui, -apple-system, "Segoe UI", sans-serif`; c.fillText(rest, lx + (hlText ? c.measureText(hlText).width * 1.04 : 0), ly); }
+      c.font = `${t.hl ? 700 : 500} ${fs}px system-ui, -apple-system, "Segoe UI", sans-serif`;
+      lx += c.measureText(t.text + " ").width;
+    }
+    ly += lh;
+  }
+  c.strokeStyle = "#ececf0"; c.lineWidth = 2 * U; c.beginPath(); c.moveTo(ax, y + h - foot - pad * 0.2); c.lineTo(x + w - pad, y + h - foot - pad * 0.2); c.stroke();
+  c.fillStyle = "#9a9aa5"; c.font = `600 ${24 * U}px system-ui, sans-serif`; c.fillText(`Julkaisu palvelussa ${plat}`, ax, y + h - pad * 0.75);
+  c.restore();
+  return { x, y, w, h };
 }
 
 // Measure everything in the text block for a given title size.
@@ -1044,6 +1166,7 @@ function fillChips(key, list) {
 }
 fillChips("badge", BADGES);
 fillChips("cta", CTAS);
+fillChips("tickerLabel", ["TUORE", "NYT", "KOHU", "LIVE", "VIDEO", "PAPARAZZI"]);
 $("emoji").innerHTML = EMOJI.map((e) => `<button type="button" aria-label="Lisää ${e}">${e}</button>`).join("");
 $("emoji").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
@@ -1090,7 +1213,7 @@ function loadImage(i, src) {
 }
 function imageCards() {
   const n = panelCount(), box = $("imgCards");
-  const sig = n + ":" + panels.map((p) => p.src.length + ":" + p.zoom).join();
+  const sig = n + ":" + blurMode + ":" + panels.map((p) => p.src.length + ":" + p.zoom + ":" + (p.blurs || []).length).join();
   if (box.dataset.sig === sig) return;
   box.dataset.sig = sig;
   if (!n) { box.innerHTML = '<p class="note">Pelkkä teksti -asettelussa ei ole kuvaa. Valitse alta taustaväri.</p>'; return; }
@@ -1102,11 +1225,22 @@ function imageCards() {
           <div class="imgcard__btns"><button class="btn btn--sm" type="button" data-pick="${i}">${p.img ? "Vaihda" : "Valitse kuva"}</button><button class="btn btn--ghost btn--sm" type="button" data-find="${i}">Hae kuva</button>${p.img ? `<button class="btn btn--ghost btn--sm" type="button" data-remove="${i}">Poista</button>` : ""}</div>
         </div>
       </div>
-      ${p.img ? `<label class="field"><span class="lbl">Zoomaus <small>tai vedä ja nipistä kuvaa</small></span><input type="range" min="100" max="500" value="${Math.round(p.zoom * 100)}" data-zoom="${i}"></label>` : ""}
+      ${p.img ? `<label class="field"><span class="lbl">Zoomaus <small>tai vedä ja nipistä kuvaa</small></span><input type="range" min="100" max="500" value="${Math.round(p.zoom * 100)}" data-zoom="${i}"></label>
+      <div class="blurbar"><button class="btn btn--ghost btn--sm${blurMode === i ? " on" : ""}" type="button" data-blur="${i}">${blurMode === i ? "✓ Valmis" : "🫥 Sumenna kasvot"}</button>${(p.blurs || []).length ? `<button class="btn btn--ghost btn--sm" type="button" data-unblur="${i}">Poista sumennukset (${p.blurs.length})</button><button class="btn btn--ghost btn--sm" type="button" data-unblur1="${i}">Kumoa viimeisin</button>` : ""}</div>
+      ${blurMode === i ? '<p class="note">Vedä esikatselussa laatikko jokaisen sumennettavan kasvon päälle. Sumennus seuraa kuvaa, vaikka zoomaat tai siirrät sitä.</p>' : ""}` : ""}
     </div>`).join("");
   box.querySelectorAll(".thumb").forEach((t) => { const p = panels[t.dataset.pick]; if (p.img) t.style.backgroundImage = `url("${p.img.src}")`; });
 }
+let blurMode = -1, blurDraft = null;
+function setBlurMode(i) { blurMode = i; $("cvWrap").classList.toggle("blurring", i >= 0); imageCards(); render(); }
 $("imgCards").addEventListener("click", (e) => {
+  const bb = e.target.closest("[data-blur],[data-unblur],[data-unblur1]");
+  if (bb) {
+    if (bb.dataset.blur !== undefined) { const i = Number(bb.dataset.blur); setBlurMode(blurMode === i ? -1 : i); if (blurMode >= 0) toast("Vedä laatikko kasvojen päälle"); }
+    if (bb.dataset.unblur !== undefined) { panels[bb.dataset.unblur].blurs = []; imageCards(); refresh(); }
+    if (bb.dataset.unblur1 !== undefined) { panels[bb.dataset.unblur1].blurs.pop(); imageCards(); refresh(); }
+    return;
+  }
   const b = e.target.closest("[data-pick],[data-remove],[data-find]"); if (!b) return;
   if (b.dataset.find) return findPhoto(Number(b.dataset.find));
   if (b.dataset.remove) { Object.assign(panels[b.dataset.remove], newPanel()); syncForm(); refresh(); return; }
@@ -1122,6 +1256,10 @@ function panelAt(pt) { if (!geo) return -1; return geo.rects.findIndex((r) => pt
 const pdist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
 const onText = (pt) => { const r = geo && geo.text; return !!r && r.h > 0 && pt.x >= r.x - 20 && pt.x <= r.x + r.w + 20 && pt.y >= r.y - 20 && pt.y <= r.y + r.h + 20; };
 cv.addEventListener("pointerdown", (e) => {
+  if (blurMode >= 0 && panels[blurMode] && panels[blurMode].img && geo && geo.rects[blurMode]) {
+    const pt = toCanvas(e), r = geo.rects[blurMode];
+    if (pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h) { cv.setPointerCapture(e.pointerId); blurDraft = { x0: pt.x, y0: pt.y, x1: pt.x, y1: pt.y }; return; }
+  }
   pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
   if (drag && drag.text) return;
   if (!drag && pts.size === 1 && onText(toCanvas(e))) {
@@ -1137,6 +1275,7 @@ cv.addEventListener("pointerdown", (e) => {
   if (p.img) cv.classList.add("drag");
 });
 cv.addEventListener("pointermove", (e) => {
+  if (blurDraft) { const pt = toCanvas(e); blurDraft.x1 = pt.x; blurDraft.y1 = pt.y; render(); return; }
   if (!drag) cv.style.cursor = onText(toCanvas(e)) ? "move" : "";
   if (!pts.has(e.pointerId) || !drag) return;
   pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -1165,6 +1304,18 @@ cv.addEventListener("pointermove", (e) => {
   render();
 });
 function endPointer(e) {
+  if (blurDraft) {
+    const d = blurDraft; blurDraft = null;
+    const p = panels[blurMode], r = geo.rects[blurMode], src = processed(p, s), g = photoGeom(r, p, src, s);
+    const x0 = Math.min(d.x0, d.x1), x1 = Math.max(d.x0, d.x1), y0 = Math.min(d.y0, d.y1), y1 = Math.max(d.y0, d.y1);
+    if (x1 - x0 > 12 && y1 - y0 > 12) {
+      const fx = (x) => (s.flip ? (2 * r.x + r.w - x) : x);
+      const a = (fx(x0) - g.dx) / g.dw, b = (fx(x1) - g.dx) / g.dw;
+      p.blurs.push({ x: Math.min(a, b), y: (y0 - g.dy) / g.dh, w: Math.abs(b - a), h: (y1 - y0) / g.dh });
+      imageCards(); toast(`Sumennus lisätty (${p.blurs.length})`);
+    }
+    refresh(); return;
+  }
   if (!pts.has(e.pointerId)) return;
   pts.delete(e.pointerId);
   if (drag && drag.text) {
@@ -1221,7 +1372,24 @@ function render() {
     const F = FORMATS[s.format];
     if (cv.width !== F.w || cv.height !== F.h) { cv.width = F.w; cv.height = F.h; }
     draw(ctx, s, { preview: true, main: true, page: { i: cur, n: deck.length } });
+    if (blurDraft) { const d = blurDraft; ctx.save(); ctx.strokeStyle = "#e5102f"; ctx.lineWidth = 4; ctx.setLineDash([12, 8]); ctx.fillStyle = "rgba(229,16,47,.18)"; ctx.fillRect(Math.min(d.x0, d.x1), Math.min(d.y0, d.y1), Math.abs(d.x1 - d.x0), Math.abs(d.y1 - d.y0)); ctx.strokeRect(Math.min(d.x0, d.x1), Math.min(d.y0, d.y1), Math.abs(d.x1 - d.x0), Math.abs(d.y1 - d.y0)); ctx.restore(); }
+    qa();
   });
+}
+// Quality check under the preview: catches the usual mistakes before posting.
+function qa() {
+  const F = FORMATS[s.format], out = [], n = panelCount(), plain = s.title.replace(/\*/g, "").trim();
+  if (!plain) out.push("Otsikko puuttuu");
+  else if (geo && geo.scale && geo.scale < 0.7) out.push("Teksti pienennettiin mahtumaan – lyhennä otsikkoa");
+  else if (plain.length > 110 && s.layout !== "post") out.push(`Otsikko on pitkä (${plain.length} merkkiä)`);
+  panels.slice(0, n).forEach((p, i) => {
+    if (!p.img) return;
+    const r = geo && geo.rects[i]; if (r && Math.max(p.img.naturalWidth / r.w, p.img.naturalHeight / r.h) * (1 / p.zoom) < 0.7) out.push(`Kuva${n > 1 ? " " + (i + 1) : ""} on pieni – voi näyttää rakeiselta`);
+  });
+  if (hasImage() && !s.credit.trim()) out.push("Kuvaajan nimi puuttuu");
+  if (s.format === "story" && geo && geo.text && (geo.text.y < 250 || geo.text.y + geo.text.h > F.h - 380)) out.push("Teksti osuu Storyn painikkeiden alle");
+  if (s.layout === "post" && !(s.postName || "").trim()) out.push("Lisää julkaisijan nimi");
+  $("qa").innerHTML = out.length ? out.map((t) => `<li>⚠ ${esc(t)}</li>`).join("") : '<li class="ok">✓ Valmis julkaistavaksi</li>';
 }
 function refresh() { render(); thumbsSoon(); }
 
@@ -1267,6 +1435,7 @@ function onTemplateClick(e) {
   const card = e.target.closest("[data-tpl]"); if (!card) return;
   const t = [...TEMPLATES, ...ownTpls].find((x) => x.id === card.dataset.tpl); if (!t) return;
   if (s.template === "kysymys") s.poll = ["", ""];
+  if (!("ticker" in t.set)) s.ticker = "";
   Object.assign(s, clone(t.set), { template: t.id }); changed(); toast(`Malli: ${t.name}`);
 }
 document.querySelector('[data-panel="mallit"]').addEventListener("click", onTemplateClick);
@@ -1355,7 +1524,7 @@ $("resetAll").addEventListener("click", () => {
 
 // ---------- Carousel ----------
 let deck = [], cur = 0;
-const snapshot = () => ({ s: clone(s), panels: panels.map((p) => ({ img: p.img, src: p.src, zoom: p.zoom, panX: p.panX, panY: p.panY })) });
+const snapshot = () => ({ s: clone(s), panels: panels.map((p) => ({ img: p.img, src: p.src, zoom: p.zoom, panX: p.panX, panY: p.panY, blurs: clone(p.blurs || []) })) });
 const syncDeck = () => { deck[cur] = snapshot(); };
 function loadSlide(i) {
   const fmt = s.format, d = deck[i];
@@ -1425,6 +1594,41 @@ async function exportDeck() {
   toast(`Karuselli ladattu (${n} kuvaa)`);
 }
 
+// ---------- Video: slow zoom + title rising in, recorded from a canvas ----------
+function videoType() {
+  const list = ["video/mp4;codecs=avc1.42E01E", "video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"];
+  return window.MediaRecorder ? list.find((t) => MediaRecorder.isTypeSupported(t)) : null;
+}
+$("vidBtn").addEventListener("click", async () => {
+  const type = videoType();
+  if (!type || !HTMLCanvasElement.prototype.captureStream) return toast("Tämä selain ei osaa tehdä videota. Kokeile Chromea tai Safaria.");
+  const btn = $("vidBtn"), prog = $("vidProg"), F = FORMATS[s.format];
+  const c = document.createElement("canvas"); c.width = F.w; c.height = F.h;
+  Object.assign(c.style, { position: "fixed", left: "-99999px", top: "0", width: "10px", height: "10px" }); document.body.appendChild(c);
+  const x = c.getContext("2d"), stream = c.captureStream(30), rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 9e6 });
+  const chunks = []; rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  const done = new Promise((ok) => (rec.onstop = ok));
+  const dur = Number(s.vidLen) * 1000, fx = s.vidFx, st = clone(s), base = panels.map((p) => ({ ...p }));
+  const ease = (t) => t * t * (3 - 2 * t);
+  const frame = (t) => {
+    const k = ease(Math.min(1, t)), z = fx === "in" ? 1 + 0.14 * k : fx === "out" ? 1.14 - 0.14 * k : 1.12;
+    const P = base.map((p) => ({ ...p, zoom: p.zoom * z, panX: fx === "pan" ? Math.min(1, Math.max(0, 0.15 + 0.7 * k)) : p.panX }));
+    const tin = Math.min(1, Math.max(0, (t * dur - 300) / 700));
+    ANIM = { text: tin, rise: (1 - ease(tin)) * 60 };
+    try { draw(x, st, { panels: P, page: { i: cur, n: deck.length } }); } finally { ANIM = null; }
+  };
+  btn.disabled = true; prog.hidden = false; frame(0); rec.start(250);
+  const t0 = performance.now();
+  await new Promise((ok) => { const tick = () => { const t = (performance.now() - t0) / dur; frame(t); prog.firstElementChild.style.width = Math.min(100, t * 100) + "%"; if (t >= 1.04) ok(); else requestAnimationFrame(tick); }; tick(); });
+  rec.stop(); await done; stream.getTracks().forEach((tr) => tr.stop()); c.remove();
+  const blob = new Blob(chunks, { type: type.split(";")[0] }), extn = type.startsWith("video/mp4") ? "mp4" : "webm";
+  const file = new File([blob], `hulina-${slug()}.${extn}`, { type: blob.type });
+  btn.disabled = false; prog.hidden = true;
+  if (canShare && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }).catch(() => saveFile(blob, file.name)); }
+  else saveFile(blob, file.name);
+  toast(extn === "webm" ? "Video ladattu (WebM – TikTok hyväksyy sen)" : "Video ladattu");
+});
+
 // ---------- All sizes ----------
 function drawSizes() {
   const box = $("sizes");
@@ -1459,7 +1663,7 @@ function persistNow() {
   clearTimeout(pTimer);
   try {
     syncDeck();
-    IDB.set("deck", { cur, deck: deck.map((d) => ({ s: d.s, panels: d.panels.map(({ src, zoom, panX, panY }) => ({ src, zoom, panX, panY })) })) }).catch(() => {});
+    IDB.set("deck", { cur, deck: deck.map((d) => ({ s: d.s, panels: d.panels.map(({ src, zoom, panX, panY, blurs }) => ({ src, zoom, panX, panY, blurs: blurs || [] })) })) }).catch(() => {});
   } catch {}
 }
 document.addEventListener("visibilitychange", () => { if (document.hidden) persistNow(); });
