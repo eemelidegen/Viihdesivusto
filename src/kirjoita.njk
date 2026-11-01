@@ -135,6 +135,62 @@ eleventyExcludeFromCollections: true
     .mod__body { margin: 0; white-space: pre-line; overflow-wrap: anywhere; font: 15px/1.5 var(--font); }
     .mod .item__actions { justify-content: flex-start; }
     .mobile-preview { display: none; }
+
+    /* v2: writing canvas, side panes, focus mode */
+    .card-text { gap: 14px; }
+    .paper { display: grid; gap: 10px; }
+    .stickybar { position: sticky; top: 62px; z-index: 5; background: #fff; padding: 6px 0; margin: -6px 0 0; }
+    .toolbar .sep { width: 1px; background: var(--line); margin: 2px 2px; }
+    .toolbar button[aria-pressed="true"] { background: var(--plum); color: #fff; border-color: var(--plum); }
+    .findbar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; background: var(--soft); border-radius: 8px; padding: 8px; }
+    .findbar input { flex: 1 1 140px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font: 15px/1.2 var(--font); min-width: 0; }
+    .findbar button { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 14px/1 var(--font); }
+    .findbar small { color: var(--muted); }
+    .bodystats { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 13px/1.3 var(--font); color: var(--muted); }
+    .bodystats b { color: var(--text); }
+    .goal { height: 6px; background: var(--soft); border-radius: 99px; overflow: hidden; }
+    .goal i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+    .goal.full i { background: #1f8a4c; }
+    .side-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 16px; position: sticky; top: -24px; background: #fff; padding: 6px 0; z-index: 2; }
+    .side-tabs button { flex: 1 1 auto; padding: 9px 10px 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; cursor: pointer; font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; color: var(--text); }
+    .side-tabs button[aria-selected="true"] { background: var(--plum); border-color: var(--plum); color: #fff; }
+    .pane { display: grid; gap: 14px; align-content: start; }
+    .pane h3 { margin: 6px 0 0; font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .phone { width: 360px; max-width: 100%; margin: 0 auto; border: 10px solid #15141a; border-radius: 34px; overflow: hidden; background: #fff; }
+    .phone .article { padding: 14px; }
+    .phone .article__head h1 { font-size: 28px !important; }
+    .phone .prose { font-size: 17px !important; }
+    .pvmode { display: flex; gap: 6px; }
+    .pvmode button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 13px/1 var(--font); }
+    .pvmode button[aria-pressed="true"] { background: var(--text); color: #fff; border-color: var(--text); }
+    .facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font: 14px/1.4 var(--font); }
+    .facts li { background: var(--soft); border-radius: 8px; padding: 8px 10px; overflow-wrap: anywhere; }
+    .facts li small { display: block; color: var(--muted); }
+    .facts a { color: var(--link); }
+    .facts .jump { border: 0; background: none; padding: 0; color: var(--link); cursor: pointer; font: inherit; text-align: left; text-decoration: underline; }
+    .meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .meter div { background: var(--soft); border-radius: 8px; padding: 10px 8px; text-align: center; font: 12px/1.3 var(--font); color: var(--muted); }
+    .meter b { display: block; font: 800 22px/1 var(--display); color: var(--text); margin-bottom: 4px; }
+    .alts { display: grid; gap: 8px; }
+    .alt { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 6px; }
+    .alt.cur { border-color: var(--plum); box-shadow: inset 3px 0 0 var(--plum); }
+    .alt__t { font: 400 19px/1.2 var(--headline); }
+    .alt__row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font: 12.5px/1.3 var(--font); color: var(--muted); }
+    .alt__row button { padding: 5px 9px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; font: 700 12.5px/1 var(--font); }
+    .pts { font: 800 13px/1 var(--display); padding: 4px 7px; border-radius: 4px; background: #dff3e6; color: #1f8a4c; }
+    .pts.mid { background: #fff1d6; color: #b25e00; } .pts.low { background: #ffe1e5; color: #a3112a; }
+    .addalt { display: flex; gap: 6px; }
+    .addalt input { flex: 1; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; font: 15px/1.2 var(--font); min-width: 0; }
+    .addalt button, .capt button { padding: 8px 12px; border: 0; border-radius: 6px; background: var(--plum); color: #fff; cursor: pointer; font: 700 14px/1 var(--display); text-transform: uppercase; }
+    .capt { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 8px; font: 14.5px/1.45 var(--font); white-space: pre-wrap; }
+    .capt__row { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; white-space: normal; }
+    .notes { min-height: 90px; font: 15px/1.5 var(--font); padding: 10px 12px; border: 1px dashed var(--line); border-radius: 8px; width: 100%; resize: vertical; background: #fffdf3; }
+    body.zen .editor { grid-template-columns: minmax(0, 760px); justify-content: center; }
+    body.zen .preview2, body.zen .card2:not(.card-text), body.zen .mobile-preview, body.zen .top { display: none !important; }
+    body.zen .wrap2 { padding-top: 32px; }
+    body.zen .stickybar { top: 0; }
+    .zen-exit { display: none; }
+    body.zen .zen-exit { display: inline-flex; position: fixed; top: 12px; right: 12px; z-index: 20; padding: 8px 12px; border: 0; border-radius: 999px; background: var(--plum); color: #fff; font: 700 14px/1 var(--display); text-transform: uppercase; cursor: pointer; }
     @media (max-width: 600px) {
       .top__bar { gap: 6px; padding: 8px 10px; flex-wrap: nowrap; }
       .top .logo svg { height: 26px; }
@@ -153,6 +209,7 @@ eleventyExcludeFromCollections: true
       .bar__status { display: none; }
       .bar__in .btn2 { flex: 1; padding: 14px 10px; }
       #title { font-size: 22px; min-height: 74px; }
+      .stickybar { position: static; }
     }
   </style>
 </head>
@@ -174,6 +231,7 @@ eleventyExcludeFromCollections: true
     </div>
   </header>
 
+  <button type="button" class="zen-exit" id="zenExit">Poistu keskittymistilasta</button>
   <main class="wrap2">
     <section id="view-editor">
       <div id="done" class="done" hidden></div>
@@ -220,9 +278,9 @@ eleventyExcludeFromCollections: true
             </label>
           </div>
 
-          <div class="card2">
+          <div class="card2 card-text">
             <h2>Teksti</h2>
-            <div class="toolbar" id="toolbar">
+            <div class="stickybar"><div class="toolbar" id="toolbar">
               <button type="button" data-cmd="bold" title="Lihavoi"><b>B</b></button>
               <button type="button" data-cmd="italic" title="Kursivoi"><i>K</i></button>
               <button type="button" data-cmd="h2" title="Väliotsikko">Väliotsikko</button>
@@ -237,8 +295,30 @@ eleventyExcludeFromCollections: true
               <button type="button" data-cmd="imgsearch" title="Hae vapaasti käytettävä kuva tekstiin">🔎 Kuvahaku</button>
               <button type="button" data-cmd="embed" title="Upota video tai somepostaus">▶ Video / some</button>
               <button type="button" data-cmd="tidy" title="Korjaa lainausmerkit, viivat ja ylimääräiset välilyönnit">✨ Siisti teksti</button>
+              <span class="sep" aria-hidden="true"></span>
+              <button type="button" data-cmd="find" title="Etsi ja korvaa (Ctrl+F)">🔍 Etsi</button>
+              <button type="button" data-cmd="zen" title="Keskity kirjoittamiseen – piilottaa kaiken muun (Esc palaa)">🧘 Keskity</button>
+            </div></div>
+            <div class="findbar" id="findbar" hidden>
+              <input id="findQ" placeholder="Etsi tekstistä…" aria-label="Etsi">
+              <input id="findR" placeholder="Korvaa tällä…" aria-label="Korvaa">
+              <button type="button" id="findNext">Seuraava</button>
+              <button type="button" id="findOne">Korvaa</button>
+              <button type="button" id="findAll">Korvaa kaikki</button>
+              <small id="findN"></small>
+              <button type="button" id="findClose" aria-label="Sulje haku">✕</button>
             </div>
             <div class="row3">
+              <select class="sel2" id="snip" aria-label="Pikalisäys">
+                <option value="">⚡ Pikalisäys…</option>
+                <option value="paivitys">Päivitys klo …</option>
+                <option value="eitavoitettu">Ei tavoitettu kommentoimaan</option>
+                <option value="syyttomyys">Syyttömyysolettama</option>
+                <option value="kriisi">Kriisipuhelin (itsetuhoisuus)</option>
+                <option value="korjaus">Korjaus virheeseen</option>
+                <option value="kysymys">Kysymys lukijalle</option>
+                <option value="somelainaus">Somepäivityksen lainaus</option>
+              </select>
               <select class="sel2" id="tpl" aria-label="Juttupohja">
                 <option value="">Juttupohja…</option>
                 <option value="uutinen">Uutinen</option>
@@ -255,6 +335,14 @@ eleventyExcludeFromCollections: true
             <label class="f"><span class="sr-only">Teksti</span>
               <textarea id="body" placeholder="Kirjoita juttu tähän. Tyhjä rivi aloittaa uuden kappaleen." spellcheck="true" lang="fi"></textarea>
             </label>
+            <div class="goal" id="goal" title="Tavoite: vähintään 350 sanaa"><i></i></div>
+            <div class="bodystats" id="bodyStats"></div>
+          </div>
+
+          <div class="card2">
+            <h2>Muistiinpanot</h2>
+            <p class="hint2" style="margin:0">Omat muistiinpanot, linkit ja tarkistettavat asiat. Näkyvät vain tässä selaimessa, eivät koskaan jutussa.</p>
+            <textarea class="notes" id="notes" placeholder="Esim. soita poliisille klo 9, tarkista ikä, kuvaajan nimi…"></textarea>
           </div>
 
           <div class="card2">
@@ -280,13 +368,50 @@ eleventyExcludeFromCollections: true
         </div>
 
         <aside class="preview2" id="preview">
-          <p class="preview2__label">Tarkistuslista <span class="score" id="score"></span></p>
-          <ul class="checks" id="checks"></ul>
-          <p class="preview2__label" style="margin-top:22px">Näin juttu näkyy Googlessa</p>
-          <div class="serp"><span class="serp__url">hulina.net › <span id="serpSlug"></span></span><span class="serp__title" id="serpTitle"></span><span class="serp__desc" id="serpDesc"></span></div>
-          <p class="preview2__label" style="margin-top:22px">…ja Facebookissa</p>
-          <div class="fbcard"><div class="fbcard__img" id="fbImg"></div><div class="fbcard__txt"><span class="fbcard__site">hulina.net</span><span class="fbcard__title" id="fbTitle"></span></div></div>
-          <p class="preview2__label" style="margin-top:22px">Esikatselu</p>
+          <div class="side-tabs" role="tablist" id="sideTabs">
+            <button type="button" role="tab" data-pane="pv" aria-selected="true">Esikatselu</button>
+            <button type="button" role="tab" data-pane="chk" aria-selected="false">Tarkistus <span class="score" id="score"></span></button>
+            <button type="button" role="tab" data-pane="ttl" aria-selected="false">Otsikot</button>
+            <button type="button" role="tab" data-pane="some" aria-selected="false">Some</button>
+          </div>
+
+          <div class="pane" id="pane-chk" hidden>
+            <div class="meter" id="meter"></div>
+            <h3>Tarkistuslista</h3>
+            <ul class="checks" id="checks"></ul>
+            <h3>Luettavuus</h3>
+            <ul class="facts" id="readab"></ul>
+            <h3>Sitaatit – tarkista sanatarkasti</h3>
+            <ul class="facts" id="quotes"></ul>
+            <h3>Nimet ja lihavoinnit – tarkista kirjoitusasu</h3>
+            <ul class="facts" id="names"></ul>
+            <h3>Linkit</h3>
+            <ul class="facts" id="links"></ul>
+          </div>
+
+          <div class="pane" id="pane-ttl" hidden>
+            <h3>Otsikkovaihtoehdot</h3>
+            <p class="hint2" style="margin:0">Kirjoita useampi otsikko ja vertaa. Pisteet kertovat, kuinka hyvin otsikko toimii hakukoneissa ja somessa.</p>
+            <div class="addalt"><input id="altIn" placeholder="Uusi otsikkovaihtoehto…" maxlength="200"><button type="button" id="altAdd">Lisää</button></div>
+            <div class="alts" id="alts"></div>
+            <h3>Näin juttu näkyy Googlessa</h3>
+            <div class="serp"><span class="serp__url">hulina.net › <span id="serpSlug"></span></span><span class="serp__title" id="serpTitle"></span><span class="serp__desc" id="serpDesc"></span></div>
+            <h3>…ja Facebookissa</h3>
+            <div class="fbcard"><div class="fbcard__img" id="fbImg"></div><div class="fbcard__txt"><span class="fbcard__site">hulina.net</span><span class="fbcard__title" id="fbTitle"></span></div></div>
+          </div>
+
+          <div class="pane" id="pane-some" hidden>
+            <h3>Valmiit saatetekstit</h3>
+            <p class="hint2" style="margin:0">Kopioi TikTokiin, Instagramiin tai Facebookiin. Tekstit päivittyvät, kun muokkaat juttua.</p>
+            <div id="capts" style="display:grid;gap:8px"></div>
+            <h3>Hashtagit</h3>
+            <div class="capt" id="tags"></div>
+            <button type="button" class="btn2" id="toSome">Tee somekuva tästä jutusta</button>
+          </div>
+
+          <div class="pane" id="pane-pv">
+          <div class="pvmode"><button type="button" data-pv="wide" aria-pressed="true">Tietokone</button><button type="button" data-pv="phone" aria-pressed="false">Puhelin</button></div>
+          <div id="pvWrap">
           <article class="article">
             <header class="article__head">
               <span class="pill" id="pvCat"></span>
@@ -297,6 +422,8 @@ eleventyExcludeFromCollections: true
             <figure class="article__media" id="pvFig"></figure>
             <div class="prose" id="pvBody"></div>
           </article>
+          </div>
+          </div>
         </aside>
       </div>
     </section>
@@ -314,6 +441,7 @@ eleventyExcludeFromCollections: true
     <section id="view-list" hidden>
       <div class="listbar">
         <input type="search" id="q" placeholder="Hae otsikosta…" aria-label="Hae juttuja">
+        <select class="sel2" id="sort" aria-label="Järjestys"><option value="new">Uusimmat ensin</option><option value="old">Vanhimmat ensin</option><option value="views">Luetuimmat ensin</option><option value="week">Luetuimmat 7 pv</option><option value="abc">Aakkosjärjestys</option></select>
         <div class="chips2" id="filt"><button type="button" data-f="all" aria-pressed="true">Kaikki</button><button type="button" data-f="pub">Julkaistut</button><button type="button" data-f="draft">Luonnokset</button>{% for c in site.categories %}<button type="button" data-f="c:{{ c.slug }}">{{ c.name }}</button>{% endfor %}</div>
       </div>
       <p class="stats" id="stats"></p>
@@ -334,7 +462,7 @@ eleventyExcludeFromCollections: true
 const CATEGORIES = {{ site.categories | dump | safe }};
 const LOCAL = "valokeila-kirjoita";
 const $ = (id) => document.getElementById(id);
-const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageLink: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [], videos: [] });
+const blank = () => ({ file: null, wasDraft: true, date: null, image: "", newImage: null, fields: { title: "", excerpt: "", category: CATEGORIES[0].slug, aiheet: "", imageCredit: "", imageLink: "", imageAlt: "", imageFocus: "", lahteet: "", paivitetty: "", author: "", nosto: false }, body: "", images: [], videos: [], notes: "", alts: [] });
 let doc = blank();
 let dirty = false;
 
@@ -350,6 +478,7 @@ function fill() {
   $("body").value = doc.body || "";
   $("nosto").checked = !!doc.fields.nosto;
   $("updRow").hidden = !(doc.file && !doc.wasDraft);
+  $("notes").value = doc.notes || "";
   renderSources(); renderVersions();
   topicChips();
   document.querySelectorAll("#category button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === doc.fields.category)));
@@ -357,7 +486,19 @@ function fill() {
   document.querySelectorAll("textarea").forEach(grow);
   preview();
 }
-function changed() { dirty = true; persist(); preview(); const w = Number($("status").dataset.words || 0); $("status").textContent = `Tallennettu tähän selaimeen · ${w} sanaa · ${Math.max(1, Math.round(w / 200))} min lukuaika – muista julkaista.`; }
+const fiClock = new Intl.DateTimeFormat("fi-FI", { hour: "2-digit", minute: "2-digit" });
+function changed() { dirty = true; persist(); preview(); const w = Number($("status").dataset.words || 0); $("status").textContent = `Tallennettu tähän selaimeen klo ${fiClock.format(new Date())} · ${w} sanaa · ${Math.max(1, Math.round(w / 200))} min lukuaika – muista julkaista.`; }
+// Text edits go through the browser's own editing so Ctrl+Z still works after toolbar actions.
+function applyText(t, next) {
+  const prev = t.value; if (prev === next) return;
+  let a = 0; while (a < prev.length && a < next.length && prev[a] === next[a]) a++;
+  let b = 0; while (b < prev.length - a && b < next.length - a && prev[prev.length - 1 - b] === next[next.length - 1 - b]) b++;
+  t.focus(); t.setSelectionRange(a, prev.length - b);
+  const ok = document.execCommand && document.execCommand("insertText", false, next.slice(a, next.length - b));
+  if (!ok || t.value !== next) t.value = next;
+  doc.body = t.value; grow(t);
+}
+$("notes").addEventListener("input", () => { doc.notes = $("notes").value; persist(); });
 TEXT.forEach((k) => $(k).addEventListener("input", () => { doc.fields[k] = $(k).value; changed(); }));
 $("body").addEventListener("input", () => { doc.body = $("body").value; changed(); });
 $("nosto").addEventListener("change", () => { doc.fields.nosto = $("nosto").checked; changed(); });
@@ -432,7 +573,7 @@ const TEMPLATES = {
 $("tpl").addEventListener("change", () => {
   const t = TEMPLATES[$("tpl").value]; $("tpl").value = ""; if (!t) return;
   if (doc.body.trim() && !confirm("Lisätäänkö pohja nykyisen tekstin perään?")) return;
-  doc.body = (doc.body.trim() ? doc.body.trim() + "\n\n" : "") + t; $("body").value = doc.body; grow($("body")); changed();
+  applyText($("body"), (doc.body.trim() ? doc.body.trim() + "\n\n" : "") + t); changed();
 });
 
 // ---------- Finnish typography cleanup ----------
@@ -453,6 +594,7 @@ document.addEventListener("keydown", (e) => {
   if (!(e.ctrlKey || e.metaKey)) return;
   const k = e.key.toLowerCase();
   if (k === "s") { e.preventDefault(); save(true); return; }
+  if (k === "f" && !$("view-editor").hidden) { e.preventDefault(); openFind(); return; }
   if (document.activeElement !== $("body")) return;
   const cmd = { b: "bold", i: "italic", k: "link" }[k];
   if (cmd) { e.preventDefault(); document.querySelector(`#toolbar [data-cmd="${cmd}"]`).click(); }
@@ -585,8 +727,7 @@ $("bodyVideo").addEventListener("change", async () => {
     const t = $("body"), at = t.selectionEnd ?? t.value.length, v = t.value;
     const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
     const line = `![](/assets/video/${name} "")`;
-    t.value = (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "");
-    doc.body = t.value; grow(t); changed();
+    applyText(t, (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "")); changed();
     $("status").textContent = "Video lisätty. Kuvatekstin voit kirjoittaa lainausmerkkien väliin. Video tallentuu, kun tallennat tai julkaiset jutun.";
   } catch { $("status").textContent = "Videota ei voitu avata."; }
 });
@@ -606,8 +747,7 @@ $("bodyFiles").addEventListener("change", async () => {
   if (!lines.length) return;
   const t = $("body"), at = t.selectionEnd ?? t.value.length, v = t.value;
   const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
-  t.value = (before ? before + "\n\n" : "") + lines.join("\n\n") + (after ? "\n\n" + after : "");
-  doc.body = t.value; grow(t); changed();
+  applyText(t, (before ? before + "\n\n" : "") + lines.join("\n\n") + (after ? "\n\n" + after : "")); changed();
   $("status").textContent = lines.length > 1 ? `${lines.length} kuvaa lisätty – ne näkyvät jutussa kuvagalleriana. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.` : "Kuva lisätty. Kuvatekstin voit kirjoittaa lainausmerkkien väliin.";
 });
 // Free photo search (Kuvahaku): main photo or a photo inside the text, credit filled in.
@@ -621,8 +761,7 @@ function findPhoto(inText) {
         doc.images.push({ name, dataUrl, base64: dataUrl.split(",")[1] });
         const line = `![${p.title.replace(/[\[\]]/g, "")}](/assets/img/uploads/${name} "Kuva: ${p.credit.replace(/"/g, "'")}")`;
         const t = $("body"), v = t.value, before = v.slice(0, atText).replace(/\s*$/, ""), after = v.slice(atText).replace(/^\s*/, "");
-        t.value = (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "");
-        doc.body = t.value; grow(t); changed();
+        applyText(t, (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "")); changed();
         $("status").textContent = "Kuva lisätty tekstiin. Kuvateksti ja lähde ovat valmiina lainausmerkkien välissä.";
       } }
     : { label: "Käytä pääkuvana", run: async (p) => { await takeImage(await p.load(), p); } }] });
@@ -668,6 +807,8 @@ $("toolbar").addEventListener("click", (e) => {
     case "list": prefixLines("- "); break;
     case "image": $("bodyFiles").click(); return;
     case "video": $("bodyVideo").click(); return;
+    case "find": openFind(); return;
+    case "zen": setZen(!document.body.classList.contains("zen")); return;
     case "imgsearch": findPhoto(true); return;
     case "embed": {
       const url = (prompt("Liitä videon tai somepostauksen osoite (YouTube, TikTok, Instagram tai X)", "https://") || "").trim();
@@ -682,8 +823,8 @@ $("toolbar").addEventListener("click", (e) => {
       out = v.slice(0, s) + `[${text}](${url})` + v.slice(end); cs = s + 1; ce = cs + text.length; break;
     }
   }
-  t.value = out; t.focus(); t.setSelectionRange(cs, ce);
-  doc.body = t.value; grow(t); changed();
+  applyText(t, out); t.setSelectionRange(cs, ce);
+  changed();
   if (b.dataset.cmd === "tidy") $("status").textContent = "Lainausmerkit, viivat ja välilyönnit korjattu.";
 });
 
@@ -736,6 +877,7 @@ function preview() {
   $("fbImg").style.backgroundPosition = doc.fields.imageFocus || "50% 30%";
   checklist();
   $("status").dataset.words = words;
+  analyze(); renderAlts(); renderCaptions();
 }
 $("togglePreview").addEventListener("click", () => { const p = $("preview"); p.classList.toggle("show"); $("togglePreview").textContent = p.classList.contains("show") ? "Piilota esikatselu" : "Näytä esikatselu"; if (p.classList.contains("show")) p.scrollIntoView({ behavior: "smooth" }); });
 
@@ -790,7 +932,7 @@ async function pickReadAlso() {
     const slug = j.file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
     const t = $("body"), at = t.selectionEnd, v = t.value, line = `**Lue myös:** [${j.title}](/${slug}/)`;
     const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
-    t.value = (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : ""); doc.body = t.value; grow(t); changed();
+    applyText(t, (before ? before + "\n\n" : "") + line + (after ? "\n\n" + after : "")); changed();
   } catch (e) { if (e.message !== "login") alert(e.message); }
 }
 $("publish").addEventListener("click", () => { const miss = checklist(); if (miss.length && !confirm("Jutusta puuttuu vielä:\n\n• " + miss.join("\n• ") + "\n\nJulkaistaanko silti?")) return; save(false); });
@@ -809,6 +951,7 @@ $("done").addEventListener("click", (e) => {
   if (act === "new") newDoc();
   if (act === "some") toSomekuva();
 });
+$("toSome").addEventListener("click", () => toSomekuva());
 function toSomekuva() {
   // Hand the story's title, photo and credit over to the social image tool.
   const image = doc.newImage ? doc.newImage.dataUrl : doc.image;
@@ -840,8 +983,12 @@ function drawList() {
   const box = $("list"), q = $("q").value.trim().toLowerCase();
   const jutut = allJutut.filter((j) => (!q || j.title.toLowerCase().includes(q))
     && (listFilter === "all" || (listFilter === "pub" && !j.draft) || (listFilter === "draft" && j.draft) || listFilter === "c:" + j.category));
+  const slugOf = (j) => j.file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  const vw = (j, k) => (views[slugOf(j)] || {})[k] || 0, sort = $("sort").value;
+  jutut.sort(sort === "old" ? (a, b) => String(a.date).localeCompare(String(b.date)) : sort === "views" ? (a, b) => vw(b, "yht") - vw(a, "yht") : sort === "week" ? (a, b) => vw(b, "viikko") - vw(a, "viikko") : sort === "abc" ? (a, b) => a.title.localeCompare(b.title, "fi") : (a, b) => String(b.date).localeCompare(String(a.date)));
   const pubN = allJutut.filter((j) => !j.draft).length;
-  $("stats").textContent = `${allJutut.length} juttua · ${pubN} julkaistu · ${allJutut.length - pubN} luonnosta` + (jutut.length !== allJutut.length ? ` · näytetään ${jutut.length}` : "");
+  const tot = Object.values(views).reduce((n, v) => n + (v.yht || 0), 0), wk = Object.values(views).reduce((n, v) => n + (v.viikko || 0), 0);
+  $("stats").textContent = `${allJutut.length} juttua · ${pubN} julkaistu · ${allJutut.length - pubN} luonnosta · 👁 ${fiNum.format(tot)} lukukertaa, 7 pv ${fiNum.format(wk)}` + (jutut.length !== allJutut.length ? ` · näytetään ${jutut.length}` : "");
   if (!jutut.length) { box.innerHTML = `<div class="empty2">${allJutut.length ? "Ei hakua vastaavia juttuja." : "Ei vielä juttuja. Kirjoita ensimmäinen!"}</div>`; return; }
   {
     box.innerHTML = jutut.map((j) => {
@@ -861,6 +1008,7 @@ function drawList() {
   }
 }
 $("q").addEventListener("input", drawList);
+$("sort").addEventListener("change", drawList);
 $("filt").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; listFilter = b.dataset.f; $("filt").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); drawList(); });
 $("list").addEventListener("click", async (e) => {
   const edit = e.target.closest("[data-edit]"), del = e.target.closest("[data-del]"), cp = e.target.closest("[data-copy]"), dup = e.target.closest("[data-dup]");
@@ -947,6 +1095,154 @@ $("tipList").addEventListener("click", async (e) => {
   if (b.dataset.tip === "poista" && !confirm("Poistetaanko viesti pysyvästi?")) return;
   b.disabled = true;
   try { await api("vinkit", { id: Number(b.dataset.id), toiminto: b.dataset.tip }); loadTips(); } catch (err) { if (err.message !== "login") alert(err.message); b.disabled = false; }
+});
+
+// ---------- Find and replace ----------
+let findAt = 0;
+function openFind() { $("findbar").hidden = false; const sel = $("body").value.slice($("body").selectionStart, $("body").selectionEnd); if (sel && !sel.includes("\n")) $("findQ").value = sel; $("findQ").focus(); $("findQ").select(); countFind(); }
+function findRe() { const q = $("findQ").value; return q ? new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi") : null; }
+function countFind() { const re = findRe(); const n = re ? (doc.body.match(re) || []).length : 0; $("findN").textContent = re ? `${n} osumaa` : ""; return n; }
+function findNext() {
+  const re = findRe(); if (!re) return false;
+  re.lastIndex = findAt; let m = re.exec(doc.body); if (!m) { re.lastIndex = 0; m = re.exec(doc.body); } if (!m) return false;
+  const t = $("body"); t.focus(); t.setSelectionRange(m.index, m.index + m[0].length); findAt = m.index + m[0].length;
+  const r = t.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + r.height * (m.index / Math.max(1, t.value.length)) - innerHeight / 3, behavior: "smooth" });
+  return true;
+}
+$("findQ").addEventListener("input", () => { findAt = 0; countFind(); });
+$("findQ").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); findNext(); } if (e.key === "Escape") $("findClose").click(); });
+$("findNext").addEventListener("click", findNext);
+$("findOne").addEventListener("click", () => {
+  const t = $("body"), re = findRe(); if (!re) return;
+  const sel = t.value.slice(t.selectionStart, t.selectionEnd);
+  if (!sel || sel.toLowerCase() !== $("findQ").value.toLowerCase()) { findNext(); return; }
+  const s0 = t.selectionStart; applyText(t, t.value.slice(0, s0) + $("findR").value + t.value.slice(t.selectionEnd)); findAt = s0 + $("findR").value.length; changed(); countFind(); findNext();
+});
+$("findAll").addEventListener("click", () => { const re = findRe(); if (!re) return; const n = countFind(); if (!n) return; applyText($("body"), doc.body.replace(re, () => $("findR").value)); changed(); countFind(); $("status").textContent = `${n} kohtaa korvattu. Ctrl+Z kumoaa.`; });
+$("findClose").addEventListener("click", () => { $("findbar").hidden = true; $("body").focus(); });
+
+// ---------- Quick inserts ----------
+const SNIPPETS = {
+  paivitys: () => `**Päivitys klo ${fiClock.format(new Date()).replace(":", ".")}:** `,
+  eitavoitettu: () => "Hulina yritti tavoittaa NIMI kommentoimaan asiaa, mutta hän ei vastannut juttua kirjoitettaessa.",
+  syyttomyys: () => "Ketään ei pidetä syyllisenä ennen kuin tuomioistuin on niin lainvoimaisesti päättänyt.",
+  kriisi: () => "*Jos sinulla on itsetuhoisia ajatuksia, soita MIELI ry:n Kriisipuhelimeen 09 2525 0111. Se päivystää ympäri vuorokauden.*",
+  korjaus: () => `*Korjaus ${new Intl.DateTimeFormat("fi-FI").format(new Date())}: Jutussa kerrottiin aiemmin virheellisesti, että … Tieto on korjattu.*`,
+  kysymys: () => "Mitä mieltä sinä olet? Kerro kommenteissa.",
+  somelainaus: () => "> **Näin hän kirjoitti Instagramissa:**\n> ”Kirjoita lainaus tähän.”",
+};
+$("snip").addEventListener("change", () => {
+  const f = SNIPPETS[$("snip").value]; $("snip").value = ""; if (!f) return;
+  const t = $("body"), at = t.selectionEnd ?? t.value.length, v = t.value, text = f();
+  const before = v.slice(0, at).replace(/\s*$/, ""), after = v.slice(at).replace(/^\s*/, "");
+  applyText(t, (before ? before + "\n\n" : "") + text + (after ? "\n\n" + after : "")); changed();
+  const pos = (before ? before.length + 2 : 0) + text.length; t.setSelectionRange(pos, pos);
+});
+
+// ---------- Focus mode ----------
+function setZen(on) { document.body.classList.toggle("zen", on); document.querySelector('#toolbar [data-cmd="zen"]').setAttribute("aria-pressed", String(on)); if (on) $("body").focus(); grow($("body")); }
+$("zenExit").addEventListener("click", () => setZen(false));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("zen")) setZen(false); });
+
+// ---------- Side panes ----------
+$("sideTabs").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-pane]"); if (!b) return;
+  $("sideTabs").querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+  ["pv", "chk", "ttl", "some"].forEach((k) => ($(`pane-${k}`).hidden = k !== b.dataset.pane));
+  try { localStorage.setItem("hulina-kirjoita-pane", b.dataset.pane); } catch {}
+});
+try { const p = localStorage.getItem("hulina-kirjoita-pane"); if (p && p !== "pv") document.querySelector(`#sideTabs [data-pane="${p}"]`)?.click(); } catch {}
+document.querySelector(".pvmode").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-pv]"); if (!b) return;
+  document.querySelectorAll(".pvmode button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  $("pvWrap").className = b.dataset.pv === "phone" ? "phone" : "";
+});
+
+// ---------- Text analysis ----------
+const plain = (md) => md.replace(/!\[[^\]]*\]\([^)]*\)/g, " ").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/^https?:\/\/\S+$/gm, " ").replace(/^[#>\-*\d.\s]+/gm, "").replace(/[*_]/g, "");
+const STOP = new Set("että joka jotka mutta vaikka koska kanssa hänen heidän tämän tämä nämä niiden sitten myös vielä kuitenkin jälkeen aikana mukaan välillä ollut olivat olisi oleva kertoo kertoi sanoo sanoi asiaa lisäksi ennen nyt jopa enää koko kaikki kuin kun sekä eikä vain mitä tätä siitä siinä sille niin ovat voisi voida täysin hyvin paljon miten miksi missä mikä mikään joten hänet häntä heille heitä meidän sinun minun jossa josta johon siihen sen tuo tuon tätä todella".split(" "));
+function analyze() {
+  const text = plain(doc.body);
+  const words = text.match(/[\p{L}\d][\p{L}\d'’-]*/gu) || [];
+  const sentences = text.split(/(?<=[.!?…])\s+|\n+/).map((x) => x.trim()).filter((x) => (x.match(/\p{L}+/gu) || []).length > 2);
+  const paras = doc.body.split(/\n{2,}/).map((x) => x.trim()).filter((x) => x && !/^(!\[|#|>|https?:)/.test(x));
+  const avg = sentences.length ? words.length / sentences.length : 0;
+  const n = words.length, goal = 350;
+  $("goal").querySelector("i").style.width = Math.min(100, n / goal * 100) + "%"; $("goal").classList.toggle("full", n >= goal);
+  $("bodyStats").innerHTML = `<span><b>${n}</b> sanaa</span><span><b>${sentences.length}</b> virkettä</span><span><b>${paras.length}</b> kappaletta</span><span><b>${Math.max(1, Math.round(n / 200))} min</b> lukuaika</span><span>${n >= goal ? "✓ Hyvä pituus" : `Vielä ${goal - n} sanaa suositeltuun pituuteen`}</span>`;
+  $("meter").innerHTML = `<div><b>${n}</b>sanaa</div><div><b>${avg ? avg.toFixed(1) : 0}</b>sanaa / virke</div><div><b>${paras.length}</b>kappaletta</div><div><b>${Math.max(1, Math.round(n / 200))}</b>min lukuaika</div>`;
+  const items = [];
+  const longS = sentences.filter((x) => (x.match(/\S+/g) || []).length > 25);
+  if (longS.length) items.push(...longS.slice(0, 4).map((x) => `<li><small>Pitkä virke (${(x.match(/\S+/g) || []).length} sanaa) – jaa kahtia?</small><button type="button" class="jump" data-jump="${esc(x.slice(0, 40))}">${esc(x.slice(0, 90))}${x.length > 90 ? "…" : ""}</button></li>`));
+  const longP = paras.filter((x) => (x.match(/\S+/g) || []).length > 70);
+  if (longP.length) items.push(`<li><small>Pitkiä kappaleita</small>${longP.length} kappaletta yli 70 sanaa. Netissä 1–3 virkettä per kappale toimii parhaiten.</li>`);
+  const freq = new Map(); words.forEach((w) => { const k = w.toLowerCase(); if (k.length >= 5 && !STOP.has(k)) freq.set(k, (freq.get(k) || 0) + 1); });
+  const rep = [...freq].filter(([, c]) => c >= 4).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  if (rep.length) items.push(`<li><small>Toistuvat sanat</small>${rep.map(([w, c]) => `${esc(w)} ×${c}`).join(", ")}</li>`);
+  const passive = (text.match(/\b\p{L}+(?:taan|tään|ttiin)\b/gu) || []).length;
+  if (passive >= 4) items.push(`<li><small>Passiivia ${passive} kertaa</small>Kerro mieluummin, kuka teki mitä (esim. ”poliisi pidätti”).</li>`);
+  if (/\b(uskomaton|järkyttävä|shokki|hämmästyttävä)\b/i.test(doc.body + doc.fields.title)) items.push("<li><small>Liioittelevia sanoja</small>Uskottava media välttää sanoja kuten ”järkyttävä” ja ”uskomaton”, ellei sitaatissa.</li>");
+  $("readab").innerHTML = items.join("") || "<li>✓ Teksti on selkeää: ei pitkiä virkkeitä eikä toistoa.</li>";
+  const quotes = doc.body.split("\n").filter((l) => /^\s*[–-]\s/.test(l)).map((l) => l.replace(/^\s*[–-]\s*/, ""));
+  const shown = (q) => q.replace(/[*_]/g, "");
+  $("quotes").innerHTML = quotes.length ? quotes.map((q) => `<li><button type="button" class="jump" data-jump="${esc(q.slice(0, 40))}">${esc(shown(q).slice(0, 160))}${q.length > 160 ? "…" : ""}</button></li>`).join("") : "<li>Ei sitaatteja. Suora lainaus elävöittää juttua.</li>";
+  const names = [...new Set([...doc.body.matchAll(/\*\*([^*]{2,60})\*\*/g)].map((m) => m[1].trim()).filter((x) => !/:$/.test(x)))];
+  $("names").innerHTML = names.length ? names.map((x) => `<li>${esc(x)} <small>${(doc.body.split(x).length - 1)} mainintaa</small></li>`).join("") : "<li>Ei lihavoituja nimiä. Lihavoi henkilön nimi ensimmäisellä mainintakerralla.</li>";
+  const links = [...doc.body.matchAll(/\[([^\]]+)\]\(([^)\s]+)\)/g)].map((m) => [m[1], m[2]]).concat([...doc.body.matchAll(/^(https?:\/\/\S+)$/gm)].map((m) => ["Upotus", m[1]]));
+  $("links").innerHTML = links.length ? links.map(([t, u]) => `<li>${esc(t)}<small><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></small></li>`).join("") : "<li>Ei linkkejä.</li>";
+}
+document.addEventListener("click", (e) => {
+  const j = e.target.closest("[data-jump]"); if (!j) return;
+  const i = doc.body.indexOf(j.dataset.jump); if (i < 0) return;
+  const t = $("body"); t.focus(); t.setSelectionRange(i, i + j.dataset.jump.length); findAt = i;
+  const r = t.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + r.height * (i / Math.max(1, t.value.length)) - innerHeight / 3, behavior: "smooth" });
+});
+
+// ---------- Headline workshop ----------
+function titleScore(t) {
+  const tips = []; let p = 0;
+  const len = t.length;
+  if (len >= 40 && len <= 90) p += 2; else tips.push(len < 40 ? "lyhyt – lisää yksityiskohta" : "pitkä – Google katkaisee yli 60 merkkiä");
+  if (/[A-ZÅÄÖ][a-zåäö]+ [A-ZÅÄÖ][a-zåäö]+/.test(t.slice(1)) || /^[A-ZÅÄÖ][a-zåäö]+ [A-ZÅÄÖ]/.test(t)) p++; else tips.push("ei nimeä");
+  if (/[”"]/.test(t)) p++; else tips.push("ei sitaattia");
+  if (/\d/.test(t)) p++;
+  if (/[–:?]/.test(t)) p++; else tips.push("ei jännitettä (– : ?)");
+  if (/[A-ZÅÄÖ]{5,}/.test(t)) { p--; tips.push("vältä ISOJA kirjaimia"); }
+  return { p: Math.max(0, Math.min(5, p)), tips };
+}
+function renderAlts() {
+  const list = [doc.fields.title, ...(doc.alts || []).filter((a) => a !== doc.fields.title)].filter(Boolean);
+  $("alts").innerHTML = list.length ? list.map((t, i) => { const s = titleScore(t); return `<div class="alt${i === 0 ? " cur" : ""}"><span class="alt__t">${esc(t)}</span><div class="alt__row"><span class="pts${s.p >= 4 ? "" : s.p >= 2 ? " mid" : " low"}">${s.p}/5</span><span>${t.length} merkkiä${s.tips.length ? " · " + esc(s.tips.join(", ")) : ""}</span>${i === 0 ? "<b>Käytössä</b>" : `<button type="button" data-alt-use="${esc(t)}">Käytä</button><button type="button" data-alt-del="${esc(t)}">✕</button>`}</div></div>`; }).join("") : '<p class="hint2" style="margin:0">Kirjoita ensin otsikko.</p>';
+}
+$("altAdd").addEventListener("click", () => { const v = $("altIn").value.trim(); if (!v) return; doc.alts = [...new Set([...(doc.alts || []), v])]; $("altIn").value = ""; persist(); renderAlts(); });
+$("altIn").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("altAdd").click(); } });
+$("alts").addEventListener("click", (e) => {
+  const use = e.target.closest("[data-alt-use]"), del = e.target.closest("[data-alt-del]");
+  if (use) { const old = doc.fields.title; doc.alts = [...new Set([...(doc.alts || []).filter((a) => a !== use.dataset.altUse), old].filter(Boolean))]; doc.fields.title = use.dataset.altUse; $("title").value = doc.fields.title; grow($("title")); changed(); }
+  if (del) { doc.alts = (doc.alts || []).filter((a) => a !== del.dataset.altDel); persist(); renderAlts(); }
+});
+
+// ---------- Social captions ----------
+function renderCaptions() {
+  const t = doc.fields.title.trim(), ex = doc.fields.excerpt.trim();
+  if (!t) { $("capts").innerHTML = '<p class="hint2" style="margin:0">Kirjoita ensin otsikko.</p>'; $("tags").textContent = ""; return; }
+  const quote = (doc.body.split("\n").find((l) => /^\s*[–-]\s.{15,}/.test(l)) || "").replace(/^\s*[–-]\s*/, "").replace(/[*_]/g, "").replace(/,\s*(?:\p{Ll}+\s+)?(?:kertoi|kertoo|sanoi|sanoo|toteaa|totesi|jatkaa|jatkoi|muistuttaa|huomauttaa|kirjoitti|kirjoittaa)\b.*$/u, "").trim();
+  const first = (doc.fields.aiheet || "").split(",")[0].trim();
+  const caps = [
+    `${t} 👀\nKoko juttu: hulina.net`,
+    ex ? `${ex}\nLue lisää: hulina.net` : "",
+    quote ? `”${quote.replace(/[.”"]+$/, "")}” 😳\n${t}\nhulina.net` : "",
+    `${t}\nMitä mieltä sinä olet? Kerro kommenteissa 👇`,
+    `${first ? first + ": " : ""}${t.length > 70 ? t.slice(0, 68).replace(/\s\S*$/, "") + "…" : t} 🔥 hulina.net`,
+  ].filter(Boolean);
+  $("capts").innerHTML = caps.map((c) => `<div class="capt">${esc(c)}<div class="capt__row"><span>${c.length} merkkiä</span><button type="button" data-copytext="${esc(c)}">Kopioi</button></div></div>`).join("");
+  const tags = [...new Set((doc.fields.aiheet || "").split(",").map((x) => x.trim().toLowerCase().replace(/[^\p{L}\d]+/gu, "")).filter(Boolean).concat(["hulina", "uutiset", "kohu"]))].map((x) => "#" + x).join(" ");
+  $("tags").innerHTML = `${esc(tags)}<div class="capt__row"><span>Lisää saatetekstin perään</span><button type="button" data-copytext="${esc(tags)}">Kopioi</button></div>`;
+}
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-copytext]"); if (!b) return;
+  const txt = b.dataset.copytext;
+  try { await navigator.clipboard.writeText(txt); b.textContent = "Kopioitu ✓"; setTimeout(() => (b.textContent = "Kopioi"), 1500); } catch { prompt("Kopioi:", txt); }
 });
 
 // ---------- Views ----------
