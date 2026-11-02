@@ -1,47 +1,49 @@
 ---
-title: "Mea Ainasoja pakeni keilahallissa – lopuksi Pinja Ruusutossu sai Red Bullit niskaansa"
-excerpt: "Bämät matkoilla -draama jatkuu. Ruusutossu jahtasi sarjakumppaniaan kameran kanssa, ja Ainasoja vastasi energiajuomalla."
+title: "Pinja Ruusutossu lähti Mea Ainasojan perään – sai Red Bullit päälleen"
+excerpt: "Bämät matkoilla -kaksikon välit ovat olleet viikonlopusta asti tulehtuneet. Maanantaina ne kohtasivat taas, ja kamera kävi koko ajan."
 date: "2026-11-02T20:30:00.000Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
 image: "/assets/img/uploads/ruusutossu-mea-keilahalli.jpg"
-imageAlt: "Mea Ainasoja ja Pinja Ruusutossu keilahallissa"
+imageAlt: "Mea Ainasoja ja Pinja Ruusutossu TikTok-videolla"
 imageCredit: "Kuvakaappaus: TikTok / @klippint"
 lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | https://gekkonen.net/jethro-rostedt-umpikannissa-suorassa-lahetyksessa-pinja-ruusutossu-lahti-latkimaan-kanninen-vanha-vtun-haiseva-laja/"
 draft: true
 ---
 
-Bämät matkoilla -draama sai maanantaina jatkoa keilahallissa. **Pinja Ruusutossu** lähti kamera kädessä **Mea Ainasojan** perään, ja Ainasoja otti jalat alleen.
+Mea Ainasoja ei halunnut jutella. Pinja Ruusutossu halusi.
 
-– Sori, sori, sori. Hän juoksee pakoon, Ruusutossu selittää kameralle.
+TikTokissa maanantaina levinnyt video alkaa siitä, kun Ainasoja lähtee kävelemään pois. Ruusutossu kuvaa puhelimellaan ja lähtee perään.
 
-Ruusutossu ei luovuttanut. Hän sai Ainasojan kiinni ja ryhtyi leikkimään toimittajaa.
+– Sori, sori, sori. Hän juoksee pakoon, hän selittää kameralle.
 
-– Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä, hän kysyi.
+Hetken päästä Ruusutossu on taas Ainasojan vieressä ja vetää päälle toimittajan roolin.
 
-Vastaus tuli nesteenä. Ainasoja heitti Red Bullin Ruusutossun päälle.
+– Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
 
-– Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu totesi.
+Ainasoja ei vastaa sanoilla. Red Bull lentää, ja Ruusutossu saa sen päälleen.
 
-Ruusutossu otti suihkun vastaan naureskellen. Video leviää nyt TikTokissa.
+– Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu toteaa.
 
-## Jethro sekoili, Pinja lähti
+Hän ei vaikuta suuttuneelta. Klippi loppuu siihen, että Ruusutossu nauraa kameralle.
 
-Kaksikon tiet erosivat sarjassa jo viikonloppuna. Bämät matkoilla on Kickissä striimattava sarja, jota kuvataan Etelä-Ranskan Nizzassa. Alun perin siinä seikkailivat Ruusutossu ja Ainasoja.
+## Viikonloppu, joka hajotti porukan
 
-Lauantaina mukaan tuli **Jethro Rostedt**, ja ilta lähti käsistä. Rostedt humaltui lähetyksessä silminnähden, nappasi terassilta juomalasin mukaansa autoon ja alkoi kännissä puhua törkeyksiä. Lopulta puheet menivät peppureikäjuttuihin asti.
+Taustalla on Bämät matkoilla, Kickissä striimattava sarja, jota on kuvattu Etelä-Ranskan Nizzassa. Alun perin matkassa olivat Ruusutossu ja Ainasoja kahdestaan.
 
-Siinä vaiheessa Ruusutossu sai tarpeekseen ja lähti. Myöhemmin hän ei säästellyt sanojaan.
+Lauantaina mukaan tuli **Jethro Rostedt**, eikä ilta mennyt kenenkään suunnitelmien mukaan. Rostedt joi, ja se näkyi. Hän nappasi terassilta juomalasin mukaansa autoon, ja mitä pidemmälle ilta eteni, sitä rivommaksi puhe muuttui. Kännissä Rostedt päätyi lopulta puhumaan peppureiästä.
 
-– Oli kyllä niin ala-arvoista seuraa ja haisi vittu niin pahalle. Kyllä mullakin on rajat, mä en ala olemaan tommosessa seurassa, Ruusutossu sanoi.
+Ruusutossu ei jäänyt kuuntelemaan. Hän lähti, ja myöhemmin hän kertoi suoraan, mitä illasta ajatteli.
 
-Hän kuvaili Rostedtia ”känniseksi vanhaksi vitun haisevaksi läjäksi”.
+– Oli kyllä niin ala-arvoista seuraa ja haisi vittu niin pahalle. Kyllä mullakin on rajat, mä en ala olemaan tommosessa seurassa.
 
-Ainasoja ja Rostedt jatkoivat sarjaa kahdestaan.
+Rostedtia hän kuvaili känniseksi, vanhaksi ja ”vitun haisevaksi läjäksi”.
 
-## Mealle uusi kaveri
+Ainasoja ei lähtenyt. Hän ja Rostedt jatkoivat sarjaa kahdestaan.
 
-Sunnuntaina Ainasoja sai seuraa. Hänen kaverikseen sarjaan saapui TikTokista tunnettu **slaybabyangel**.
+## Mea sai uuden parin
 
-Bämät matkoilla jatkuu 8. marraskuuta asti.
+Sunnuntaina Ainasojan seuraksi saapui TikTokista tuttu **slaybabyangel**.
+
+Sarjaa on jäljellä vajaa viikko. Bämät matkoilla jatkuu 8. marraskuuta asti.
