@@ -24,11 +24,11 @@ Ruusutossu sai Ainasojan kiinni ja ryhtyi haastattelijaksi. Hän käveli Ainasoj
 
 – Mitä sinulle kuuluu? Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
 
-Ainasoja ei innostunut. Hän mumisi jotain, mistä ei lähetyksessä saa selvää, kurkotti tiskiltä Red Bull -tölkin ja heitti juomat Ruusutossun päälle.
+Ainasoja ei innostunut. Hän mumisi jotain, mistä ei lähetyksessä saa selvää, ja heitti sitten Red Bullit Ruusutossun päälle.
 
 – Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu totesi.
 
-Märkä Ruusutossu ei hätkähtänyt. Hän hymyili kameralle, ja lähetys jatkui. Pätkä striimistä leviää nyt TikTokissa.
+Märkä Ruusutossu ei hätkähtänyt. Hän hymyili kameralle. Pätkä striimistä leviää nyt TikTokissa.
 
 ## Viikonloppu, joka hajotti porukan
 
