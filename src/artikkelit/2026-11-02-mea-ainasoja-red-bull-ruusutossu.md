@@ -1,6 +1,6 @@
 ---
 title: "Pinja Ruusutossu lähti Mea Ainasojan perään – sai Red Bullit päälleen"
-excerpt: "Bämät matkoilla -kaksikon välit ovat olleet viikonlopusta asti tulehtuneet. Maanantaina ne kohtasivat taas, ja kamera kävi koko ajan."
+excerpt: "Bämät matkoilla -porukka hajosi viikonloppuna. Maanantaina Ruusutossu ja Ainasoja kohtasivat taas, ja kamera kävi koko ajan."
 date: "2026-11-02T20:30:00.000Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
