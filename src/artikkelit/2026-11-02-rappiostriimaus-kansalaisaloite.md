@@ -1,7 +1,7 @@
 ---
 title: "Rappiostriimauksesta halutaan rikos – mukana aloitteessa kuolleen striimaajan isä"
 excerpt: "Kansalaisaloite ja kansanedustajan aloite vaativat Suomeen Puolan mallia. Rikosoikeuden asiantuntija toppuuttelee."
-date: "2026-10-30T05:40:00.000Z"
+date: "2026-11-02T08:30:00.000Z"
 category: "kohut"
 aiheet: "Rappiostriimaus, Kick"
 author: "Toimitus"
@@ -11,6 +11,7 @@ imageCredit: ""
 lahteet: "Gekkonen | https://gekkonen.net/rappiostriimaaja-iida-sofian-kuoleman-jalkeen-kova-vaatimus-oma-isa-mukana/ ; Yle | https://yle.fi/a/74-20253162 ; MTV Uutiset | https://www.mtvuutiset.fi/artikkeli/rappiostriimaus-kiellettava-lailla-kansanedustajalta-aloite/9411018"
 draft: true
 ---
+
 
 Rappiostriimauksesta halutaan rikos, josta voisi joutua vankilaan. Asiasta on nyt tehty kansalaisaloite, ja yksi sen viidestä vastuuhenkilöstä on **Tommi Heimonen**.
 

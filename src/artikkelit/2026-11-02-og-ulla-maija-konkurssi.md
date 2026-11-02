@@ -1,7 +1,7 @@
 ---
-title: "Verottaja hakee OG Ulla-Maijan yhtiötä konkurssiin – edessä matsi Esko Eerikäistä vastaan"
-excerpt: "Räppärin yhtiöllä on veroja maksamatta yli 71 000 euroa. Joulukuussa hän astuu kehään Vaasassa."
-date: "2026-10-30T06:15:00.000Z"
+title: "Verottaja hakee OG Ulla-Maijan yhtiötä konkurssiin – joulukuussa edessä matsi Esko Eerikäistä vastaan"
+excerpt: "Räppärin yhtiöllä on veroja maksamatta yli 71 000 euroa. Ottelu Vaasassa lähestyy."
+date: "2026-11-02T06:00:00.000Z"
 category: "kohut"
 aiheet: "OG Ulla-Maija, Esko Eerikäinen"
 author: "Toimitus"
@@ -11,6 +11,7 @@ imageCredit: ""
 lahteet: "Seiska | https://www.seiska.fi/vain-seiskassa/kohurappari-og-ulla-maijaa-haetaan-konkurssiin/2303562 ; Uuno | https://www.uuno.fi/esko-eerikainen-vastaan-og-ulla-maija-kertoimet-paljastavat-selvan-suosikin/"
 draft: true
 ---
+
 
 Kohuräppäri **OG Ulla-Maijan** (oik. Tatu Varvikko) yhtiötä haetaan konkurssiin. Verohallinto jätti hakemuksen Pohjois-Savon käräjäoikeuteen 16. lokakuuta.
 
