@@ -14,15 +14,19 @@ draft: true
 
 Mea Ainasoja ei halunnut jutella. Pinja Ruusutossu halusi.
 
-TikTokissa maanantaina levinnyt video alkaa siitä, kun Ainasoja lähtee kävelemään pois. Ruusutossu kuvaa puhelimellaan ja lähtee perään.
+TikTokissa maanantaina levinnyt video alkaa siitä, kun Ainasoja lähtee pois. Ruusutossu kuvaa puhelimellaan ja lähtee perään. Ihmisiä on tiellä, ja Ruusutossu pujottelee heidän ohitseen.
 
-– Sori, sori, sori. Hän juoksee pakoon, hän selittää kameralle.
+– Sori, sori, sori.
+
+Kameralle hän kertoo, mitä on tekeillä.
+
+– Hän juoksee pakoon.
 
 Hetken päästä Ruusutossu on taas Ainasojan vieressä ja vetää päälle toimittajan roolin.
 
 – Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
 
-Ainasoja ei vastaa sanoilla. Red Bull lentää, ja Ruusutossu saa sen päälleen.
+Ainasoja mumisee jotain, mistä ei videolla saa selvää. Sitten Red Bull lentää, ja Ruusutossu saa sen päälleen.
 
 – Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu toteaa.
 
