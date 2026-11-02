@@ -12,7 +12,7 @@ lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | htt
 draft: true
 ---
 
-Pinja Ruusutossun maanantainen Kick-striimi sai märän lopun.
+Pinja Ruusutossun maanantainen Kick-striimi sai märän käänteen.
 
 Ruusutossu lähetti suoraa lähetystä puhelimellaan, kun **Mea Ainasoja** lähti hänen luotaan. Ruusutossu lähti perään. Matkalla oli ihmisiä, ja hän pujotteli heidän välistään.
 
