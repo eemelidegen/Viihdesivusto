@@ -1,6 +1,6 @@
 ---
-title: "Jethro Rostedt sekoili humalassa Bämät matkoilla -striimissä – Pinja Ruusutossu lähti kesken"
-excerpt: "Nizzan reissu sai kiusallisen käänteen. Ruusutossu ei palannut lähetykseen koko iltana."
+title: "Bämät matkoilla -striimi kärjistyi Nizzassa – Jethro Rostedt humaltui, Pinja Ruusutossu käveli pois"
+excerpt: "Lauantain lähetys muuttui illan mittaan yhä kiusallisemmaksi. Lopulta toinen juontajista jätti seurueen eikä palannut."
 date: "2026-11-02T08:00:00.000Z"
 category: "kohut"
 aiheet: "Kick, Bämät matkoilla, Jethro Rostedt"
@@ -12,18 +12,22 @@ lahteet: "Como | https://como.fi/uutiset/jethro-rostedt-umpihumalassa-suorassa-l
 draft: true
 ---
 
-Ranskan Nizzassa striimattava Bämät matkoilla sai lauantaina kiusallisen käänteen. **Jethro ”Jeti” Rostedt** joi lähetyksen aikana itsensä niin humalaan, että toinen juontajista lähti paikalta kesken kaiken.
+Ranskan Rivieralla striimattava Bämät matkoilla sai lauantaina käänteen, jota tuskin kukaan oli käsikirjoittanut.
 
-Kick-kanavalla pyörivä tosi-tv-striimi seuraa juontajia **Mea Ainasojaa** ja **Pinja Ruusutossua**, jotka suorittavat Nizzassa haasteita kuvausryhmän seurassa. Rostedt on mukana matkalla.
+**Jethro ”Jeti” Rostedt** humaltui lähetyksen aikana niin pahasti, että juontaja **Pinja Ruusutossu** jätti seurueen kesken illan. Hän ei palannut lähetykseen enää sinä iltana.
 
-Illan edetessä Rostedt vaikutti yhä humalaisemmalta. Hän muun muassa kantoi terassilta juomalasin mukanaan seurueen autoon.
+## Haasteita kameroiden edessä
 
-## Ruusutossu lähti
+Bämät matkoilla on Kickissä ympäri vuorokauden pyörivä tosi-tv-striimi. Juontajat Ruusutossu ja **Mea Ainasoja** matkasivat lokakuun lopussa Nizzaan, jossa he suorittavat kuvausryhmän seurassa erilaisia haasteita. Rostedt on mukana matkalla.
 
-Kun Rostedt oli hetken poissa, Ainasoja ja Ruusutossu puivat lähetyksessä, kuinka nopeasti tämä oli humaltunut. He sanoivat asian myös hänelle suoraan.
+Lauantain lähetyksessä Rostedtin humala näkyi yhä selvemmin illan edetessä. Hän muun muassa otti terassilta juomalasin mukaansa seurueen autoon.
 
-Myöhemmin Rostedtin puheet muuttuivat yhä rivommiksi. Lopulta Ruusutossu ei enää jaksanut kuunnella, vaan poistui seurueen luota. Hän ei palannut lähetykseen koko iltana.
+Kun Rostedt oli hetken poissa kuvasta, Ruusutossu ja Ainasoja puhuivat lähetyksessä siitä, kuinka nopeasti tämä oli humaltunut. Myöhemmin he sanoivat asian myös hänelle suoraan.
 
-Illan haaste jäi Rostedtin ja Ainasojan suoritettavaksi.
+## Rajat tulivat vastaan
 
-Bämät matkoilla striimaa Nizzasta 8. marraskuuta asti.
+Puheet eivät kuitenkaan rauhoittuneet. Rostedtin juttu muuttui illan mittaan yhä rivommaksi, ja lopulta Ruusutossu päätti poistua.
+
+Illan haaste jäi Rostedtin ja Ainasojan suoritettavaksi kaksin.
+
+Matkan striimaus jatkuu Nizzasta 8. marraskuuta asti.
