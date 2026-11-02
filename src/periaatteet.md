@@ -1,34 +1,40 @@
 ---
 layout: layouts/base.njk
 title: Toimituksen periaatteet
-description: "Miten Hulina tekee juttunsa: lähteet, kuvat, yksityisyys ja korjaukset."
+description: "Mitä Hulina lupaa lukijoilleen: tarkistettua tietoa, reilua kohtelua, oikeat kuvat ja avoimet korjaukset."
 ---
 <div class="prose page">
 
 # Toimituksen periaatteet
 
-Hulina kirjoittaa viihteestä, mutta tekee sen tosissaan. Näillä periaatteilla työskentelemme.
+Hulina kertoo kohuista, julkkiksista ja tosi-tv:stä. Aiheet voivat olla kevyitä, mutta tekemisen tapa ei ole. Tällä sivulla kerromme, mitä lupaamme lukijoillemme.
 
-## Tieto perustuu lähteisiin
+## Totta vai huhua?
 
-Jutut perustuvat tarkistettavaan tietoon: haastatteluihin, julkisiin somepäivityksiin, tv-ohjelmiin, tiedotteisiin ja muiden medioiden uutisiin. Lähteet merkitään jutun loppuun. Toisen median uutisesta kirjoitettu juttu tehdään omin sanoin.
+Kirjoitamme vain siitä, minkä voimme tarkistaa. Tieto tulee esimerkiksi haastatteluista, julkisista somepäivityksistä, tv-ohjelmista, tiedotteista ja muiden medioiden uutisista. Kun juttu pohjaa toisen median uutiseen, kirjoitamme sen omin sanoin ja kerromme lähteen jutun lopussa.
 
-Emme keksi tapahtumia emmekä esitä huhua totena. Jos kyse on väitteestä, kerromme kenen.
+Huhua emme esitä totena. Jos joku väittää jotain, kerromme, kuka väittää.
 
-## Ihminen ennen otsikkoa
+## Ihmisiä, ei pelkkiä otsikoita
 
-Rikosuutisissa emme nimeä epäiltyjä ilman painavaa syytä. Terveydestä, perhe-elämästä tai seksuaalisuudesta kirjoitamme vain, jos henkilö on itse kertonut asiasta julkisesti. Yksityishenkilöiden tietoja emme julkaise ilman lupaa.
+Julkisuuden henkilöistäkin kirjoitetaan ihmisinä. Terveydestä, perhe-elämästä ja seksuaalisuudesta kerromme vain, jos ihminen on itse puhunut asiasta julkisesti.
+
+Rikoksesta epäiltyä emme nimeä ilman painavaa syytä, ja muistamme, että syyllisyydestä päättää tuomioistuin. Yksityishenkilöiden tietoja emme julkaise ilman lupaa, ja kuvissa näkyvien sivullisten kasvot sumennamme.
+
+Kun aihe on raskas, kuten itsetuhoisuus, kerromme jutun lopussa, mistä saa apua.
 
 ## Kuvat
 
-Käytämme vain kuvia, joihin meillä on oikeus: tiedotekuvia, lisensoituja ja vapaasti käytettäviä kuvia sekä omia kuviamme. Kuvaaja tai lähde kerrotaan kuvatekstissä.
+Käytämme kuvia, joihin meillä on oikeus: tiedotekuvia, lisensoituja ja vapaasti käytettäviä kuvia sekä omia kuviamme. Kuvaaja tai lähde näkyy kuvatekstissä.
 
-## Virheet korjataan
+## Kun teemme virheen
 
-Virhe korjataan heti, kun se huomataan, ja olennaisesta korjauksesta kerrotaan jutussa. Virheestä voi ilmoittaa [yhteydenottolomakkeella](/ota-yhteytta/).
+Virheitä sattuu. Kun huomaamme sellaisen, korjaamme sen heti. Jos virhe on olennainen, kerromme korjauksesta jutussa.
 
-## Mainonta
+Huomasitko virheen? Kerro siitä [yhteydenottolomakkeella](/ota-yhteytta/). Luemme jokaisen viestin.
 
-Mainokset eivät vaikuta juttujen sisältöön. Kaupallinen yhteistyö merkitään aina näkyvästi.
+## Mainokset erikseen
+
+Mainostajat eivät vaikuta siihen, mitä kirjoitamme. Jos juttu on tehty kaupallisessa yhteistyössä, se kerrotaan selvästi.
 
 </div>
