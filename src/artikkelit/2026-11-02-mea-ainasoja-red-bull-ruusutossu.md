@@ -1,36 +1,34 @@
 ---
-title: "Pinja Ruusutossu lähti Mea Ainasojan perään – sai Red Bullit päälleen"
-excerpt: "Bämät matkoilla -porukka hajosi viikonloppuna. Maanantaina Ruusutossu ja Ainasoja kohtasivat taas, ja kamera kävi koko ajan."
+title: "Pinja Ruusutossu jahtasi Mea Ainasojaa suorassa lähetyksessä – sai Red Bullit päälleen"
+excerpt: "Ruusutossu lähti striimissään Ainasojan perään ja yritti haastatella tätä. Vastaus tuli energiajuomana."
 date: "2026-11-02T20:30:00.000Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
 image: "/assets/img/uploads/ruusutossu-mea-keilahalli.jpg"
-imageAlt: "Mea Ainasoja ja Pinja Ruusutossu TikTok-videolla"
-imageCredit: "Kuvakaappaus: TikTok / @klippint"
+imageAlt: "Mea Ainasoja ja Pinja Ruusutossu Ruusutossun Kick-striimissä"
+imageCredit: "Kuvakaappaus: Pinja Ruusutossun Kick-striimi / TikTok @klippint"
 lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | https://gekkonen.net/jethro-rostedt-umpikannissa-suorassa-lahetyksessa-pinja-ruusutossu-lahti-latkimaan-kanninen-vanha-vtun-haiseva-laja/"
 draft: true
 ---
 
-Mea Ainasoja ei halunnut jutella. Pinja Ruusutossu halusi.
+Pinja Ruusutossun Kick-striimissä nähtiin maanantaina takaa-ajo, joka päättyi energiajuomaan.
 
-TikTokissa maanantaina levinnyt video alkaa siitä, kun Ainasoja lähtee pois. Ruusutossu kuvaa puhelimellaan ja lähtee perään. Ihmisiä on tiellä, ja Ruusutossu pujottelee heidän ohitseen.
+Ruusutossu lähetti suoraa lähetystä puhelimellaan, kun **Mea Ainasoja** lähti hänen luotaan. Ruusutossu lähti perään. Matkalla oli ihmisiä, ja hän pujotteli heidän välistään.
 
-– Sori, sori, sori.
+– Sori, sori, sori. Hän juoksee pakoon, Ruusutossu sanoi.
 
-Kameralle hän kertoo, mitä on tekeillä.
+– Mä luulen, että sieltä tulee hermoromahdus.
 
-– Hän juoksee pakoon.
+Ruusutossu sai Ainasojan kiinni ja ryhtyi haastattelijaksi. Hän käveli Ainasojan vierellä ja piti kameraa niin, että molemmat näkyivät kuvassa.
 
-Hetken päästä Ruusutossu on taas Ainasojan vieressä ja vetää päälle toimittajan roolin.
+– Mitä sinulle kuuluu? Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
 
-– Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
+Ainasoja ei innostunut. Hän mumisi jotain, mistä ei lähetyksessä saa selvää, kurkotti tiskiltä Red Bull -tölkin ja heitti juomat Ruusutossun päälle.
 
-Ainasoja mumisee jotain, mistä ei videolla saa selvää. Sitten Red Bull lentää, ja Ruusutossu saa sen päälleen.
+– Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu totesi.
 
-– Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu toteaa.
-
-Hän ei vaikuta suuttuneelta. Klippi loppuu siihen, että Ruusutossu nauraa kameralle.
+Märkä Ruusutossu ei hätkähtänyt. Hän hymyili kameralle, ja lähetys jatkui. Pätkä striimistä leviää nyt TikTokissa.
 
 ## Viikonloppu, joka hajotti porukan
 
