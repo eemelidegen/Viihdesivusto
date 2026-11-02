@@ -1,15 +1,13 @@
 ---
 title: "Juhana Tegelbergin risteily päättyi jo satamaan – kertoo saaneensa lyönnin kasvoihin"
 excerpt: "Juhana Tegelberg ei päässyt koskaan laivaan. Hänen mukaansa piikittely alkoi heti satamassa, ja kotimatka Espooseen taittui junalla."
-date: "2026-11-02T15:00:00.000Z"
-category: "kohut"
+date: "2026-11-02T06:31:21.657Z"
+category: "julkkikset"
 aiheet: "Juhana Tegelberg, Rappiostriimaus"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
+image: "/assets/img/uploads/juhana-tegelberg-risteily-satama-47c1c5.jpg"
+imageCredit: "Kick: Pact"
 lahteet: "Seiska | https://www.seiska.fi/kotimaa/katastrofipommi-striimaajien-bileristeilylla-nyt-puhuu-sami-kieksi-turvallisuusuhka/2309065"
-draft: true
 ---
 
 **Juhana Tegelbergin**, 40, piti lähteä Turusta Bailupaatin risteilylle, jota oli mainostettu myös striimaajilla. Matka jäi kuitenkin lyhyeksi. Tegelberg ei päässyt laivaan asti, vaan reissu loppui jo satamassa.
