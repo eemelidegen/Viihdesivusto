@@ -5,9 +5,10 @@ date: "2026-11-02T08:00:00.000Z"
 category: "kohut"
 aiheet: "Kick, Bämät matkoilla, Jethro Rostedt"
 author: "Toimitus"
-image: ""
-imageAlt: ""
-imageCredit: ""
+image: "/assets/img/uploads/jethro-rostedt-bamat-matkoilla.jpg"
+imageAlt: "Jethro Rostedt laulaa aurinkolasit päässä pakettiauton takapenkillä"
+imageCredit: "Kick / Bämät matkoilla"
+imageFocus: "35% 45%"
 lahteet: "Como | https://como.fi/uutiset/jethro-rostedt-umpihumalassa-suorassa-lahetyksessa-julkkisnainen-pakeni-paikalta-peppureikajuttujen-jalkeen ; Kick | https://kick.com/bamatmatkoilla"
 draft: true
 ---
