@@ -32,4 +32,6 @@ Ruusutossu ei videon perusteella ottanut tilannetta kovin raskaasti. Klippi pä�
 
 Ruusutossu ja Ainasoja tunnetaan Bämät matkoilla -striimisarjasta, jota on lähetetty Kickissä. Sarjaa kuvattiin Etelä-Ranskan Nizzassa.
 
-Sarja on ollut otsikoissa aiemminkin. Hiljattain Ruusutossu poistui kesken lähetyksen, kun mukana ollut **Jethro Rostedt** vaikutti yhä humalaisemmalta. Ainasoja ja Rostedt jatkoivat lähetystä kahdestaan.
+Sarjassa on kuohunut ennenkin. Ruusutossu lähti kesken lähetyksen, kun mukana ollut **Jethro Rostedt** humaltui ja alkoi puhua törkeyksiä. Ainasoja ja Rostedt jatkoivat sarjaa kahdestaan.
+
+Sunnuntaina porukkaan tuli uusi kasvo. Sarjaan saapui TikTokista tunnettu **slaybabyangel**.
