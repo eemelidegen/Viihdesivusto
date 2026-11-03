@@ -2,6 +2,7 @@
 title: "Mea Ainasojan pinna paloi livessä: ”Voitko painua v*ttuun” – Video!"
 excerpt: "Mea Ainasoja suuttui Pinja Ruusutossulle suorassa lähetyksessä, heitti tämän päälle Red Bullia ja juoksi karkuun."
 date: "2026-11-03T07:37:53.702Z"
+paivitetty: "2026-11-03T07:38:05.653Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
