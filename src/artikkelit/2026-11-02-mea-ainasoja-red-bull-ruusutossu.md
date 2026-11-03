@@ -2,14 +2,13 @@
 title: "Mea Ainasojan pinna paloi livessä: ”Voitko painua v*ttuun” – Video!"
 excerpt: "Mea Ainasoja suuttui Pinja Ruusutossulle suorassa lähetyksessä, heitti tämän päälle Red Bullia ja juoksi karkuun."
 date: "2026-11-03T07:37:53.702Z"
-paivitetty: "2026-11-03T07:38:05.653Z"
+paivitetty: "2026-11-03T07:47:55.697Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
-image: "/assets/img/uploads/mea-ainasoja-red-bull-ruusutossu-fbde0f.jpg"
-imageAlt: "Mea Ainasoja ja Pinja Ruusutossu Ruusutossun Kick-striimissä"
-imageCredit: "Kick: ruusutossu"
-lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | https://gekkonen.net/jethro-rostedt-umpikannissa-suorassa-lahetyksessa-pinja-ruusutossu-lahti-latkimaan-kanninen-vanha-vtun-haiseva-laja/"
+image: "/assets/img/uploads/mea-ainasoja-red-bull-ruusutossu-4d388a.jpg"
+imageAlt: "Mea Ainasoja"
+imageCredit: "Kick: bamatmatkoilla"
 ---
 
 Mea Ainasoja ei halunnut tulla haastatelluksi. Sen huomasivat kaikki, jotka seurasivat Pinja Ruusutossun Kick-livelähetystä maanantaina.
