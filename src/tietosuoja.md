@@ -1,49 +1,99 @@
 ---
 layout: layouts/base.njk
 title: Tietosuojaseloste
-description: Miten Hulina käsittelee henkilötietoja.
+description: Mitä tietoja Hulina kerää, miksi ja kuinka kauan niitä säilytetään.
 ---
 <div class="prose page">
 
 # Tietosuojaseloste
 
-*Päivitetty 18.10.2026*
+*Päivitetty 3.11.2026*
 
-## Rekisterinpitäjä
+Haluamme, että Hulinaa voi lukea huoletta. Keräämme vain sen, mitä sivuston pyörittäminen oikeasti vaatii, emmekä myy tietoja kenellekään. Tältä sivulta näet, mitä tietoja käsittelemme, mihin niitä käytetään ja miten voit vaikuttaa niihin.
 
-{{ site.publisher }}, {{ site.url | replace("https://", "") }}<br>
-{% if site.email %}Yhteys tietosuoja-asioissa: [{{ site.email }}](mailto:{{ site.email }}){% else %}Yhteysosoite tietosuoja-asioihin lisätään tälle sivulle pian.{% endif %}
+## Kun luet juttuja
 
-## Mitä tietoja käsitellään ja miksi
+Sivuston lukeminen ei vaadi kirjautumista. Kun avaat sivun, palvelin käsittelee hetken teknisiä tietoja, kuten IP-osoitetta, selainta ja avattua osoitetta. Niitä tarvitaan, jotta sivu ylipäätään latautuu ja jotta sivusto pysyy suojassa hyökkäyksiltä.
 
-**Sivuston käyttö.** Kun luet sivustoa, palvelimelle tallentuu teknisiä tietoja, kuten IP-osoite, selain ja avattu sivu. Niitä käytetään vain sivuston toiminnan ja tietoturvan varmistamiseen. Peruste: oikeutettu etu.
+Laskemme myös, kuinka monta kertaa juttuja luetaan. Laskuriin tallentuu vain jutun nimi, päivämäärä ja lukukertojen määrä. Lukijasta siihen ei tallennu mitään.
 
-**Yhteydenotot.** Jos lähetät meille viestin, käsittelemme yhteystietojasi ja viestisi sisältöä asian hoitamiseksi. Peruste: oikeutettu etu ja journalistinen tarkoitus.
+Selaimesi muistaa, käytätkö vaaleaa vai tummaa teemaa. Tieto pysyy omalla laitteellasi.
 
-**Arvonnat.** Jos osallistut arvontaan, tallennamme ilmoittamasi some-käyttäjänimen ja sähköpostiosoitteen. Niitä käytetään vain arvonnan toteuttamiseen ja voittajan tavoittamiseen, ja ne poistetaan, kun palkinto on toimitettu. Voittajalta pyydetään lisäksi nimi ja postiosoite palkinnon lähettämistä varten. Peruste: suostumus ja arvonnan toteuttaminen.
+*Peruste: oikeutettu etu eli sivuston toiminta ja tietoturva.*
 
-**Käyttäjätili ja kommentit.** Jos luot tilin, tallennamme nimimerkkisi, salasanastasi tehdyn tiivisteen (itse salasanaa ei tallenneta), tilin luontiajan sekä kirjoittamasi kommentit ja niiden ajat. Kirjautuminen tallentaa selaimeesi välttämättömän evästeen, joka pitää sinut kirjautuneena enintään 60 päivää. Kommentit ja nimimerkkisi näkyvät kaikille sivuston lukijoille. Tietoja käytetään kommentoinnin mahdollistamiseen, kommenttien valvontaan ja väärinkäytösten estämiseen. Peruste: sopimus (käyttöehdot) ja oikeutettu etu. Voit poistaa tilisi ja kaikki kommenttisi milloin tahansa [Oma tili](/tili/) -sivulla.
+## Mainokset ja evästeet
 
-**Mainokset ja evästeet.** Sivuston mainokset näyttää Google (Google Ireland Ltd, AdSense). Kun avaat sivuston ensimmäistä kertaa, kysymme suostumustasi. Jos annat sen, Google voi käyttää evästeitä ja laitteesi tunnisteita mainosten valintaan, kohdentamiseen ja mittaamiseen. Jos et anna suostumusta, näytämme vain rajoitettuja mainoksia, joissa evästeitä käytetään ainoastaan välttämättömiin tarkoituksiin, kuten väärinkäytösten estämiseen. Peruste: suostumus. Voit muuttaa valintaasi milloin tahansa sivun alareunan Evästeasetukset-linkistä. Lisätietoa Googlen tietojenkäsittelystä: [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites).
+Hulinan mainokset tulevat Googlelta (Google Ireland Ltd, AdSense). Kun tulet sivustolle ensimmäistä kertaa, kysymme, saako Google käyttää evästeitä.
 
-**Upotetut videot ja somepostaukset.** Jutuissa olevat YouTube-, TikTok-, Instagram- ja X-sisällöt latautuvat vasta, kun painat niitä. Silloin kyseinen palvelu voi tallentaa evästeitä ja käsitellä tietojasi oman tietosuojakäytäntönsä mukaisesti.
+Jos hyväksyt, Google voi käyttää evästeitä ja laitteesi tunnisteita valitakseen ja mitatakseen mainoksia. Jos kieltäydyt, näet silti mainoksia, mutta niissä evästeitä käytetään vain välttämättömiin asioihin, kuten väärinkäytösten estämiseen.
 
-Selaimesi muistaa myös valitsemasi teeman (vaalea tai tumma). Tieto pysyy vain omalla laitteellasi.
+Voit muuttaa valintaasi milloin tahansa sivun alareunan Evästeasetukset-linkistä. Googlen omat periaatteet löytyvät osoitteesta [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites).
+
+*Peruste: suostumus.*
+
+## Upotetut videot ja somepostaukset
+
+Jutuissa voi olla YouTube-videoita sekä TikTok-, Instagram- ja X-julkaisuja. Ne latautuvat vasta, kun painat niitä. Siitä eteenpäin kyseinen palvelu voi asettaa omia evästeitään ja käsitellä tietojasi oman tietosuojakäytäntönsä mukaan.
+
+## Käyttäjätili ja kommentit
+
+Kommentointi vaatii tilin. Tilistä tallennamme nimimerkin, tilin luontiajan ja salasanastasi lasketun tiivisteen. Itse salasanaa emme tallenna, emmekä näe sitä missään vaiheessa.
+
+Kirjoittamasi kommentit tallentuvat aikaleimoineen, ja ne näkyvät nimimerkkisi kanssa kaikille lukijoille. Jos ilmoitat kommentin asiattomaksi, tallennamme tiedon ilmoituksesta, jotta voimme käsitellä sen.
+
+Kirjautuessasi selaimeesi tallentuu eväste, joka pitää sinut kirjautuneena enintään 60 päivää. Ilman sitä kirjautuminen ei toimisi.
+
+Voit poistaa tilisi ja kaikki kommenttisi itse [Oma tili](/tili/) -sivulla milloin tahansa.
+
+*Peruste: kommentoinnin käyttöehdot sekä oikeutettu etu eli keskustelun valvonta ja väärinkäytösten estäminen.*
+
+## Vinkit ja yhteydenotot
+
+Kun lähetät meille vinkin tai viestin, tallennamme viestin ja yhteystiedot, jos annat sellaiset. Yhteystietoja et ole pakko antaa. Käytämme niitä vain asian selvittämiseen ja tarvittaessa sinulle vastaamiseen.
+
+Emme kerro vinkkaajan tai yhteydenottajan henkilöllisyyttä kenellekään ilman lupaa.
+
+*Peruste: oikeutettu etu ja journalistinen tarkoitus.*
+
+## Arvonnat
+
+Arvontaan osallistuessasi tallennamme TikTok- ja Instagram-käyttäjänimesi sekä sähköpostiosoitteesi. Niitä käytetään vain arvonnan toteuttamiseen ja voittajan tavoittamiseen.
+
+Voittajalta pyydämme lisäksi nimen ja postiosoitteen, jotta palkinnon voi lähettää. Osallistujien tiedot poistetaan, kun palkinto on toimitettu.
+
+*Peruste: suostumus.*
+
+## Väärinkäytösten estäminen
+
+Lomakkeiden roskapostia torjutaan rajoittamalla, kuinka monta viestiä samasta yhteydestä voi lähettää. Tähän käytetään IP-osoitteesta laskettua tunnistetta, joka vaihtuu päivittäin. Itse IP-osoitetta ei tallenneta.
 
 ## Kuka tietoja käsittelee
 
-Emme myy tai luovuta tietoja eteenpäin. Sivuston palvelimista vastaa Cloudflare, Inc. ja mainoksista Google sekä sen mainoskumppanit, joiden luettelon näet suostumusikkunan kohdasta Muuta valintoja. Ne voivat käsitellä tietoja myös EU:n ulkopuolella. Siirrot on suojattu EU:n hyväksymillä menetelmillä (EU–U.S. Data Privacy Framework tai vakiosopimuslausekkeet).
+Emme myy tietoja emmekä luovuta niitä eteenpäin markkinointiin. Teknisesti tietoja käsittelevät palveluntarjoajamme:
 
-## Säilytys
+- **Cloudflare, Inc.** ylläpitää sivuston palvelimia ja tietokantaa.
+- **Google** ja sen mainoskumppanit vastaavat mainoksista. Kumppanit on lueteltu evästeikkunan kohdassa Muuta valintoja.
 
-Tekniset tiedot säilyvät enintään muutamia viikkoja. Mainosevästeiden säilytysajat kerrotaan suostumusikkunassa, ja voit poistaa evästeet myös selaimesi asetuksista. Viestit säilytetään niin kauan kuin asian käsittely vaatii. Tilin ja kommenttien tiedot säilyvät, kunnes poistat tilisi tai poistamme sen sääntörikkomuksen vuoksi.
+Osa tiedoista voi siirtyä EU:n ulkopuolelle, lähinnä Yhdysvaltoihin. Siirrot on suojattu EU:n hyväksymillä keinoilla, kuten EU–U.S. Data Privacy Framework -järjestelyllä tai komission vakiosopimuslausekkeilla.
+
+## Kuinka kauan tietoja säilytetään
+
+- **Tekniset lokitiedot:** enintään muutamia viikkoja.
+- **Mainosevästeet:** evästeikkunassa kerrotun ajan. Voit poistaa ne myös selaimesi asetuksista.
+- **Tili ja kommentit:** kunnes poistat tilisi tai poistamme sen sääntörikkomuksen vuoksi.
+- **Vinkit ja viestit:** niin kauan kuin asian hoitaminen vaatii.
+- **Arvontojen tiedot:** palkinnon toimittamiseen asti.
 
 ## Oikeutesi
 
-Voit pyytää nähdä tietosi, korjata tai poistaa ne, rajoittaa niiden käsittelyä tai vastustaa sitä. Vastaamme kuukauden kuluessa. Jos koet, että tietojasi käsitellään väärin, voit tehdä valituksen tietosuojavaltuutetulle ([tietosuoja.fi](https://tietosuoja.fi)).
+Sinulla on oikeus saada tietää, mitä tietoja sinusta on tallennettu. Voit myös pyytää niiden korjaamista tai poistamista, rajoittaa niiden käsittelyä tai vastustaa sitä. Jos käsittely perustuu suostumukseen, voit perua sen milloin tahansa.
+
+Lähetä pyyntö [yhteydenottolomakkeella](/ota-yhteytta/). Vastaamme viimeistään kuukauden kuluessa.
+
+Jos koet, että tietojasi on käsitelty väärin, voit tehdä valituksen tietosuojavaltuutetun toimistolle ([tietosuoja.fi](https://tietosuoja.fi)).
 
 ## Journalistinen toiminta
 
-{{ site.name }} on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan kaikkia tietosuojasääntöjä ei sovelleta journalistiseen työhön, joten esimerkiksi julkaistuja juttuja ei välttämättä poisteta pyynnöstä. Virheet korjataan aina. Emme kerro yhteydenottajan henkilöllisyyttä ilman lupaa.
+Hulina on journalistinen julkaisu. Tietosuojalain 27 §:n mukaan kaikkia tietosuojasääntöjä ei sovelleta journalistiseen työhön. Siksi julkaistuja juttuja ei välttämättä poisteta pelkästä pyynnöstä. Jos jutussa on virhe, korjaamme sen aina.
 
 </div>
