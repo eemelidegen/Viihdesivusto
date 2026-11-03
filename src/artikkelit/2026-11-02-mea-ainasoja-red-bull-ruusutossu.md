@@ -1,15 +1,14 @@
 ---
-title: "Mea Ainasoja räjähti livessä: ”Voitko painua v*ttuun” – Pinja Ruusutossu sai Red Bullit niskaansa"
-excerpt: "Ruusutossu leikki toimittajaa ja jahtasi Ainasojaa kameran kanssa. Ainasoja vastasi energiajuomalla – ja juoksi karkuun."
-date: "2026-11-02T20:30:00.000Z"
+title: "Mea Ainasojan pinna paloi livessä: ”Voitko painua v*ttuun” – Video!"
+excerpt: "Mea Ainasoja suuttui Pinja Ruusutossulle suorassa lähetyksessä, heitti tämän päälle Red Bullia ja juoksi karkuun."
+date: "2026-11-03T07:37:53.702Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
-image: "/assets/img/uploads/ruusutossu-mea-keilahalli.jpg"
+image: "/assets/img/uploads/mea-ainasoja-red-bull-ruusutossu-fbde0f.jpg"
 imageAlt: "Mea Ainasoja ja Pinja Ruusutossu Ruusutossun Kick-striimissä"
-imageCredit: "Kuvakaappaus: Pinja Ruusutossun Kick-striimi / TikTok @klippint"
+imageCredit: "Kick: ruusutossu"
 lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | https://gekkonen.net/jethro-rostedt-umpikannissa-suorassa-lahetyksessa-pinja-ruusutossu-lahti-latkimaan-kanninen-vanha-vtun-haiseva-laja/"
-draft: true
 ---
 
 Mea Ainasoja ei halunnut tulla haastatelluksi. Sen huomasivat kaikki, jotka seurasivat Pinja Ruusutossun Kick-livelähetystä maanantaina.
@@ -38,8 +37,11 @@ Ruusutossu jää paikalleen ja kommentoi tilannetta tyynesti kameralle.
 
 – Siellä hän kovasti juoksee.
 
+![](/assets/video/video-mw0dfmpk-t7vr.mp4 "")
+
 ## Kuohuva viikko
 
-Kaksikko tunnetaan Kickissä striimattavasta Bämät matkoilla -sarjasta. Sarjassa on kuohunut muutenkin. Viikonloppuna Ruusutossu lähti kesken lähetyksen, kun mukana ollut **Jethro Rostedt** humaltui ja alkoi puhua törkeyksiä. Ainasoja jatkoi sarjaa Rostedtin kanssa, ja sunnuntaina hänen seuraansa saapui TikTokista tuttu **slaybabyangel**.
+Sarjassa on kuohunut ennenkin. Viikonloppuna vieraillut **Jethro Rostedt** otti toisena iltanaan selvästi liikaa. Hän puhui törkeyksiä ja piikitteli Ruusutossua useaan otteeseen, mutta piti visusti Ainasojan puolta. Lopulta Ruusutossu sai tarpeekseen ja lähti kesken kaiken.
+Rostedt ja Ainasoja jäivät jatkamaan lähetystä kaksin, ja siihen Rostedtin vierailu jäi. Sunnuntaina Ruusutossun tilalle saapui TikTok-tähti **slaybabyangel**.
 
-Bämät matkoilla jatkuu 8. marraskuuta asti.
+Bämät Matkoilla jatkuu 8. marraskuuta asti.
