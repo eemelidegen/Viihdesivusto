@@ -2,6 +2,7 @@
 title: "Mea Ainasoja potkaisi Pinja Ruusutossua – nyt Ruusutossu kantaa mukanaan kuivashampoota"
 excerpt: "Ruusutossu kertoo pelkäävänsä Ainasojaa ja varautuvansa seuraavaan kohtaamiseen. Varusteeksi hän valitsi kuivashampoon, eikä valinta ole sattumaa."
 date: "2026-11-03T13:24:18.538Z"
+paivitetty: "2026-11-03T13:44:38.013Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
 author: "Toimitus"
@@ -29,6 +30,8 @@ Väline on kuivashampoo. Ruusutossu kertoo aikovansa suihkuttaa sitä Ainasojaa 
 
 Valinta on tuskin sattumaa. Ruusutossu ei sano asiaa suoraan, mutta piikki on selvästi osoitettu Ainasojan hiuksille.
 
+https://www.instagram.com/reel/DfR6bycsHG3/?obrf=MW5jbWc1cXNlazRkOQ==
+
 ## Kuohunut viikko
 
-Bämät Matkoilla on Kickissä striimattava sarja, jonka Ruusutossu ja Ainasoja aloittivat yhdessä. Ruusutossu on sittemmin jättänyt sarjan, ja hänen tilalleen tuli TikTokista tuttu slaybabyangel.
+Bämät Matkoilla on Kickissä striimattava sarja, jonka Ruusutossu ja Ainasoja aloittivat yhdessä. Ruusutossu on sittemmin jättänyt sarjan, ja hänen tilalleen tuli TikTokista tuttu **slaybabyangel**.
