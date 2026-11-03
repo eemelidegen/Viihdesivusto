@@ -1,6 +1,6 @@
 ---
-title: "Pinja Ruusutossu jahtasi Mea Ainasojaa suorassa lähetyksessä – sai Red Bullit päälleen"
-excerpt: "Ruusutossu lähti striimissään Ainasojan perään ja yritti haastatella tätä. Vastaus tuli energiajuomana."
+title: "Mea Ainasoja räjähti livessä: ”Voitko painua v*ttuun” – Pinja Ruusutossu sai Red Bullit niskaansa"
+excerpt: "Ruusutossu leikki toimittajaa ja jahtasi Ainasojaa kameran kanssa. Ainasoja vastasi energiajuomalla – ja juoksi karkuun."
 date: "2026-11-02T20:30:00.000Z"
 category: "kohut"
 aiheet: "Pinja Ruusutossu, Mea Ainasoja, Bämät matkoilla"
@@ -12,40 +12,34 @@ lahteet: "TikTok / @klippint | https://www.tiktok.com/@klippint ; Gekkonen | htt
 draft: true
 ---
 
-Pinja Ruusutossun maanantainen Kick-striimi sai märän käänteen.
+Mea Ainasoja ei halunnut tulla haastatelluksi. Sen huomasivat kaikki, jotka seurasivat Pinja Ruusutossun Kick-livelähetystä maanantaina.
 
-Ruusutossu lähetti suoraa lähetystä puhelimellaan, kun **Mea Ainasoja** lähti hänen luotaan. Ruusutossu lähti perään. Matkalla oli ihmisiä, ja hän pujotteli heidän välistään.
-
-– Sori, sori, sori. Hän juoksee pakoon, Ruusutossu sanoi.
+Lähetyksessä Ainasoja pinkoo Ruusutossua karkuun. Ruusutossu lähtee perään puhelin kädessä ja nauraa kameralle.
 
 – Mä luulen, että sieltä tulee hermoromahdus.
 
-Ruusutossu sai Ainasojan kiinni ja ryhtyi haastattelijaksi. Hän käveli Ainasojan vierellä ja piti kameraa niin, että molemmat näkyivät kuvassa.
+## ”Mitä sulle kuuluu?”
 
-– Mitä sinulle kuuluu? Mitä sinulle kuuluu? Sä oot kuitenkin Bämät matkoilla -sarjassa täällä.
+Kun Ruusutossu saa Ainasojan kiinni, hän ryhtyy toimittajaksi. Naurua on vaikea pidätellä.
 
-Ainasoja ei innostunut. Hän mumisi jotain, mistä ei lähetyksessä saa selvää, ja heitti sitten Red Bullit Ruusutossun päälle.
+– Mitä sulle kuuluu?
 
-– Nyt se drinkit meni tota haastattelijan päälle, Ruusutossu totesi.
+Ainasojaa ei naurata.
 
-Märkä Ruusutossu ei hätkähtänyt. Hän hymyili kameralle. Pätkä striimistä leviää nyt TikTokissa.
+– Voitko painua vittuun, hän sanoo vihaisesti.
 
-## Viikonloppu, joka hajotti porukan
+Ruusutossu ei anna periksi.
 
-Taustalla on Bämät matkoilla, Kickissä striimattava sarja, jota on kuvattu Etelä-Ranskan Nizzassa. Alun perin matkassa olivat Ruusutossu ja Ainasoja kahdestaan.
+– Mitä sulle kuuluu, sä oot Bämät matkoilla -sarjassa.
 
-Lauantaina mukaan tuli **Jethro Rostedt**, eikä ilta mennyt kenenkään suunnitelmien mukaan. Rostedt joi, ja se näkyi. Hän nappasi terassilta juomalasin mukaansa autoon, ja mitä pidemmälle ilta eteni, sitä rivommaksi puhe muuttui. Kännissä Rostedt päätyi lopulta puhumaan peppureiästä.
+Se oli liikaa. Ainasoja heittää Red Bullit Ruusutossun päälle ja lähtee juoksemaan.
 
-Ruusutossu ei jäänyt kuuntelemaan. Hän lähti, ja myöhemmin hän kertoi suoraan, mitä illasta ajatteli.
+Ruusutossu jää paikalleen ja kommentoi tilannetta tyynesti kameralle.
 
-– Oli kyllä niin ala-arvoista seuraa ja haisi vittu niin pahalle. Kyllä mullakin on rajat, mä en ala olemaan tommosessa seurassa.
+– Siellä hän kovasti juoksee.
 
-Rostedtia hän kuvaili känniseksi, vanhaksi ja ”vitun haisevaksi läjäksi”.
+## Kuohuva viikko
 
-Ainasoja ei lähtenyt. Hän ja Rostedt jatkoivat sarjaa kahdestaan.
+Kaksikko tunnetaan Kickissä striimattavasta Bämät matkoilla -sarjasta. Sarjassa on kuohunut muutenkin. Viikonloppuna Ruusutossu lähti kesken lähetyksen, kun mukana ollut **Jethro Rostedt** humaltui ja alkoi puhua törkeyksiä. Ainasoja jatkoi sarjaa Rostedtin kanssa, ja sunnuntaina hänen seuraansa saapui TikTokista tuttu **slaybabyangel**.
 
-## Mea sai uuden parin
-
-Sunnuntaina Ainasojan seuraksi saapui TikTokista tuttu **slaybabyangel**.
-
-Sarjaa on jäljellä vajaa viikko. Bämät matkoilla jatkuu 8. marraskuuta asti.
+Bämät matkoilla jatkuu 8. marraskuuta asti.
