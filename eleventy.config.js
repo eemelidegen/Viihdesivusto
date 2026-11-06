@@ -8,6 +8,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/admin");
   // ads.txt: tells ad networks which accounts may sell ads on this site (Google AdSense)
   eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
+  // Shared with functions/api/toimitus/uutisvahti.js: the news watch groups stories in the browser.
+  eleventyConfig.addPassthroughCopy({ "lib/uutisvahti.js": "admin/uutisvahti/uutisvahti.js" });
   eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
   eleventyConfig.addPassthroughCopy({ "src/_redirects": "_redirects" });
 

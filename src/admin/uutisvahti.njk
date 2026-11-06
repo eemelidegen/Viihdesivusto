@@ -1,0 +1,246 @@
+---
+permalink: /admin/uutisvahti/
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Uutisvahti – {{ site.name }}</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css?v={{ build.version }}">
+  <style>
+    [hidden] { display: none !important; }
+    body { background: var(--soft); }
+    .top { background: var(--plum); color: #fff; position: sticky; top: 0; z-index: 10; }
+    .top__bar { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .top .logo { margin-right: 0; color: #fff; }
+    .top .logo svg { height: 40px; }
+    .top nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .top nav a { color: #cfcdd4; font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; padding: 8px 10px; text-decoration: none; border-bottom: 3px solid transparent; }
+    .top nav a:hover { color: #fff; }
+    .top nav a[aria-current="page"] { color: var(--pink); border-bottom-color: var(--pink); }
+    .top nav.out { margin-left: auto; }
+    .wrap2 { max-width: 1100px; margin: 0 auto; padding: 22px 16px 80px; font-family: var(--font); }
+    h1 { margin: 0 0 4px; font: 700 34px/1.1 var(--headline); }
+    .sub { margin: 0 0 18px; color: var(--muted); }
+    .b { padding: 10px 14px 8px; border: 1.5px solid var(--line-strong); border-radius: 6px; background: #fff; color: var(--text); font: 700 15px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; cursor: pointer; text-decoration: none; display: inline-block; }
+    .b:hover { border-color: var(--text); }
+    .b--main { background: var(--plum); border-color: var(--plum); color: #fff; }
+    .b--sm { padding: 7px 10px 5px; font-size: 13px; }
+    .bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+    .bar input[type=search] { flex: 1 1 240px; padding: 10px 12px; border: 1.5px solid var(--line-strong); border-radius: 6px; font: 16px var(--font); background: #fff; }
+    .bar label { display: flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tabs button { border: 0; border-radius: 999px; padding: 8px 14px 7px; background: #fff; font: 700 15px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; cursor: pointer; color: var(--text); }
+    .tabs button[aria-pressed="true"] { background: var(--text); color: #fff; }
+    .tabs small { opacity: .6; margin-left: 4px; }
+    .list { display: grid; gap: 10px; }
+    .story { background: #fff; border-radius: 10px; padding: 14px 16px; border-left: 5px solid var(--line); }
+    .story[data-a="striimaajat"] { border-left-color: #8a3ffc; }
+    .story[data-a="tositv"] { border-left-color: #0f9d58; }
+    .story[data-a="kohut"] { border-left-color: #d4145a; }
+    .story[data-a="julkkikset"] { border-left-color: var(--pink); }
+    .story h3 { margin: 4px 0 6px; font: 700 21px/1.25 var(--headline); }
+    .story h3 a { color: var(--text); text-decoration: none; }
+    .story h3 a:hover { text-decoration: underline; }
+    .story p { margin: 0 0 8px; color: var(--muted); font-size: 15px; line-height: 1.45; }
+    .meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+    .tag { padding: 3px 8px 2px; border-radius: 4px; background: var(--soft); font: 700 12px/1.2 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--text); }
+    .tag--uusi { background: #ffe14d; }
+    .tag--hot { background: #d4145a; color: #fff; }
+    .tag--on { background: #e3f6ea; color: #0b6b35; }
+    .srcs { margin: 8px 0 0; padding: 0; list-style: none; font-size: 14px; }
+    .srcs li { padding: 3px 0; }
+    .srcs a { color: var(--link); }
+    .srcs b { font-weight: 700; color: var(--text); }
+    .acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .empty { padding: 40px; text-align: center; color: var(--muted); background: #fff; border-radius: 10px; }
+    details.status { margin-top: 26px; background: #fff; border-radius: 10px; padding: 14px 16px; }
+    details.status summary { cursor: pointer; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; margin-top: 10px; font-size: 14px; }
+    .ok { color: #0b6b35; } .bad { color: #c00; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top__bar">
+      {% set logoClass = "" %}{% include "partials/logo.njk" %}
+      <nav>
+        <a href="/admin/kirjoita/">Kirjoita</a>
+        <a href="/admin/uutisvahti/" aria-current="page">Uutisvahti</a>
+        <a href="/admin/somekuva/">Somekuva</a>
+        <a href="/admin/arvonta/">Arvonta</a>
+      </nav>
+      <nav class="out"><a href="/api/ulos">Ulos</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap2">
+    <h1>Uutisvahti</h1>
+    <p class="sub" id="sub">Haetaan päivän uutisia…</p>
+
+    <div class="bar">
+      <input type="search" id="q" placeholder="Hae nimellä tai sanalla, esim. Pottukoira">
+      <select id="ika" class="b b--sm" aria-label="Aikaväli">
+        <option value="6">Viim. 6 h</option>
+        <option value="24" selected>Viim. 24 h</option>
+        <option value="48">Viim. 48 h</option>
+      </select>
+      <label><input type="checkbox" id="piilotaOmat" checked> Piilota aiheet, joista Hulinalla on juttu</label>
+      <button type="button" class="b b--main" id="refresh">Päivitä</button>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="list" id="list"><div class="empty">Ladataan…</div></div>
+
+    <details class="status" id="statusBox">
+      <summary id="statusSum">Lähteet</summary>
+      <div class="grid" id="status"></div>
+      <p class="sub" style="margin:12px 0 0">Uutisvahti lukee medioiden omat uutissyötteet ja etusivut. Se näyttää vain otsikot ja linkit, eikä se mene maksumuurien taakse. Tarkista faktat aina alkuperäisestä jutusta ennen kirjoittamista.</p>
+    </details>
+  </main>
+
+<script type="module">
+import { kokoa } from "/admin/uutisvahti/uutisvahti.js";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const HIDDEN = "hulina-uutisvahti-piilotetut", SEEN = "hulina-uutisvahti-nahty", HANDOFF = "hulina-uutisvahti-aihe";
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || "null") ?? d; } catch { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+
+let data = null, filter = "kaikki", omat = [], meta = null;
+const hidden = new Set(load(HIDDEN, []));
+const seenBefore = new Set(load(SEEN, []));
+
+const clock = new Intl.DateTimeFormat("fi-FI", { hour: "2-digit", minute: "2-digit" });
+function ago(t) {
+  if (!t) return "";
+  const m = Math.round((Date.now() - t) / 60000);
+  if (m < 60) return `${Math.max(m, 1)} min sitten`;
+  const h = Math.round(m / 60);
+  return h < 24 ? `${h} h sitten` : `${Math.round(h / 24)} pv sitten`;
+}
+const key = (s) => s.jutut[0].linkki;
+
+// Hulina's own stories (published and drafts), to flag topics already covered.
+async function loadOmat() {
+  const out = [];
+  try { const j = await (await fetch("/api/toimitus/jutut")).json(); (j.jutut || []).forEach((x) => out.push(x.title)); } catch {}
+  try { const h = await (await fetch("/haku.json")).json(); h.forEach((x) => out.push(x.t)); } catch {}
+  omat = [...new Set(out)].map((t) => ({ t, low: t.toLowerCase() }));
+}
+function omaJuttu(s) {
+  const names = (s.avain || []).filter((n) => n.length >= 4);
+  if (names.length < 2) return null;
+  for (const o of omat) {
+    let hits = 0;
+    for (const n of names) if (o.low.includes(n)) hits++;
+    if (hits >= 2) return o.t;
+  }
+  return null;
+}
+
+async function fetchData(fresh) {
+  $("refresh").disabled = true;
+  try {
+    if (!meta) {
+      const r = await fetch("/api/toimitus/uutisvahti");
+      if (r.status === 401) { location.href = "/admin/kirjoita/"; return; }
+      meta = await r.json();
+    }
+    const total = meta.lahteet.length;
+    let done = 0;
+    $("sub").textContent = `Haetaan päivän uutisia ${total} mediasta…`;
+    const results = await Promise.all(meta.lahteet.map(async (l) => {
+      let r;
+      try {
+        r = await (await fetch(`/api/toimitus/uutisvahti?lahde=${l.id}${fresh ? "&paivita=1" : ""}`)).json();
+      } catch { r = { nimi: l.nimi, ok: false, virhe: "Ei vastausta", jutut: [] }; }
+      done++; $("sub").textContent = `Haetaan… ${done}/${total} mediaa`;
+      return { ...r, ryhma: l.ryhma };
+    }));
+    const kaikki = [];
+    for (const r of results) for (const j of r.jutut || []) kaikki.push({ ...j, lahde: r.nimi, ryhma: r.ryhma });
+    data = { haettu: Date.now(), aiheet: meta.aiheet, jutut: kokoa(kaikki),
+      tila: results.map((r) => ({ nimi: r.nimi, ok: r.ok, maara: (r.jutut || []).length, virhe: r.virhe || "" })).sort((a, b) => a.nimi.localeCompare(b.nimi, "fi")) };
+    const ok = data.tila.filter((x) => x.ok).length;
+    $("sub").textContent = `${ok}/${total} mediaa · ${kaikki.length} otsikkoa · ${data.jutut.length} aihetta · päivitetty klo ${clock.format(data.haettu)}`;
+    $("statusSum").textContent = `Lähteet (${ok} toimii${ok < total ? `, ${total - ok} ei vastannut` : ""})`;
+    $("status").innerHTML = data.tila.map((x) => `<div class="${x.ok ? "ok" : "bad"}">${x.ok ? "✓" : "✗"} ${esc(x.nimi)} <small>${x.ok ? x.maara + " otsikkoa" : esc(x.virhe)}</small></div>`).join("");
+    draw();
+    save(SEEN, [...new Set([...data.jutut.map(key), ...seenBefore])].slice(0, 3000));
+  } catch {
+    $("sub").textContent = "Haku epäonnistui. Yritä hetken päästä uudelleen.";
+  } finally { $("refresh").disabled = false; }
+}
+
+function visible() {
+  const q = $("q").value.trim().toLowerCase();
+  const raja = Date.now() - +$("ika").value * 3600e3;
+  return data.jutut.filter((s) => {
+    if (hidden.has(key(s))) return false;
+    if (s.uusin && s.uusin < raja) return false;
+    if ($("piilotaOmat").checked && omaJuttu(s)) return false;
+    if (q && !(s.otsikko + " " + s.kuvaus + " " + s.jutut.map((j) => j.otsikko).join(" ")).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function draw() {
+  if (!data) return;
+  const list = visible();
+  const counts = { kaikki: list.length };
+  list.forEach((s) => (counts[s.aihe] = (counts[s.aihe] || 0) + 1));
+  $("tabs").innerHTML = [{ id: "kaikki", nimi: "Kaikki" }, ...data.aiheet].map((a) =>
+    `<button type="button" data-f="${a.id}" aria-pressed="${filter === a.id}">${esc(a.nimi)}<small>${counts[a.id] || 0}</small></button>`).join("");
+  const shown = list.filter((s) => filter === "kaikki" || s.aihe === filter).slice(0, 150);
+  if (!shown.length) { $("list").innerHTML = '<div class="empty">Ei aiheita näillä rajauksilla.</div>'; return; }
+  const nimi = Object.fromEntries(data.aiheet.map((a) => [a.id, a.nimi]));
+  $("list").innerHTML = shown.map((s, i) => {
+    const oma = omaJuttu(s);
+    const uusi = seenBefore.size && !seenBefore.has(key(s));
+    const srcs = s.jutut.slice(0, 8).map((j) => `<li><b>${esc(j.lahde)}</b> · <a href="${esc(j.linkki)}" target="_blank" rel="noopener">${esc(j.otsikko)}</a>${j.aika ? ` <small>${clock.format(j.aika)}</small>` : ""}</li>`).join("");
+    return `<article class="story" data-a="${s.aihe}">
+      <div class="meta">
+        <span class="tag">${esc(nimi[s.aihe] || s.aihe)}</span>
+        ${s.lahteita >= 3 ? `<span class="tag tag--hot">${s.lahteita} mediaa</span>` : `<span>${s.lahteita} ${s.lahteita === 1 ? "media" : "mediaa"}</span>`}
+        ${uusi ? '<span class="tag tag--uusi">Uusi</span>' : ""}
+        ${oma ? `<span class="tag tag--on" title="${esc(oma)}">Hulinassa jo</span>` : ""}
+        <span>${esc(ago(s.uusin))}</span>
+      </div>
+      <h3><a href="${esc(s.jutut[0].linkki)}" target="_blank" rel="noopener">${esc(s.otsikko)}</a></h3>
+      ${s.kuvaus ? `<p>${esc(s.kuvaus)}</p>` : ""}
+      <details><summary class="meta">Lähteet (${s.jutut.length})</summary><ul class="srcs">${srcs}</ul></details>
+      <div class="acts">
+        <button type="button" class="b b--sm b--main" data-write="${i}">Tee juttu</button>
+        <button type="button" class="b b--sm" data-hide="${i}">Piilota</button>
+      </div>
+    </article>`;
+  }).join("");
+  $("list").dataset.ids = JSON.stringify(shown.map(key));
+  window._shown = shown;
+}
+
+$("tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; draw(); } });
+$("list").addEventListener("click", (e) => {
+  const w = e.target.closest("[data-write]"), h = e.target.closest("[data-hide]");
+  if (w) {
+    const s = window._shown[+w.dataset.write];
+    save(HANDOFF, { otsikko: s.otsikko, lahteet: s.jutut.slice(0, 6).map((j) => ({ n: j.lahde, u: j.linkki, o: j.otsikko })), t: Date.now() });
+    location.href = "/admin/kirjoita/";
+  }
+  if (h) {
+    const s = window._shown[+h.dataset.hide];
+    hidden.add(key(s)); save(HIDDEN, [...hidden].slice(-2000)); draw();
+  }
+});
+["q", "ika", "piilotaOmat"].forEach((id) => $(id).addEventListener("input", draw));
+$("refresh").addEventListener("click", () => fetchData(true));
+loadOmat().then(draw);
+fetchData(false);
+setInterval(() => { if (!document.hidden) fetchData(false); }, 10 * 60e3);
+</script>
+</body>
+</html>

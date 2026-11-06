@@ -224,6 +224,7 @@ eleventyExcludeFromCollections: true
         <button type="button" role="tab" aria-selected="false" data-view="tips">Viestit</button>
       </div>
       <div class="right">
+        <a class="link" href="/admin/uutisvahti/">Uutisvahti</a>
         <a class="link" href="/admin/arvonta/">Arvonta</a>
         <a class="link" href="/admin/somekuva/">Somekuva</a>
         <a class="link" href="/api/ulos">Ulos</a>
@@ -1258,6 +1259,19 @@ addEventListener("beforeunload", (e) => { if (dirty) { persist(); } });
 
 restore(); fill();
 if (doc.file || doc.fields.title || doc.body) $("status").textContent = "Jatka siitä, mihin jäit.";
+// A topic picked in the news watch: start a new story with its sources filled in.
+(() => {
+  let h = null;
+  try { h = JSON.parse(localStorage.getItem("hulina-uutisvahti-aihe") || "null"); localStorage.removeItem("hulina-uutisvahti-aihe"); } catch {}
+  if (!h || Date.now() - h.t > 10 * 60e3) return;
+  if ((doc.fields.title || doc.body) && !confirm("Aloitetaanko uusi juttu uutisvahdin aiheesta? Keskeneräinen juttu tallentuu selaimeen vain, jos olet tallentanut sen luonnokseksi.")) return;
+  doc = blank(); dirty = false;
+  setSources(h.lahteet.map((x) => ({ n: x.n, u: x.u })));
+  doc.notes = "Uutisvahti: " + h.otsikko + "\n\n" + h.lahteet.map((x) => `• ${x.n}: ${x.o}\n  ${x.u}`).join("\n") + "\n\nTarkista faktat alkuperäisistä jutuista. Älä mainitse medioita tekstissä, lähteet kuuluvat lähteet-kenttään.";
+  persist(); fill(); switchView("editor");
+  $("status").textContent = "Uusi juttu uutisvahdin aiheesta. Lähteet ja muistiinpanot on täytetty valmiiksi.";
+  $("title").focus();
+})();
 </script>
 </body>
 </html>
