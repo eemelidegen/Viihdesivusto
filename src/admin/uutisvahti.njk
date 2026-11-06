@@ -214,7 +214,8 @@ function draw() {
       ${s.kuvaus ? `<p>${esc(s.kuvaus)}</p>` : ""}
       <details><summary class="meta">Lähteet (${s.jutut.length})</summary><ul class="srcs">${srcs}</ul></details>
       <div class="acts">
-        <button type="button" class="b b--sm b--main" data-write="${i}">Tee juttu</button>
+        <button type="button" class="b b--sm b--main" data-write="${i}" data-auto="1">Tee juttu</button>
+        <button type="button" class="b b--sm" data-write="${i}">Kirjoita itse</button>
         <button type="button" class="b b--sm" data-hide="${i}">Piilota</button>
       </div>
     </article>`;
@@ -228,7 +229,7 @@ $("list").addEventListener("click", (e) => {
   const w = e.target.closest("[data-write]"), h = e.target.closest("[data-hide]");
   if (w) {
     const s = window._shown[+w.dataset.write];
-    save(HANDOFF, { otsikko: s.otsikko, lahteet: s.jutut.slice(0, 6).map((j) => ({ n: j.lahde, u: j.linkki, o: j.otsikko })), t: Date.now() });
+    save(HANDOFF, { otsikko: s.otsikko, auto: !!w.dataset.auto, lahteet: s.jutut.slice(0, 6).map((j) => ({ n: j.lahde, u: j.linkki, o: j.otsikko })), t: Date.now() });
     location.href = "/admin/kirjoita/";
   }
   if (h) {

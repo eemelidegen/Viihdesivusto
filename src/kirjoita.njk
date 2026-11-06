@@ -1270,8 +1270,50 @@ if (doc.file || doc.fields.title || doc.body) $("status").textContent = "Jatka s
   doc.notes = "Uutisvahti: " + h.otsikko + "\n\n" + h.lahteet.map((x) => `• ${x.n}: ${x.o}\n  ${x.u}`).join("\n") + "\n\nTarkista faktat alkuperäisistä jutuista. Älä mainitse medioita tekstissä, lähteet kuuluvat lähteet-kenttään.";
   persist(); fill(); switchView("editor");
   $("status").textContent = "Uusi juttu uutisvahdin aiheesta. Lähteet ja muistiinpanot on täytetty valmiiksi.";
-  $("title").focus();
+  if (h.auto) aiWrite(h); else $("title").focus();
 })();
+
+// Claude writes a draft from the news watch sources. Progress arrives as NDJSON lines.
+async function aiWrite(h) {
+  const st = $("status");
+  const started = Date.now();
+  const tick = setInterval(() => { st.dataset.secs = Math.round((Date.now() - started) / 1000); }, 1000);
+  st.textContent = "Tekoäly lukee lähteet ja kirjoittaa jutun. Tämä kestää yleensä 1–3 minuuttia…";
+  try {
+    const res = await fetch("/api/toimitus/ai-juttu", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ otsikko: h.otsikko, lahteet: h.lahteet }) });
+    if (res.status === 401) { persist(); location.href = "/api/kirjaudu?next=" + encodeURIComponent("/admin/kirjoita/"); return; }
+    if (!res.ok || !res.body) { const d = await res.json().catch(() => ({})); throw new Error(d.virhe || "Jutun kirjoittaminen epäonnistui."); }
+    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    let buf = "", juttu = null;
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += value;
+      let i;
+      while ((i = buf.indexOf("\n")) >= 0) {
+        const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1);
+        if (!line) continue;
+        const m = JSON.parse(line);
+        if (m.tila) st.textContent = `Tekoäly: ${m.tila} (${Math.round((Date.now() - started) / 1000)} s)`;
+        if (m.virhe) throw new Error(m.virhe);
+        if (m.juttu) juttu = m.juttu;
+      }
+    }
+    if (!juttu) throw new Error("Yhteys katkesi ennen kuin juttu valmistui. Yritä uudelleen.");
+    const cats = CATEGORIES.map((c) => c.slug);
+    doc.fields.title = juttu.title;
+    doc.fields.excerpt = juttu.excerpt;
+    doc.fields.category = cats.includes(juttu.category) ? juttu.category : doc.fields.category;
+    doc.fields.aiheet = juttu.aiheet;
+    if (juttu.lahteet.length) setSources(juttu.lahteet.map((x) => ({ n: x.nimi, u: x.url })));
+    doc.body = juttu.body;
+    doc.notes = (juttu.huomiot ? "Tekoälyn huomiot: " + juttu.huomiot + "\n\n" : "") + doc.notes;
+    dirty = true; persist(); fill();
+    st.textContent = "Luonnos valmis. Lue juttu läpi ja tarkista faktat ennen tallentamista.";
+  } catch (e) {
+    st.textContent = "Tekoäly ei saanut juttua valmiiksi: " + e.message + " Lähteet ovat muistiinpanoissa, joten voit kirjoittaa jutun itse.";
+  } finally { clearInterval(tick); }
+}
 </script>
 </body>
 </html>
