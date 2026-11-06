@@ -1,5 +1,5 @@
 ---
-title: "Jengipomo ”Scarin” jättioikeudenkäynti alkoi – syytteessä murhia ja pommi-iskuja"
+title: "Jengipomoksi väitetyn ”Scarin” jättioikeudenkäynti alkoi – syytteessä murhia ja pommi-iskuja"
 excerpt: "Dalen-verkoston johtajaksi väitettyä 26-vuotiasta syytetään yli 20 rikoksesta Tukholmassa, Uppsalassa ja Linköpingissä."
 date: "2026-11-06T11:00:00.000Z"
 category: "rikos"

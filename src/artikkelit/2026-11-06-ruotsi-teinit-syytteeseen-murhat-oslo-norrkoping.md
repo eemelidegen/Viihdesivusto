@@ -1,5 +1,5 @@
 ---
-title: "Kaksi 15-vuotiasta syytetään murhista kahdessa maassa – iskut tehtiin neljän päivän välein"
+title: "Kahta 15-vuotiasta syytetään murhista kahdessa maassa – ampumisten välissä vain neljä päivää"
 excerpt: "Karlstadilaispojat ampuivat syytteen mukaan nuoren miehen Oslossa ja toisen Norrköpingissä."
 date: "2026-11-06T10:00:00.000Z"
 category: "rikos"
